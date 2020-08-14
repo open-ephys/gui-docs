@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.1.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#FFFFFF;stroke-miterlimit:10;}
+	.st1{fill:#DA714A;stroke:#000000;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st2{fill:#F4D050;stroke:#000000;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st3{fill:#5FB5DC;stroke:#000000;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st4{fill:#CEACCA;stroke:#000000;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st5{opacity:0.2;stroke:#000000;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st6{fill:none;stroke:#000000;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st7{display:none;}
+	.st8{display:inline;fill:#3C81BE;stroke:#000000;stroke-miterlimit:10;}
+</style>
+<g id="Layer_3">
+	<line class="st0" x1="0" y1="50.2" x2="100" y2="50.2"/>
+</g>
+<g id="Layer_2">
+	<polygon class="st1" points="50,50.7 87.7,28.3 87.7,71.8 50,93.4 	"/>
+	<polygon class="st2" points="11.9,28.3 50,50.7 50,93.4 11.9,71.6 	"/>
+	<polygon class="st3" points="11.9,28.3 49.7,4.9 87.7,28.3 50,50.7 	"/>
+	<polygon class="st4" points="25.9,19.7 63.9,42.5 63.9,53.5 75.4,46.6 75.4,35.6 37.8,12.3 	"/>
+	<polygon class="st5" points="75.4,35.6 63.9,42.5 63.9,53.5 75.4,46.6 	"/>
+	<line class="st6" x1="63.9" y1="42.5" x2="75.4" y2="35.6"/>
+</g>
+<g id="Layer_1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" class="st7">
+	<path class="st8" d="M50,5L11,27.5v45L50,95l0.8-0.5l38.2-22v-45L50,5z M84.2,28.4l-13.8,8L36.1,16.7l13.9-8L84.2,28.4z M50,48.4
+		L15.8,28.4l13.7-7.9l34.3,19.8L50,48.4z M14.2,31.2l34.2,19.9l0,39.3L14.2,70.7V31.2z M51.6,90.4l0-39.3l14-8.1v9.5l6.6-3.8v-9.5
+		l13.6-7.9v39.5L51.6,90.4z"/>
+</g>
+</svg>

@@ -55,6 +55,7 @@
   color: white !important;
   font-family: "Bitter", sans-serif;
   transition-duration: 0.4s;
+  margin-right: 10px;
 }
 
 .navbar a:hover {
@@ -329,4 +330,18 @@ form:focus {
 
 .col-lg-6 {
   margin-top: 2em;
+}
+
+/* list line spacing */
+ol.simple {
+  margin-bottom: 1em; /*line-height: 1em;*/
+}
+
+ul.simple {
+  margin-bottom: 1em; /*line-height: 1em;*/
+}
+
+/* ensure images stay within the column bounds*/
+img {
+  max-width: 100%;
 }

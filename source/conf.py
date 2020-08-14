@@ -180,7 +180,6 @@ epub_exclude_files = ["search.html"]
 html_theme_options = {
     "github_url": "https://github.com/open-ephys",
     "twitter_url": "https://twitter.com/openephys",
-    "external_links": [{"name": "Open Ephys", "url": "https://open-ephys.org"},],
     "navigation_with_keys": True,
     # 'search_bar_position' : "navbar",
     #'canonical_url': '',

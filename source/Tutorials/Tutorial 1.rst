@@ -1,8 +1,8 @@
-.. _support:
+.. _tutorial1:
 .. role:: raw-html-m2r(raw)
    :format: html
 
-Example Page
+Tutorial 1
 =====================
 
 .. note:: This is a note.
