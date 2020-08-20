@@ -5,7 +5,4 @@
 Tutorial 1
 =====================
 
-.. note:: This is a note.
-
-.. warning:: This is a warning.
-
+.. note:: Coming soon.

@@ -5,7 +5,8 @@
 Creating a new plugin
 ========================
 
-.. note:: This is a note.
+.. note:: Coming soon.
 
-.. warning:: This is a warning.
+
+
 

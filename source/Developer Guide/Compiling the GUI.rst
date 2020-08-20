@@ -5,7 +5,5 @@
 Compiling the GUI
 =====================
 
-.. note:: This is a note.
-
-.. warning:: This is a warning.
+.. note:: Coming soon.
 

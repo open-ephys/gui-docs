@@ -5,7 +5,7 @@
 Modifying the host application
 ================================
 
-.. note:: This is a note.
+.. note:: Coming soon.
 
-.. warning:: This is a warning.
+
 

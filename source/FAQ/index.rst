@@ -1,9 +1,8 @@
 .. _faq:
+.. role:: raw-html-m2r(raw)
+   :format: html
 
 FAQ
-===============
+=====================
 
-Some text goes here.
-
-
-
+.. note:: FAQ section is coming soon.

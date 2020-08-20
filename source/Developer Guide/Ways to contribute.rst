@@ -3,9 +3,10 @@
    :format: html
 
 Ways to contribute
-=====================
+===================
 
-.. note:: This is a note.
 
-.. warning:: This is a warning.
+.. note:: Coming soon.
+
+
 

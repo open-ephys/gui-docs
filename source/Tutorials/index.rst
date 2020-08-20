@@ -5,6 +5,8 @@
 Tutorials
 =================================================
 
+.. note:: Tutorials are coming soon.
+
 .. toctree::
     :hidden:
     :maxdepth: 5

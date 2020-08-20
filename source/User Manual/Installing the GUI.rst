@@ -42,7 +42,9 @@ macOS
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 
-2. Double-click :code:`open-ephys` to run the application.
+3. Double-click :code:`open-ephys` to run the application.
+
+.. note:: Depending on your security settings, you may see a message announcing that "'open-ephys' cannot be opened because the developer cannot be verified." If so, go to System Prefererences > Security and Privacy > General and click "Open Anyway" to allow the GUI to launch.
 
 |
 |

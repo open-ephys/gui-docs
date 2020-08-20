@@ -3,7 +3,8 @@
 Developer Guide
 ===============
 
-Some text goes here.
+.. note:: Coming soon.
+
 
 .. toctree::
     :hidden:
