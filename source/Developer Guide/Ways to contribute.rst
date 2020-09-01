@@ -5,8 +5,11 @@
 Ways to contribute
 ===================
 
+The Open Ephys GUI was designed to be developed and extended by the community!
 
-.. note:: Coming soon.
+Report bugs
 
+Develop a new plugin (requires C++)
 
+Updating the host application. Take a look at our project guide.
 
