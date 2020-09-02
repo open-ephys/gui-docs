@@ -18,7 +18,7 @@ Adding a data source
 
 1. Drag the :ref:`filereader` from the Processor List, and drop it on the Signal Chain. In an actual experiment, this would be substituted with the data source of your choice, such as the :ref:`rhythmfpga` or :ref:`neuropixelspxi`.
 
-2. Press the buttoned labeled :code:`F` to select a file to read in. The :ref:`filereader` accepts :code:`.oebin` files, which contain information about one or more continuous data files in :ref:`binaryformat`. If you downloaded the GUI as a :code:`.zip` file, the example files are available in the *DataFiles* folder. If you downloaded the GUI's source code, the example files can be found in *Resources/DataFiles*. Alternatively, the files can be downloaded via `this link <https://dl.bintray.com/open-ephys-gui/SampleData/>`__.
+2. Press the buttoned labeled :code:`F` to select a file to read in. The :ref:`filereader` accepts :code:`.oebin` files, which contain information about one or more continuous data files in :ref:`binaryformat`. If you downloaded the GUI as a :code:`.zip` file, the example files are available in the *DataFiles* folder. If you downloaded the GUI's source code, the example files can be found in *Resources/DataFiles*. Alternatively, the files can be downloaded via `this link <https://dl.bintray.com/open-ephys-gui/SampleData/:DataFiles.zip>`__.
 
 3. Select the subprocessor to stream data from (one of several available continuous data files indexed by the :code:`.oebin` file that was loaded). In this example, we'll be using :code:`data_stream_16ch_cortex`, which contains data from 8 stereotrodes implanted in mouse somatosensory cortex, sampled at 40 kHz.
 
