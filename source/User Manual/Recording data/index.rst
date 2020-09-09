@@ -54,25 +54,27 @@ The Record Node, found in the "Recording" section of the Processor List, control
 
 Adding a Record Node into a signal chain brings up the following interface:
 
-.. image:: ../../_static/images/recordingdata/RecordNode.png
+.. image:: ../../_static/images/recordingdata/recordnode-01.png
   :alt: The Record Node interface
-
-.. note:: The subprocessors are hidden by default, so you will need to use the ‘SHOW/HIDE SUBPROCESSORS TOGGLE’ to access them.
 
 
 General Configuration
 ---------------------
 
-On the top-right of the editor is the ‘WRITE PATH SELECTOR’ which opens up an explorer window to navigate  to the desired write directory. Use this to set the root path of where the data files generated from this RecordNode will be stored. 
+On the top-right of the editor is the **write path selector** which opens up an explorer window to navigate to the desired write directory. Use this to set the root path of where the data files generated from this RecordNode will be stored. 
 
-Directly below, the ‘ENGINE SELECTOR’ pull-down lists the available recording formats. Both the ‘WRITE PATH SELECTOR’ and ‘ENGINE SELECTOR’ default to the values shown in the Control Panel.
+Directly below, the **engine selector** pull-down lists the available recording formats. Both the write path selector and the engine selector default to the values shown in the Control Panel.
 
-To the left of the ‘ENGINE SELECTOR’ is the ‘LOCAL DISK SPACE MONITOR’ which indicates the amount of free space available at the path shown by the ‘WRITE PATH SELECTOR’.  
+To the left of the engine selector is the **disk space monitor**, which indicates the amount of free space available at the path shown by the write path selector.  
 
 Recording Continuous Channels 
 -----------------------------
 
-Selecting a ‘CONTINUOUS CHANNEL MONITOR’ opens up a ‘RECORD CHANNEL SELECTOR’ interface as shown. By default, the interface has every channel set to record. Through the interface, you can toggle individual channels on/off, select ALL or NONE channels at once, as well as a custom range of channels using Python slicing:
+The continuous channel configuration interfaces are hidden by default, so you will need to use the **show/hide subprocessors** toggle to access them. This displays a set of **continuous channel buffer monitors** and **sync monitors** for every subprocessor. Each subprocessor contains channels that are guaranteed to be sampled synchronously. If there are blocks of channels with different sample rates (for example, from different Neuropixels probes), they will each belong to a separate subprocessor.
+
+The continuous channel buffer monitors track the state of the recording buffer for each subprocessor. If these start to fill up, it indicates that your computer can't keep up with disk writing. In that case, you can try reducing the number of channels being recorded, or split the disk writing duties across multiple record nodes (see below).
+
+Clicking on one of the continuous channel buffer monitors opens up a **channel selector interface** as shown below. By default, the interface has every channel set to record. Through the interface, you can toggle individual channels on/off, select ALL or NONE, or indicate a custom range of channels using Matlab-style slicing:
 
 .. image:: ../../_static/images/recordingdata/EVERY_OTHER.png
   :alt: Selecting every other channel
@@ -86,44 +88,54 @@ Click and drag multi-channel selection is also available:
 
 |
 
-Use the ESC key to exit the ‘RECORD CHANNEL SELECTOR’ and save the current configuration. 
+Click anywhere outside the channel selector or use the ESC key to exit. 
 
 Recording Events
 -----------------
 
-Below the ‘ENGINE SELECTOR’ is the ‘RECORD EVENTS TOGGLE’ which toggles the recording of any events coming into this Record Node. Regardless of the toggle state, this will not modify any incoming events 
+Below the engine selector is the **toggle event recording** button, which determines whether this Record Node will save incoming events. This will be turned on by default, and should only be turned off if you're sure events are being saved by another Record Node. Regardless of the toggle state, underlying events will not be modified by the Record Node.
 
 Recording Spikes
 ------------------
 
-Analogous to the “RECORD EVENTS TOGGLE', the ‘RECORD SPIKES TOGGLE’ will enable/disable recording of any spike data coming into this Record Node.  In order for spikes to be detected by the Record Node, you must have a spike generating processor somewhere before the Record Node in your signal chain. 
+The **toggle spikes recording** button will enable/disable recording of any spike data coming into this Record Node. In order for spikes to be detected by the Record Node, you must have a spike-generating processor somewhere upstream of the Record Node in your signal chain. 
 
 Multiple Record Nodes
 ----------------------
 
-A RecordNode can be placed after any Source, Filter, Splitter or Merger processor in your signal chain. In the example below, we are able to record the raw data coming from Neuropixels probes while simultaneously recording the same data after it has passed through a bandpass filter. In this case, we have configured the first RecordNode to write the raw data in the Binary format while writing the filtered data in NWB format.
+A Record Node can be placed after any Source, Filter, Sink, Splitter, or Merger in your signal chain. In the example below, we are able to record the raw data coming from Neuropixels probes while simultaneously recording the same data after it has passed through a :ref:`bandpassfilter`. In this case, we have configured the first Record Node to write the raw data in the Binary format, while the second Record Nodes will write the filtered data in NWB format.
 
-.. image:: ../../_static/images/recordingdata/MultipleRecordNodes.png
+.. image:: ../../_static/images/recordingdata/recordnode-02.png
   :alt: Using multiple Record Nodes
 
 Synchronizer
 -------------
 
-The RecordNode has a built-in synchronizer module which allows for synchronizing asynchronous data sources in the signal chain. Below each ‘CONTINUOUS CHANNEL MONITOR’ is a ‘SYNC CHANNEL MONITOR’ which provides an interface for designating an input data source as a master data source as well as selecting a digital input channel for each data source to serve as a sync channel. The active master data source will always have a letter ‘M' on its 'SYNC CHANNEL MONITOR’. There can only be one sync channel per data source and the active sync channel is always indicated with an orange background. 
+The Record Node has a built-in synchronizer module which can perform real-time alignment of timestamps from asynchronous data sources. The synchronizer only works if each data stream has a TTL channel connected to the same physical digital input line. Each time a new event comes in (either a rising or falling edge), the synchronizer will update its estimate of the true sample rate of each subprocessor, based on the total number of samples that have been received since the first event. The Record Node will generate a :code:`sychronized_timestamps.npy` file containing the timestamps (in seconds) relative to the time of the first event.
+
+Below each continuous channel buffer monitor is a **sync channel monitor** which provides an interface for designating an input subprocessor as the master clock, as well as selecting a digital input channel for each subprocessor to serve as a sync channel. Again, all of the TTL channels used for synchronization must be connected to the same physical digital input line in order for the synchronizer to work properly. There can only be one sync channel per data source and the active sync channel is always indicated with an orange background.
+
+The active master subprocessor will be indicated by a letter ‘M' on its sync channel monitor. This subprocessor will be used as the reference clock, to which all other subprocessors will be synchronized. 
+
+|
 
 .. image:: ../../_static/images/recordingdata/SynchronizerInterface.png
   :alt: View of the synchronizer interface
 
 |
 
-Once the synchronizer has been configured, starting data acquisition as normal will automatically start the synchronizer. Each ‘SYNC CHANNEL MONITOR’ will change from a gray background to an orange background to indicate the synchronizer is running. Once a data source has been synchronized with the master data source, the corresponding ‘SYNC CHANNEL MONITOR’ will turn green. Data sources with a higher sample rate will generally synchronize more quickly than those with lower sample rates.
+Once the synchronizer has been configured, starting data acquisition as normal will automatically start the synchronizer. Each sync channel monitor will change from gray to orange to indicate the synchronizer is running. Once a subprocessor has been synchronized with the master, the corresponding sync channel monitor will turn green. Data sources with higher sample rates will generally synchronize more quickly than those with lower sample rates.
 
-.. image:: ../../_static/images/recordingdata/SynchronizerStatus.png
+|
+
+.. image:: ../../_static/images/recordingdata/recordnode-03.png
   :alt: Another view of the synchronizer interface
 
 |
 
-Currently, the synchronizer is only available when using the Binary data format for recording. The result is a **synchronized_timestamps.npy** file that contains a double (:code:`float64`) timestamp for each :code:`int64` timestamp found in the original, unsynchronized timestamps.npy file for each data source. 
+Currently, the synchronizer will only generate outputs when using the Binary data format for recording. The result is a :code:`synchronized_timestamps.npy` file that contains a double (:code:`float64`) timestamp for each :code:`int64` timestamp found in the original, unsynchronized timestamps.npy file for each data source. 
+
+.. note:: The synchronizer is a quick-and-easy way to generate aligned timestamps with ~0.1 ms resolution (for 30 kHz inputs). However, it will never be as accurate as synchronization performed offline, especially for recordings longer than one hour. Offline synchronization is recommended for any analysis that requires fine temporal precision.
 
 .. _NumPy: https://numpy.org/
 .. _Neurodata Without Borders: https://www.nwb.org/
