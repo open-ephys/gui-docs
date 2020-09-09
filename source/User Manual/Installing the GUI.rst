@@ -9,7 +9,22 @@ The Open Ephys GUI works equally well on Windows, Linux, and macOS, so which pla
 
 Windows
 ########
-1. Click the "Windows" link on `this page`_ to download the ZIP file.
+
+Via installer (recommended)
+----------------------------
+
+1. Click the "Windows" link on `this page`_ to download the installer.
+
+2. Double-click the downloaded executable to launch the installer.
+
+3. Follow the instructions within the installer.
+
+4. The GUI will be installed in :code:`C:\Program Files\Open Ephys\open-ephys.exe`.
+
+Via .zip file
+--------------
+
+1. Download the Windows **.zip** file from this link: https://dl.bintray.com/open-ephys-gui/Release/
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 
@@ -22,7 +37,24 @@ Windows
 Linux
 ######
 
-1. Click the "Linux" link on `this page`_ to download the ZIP file.
+Via installer (Ubuntu only)
+-----------------------------
+
+1. Click the "Linux" link on `this page`_ to download the **.deb** file.
+
+2. Open a terminal and set your working directory to the location of the downloaded file.
+
+3. Enter :code:`sudo dpkg -i <name_of_deb_file>` followed by your password.
+
+4. The GUI will be installed in :code:`/usr/local/bin/open-ephys`.
+
+5. Type :code:`open-ephys` to launch the GUI.
+
+
+Via .zip file (all distros)
+----------------------------
+
+1. Download the Linux **.zip** file from this link: https://dl.bintray.com/open-ephys-gui/Release/
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 
@@ -38,7 +70,21 @@ Linux
 macOS
 ######
 
-1. Click the "macOS" link on `this page`_ to download the ZIP file.
+Via DMG (recommended)
+----------------------
+
+1. Click the "macOS" link on `this page`_ to download the DMG installer.
+
+2. Double-click on the downloaded file to open it.
+
+3. Drag the Open Ephys file to the "Applications" folder.
+
+4. Double-click on Open Ephys app bundle to launch the GUI.
+
+Via .zip file
+--------------
+
+1. Download the Mac **.zip** file from this link: https://dl.bintray.com/open-ephys-gui/Release/
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 
