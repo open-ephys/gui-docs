@@ -39,7 +39,7 @@ Types of Plugins
 
 * **Filters**: alter the data in some way, either by changing the continuous data or adding TTL events, messages, or spikes to the event buffer.
 
-* **Sinks**: send data to an external source, such as a display, stimulator, etc. Currently, sinks must always be at the end of a signal chain, although this restriction will be lifted soon.
+* **Sinks**: send data to an external source, such as a display, stimulator, etc., without altering the underlying data streams. Data should pass through Sinks unchanged.
 
 * **Utilities**: allow the signal chain to be split or merged, or to control the recording state by intercepting TTL events.
 
