@@ -30,7 +30,7 @@ Via .zip file
 
 3. Run :code:`FrontPanelUSB-DriverOnly-4.4.0.exe` to install the Open Ephys acquisition board driver. 
 
-4. Double-click the :code:`open-ephys` executable to run the application.
+4. Double-click the **open-ephys** executable to run the application.
 
 .. note:: If the GUI won't open due to a missing DLL, you'll need to install the `Visual Studio 2015 2017 and 2019 redistributable package`_.
 
@@ -42,13 +42,13 @@ Via installer (Ubuntu only)
 
 1. Click the "Linux" link on `this page`_ to download the **.deb** file.
 
-2. Open a terminal and set your working directory to the location of the downloaded file.
+2. Double-click on the .deb file, and enter your password when prompted.
 
-3. Enter :code:`sudo dpkg -i <name_of_deb_file>` followed by your password.
+3. The GUI will be installed in :code:`/usr/local/bin/open-ephys-gui`.
 
-4. The GUI will be installed in :code:`/usr/local/bin/open-ephys`.
+4. Type :code:`open-ephys` to launch the GUI.
 
-5. Type :code:`open-ephys` to launch the GUI.
+5. To uninstall, type :code:`sudo dpkg --remove open-ephys` in a terminal window.
 
 
 Via .zip file (all distros)
@@ -64,7 +64,7 @@ Via .zip file (all distros)
 
 5. Enter :code:`service udev restart` on Ubuntu/Debian or :code:`sudo udevadm control --reload-rules` on Fedora/CentOS to allow the GUI to communicate with the Open Ephys acquisition board.
 
-6. Double-click the :code:`open-ephys` executable (or enter :code:`./open-ephys` in the terminal) to run the application.
+6. Double-click the **open-ephys** executable (or enter :code:`./open-ephys` in the terminal) to run the application.
 
 
 macOS
@@ -73,13 +73,15 @@ macOS
 Via DMG (recommended)
 ----------------------
 
-1. Click the "macOS" link on `this page`_ to download the DMG installer.
+1. Click the "macOS" link on `this page`_ to download the DMG file.
 
 2. Double-click on the downloaded file to open it.
 
-3. Drag the Open Ephys file to the "Applications" folder.
+3. Drag **open-ephys** to the "Applications" folder.
 
-4. Double-click on Open Ephys app bundle to launch the GUI.
+4. Double-click on the **open-ephys** app bundle to launch the GUI.
+
+.. note:: Depending on your security settings, you may see a message announcing that "'open-ephys' cannot be opened because the developer cannot be verified." If so, go to System Prefererences > Security and Privacy > General and click "Open Anyway" to allow the GUI to launch.
 
 Via .zip file
 --------------
@@ -90,7 +92,6 @@ Via .zip file
 
 3. Double-click :code:`open-ephys` to run the application.
 
-.. note:: Depending on your security settings, you may see a message announcing that "'open-ephys' cannot be opened because the developer cannot be verified." If so, go to System Prefererences > Security and Privacy > General and click "Open Anyway" to allow the GUI to launch.
 
 |
 |

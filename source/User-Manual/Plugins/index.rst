@@ -56,6 +56,8 @@ To open Plugin Installer, go to File > Plugin Installer, or press the shortcut k
 .. image:: ../../_static/images/plugins/plugininstaller/pi_initial.png
   :alt: Overview of the Plugin Installer interface
 
+.. note:: The Plugin Installer requires a network connection in order to function. You will not be able to install plugins unless you have access to the internet.
+
 Layout
 ------
 
