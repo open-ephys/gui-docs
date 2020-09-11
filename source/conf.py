@@ -40,7 +40,8 @@ release = "0.0.0"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx.ext.todo", "sphinx.ext.githubpages", "sphinx_tabs.tabs"]
+extensions = ["sphinx.ext.todo", "sphinx.ext.githubpages"]
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -199,12 +200,9 @@ html_context = {
     "github_repo": "doc-template",
     "github_version": "master",
     "doc_path": "source",
-    "css_files": ["_static/theme_overrides.css",],
+    "css_files": ["_static/theme_overrides.css", "_static/sphinx_tabs/tabs.css"],
 }
 
-# Option for linkcheck
 linkcheck_anchors = False
 
-
-sphinx_tabs_valid_builders = ["linkcheck"]
-
+extensions.append("sphinx_tabs.tabs")
