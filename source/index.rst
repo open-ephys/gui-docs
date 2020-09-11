@@ -96,7 +96,7 @@ We are planning to migrate all of the docs to this site over time.
     :maxdepth: 5
     :titlesonly:
 
-    User Manual/index
-    Developer Guide/index
+    User-Manual/index
+    Developer-Guide/index
     Tutorials/index
     FAQ/index

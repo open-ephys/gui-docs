@@ -12,5 +12,5 @@ Tutorials
     :maxdepth: 5
     :titlesonly:
 
-    Tutorial 1
-    Tutorial 2
+    Tutorial-1
+    Tutorial-2

@@ -101,35 +101,35 @@ Currently, Plugin Installer doesn’t support uninstalling a plugin directly fro
     :hidden:
     :maxdepth: 5
 
-    Arduino Output
-    Bandpass Filter
-    Channel Map
-    Common Average Reference
-    Event Broadcaster
-    Event Triggered Average
-    File Reader
-    Intan Recording Controller
-    LFP Viewer
-    MATLAB Interface
+    Arduino-Output
+    Bandpass-Filter
+    Channel-Map
+    Common-Average-Reference
+    Event-Broadcaster
+    Event-Triggered-Average
+    File-Reader
+    Intan-Recording-Controller
+    LFP-Viewer
+    MATLAB-Interface
     Merger
-    Network Events
-    Neuropixels 3a
-    Neuropixels PXI
+    Network-Events
+    Neuropixels-3a
+    Neuropixels-PXI
     NIDAQmx
-    Phase Calculator
-    Phase Detector
-    Probe Viewer
-    Pulse Pal
-    Record Control
+    Phase-Calculator
+    Phase-Detector
+    Probe-Viewer
+    Pulse-Pal
+    Record-Control
     Rectifier
-    Rhythm FPGA
-    Serial Port
-    Spike Detector
-    Spike Sorter
-    Spike Viewer
+    Rhythm-FPGA
+    Serial-Port
+    Spike-Detector
+    Spike-Sorter
+    Spike-Viewer
     Splitter
-    Stream Muxer
-    ZMQ Interface
+    Stream-Muxer
+    ZMQ-Interface
     
     
 

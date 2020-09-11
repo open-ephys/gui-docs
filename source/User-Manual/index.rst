@@ -28,11 +28,11 @@ If there's something missing from this documentation that you think should be in
     :hidden:
     :maxdepth: 1
 
-    Before you begin
-    Installing the GUI
-    Exploring the user interface
-    Building a signal chain
-    Recording data/index
+    Before-you-begin
+    Installing-the-GUI
+    Exploring-the-user-interface
+    Building-a-signal-chain
+    Recording-data/index
     Plugins/index
 
 .. role:: raw-html-m2r(raw)

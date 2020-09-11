@@ -147,10 +147,10 @@ Currently, the synchronizer will only generate outputs when using the Binary dat
     :hidden:
     :maxdepth: 5
 
-    Binary format (default)
-    Open Ephys format
-    NWB format
-    KWIK format
+    Binary-format
+    Open-Ephys-format
+    NWB-format
+    KWIK-format
 
 .. role:: raw-html-m2r(raw)
    :format: html
