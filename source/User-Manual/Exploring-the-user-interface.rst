@@ -131,15 +131,7 @@ Due to the structure of MacOS app bundles, the whole command to run the GUI woul
 Windows
 ---------
 
-To display the debug console on Windows, follow the following steps:
-
-1. Create a shortcut by right clicking the :code:`open-ephys` executable and selecting the "Create shortcut" option
-
-2. Right click the newly created shortcut and select "Properties"
-
-3. In the shortcut properties page, add :code:`--console` at the end of the Target line, which contains the path to the open ephys executable. Add it after any quotes, if there were any. Click OK once this has been done.
-
-Now, every time you need to open the console, just run the GUI via this shortcut instead of the normal executable.
+Debug console is automatically displayed on Windows when you run the :code:`open-ephys` application.
 
 
 .. _Ableton Live: https://www.ableton.com/en/live/
