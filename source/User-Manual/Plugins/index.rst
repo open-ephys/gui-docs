@@ -79,7 +79,7 @@ Lastly, the plugin information panel gives information regarding the plugin sele
 Installing Plugins
 -------------------
 
-To install a plugin, simply select the desired plugin from the plugin list, the plugin info panel will fetch the information of that plugin and display it. Then, select the desired version of that plugin from the drop-down menu, and click on Install. If everything works fine, a success message should pop-up saying that the plugin installed successfully. Now, the plugin should be loaded in the GUI, and it will show up in the Processor List of the main GUI window. If there is an error while installing the plugin, an error message should pop-up saying what kind of error it was. The error message will also be outputted to the console, if it is open.
+To install a plugin, simply select the desired plugin from the plugin list, the plugin info panel will fetch the information of that plugin and display it. Then, select the desired version of that plugin from the drop-down menu, and click on Install. If everything works fine, a success message should pop-up saying that the plugin installed successfully. Now, the plugin should be loaded in the GUI, and it will show up in the Processor List of the main GUI window. If there is an error while installing the plugin, an error message should pop-up saying what kind of error it was. The error message will also be outputted to the debug console.
 
 .. note:: Plugins downloaded via Plugin Installer won’t load into the main GUI if plugin-GUI is built from source in Debug mode. Please make sure plugin-GUI is built in Release mode before installing any plugins.
 
@@ -97,7 +97,15 @@ To downgrade a plugin to an older version (if available), click on the "Installe
 Uninstalling Plugins
 ----------------------
 
-Currently, Plugin Installer doesn’t support uninstalling a plugin directly from the GUI. To do that manually, go to the plugins directory which is at the same level as the open-ephys executable (for macOS, the plugins directly used by Plugin Installer is at :code:`${YOUR_HOME_DIR}/Library/Application Support/open-ephys/plugins)`. Find the :code:`.dll` / :code:`.so` / :code:`.bundle` file of the plugin you want to remove, and delete it. The next time you open Plugin Installer, you should be able to see that plugin as not installed. 
+Currently, Plugin Installer doesn’t support uninstalling a plugin directly from the GUI. To do that manually, go to the plugins directory used by Plugin Installer located at:
+
+* Windows: :code:`C:\ProgramData\Open Ephys\plugins`
+
+* Linux: :code:`~/.open-ephys/plugins`
+
+* macOS: :code:`${YOUR_HOME_DIR}/Library/Application Support/open-ephys/plugins`
+ 
+Find the :code:`.dll` / :code:`.so` / :code:`.bundle` file of the plugin you want to remove, and delete it. The next time you open Plugin Installer, you should be able to see that plugin as not installed. 
 
 .. toctree::
     :hidden:
