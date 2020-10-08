@@ -26,7 +26,7 @@ Once you have CMake installed, you can generate the Visual Studio project files 
 
 Next, launch Visual Studio and open the :code:`open-ephys.sln` file that was just created in the "Build" folder.
 
-To compile the GUI, select "Build > Build Solution" (shortcut key: F6), or press the "Debug" button to build and run. 
+To compile the GUI, select "Build > Build Solution" (shortcut key: F6), or press the "Debug" button to build and run. This will build the main application, the :code:`open-ephys.lib` file, and all of the plugins that are included in the main repository.
 
 
 macOS
