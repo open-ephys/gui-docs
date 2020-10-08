@@ -87,7 +87,7 @@ Now, generate the Linux makefiles by entering:
 .. code-block:: bash
 
    $ cd Build
-   $ cmake -G "Unit Makefiles" ..
+   $ cmake -G "Unix Makefiles" ..
 
 .. note:: To specify "Debug" or "Release" mode, add :code:`-DCMAKE_BUILD_TYPE=Release` or :code:`-DCMAKE_BUILD_TYPE=Debug` to the last command, just before the two periods. Setting a variable using a :code:`-D` argument will be permanent, with following calls to :code:`cmake` in the same folder using its set value even if the argument is not used in them. Variables can be either set to a different value by calling cmake with a different :code:`-D` option (thereby overwriting the existing value) or unset by calling :code:`cmake -UVARIABLE`.
 
