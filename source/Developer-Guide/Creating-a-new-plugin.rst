@@ -7,7 +7,7 @@ Creating and compiling plugins
 
 Plugins are the primary means of extending the GUI's functionality. You can create "source" plugins that interface with new types of data acquisition hardware, "filter" plugins that modify incoming data, or "sink" plugins that send data to other applications or output devices. "Record engines" are also plugins that define new formats for reading an writing data.
 
-Plugins can either live inside the main `plugin-GUI <https://github.com/open-ephys/plugin-GUI>`__, or in their own repository. Hosting plugins in separate repositories is recommended, so they do not introduce additional dependencies and can be updated separately from the main application.
+Plugins can either live inside the main `plugin-GUI <https://github.com/open-ephys/plugin-GUI>`__ repository, or in their own repository. Hosting plugins in separate repositories is recommended, so they do not introduce additional dependencies and can be updated separately from the main application.
 
 Some examples of externally hosted plugins include:
 
@@ -33,24 +33,48 @@ The first step in creating a new plugin is to create a repository from the `OEPl
 
 5. Click the green "Create repository from template" button.
 
-Next, using the command line or the `GitHub Desktop <https://desktop.github.com/`__ app, clone your new repository into the same top-level directory that contains your :code:`plugin-GUI` repository:
+On your local machine, create an "OEPlugins" directory within the same directory that contains your :code:`plugin-GUI` repository: Then, using the command line or the `GitHub Desktop <https://desktop.github.com/`__ app, clone your the plugin repository into this new folder. Your directory structure should look something like this:
 
 .. code-block:: 
 
-   /code_directory
-      /plugin-GUI
-      /NewPlugin
+   code_directory/
+      plugin-GUI/
+      OEPlugins/
+         NewPlugin/
+            Source/
+            Build/
+            CMakeLists.txt
+            CMAKE_README.txt
+            README.md
 
-Adding plugin source code
+
+Editing :code:OpenEphysLib.cpp
+#####################################
+
+Inside the "Source" folder of the plugin repository you just cloned, you'll find the :code:`OpenEphysLib.cpp` file that contains information about your plugin. Open it in your preferred text editor and 
+
+Processor Plugins
+------------------
+
+Most plugins will be "processors," meaning they implement the 
+
+For a "Processor" plugin (Filter / Source / Sink / Utility)
+
+
+
+Adding source code
 #################################
 
-Inside the directory that was just created, change the name of the "Plugin" directory to the name of your plugin, e.g. "NewPlugin."
+Add the plugin's source files to the "Source" directory, or use the included files as a starting point.
 
-Add the source files (or use the included files as a starting point).
+If you're using the template files, you'll have to change all instances of :code:`OEPlugin` to the name of your plugin's class. 
 
-Edit the OpenEphysLib.cpp file.
+Including external libraries
+################################
 
-Compiling plugins
+If your plugin depends on external libraries, it is necessary to manually edit the Build/CMakeLists.txt file. The relevant lines should be commented out at the end of this file.
+
+Compiling a plugin
 #################################
 
 Whether you're creating a new plugin, or you cloned an existing plugin repository, the following steps will allow you to compile your plugin across all three platforms. Note that `CMake <https://cmake.org/>`__ is required in all cases. See the :ref:`compiling the GUI <compilingthegui>` page for recommended instructions for installing CMake if you don't have it already.
@@ -126,7 +150,8 @@ Debugging plugins
 How can we debug plugins in external repositories?
 
 
+
+
 .. |br| raw:: html
 
-
-
+  <br/>
