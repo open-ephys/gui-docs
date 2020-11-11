@@ -5,41 +5,146 @@
 NWB format
 =====================
 
-From the NWB website:
 
-.. epigraph::
+.. image:: ../../_static/images/recordingdata/nwb/header.png
+  :alt: NWB data file icon
 
-	Neurodata Without Borders: Neurophysiology (NWB:N) is a project to develop a unified data format for cellular-based neurophysiology data, focused on the dynamics of groups of neurons measured under a large range of experimental conditions. The NWB:N team consists of neuroscientists and software developers who recognize that adoption of a unified data format is an important step toward breaking down the barriers to data sharing in neuroscience.
+|
 
-We are working on implementing the ability to write directly to an NWB file from the Open Ephys GUI. We're hoping that NWB becomes a common standard for neuroscience, so saving your data in NWB format will make it much easier to share with other researchers. It also comes with all the advantages (and disadvantages) of HDF5.
+.. csv-table:: This is a data format based on the `NWB 1.0 specification <https://alleninstitute.github.io/nwb-api/index.html>`__, formerly maintained by the Allen Institute, but now deprecated. It will soon be replaced by the NWB 2.0 format. Since it is not available by default, it must be downloaded via the GUI's Plugin Installer.
+   :widths: 18, 80
 
-The official format specification can be found on GitHub as raw HTML files. We've adapted it for use with Open Ephys by extending some base classes of the NWB specification to hold extra data that might be provided by the software. Extension files for the official NWB API will be provided as per the standard. The resulting format is as follows:
+   "*Platforms*", "Windows, Linux, macOS"
+   "*Built in?*", "No"
+   "*Key Developers*", "Aarón Cuevas López"
+   "*Source Code*", "https://github.com/open-ephys-plugins/NWBFormat"
 
-Open Ephys NWB File Structure (based on version 1.0.6)
-########################################################
+.. caution:: The NWB 1.0 format has been deprecated. It will be replaced by NWB 2.0 in a future version of the GUI.
 
-**Top-level groups (always created):**
+**Advantages**
 
-* /acquisition
-* /analysis
-* /epochs
-* /general
-* /processing
-* /stimulus
+* Data is stored in a single HDF5 file, with self-documenting internal structure.
 
-**Top-level datasets (always created):**
+* Can be read using standard HDF5 tools, such as `HDFView <https://www.hdfgroup.org/downloads/hdfview/>`__.
 
-* /file_create_date: date + time in ISO format (text array)
-* /identifier: from text fields in recording options (text)
-* /nwb_version: 'NWB-1.0.6' (text)
-* /session_description: <blank string> (text)
-* /session_start_time: date + time in ISO format (text)
+**Limitations**
+
+* HDF5 files must be closed gracefully, so data may be irrecoverable if the GUI crashes during acquisition.
+
+* The NWB 1.0 specification has been deprecated, and will not be developed further.
+
+* The HDF5 C++ library is not thread-safe, so you cannot write to the NWB format from multiple Record Nodes simultaneously.
+
+File organization
+####################
+
+Within a Record Node directory, data for each **experiment** (stop/start acquisition) is contained in a separate NWB file. Individual **recordings** are stored in separate groups inside the file.
+
+|
+
+.. image:: ../../_static/images/recordingdata/nwb/organization.png
+  :alt: NWB data file structure
+  :width: 300
+
+|
+
+Each NWB file also contains the following information:
+
+* :code:`/file_create_date`: date + time in ISO format (text array)
+* :code:`/identifier`: from text fields in recording options (text)
+* :code:`/nwb_version`: 'NWB-1.0.6' (text)
+* :code:`/session_description`: <blank string> (text)
+* :code:`/session_start_time`: date + time in ISO format (text)
+
+Format details
+################
+
+Continuous
+----------------
+
+Continuous data is grouped by sub-processor (a block of synchronously sampled channels):
+
+|
+
+.. image:: ../../_static/images/recordingdata/nwb/continuous.png
+  :alt: NWB data continuous format
+  :width: 300
+
+|
+
+Each **continuous** group is an NWB *ElectricalSeries* containing the following datasets:
+
+* :code:`data`: *N* channels x *M* samples of 16-bit integers. The :code:`conversion` attribute stores the "bitVolts" value required to convert these values into volts.
+
+* :code:`timestamps`: *M* 64-bit floats representing the timestamps (in seconds) for each sample.
 
 
-/acquisition group:
-All of the data generated during recording should be stored in this group.
 
-For writing continuous data, we use the NWB `ElectricalSeries`:
+Events
+-------
+
+Event data is organized by "event group" (e.g., :code:`TTL_<N>`). Each event group can contain data for multiple event channels.
+
+|
+
+.. image:: ../../_static/images/recordingdata/nwb/events.png
+  :alt: NWB data events format
+  :width: 300
+
+|
+
+TTL events include the following datasets:
+
+* :code:`timestamps`: *N* 64-bit float representing the timestamps (in seconds) for each event
+
+* :code:`data`: *N* event codes indicating ON (+CH_number) and OFF (-CH_number) states
+
+* :code:`control`: *N* unsigned 8-bit integers representing virtual channel numbers
+
+
+Spikes
+--------
+
+Spike data is organized by electrode.
+
+|
+
+.. image:: ../../_static/images/recordingdata/nwb/spikes.png
+  :alt: NWB data spikes format
+  :width: 300
+
+|
+
+Each **spikes** group contains the following datasets:
+
+* :code:`data`: array with dimensions *S* spikes x *N* channels x *M* samples containing the spike waveforms. The :code:`conversion` attribute stores the "bitVolts" value required to convert these values into volts.
+
+* :code:`timestamps`: *S* 64-bit floats containing the timestamps (in seconds) corresponding to the peak of each spike
+
+
+Reading data in Python
+#######################
+
+* Create a :code:`Session` object using the `open-ephys-python-tools <https://github.com/open-ephys/open-ephys-python-tools>`__ package. The data format will be automatically detected.
+
+
+Reading data in Matlab
+#######################
+
+For now, use Matlab's :code:`h5read` method to open datasets within an NWB file, e.g.:
+
+.. code-block:: matlab
+
+   data = h5read(filename, dataset)
+
+NWB-specific loading functions are coming soon.
+
+
+
+Full specification
+#####################
+
+For writing continuous data, we use the NWB :code:`ElectricalSeries`:
 
 .. code-block:: 
 
@@ -75,7 +180,7 @@ For writing continuous data, we use the NWB `ElectricalSeries`:
 	                    ./description: metadata description (text attr)
 	                    ./identifier: metadata identifier (text attr)
  
-For writing spike data, we use the NWB `SpikeEventSeries`:
+For writing spike data, we use the NWB :code:`SpikeEventSeries`:
 
 .. code-block:: 
 
@@ -115,7 +220,7 @@ For writing spike data, we use the NWB `SpikeEventSeries`:
 	                ./description: metadata description (text attr)
 	                ./identifier: metadata identifier (text attr)
  
-For writing messages, we use the NWB `AnnotationSeries`:
+For writing messages, we use the NWB :code:`AnnotationSeries`:
 
 .. code-block:: 
 
@@ -157,7 +262,7 @@ For writing messages, we use the NWB `AnnotationSeries`:
 	                ./description: metadata description (text attr)
 	                ./identifier: metadata identifier (text attr)
 	 
-For writing TTL events, we use a custom derived version of the NWB `IntervalSeries` called `TTLSeries`:
+For writing TTL events, we use a custom derived version of the NWB :code:`IntervalSeries` called :code:`TTLSeries`:
 
 .. code-block:: 
 
@@ -201,7 +306,7 @@ For writing TTL events, we use a custom derived version of the NWB `IntervalSeri
 	                ./description: metadata description (text attr)
 	                ./identifier: metadata identifier (text attr)
 
-For writing Binary events, we use a custom derived version of the NWB  `Timeseries` called `BinarySeries`:
+For writing Binary events, we use a custom derived version of the NWB :code:`Timeseries` called :code:`BinarySeries`:
 
 .. code-block:: 
 
@@ -243,24 +348,3 @@ For writing Binary events, we use a custom derived version of the NWB  `Timeseri
 	                ./description: metadata description (text attr)
 	                ./identifier: metadata identifier (text attr)
 
-
-P = processorID_subprocessorID (e.g., 101_1, 102_1, etc.; if there is only one subprocessor, the subprocessor ID is omitted)
-
-R = index of recording (1, 2, 3, etc.)
-
-E = index of electrode (1, 2, 3, etc.)
-
-C = index of recorded channel
-
-T = index of recorded event of the specific type
-
-M = index of metadata field (1, 2, 3, etc...)
-
-
-
-Rules for creating new files and groups
-----------------------------------------
-
-* If acquisition is stopped, create a new file (experiment1.nwb, experiment2.nwb, etc.). Timestamps are reset to zero.
-
-* If recording is stopped (but acquisition is active), create a new group (recording1, recording2, etc.). Timestamps are relative to start of acquisition.

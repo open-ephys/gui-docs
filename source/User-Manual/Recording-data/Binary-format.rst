@@ -5,102 +5,152 @@
 Binary format
 ========================
 
-This format stores the continuous data in plain binary files, while all other data is stored in numpy arrays, easy to read in Python and which can be easily converted to plain binary arrays just by stripping their header.
+.. image:: ../../_static/images/recordingdata/binary/header.png
+  :alt: Binary data file icons
 
-Recording folders
-#################
+|
 
-Each recording is stored in a subfolder called :code:`experiment<E>/recording<R>/`
+.. csv-table:: This is the default format for the Open Ephys GUI. Continuous data is stored in flat binary files, and everything else is in JSON / numpy format. Takes advantage of widely used open standards to maximize compatibility with existing and future analysis tools. 
+   :widths: 18, 80
 
-Where :code:`E` denotes the experiment number and :code:`R` the recording number. This folder contains the following elements:
+   "*Platforms*", "Windows, Linux, macOS"
+   "*Built in?*", "Yes"
+   "*Key Developers*", "Aarón Cuevas López, Josh Siegle"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Source/Processors/RecordNode/BinaryFormat"
 
-* :code:`continuous/`: Folder containing continuous data
 
-* :code:`events/`: Folder containing event data
+**Advantages**
 
-* :code:`spikes/`: Folder containing recorded spikes
+* Continuous data is stored in a compact format of tiled 16-bit integers, which can be memory mapped for efficient loading.
 
-* :code:`structure.oebin`: JSON file detailing channel information, channel metadata and event metadata descriptions. Contains a field for each of the recorded elements detailing their folder names, samplerate, channel count and other needed information.
+* Additional files are stored as JSON or NumPy data format, which can be read using :code:`numpy.load` in Python, or the `npy-matlab <https://github.com/kwikteam/npy-matlab>`__ package.
 
-* :code:`sync_messages.txt`: Text file with the synchronization messages that contain the start timestamp of the different processors
+* The format is compatible with any combination of processors or subprocessors supported by the GUI
 
-Data folders
-#############
+**Limitations**
 
-Continuous data
+* Requires slightly more disk space because it stores a 64-bit timestamp for every sample.
+
+* Continuous files are not self-contained, i.e., you need to know the number of channels and the "bit-volts" multiplier in order to read them properly.
+
+* It is not robust to crashes, as the NumPy file headers need to be updated when recording is stopped.
+
+File organization
+####################
+
+Within a Record Node directory, data for each **experiments** (stop/start acquisition) is contained in its own sub-directory. Experiment directories are further sub-divided for individual **recordings** (stop/start recording).
+
+|
+
+.. image:: ../../_static/images/recordingdata/binary/organization.png
+  :alt: Binary data directory structure
+  :width: 300
+
+|
+
+A recording directory contains sub-directories for **continuous**, **events**, and **spikes** data. It also contains a :code:`structure.oebin`, which is a JSON file detailing channel information, channel metadata, and event metadata descriptions.
+
+Format details
+################
+
+Continuous
 ----------------
 
-Since the GUI allows acquisition from different sources, which might have different sample rates, and recording can be done from the sources or any processor down the line, for each recorded processor the format creates a fileset per combination of recorded processor and data source. These filesets are stored in subfolders whose name can be:
+Continuous data is grouped by sub-processor (a block of synchronously sampled channels):
 
-* :code:`Processor_Name-<S>` for source processors
+|
 
-* :code:`Processor_Name-<P>_<S>` for other processors
+.. image:: ../../_static/images/recordingdata/binary/continuous.png
+  :alt: Binary data continuous format
+  :width: 300
 
-Where the :code:`Processor_Name` is the one from the processor being recorded, :code:`S` represents a :code:`ProcessorID.SubprocessorIDX` of the source that originated the data and :code:`P` is the ID of the processor being recorded.
+|
 
-Each continuous filesets contains the following files:
+Each **continuous** directory contains the following files:
 
-* :code:`continuous.dat`: A simple binary file containning Nchans x Nsamples 16 bit integers in little endian format. 
+* :code:`continuous.dat`: A simple binary file containing *N* channels x *M* samples 16-bit integers in little-endian format. Data is saved as :code:`ch1_samp1, ch2_samp1, ... chN_samp1, ch1_samp2, ch2_samp2, ..., chN_sampM`. The value of the least significant bit needed to convert the 16-bit integres to microvolts is specified in the :code:`bitVolts` field of the relevant channel in the :code:`structure.oebin` JSON file.
 
-* :code:`timestamps.npy`: A numpy array containing Nsamples 64bit integers that represent the timestamps for each sample.
+* :code:`timestamps.npy`: A numpy array containing *M* 64-bit integers that represent the timestamps for each sample.
 
-The continuous data is saved as :code:`ch1_samp1, ch2_samp1, ... chN_samp1, ch1_samp2, ch2_samp2, ..., chN_sampM`. The value of the least significant bit needed to convert the 16-bit integres to microvolts is specified in the :code:`bitVolts` field of the relevant channel in the :code:`structure.oebin` JSON file.
-
-Spikes
---------
-
-For each processor that records spikes, a subfolder is created of the format
-
-:code:`Processor_Name-<P>_<S>`
-
-Where, similarly to the continuous case, :code:`P` denotes the ID of the processor which is recording the spikes, while :code:`S` denotes the ID of the node that is actually extracting the spike data from the continuous signal.
-
-For convenience, spikes with the same configuration (same source, same number of channels and same metadata) are grouped into single datasets in folders called :code:`spike_group_N`. Each spike group contains the following files:
-
-* :code:`spike_waveforms.npy`: numpy array of :code:`Nspikes` x :code:`Nchannels` x :code:`Nsamples` int16s containing the spike waveforms
-
-* :code:`spike_times.npy`: numpy array of :code:`Nspikes` int64s containing the timestamps corresponding to the peak of each spike
-
-* :code:`spike_electrode_indices.npy`: numpy array of :code:`Nspikes` unit16 specifying, for each spike in the group, which of the electrodes grouped in it originated each spike
-
-* :code:`spike_clusters.npy`: numpy array of :code:`Nspikes` unit16 containing the sorted cluster id for which spike pertains, if the spike source processor performed spike sorted, all 0 otherwise.
-
-* :code:`metadata.npy`: Optional. If the spikes contain metadata fields, they will be stored as an array of :code:`Nspikes` lists of fields or, if there is just one field, a Nspikes x Length_of_field array of the relevant type.
-
-Detailed information about the electrodes contained in each spike group as well as the metadata fields, if any, is stored in the :code:`structure.oebin` JSON file.
+* :code:`synchronized_timestamps.npy`: A numpy array containing *M* 64-bit floats representing the timestamps in seconds relative to the start of the master sub-processor.
 
 Events
 -------
 
-Similarly to continuous data and spikes, each processor that generates events creates its own subfolder names
+Event data is organized by processor and by "event group" (e.g., :code:`TTL_<N>`). Each event group can contain data for multiple event channels.
 
-:code:`Processor_Name-<S>`
+|
 
-With :code:`S` being the :code:`ProcessorId.SubprocessorIDX` of the source processor. Each event channel the processor produces will have its own folder named :code:`TEXT_group_<N>`, :code:`BINARY_group_<N>` or :code:`TTL_<N>`, depending on the type of event.
+.. image:: ../../_static/images/recordingdata/binary/events.png
+  :alt: Binary data events format
+  :width: 300
 
-Common files in all types of events are:
+|
 
-* :code:`timestamps.npy` Containing Nevents int64 for the timestamps of each event
+All types of events include the following files:
 
-* :code:`channels.npy` Containing Nevents uint16 indicating the virtual channel associated to each event (bit of the TTL word in their case)
+* :code:`timestamps.npy` Contains *N* 64-bit timestamps for each event
 
-* :code:`metadata.npy` Optional. If the events contain metadata fields, they will be stored as an array Nevents lists of fields or, if there is just one field, a Nspikes x Length_of_field array of the relevant type.
+* :code:`channels.npy` Contains *N* unsigned 16-bit integers indicating the virtual channel associated to each event.
+
+* :code:`metadata.npy` (optional) If the events contain metadata fields, they will be stored as an array of *N* lists of fields or, if there is just one field, a *N* x :code:`length_of_field` array of the relevant type.
 
 Text events
 ^^^^^^^^^^^^
 
-* :code:`text.npy`: numpy array of :code:`Nevents` strings
+* :code:`text.npy`: numpy array of *N* strings
 
 Binary events
 ^^^^^^^^^^^^^^
 
-* :code:`data_array.npy`: numpy array of :code:`Nevents` x :code:`data_length` elements of the relevant type
+* :code:`data_array.npy`: numpy array of *N* x :code:`data_length` elements of the relevant type
 
 TTL events
 ^^^^^^^^^^
 
-* :code:`channel_states.npy`:  Numpy array of Nevents int16. Each event will be written as +CH_number for rising events and -CH_number for falling events
+* :code:`channel_states.npy`:  numpy array of *N* 16-bit integers, indicating ON (+CH_number) and OFF (-CH_number) states.
+
+* :code:`full_words.npy`: numpy array of *N* x log2(numBits) unsigned 8-bit integers containing the binary representations of the full words received by the TTL source, in case they need to be treated as full qualified binary data.
+
+Spikes
+--------
+
+Spike data is organized by processor and by "spike group" (a group of spike sources with the same number of channels). If, for example, you have stereotrodes and tetrodes within the same Spike Sorter plugin, the stereotrodes and tetrodes will appear in separate spike groups.
+
+|
+
+.. image:: ../../_static/images/recordingdata/binary/spikes.png
+  :alt: Binary data spikes format
+  :width: 300
+
+|
+
+Each **spike group** directory contains the following files:
+
+* :code:`spike_waveforms.npy`: numpy array with dimensions *S* spikes x *N* channels x *M* samples containing the spike waveforms
+
+* :code:`spike_times.npy`: numpy array of *S* 64-bit integers containing the timestamps corresponding to the peak of each spike
+
+* :code:`spike_electrode_indices.npy`: numpy array of *S* unsigned 16-bit integers specifying which of the electrodes within the group the spike originated from
+
+* :code:`spike_clusters.npy`: numpy array of *S* unsigned 16-bit integers containing the sorted cluster ID for each spike (defaults to 0 if this is not available).
+
+* :code:`metadata.npy`: (optional) If the spikes contain metadata fields, they will be stored as an array of *S* lists of fields or, if there is just one field, a *S* x :code:`length_of_field` array of the relevant type.
+
+Detailed information about the electrodes contained in each spike group as well as the metadata fields, if any, is stored in the :code:`structure.oebin` JSON file.
 
 
-* :code:`full_words.npy`: Numpy array of Nevents x log2(numBits) uint8 containing the binary representations of the full words received by the TTL source, in case they need to be treated as full qualified binary data.
+Reading data in Python
+#######################
 
+* **(recommended)** Create a :code:`Session` object using the `open-ephys-python-tools <https://github.com/open-ephys/open-ephys-python-tools>`__ package. The data format will be automatically detected.
+
+* Create a :code:`File` object using the `pyopenephys <https://github.com/CINPLA/pyopenephys>`__ package.
+
+* Use the :code:`DatLoad()` method from :code:`Binary.py` in the `open-ephys/analysis-tools <https://github.com/open-ephys/analysis-tools/blob/master/Python3/Binary.py>`__ repository.
+
+
+Reading data in Matlab
+#######################
+
+* Use :code:`load_open_ephys_binary.m` from the `open-ephys/analysis-tools <https://github.com/open-ephys/analysis-tools/blob/master/load_open_ephys_binary.m>`__ repository.

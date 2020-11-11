@@ -2,23 +2,58 @@
 .. role:: raw-html-m2r(raw)
    :format: html
 
+
 Open Ephys format
-=====================
+========================
+
+.. image:: ../../_static/images/recordingdata/open-ephys/header.png
+  :alt: Open Ephys data file icons
+
+|
+
+.. csv-table:: This is the original format used by the Open Ephys GUI. It is designed with redundancy in mind, so that data can be readily recovered even if the GUI crashes during acquisition. However, because data for each electrode is stored in a separate file, it doesn't scale to high channel count recordings. All files are stored in a single directory, with the file names used to identify the data source.
+   :widths: 18, 80
+
+   "*Platforms*", "Windows, Linux, macOS"
+   "*Built in?*", "Yes"
+   "*Key Developers*", "Josh Siegle, Aarón Cuevas López"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Source/Processors/RecordNode/OriginalFormat"
+
+
+**Advantages**
+
+* Data is stored in blocks with well-defined record markers, meaning data recovery is possible even if files are truncated.
+
+* The file header contains all the information required to load the file.
+
+**Limitations**
+
+* Operating systems impose a limit on the number files that can be written to simultaneously, meaning the Open Ephys format is not compatible with high-channel-count recordings (>256 channels).
+
+* In order to achieve robustness, files contain redundant information, meaning they use extra space and take longer to load.
+
+File organization
+####################
+
+All data files are stored within the same Record Node directory, with a completely flat hierarchy. Files for different **experiments** have a number appended after an underscore (starting with :code:`_2` for the second experiment in a session). Data from different **recordings** is distinguished by the :code:`recording index` values within each :code:`.spikes`, :code:`continuous`, or :code:`.events` file.
+
+|
+
+.. image:: ../../_static/images/recordingdata/open-ephys/organization.png
+  :alt: Open Ephys data directory structure
+  :width: 300
+
+|
+
+Each Record Node directory also contains :code:`Continuous_Data.openephys`, an XML file with metadata about the :code:`.continuous` files, and :code:`messages.events`, a text file containing text events saved by the GUI.
+
+Format details
+################
 
 Headers
-########
+---------
 
-All headers are 1024 bytes long, and are written as a MATLAB-compatible string. Therefore, loading the header (regardless of its content), can be done with three lines of code:
-
-.. code-block:: matlab
-
-  hdr = fread(fid, 1024, 'char*1');
-  eval(char(hdr'));
-  info.header = header;
-
-This is actually pretty handy, since any changes to the header format won't affect the code for reading data files. However, note that reading files using this method also creates a security risk if there is any doubt as to the origin of the file, since reading the header involves executing a portion of the file as MATLAB code. Therefore, be careful if you are working with files in one of these formats that you did not create yourself.
-
-The current header format uses ASCII encoding, and defines a MATLAB struct with the following fields and values:
+All headers are 1024 bytes long, and are written as a MATLAB-compatible string with the following fields and values:
 
 * format = 'Open Ephys Data Format'
 
@@ -52,106 +87,64 @@ For those not using MATLAB, each header entry is on a separate line with the fol
 
 * each line is terminated with a semicolon
 
-Continuous data files (.continuous)
-####################################
+Continuous
+----------------
 
-Each continuous channel within each processor has its own file, titled :code:`XXX_CHY.continuous`, where :code:`XXX` = the processor ID #, and :code:`Y` = the channel number. For each record, it saves:
+Continuous data for each channel is stored in a separate :code:`.continuous` file, identified by the processor ID (e.g. :code:`100`) and channel name (e.g. :code:`CH0`). After the 1024-byte header, continuous data is organized into "records," each containing 1024 samples.
 
-* One little-endian :code:`int64` timestamp (actually a sample number; this can be converted to seconds using the sampleRate variable in the header)
+|
 
-* One little-endian :code:`uint16` number (N) indicating the samples per record (always 1024, at least for now)
+.. image:: ../../_static/images/recordingdata/open-ephys/continuous.png
+  :alt: Open Ephys data continuous format
+  :width: 300
 
-* One little-endian :code:`uint16` recording number (version 0.2 and higher)
+|
 
-* 1024 big-endian :code:`int16` samples
-
-* 10-byte record marker (0 1 2 3 4 5 6 7 8 255)
-
-This makes up a record of 2070 bytes (= 8 + 2 + 2 + 2048 + 10).
-
-If a file is opened or closed in the middle of a record, the leading or trailing samples are set to zero.
-
-Event files (.events)
-######################
-
-Non-spike events are saved in a different format. Events generated by all channels are dumped into the file :code:`all_channels.events` with the following data for each event:
-
-* :code:`int64` timestamp (to align with timestamps from the continuous records)
-
-* :code:`int16` sample position within a buffer
-
-* :code:`uint8` event type (all the events that are saved have type TTL = 3 ; Network Event = 5)
-
-* :code:`uint8` processor ID (the processor this event originated from)
-
-* :code:`uint8` event ID (code associated with this event, usually 1 or 0)
-
-* :code:`uint8` event channel (the channel this event is associated with)
-
-* :code:`uint16` recording number (version 0.2 and higher)
+Each record is 2070 bytes long, and is terminated by a 10-byte record marker (0 1 2 3 4 5 6 7 8 255).
 
 
-Spike files (.spikes)
+Events
+-------
+
+Event from all processors is stored in :code:`all_channels.events`. Each "record" contains the data for an individual event stored according to the following scheme:
+
+|
+
+.. image:: ../../_static/images/recordingdata/open-ephys/events.png
+  :alt: Open Ephys data events format
+  :width: 300
+
+|
+
+
+Spikes
+--------
+
+Data from each electrode is saved in a separate file. The filename is derived from the electrode type (:code:`SE` = single electrode, :code:`ST` = stereotrode, :code:`TT` = tetrode), the source processor (e.g., :code:`p104.0`), and the electrode index (e.g., :code:`n0`, :code:`n1`, etc.).
+
+Each record contains an individual spike event (saved for one or more channels), and is written in the following format:
+
+|
+
+.. image:: ../../_static/images/recordingdata/open-ephys/spikes.png
+  :alt: Open Ephys data spikes format
+  :width: 300
+
+|
+
+Since the samples are saved as 16-bit unsigned integers, converting them to microvolts involves subtracting 32768, dividing by the gain, and multiplying by 1000.
+
+Reading data in Python
 #######################
 
-Data from each electrode is saved in a separate file. The filename is based on the name of the electrode itself, but without spaces (e.g., :code:`Tetrode1.spikes`).
+* **(recommended)** Create a :code:`Session` object using the `open-ephys-python-tools <https://github.com/open-ephys/open-ephys-python-tools>`__ package. The data format will be automatically detected.
 
-Each record contains an individual spike event (saved for one or more channels), and is written in the following format, defined in :code:`SpikeObject::packSpike()`:
+* Create a :code:`File` object using the `pyopenephys <https://github.com/CINPLA/pyopenephys>`__ package.
 
-* :code:`uint8` eventType (always equal to 4, for spike events)
+* Use the :code:`loadContinuous`, :code:`loadEvents`, or :code:`loadSpikes` methods from :code:`OpenEphys.py` in the `open-ephys/analysis-tools <https://github.com/open-ephys/analysis-tools/blob/master/Python3/OpenEphys.py>`__ repository.
 
-* :code:`int64` timestamp (to align with timestamps from the continuous records)
 
-* :code:`int64` software timestamp (not currently used)
+Reading data in Matlab
+#######################
 
-* :code:`uint16` sourceID (electrode number)
-
-* :code:`uint16` number of channels (N)
-
-* :code:`uint16` number of samples per spike (M)
-
-* :code:`uint16` sorted id (used by Spike Sorter)
-
-* :code:`uint16` electrodeID (unique electrode ID)
-
-* :code:`uint16` channel (channel within the electrode that triggered spike acquisition)
-
-* 3 :code:`uint8` color codes (for drawing spikes)
-
-* 2 :code:`float32` principle component projections (x and y)
-
-* :code:`uint16` sampling frequency (Hz)
-
-* N x M :code:`uint16` samples (individual channels are contiguous)
-
-* N :code:`float32` gains (actually gain*1000, to increase resolution)
-
-* N :code:`uint16` thresholds used for spike extraction
-
-* One :code:`uint16` recording number (version 0.2 and higher)
-
-Since the samples are saved as unsigned integers, converting them to microvolts involves subtracting 32768, dividing by the gain, and multiplying by 1000.
-
-Reading data into MATLAB
-############################
-
-Here's some example code for loading the first record from a data file called :code:`102_CH1.continuous`:
-
-.. code-block:: matlab
-
-	fid = fopen('102_CH1.continuous');
-
-	hdr = fread(fid, 1024, 'char*1');
-
-	timestamp = fread(fid, 1, 'int64',0,'l');
-
-	N = fread(fid, 1, 'uint16',0,'l');
-
-	recordingNumber = fread(fid, 1, 'uint16', 0, 'l');
-
-	samples = fread(fid, N, 'int16',0,'b');
-
-	recordmarker = fread(fid, 10, 'char*1');
-
-	fclose(fid);
-
+* Use :code:`load_open_ephys_data.m` from the `open-ephys/analysis-tools <https://github.com/open-ephys/analysis-tools/blob/master/load_open_ephys_data.m>`__ repository.
