@@ -62,7 +62,8 @@ Each digital channel contains a channel status toggle button as well. Disabling 
 
 On the right side of the module are pull-down selection menus to select the sample rate and voltage range of all analog input channels (set individually for each channel). The module defaults to the highest sample rate as well as the largest voltage range available on the devices. Sample rate and voltage range selection are both disabled during data acquisition and recording. 
 
-Synchronizing with other data streams
+
+Offline Synchronization
 #########################################
 
 The NIDAQmx module has its own sample clock, even if it's in the same PXI chassis as other hardware (e.g. a Neuropixels basestation). Therefore, it needs to be treated as a separate device when performing offline synchronization.
@@ -79,3 +80,117 @@ Then, each non-master clock can be transformed by the following equation (in Mat
 
 The "aligned_timestamps" will now be aligned to the master clock, and are ready for analysis.
 
+
+Online Synchronization
+#########################################
+
+A record node can automatically detect if two or more incoming digital channels share the same physical signal. Since each device acquires data asynchronously, a shared clock signal between two different devices will have different timestamps for corresponding TTL events. A record node can designate one of these channels as the main ‘synchronization channel’ and convert the timestamps coming from devices that physically share the same synchronization signal to align with the main device. 
+
+The simplest way to synchronize a NIDAQ device with Neuropixels probes is to set the Neuropixels-PXI as the main synchronization device by physically connecting the SMA output of the Neuropixels basestation to any digital input channel on the NIDAQ device. 
+
+In OpenEphys, merging a Neuropixels-PXI module and a NIDAQ module into a Record Node will show either one or two subprocessors per probe (depending if the 2.5kHz LFP band is included by the probe model) and one subprocessor for the NIDAQ device. Each subprocessor’s sync channel monitor will turn green if the digital line on that subprocessor is synchronized with any of the other subprocessors coming into that record node. 
+
+In the example below, upon starting acquisition, the first and third sync channel monitors in the record node turn green first, as these contain the 30kHz AP band of the probes and the source of the synchronization signal. Shortly after, the fifth sync channel monitor turns green, which contains the sync signal coming into the NIDAQ device from the Neuropixel probe's basestation. 
+
+|
+
+.. image:: ../../_static/images/plugins/nidaqmx/NIDAQmx_synced.png
+  :alt: NIDAQmx plugin synced
+
+.. tip:: For more information about recording and synchronization in Open Ephys, please see the documentation here: "https://open-ephys.github.io/gui-docs/User-Manual/Recording-data/index.html"
+
+NIDAQ Device Review
+#########################################
+
+We have tested and recommend using one or more of the devices below, in order of performance. In all of the below examples, a 5V ~2Hz square wave @50% duty cycle from an Arduino is used to demonstrate the analog and digital input behaviors you can expect to see using each device in Open Ephys.
+
+
+PXI Devices
+#########################################
+
+
+6133 
+#########################################
+The PXI‑6133 supports simultaneous-sampling, which means the analog and digital channels are guaranteed to be sampled simultaneously in time and synchronized with each other before they reach the GUI. Passing the square wave test signal to both the first analog and first digital input on the card shows that both signals are synchronized:
+
+|
+
+.. image:: ../../_static/images/plugins/nidaqmx/6133_SyncedPulse_zoomed.png
+  :alt: NIDAQmx plugin PXO-6133 synced input signal magnified
+
+|
+
+.. note::he 6133 takes a few (3-5) seconds to initialize after the acquisition button has been pressed before data will start to appear in the LFPViewer. 
+
+Furthermore, the analog input channels on the 6133 are well-isolated and there is no signal cross-talk on any of the unused analog input channels:
+
+|
+
+.. image:: ../../_static/images/plugins/nidaqmx/6133_SyncedPulse.png
+  :alt: NIDAQmx plugin PXI 6133 synced signal with no interference on unused channels
+
+.. tip:: The voltage on the unused channels may float at a constant non-zero value if left open. It is good practice to either ground or short the non-used analog inputs to avoid this. 
+
+
+6341
+#########################################
+The PXIE performs almost as well as the 6133, however, there is cross-talk across unused channels when applying the same test signal as above. That is, if a signal is physically connected to only the first analog input channel, a ‘ghost’ of the signal will appear across all of the open analog input channels as shown below:
+
+| 
+
+.. image:: ../../_static/images/plugins/nidaqmx/6341_SyncedPulse.png
+  :alt: NIDAQmx plugin PXIE-6341 syned input signal
+
+|
+
+However, if a 10Hz square wave is added to the second analog input and to the second digital input, there is no interference between the new signal and the original test signal on either the analog or digital channels:
+
+|
+
+.. image:: ../../_static/images/plugins/nidaqmx/6341_Combo.png
+  :alt: NIDAQmx plugin PXIE-6341 multiple analog and digital inputs without interference
+
+|
+
+6521 
+#########################################
+The NI 6521 only supports digital input channels that swing higher than +11V in order to get a TTL signal. Nonetheless, this card can still be a cheap(er) alternative for experiments that may only require digital channels alongside neural data. If you are using a 5V microcontroller in your experiments, you will need to boost your digital lines from 5V to something higher than 11V. A potential solution here is to use a 12V power source and a transistor inverter circuit.
+
+|
+
+
+PCIE Devices
+#########################################
+
+6321
+#########################################
+The PCIE 6321 card does not require the PXI chassis and can be connected directly to the PCIE slot of a PC motherboard. This card exhibits the same behavior with the test signal as the PXI-6341, however, there is some overshooting observed at steep signal transition points. Smooth analog signals will not exhibit this behavior. 
+
+| 
+
+.. image:: ../../_static/images/plugins/nidaqmx/6321_synced_ringing.png
+  :alt: NIDAQmx plugin PCIE-6321 seep signal ringing
+
+|
+
+USB Devices
+#########################################
+
+USB devices do not support simultaneous sampling out of the box, meaning analog and digital signals will not be synchronized by the device itself.  
+
+6001
+#########################################
+Applying the test signal to the first analog and second digital input of the USB 6001 results in the digital channels going high significantly before the analog channels. The USB devices also inherit the ghosting and overshooting issues mentioned in previous devices. 
+
+|
+
+.. image:: ../../_static/images/plugins/nidaqmx/USB-6001-Unsynced.png
+  :alt: NIDAQmx plugin USB-6001 ghosting with single analog channel
+
+The delay between the observed analog and digital inputs is not guaranteed to be constant. By grounding any unused analog channels, the USB 6001 can still achieve a clean and isolated signal on its analog channels:
+
+|
+
+.. image:: ../../_static/images/plugins/nidaqmx/USB-6001-Grounded.png
+  :alt: NIDAQmx plugin USB-6001 grounded unused analog inputs
+ 
