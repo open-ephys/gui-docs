@@ -99,12 +99,21 @@ For Neuropixels probes, you can use the Neuropixels-PXI as the main synchronizat
 
 In Open Ephys, place a :ref:`merger` before the Record Node and connect both the :ref:`neuropixelspxi` plugin and the NIDAQmx plugin. The Record Node will show either one or two subprocessors per Neuropixels probe (depending if the 2.5kHz LFP band is included by the probe model) and one subprocessor for the NIDAQ device. Each subprocessor’s sync channel monitor will turn green if the digital line on that subprocessor is synchronized with any of the other subprocessors coming into that Record Node. 
 
-In the example below, upon starting acquisition, the first and third sync channel monitors in the Record Bode turn green first, as these contain the 30 kHz AP band of the probes and the source of the synchronization signal. Shortly after, the fifth sync channel monitor turns green, which contains the sync signal coming into the NIDAQ device from the Neuropixel probe's basestation. 
+|
+
+.. image:: ../../_static/images/plugins/nidaqmx/NIDAQmx_syncing.png
+  :alt: NIDAQmx plugin syncing
+
+|
+
+Upon starting acquisition, the first and third sync channel monitors in the Record Node turn green first, as these contain the 30 kHz AP band of the probes and the source of the synchronization signal. Shortly after, the fifth sync channel monitor turns green, which contains the sync signal coming into the NIDAQ device from the Neuropixels probe's basestation. 
 
 |
 
 .. image:: ../../_static/images/plugins/nidaqmx/NIDAQmx_synced.png
   :alt: NIDAQmx plugin synced
+
+|
 
 .. tip:: For more information about recording and synchronization in Open Ephys, please see the :ref:`recordingdata` page.
 
