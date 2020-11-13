@@ -77,7 +77,7 @@ The NIDAQmx module has its own sample clock, even if it's in the same PXI chassi
 
 To align timestamps across devices, one device has to be treated as the "master" clock, and all other sets of timestamps must be scaled and shifted to match this clock. This requires that a digital sync line is physically connected across all devices. 
 
-While it's possible to use one of the NI devices (or a Neuropixels PXI basestation) to generate the sync pulses, we recommend using an Arduino running the `sync-barcodes <https://github.com/open-ephys/sync-barcodes>__` program, which generates unique temporal barcode patterns every 30 s. This will allow you to align sample clocks unambiguously, even if your devices are stopped and started at different times.
+While it's possible to use one of the NI devices (or a Neuropixels PXI basestation) to generate the sync pulses, we recommend using an Arduino running the `sync-barcodes <https://github.com/open-ephys/sync-barcodes>`__ program, which generates unique temporal barcode patterns every 30 s. This will allow you to align sample clocks unambiguously, even if your devices are stopped and started at different times.
 
 To perform the offline alignment, you'll need to identify the first and last shared sync pulse in the recording. The temporal offset between the start of the first sync pulses defines the shift between any device and the master clock. Once you know this, you can calculate the expected interval between the first and last sync pulse (given the expected sample rate of a device). The ratio of the actual interval to the expected interval defines the scaling factor for that device.
 
