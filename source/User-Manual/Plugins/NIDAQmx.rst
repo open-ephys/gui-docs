@@ -101,7 +101,7 @@ In Open Ephys, place a :ref:`merger` before the Record Node and connect both the
 
 |
 
-.. image:: ../../_static/images/plugins/nidaqmx/NIDAQmx_syncing.png
+.. image:: ../../_static/images/plugins/nidaqmx/NIDAQ_NPXMerged.png
   :alt: NIDAQmx plugin syncing
 
 |
@@ -110,7 +110,7 @@ Upon starting acquisition, the first and third sync channel monitors in the Reco
 
 |
 
-.. image:: ../../_static/images/plugins/nidaqmx/NIDAQmx_synced.png
+.. image:: ../../_static/images/plugins/nidaqmx/NPX_NIDAQSynchronized.png
   :alt: NIDAQmx plugin synced
 
 |
