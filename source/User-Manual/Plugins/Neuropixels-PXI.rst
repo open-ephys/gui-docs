@@ -128,6 +128,8 @@ Each probe has its own interface for updating settings, which will be customized
 
 The interface on the left allows you to select/deselect electrodes from different banks. Use the mini probe overview visualization to scroll to the electrodes you want to activate, click or drag to select them in the zoomed visualization, and then click the "ENABLE" button. Selecting electrodes on one bank will automatically deactivate the electrodes on all other banks that are connected to the same set of channels.
 
+|
+
 In addition, for 1.0, NHP, and Ultra probes, you can change the following settings:
 
 * **AP Gain** (amplifier gain for AP channels, 50x-3000x; default = 500x)
@@ -178,13 +180,19 @@ Plugin data streams
 ######################################
 
 The Neuropix-PXI plugin streams data from all connected probes through the GUI signal chain. To disable data transmission, a probe needs to be physically disconnected from the basestation. The plugin should be deleted and re-loaded any time a probe is connected or disconnected from the hardware.
+
 |
+
 If you're using Neuropixels 1.0, NHP, or Ultra probes, each probe will have two data streams: 
+
 * 384 channels of AP band data, sampled at 30 kHz
+
 * 384 channels of LFP band data, sampled at 2.5 kHz. 
 
 Each data stream is represented by a separate "subprocessor" within the GUI. Even-numbered subprocessors correspond to AP band data, while odd-numbered subprocessors correspond to LFP band data.
+
 |
+
 If you're using Neuropixels 2.0 probes, each probe will have only one data stream:
 
 * 384 channels of wide-band data, sampled at 30 kHz.
