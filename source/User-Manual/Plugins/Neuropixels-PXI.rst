@@ -11,7 +11,7 @@ Neuropixels PXI
 
 |
 
-.. csv-table:: Streams data from a PXI-based data acquisition system for Neuropixels 1.0 probes. It can acquire data from up to 16 probes simultaneously.
+.. csv-table:: Streams data from a PXI-based Neuropixels data acquisition system. It can acquire data from up to 16 probes simultaneously.
    :widths: 18, 80
 
    "*Plugin Type*", "Source"
