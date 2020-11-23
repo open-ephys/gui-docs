@@ -58,10 +58,10 @@ This plugin can stream data from the following Neuropixels probe types:
    "**Probe**", "**Channels**", "**Notes**"
    "Neuropixels 1.0", "384 AP, 384 LFP", ""
    "Neuropixels NHP Active", "384 AP, 384 LFP", ""
-   "Neuropixels NHP Passive", "128 AP, 128 LFP", "Requires firmware update (see below)"
+   "Neuropixels NHP Passive", "128 AP, 128 LFP", "May require firmware update (see below)"
    "Neuropixels Ultra", "384 AP, 384 LFP", ""
-   "Neuropixels 2.0 Single Shank", "384 wideband", "Requires firmware update (see below)"
-   "Neuropixels 2.0 Four Shank", "384 wideband", "Requires firmware update (see below)"
+   "Neuropixels 2.0 Single Shank", "384 wideband", "May require firmware update (see below)"
+   "Neuropixels 2.0 Four Shank", "384 wideband", "May require firmware update (see below)"
 
 Connecting to the PXI system
 ##############################
@@ -267,9 +267,11 @@ If you have a headstage test module, you can run a suite of tests to ensure the 
 Updating basestation firmware
 ######################################
 
-This plugin is compatible with any recent basestation firmware version. However, if you're using Neuropixels 2.0 or NHP Passive probes, you'll need to upgrade to the latest firmware (download `here <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/master/Resources/Neuropixels_PXI_APIv3_Firmware.zip>`__).
+This plugin is compatible with any recent basestation firmware version. However, if you're using Neuropixels 2.0 or NHP Passive probes, you'll need to upgrade to the latest firmware (available `here <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/master/Resources/Neuropixels_PXI_APIv3_Firmware.zip>`__).
 
-To do this, first click the "UPDATE FIRMWARE" button to open the firmware update interface:
+The currently installed firmware version will appear in the info section of the Neuropixels settings interface (upper right text block). If your basesation firmware version is "2.0137" and your basestation connect board firmware version is "3.2176", you already have the latest firmware installed.
+
+If you need to update your firmware, first click the "UPDATE FIRMWARE" button to open the firmware update interface:
 
 |
 
