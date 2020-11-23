@@ -66,7 +66,7 @@ This plugin can stream data from the following Neuropixels probe types:
 Connecting to the PXI system
 ##############################
 
-Before using this plugin, make sure you've followed all of the steps in the `Neuropixels User Manual <https://docs.wixstatic.com/ugd/832f20_d2e8866f7a98448d90faf83d3df56140.pdf>`__ to set up and configure your hardware. Prior to using your Neuropixels PXI basestation, you must install the Enclustra drivers (available for `Windows 7/8 <LINK>`__ and `Windows 10 <LINK>`__). See section 4.2.2 of the User Manual for installation instructions.
+Before using this plugin, make sure you've followed all of the steps in the `Neuropixels User Manual <https://docs.wixstatic.com/ugd/832f20_d2e8866f7a98448d90faf83d3df56140.pdf>`__ to set up and configure your hardware. Prior to using your Neuropixels PXI basestation, you must install the Enclustra drivers (available for `Windows 7/8 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/master/Resources/Enclustra_Win7%268.zip>`__ and `Windows 10 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/master/Resources/Enclustra_Win10.zip>`__). See section 4.2.2 of the User Manual for installation instructions.
 |
 
 Once your PXI system is up and running, you can drag and drop the "Neuropix-PXI" module from the Processor List onto the Editor Viewport. The GUI will automatically connect to any available basestations in your connected PXI chassis. If no PXI basestations are found, the plugin can be run in "simulation" mode.
@@ -266,7 +266,7 @@ If you have a headstage test module, you can run a suite of tests to ensure the 
 Updating basestation firmware
 ######################################
 
-This plugin is compatible with any recent basestation firmware version. However, if you're using Neuropixels 2.0 or NHP Passive probes, you'll need to upgrade to the latest firmware (download `here <LINK>`__).
+This plugin is compatible with any recent basestation firmware version. However, if you're using Neuropixels 2.0 or NHP Passive probes, you'll need to upgrade to the latest firmware (download `here <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/master/Resources/Neuropixels_PXI_APIv3_Firmware.zip>`__).
 
 To do this, first click the "UPDATE FIRMWARE" button to open the firmware update interface:
 
@@ -282,4 +282,6 @@ Next, select a :code:`.bin` file for the basestation connect board (:code:`QBSC*
 
 Immediately after the basestation connect board firmware upload finished, use the lower drop-down menu to select a :code:`.bin` file for the basestation (:code:`BS*.bin`), and click "UPLOAD". 
 
-Finally, once the basestation firmware is finished uploading, restart your computer and power cycle the PXI chassis for the changes to take effect. 
+Finally, once the basestation firmware is finished uploading, restart your computer and power cycle the PXI chassis for the changes to take effect.
+
+.. note:: If you need to update the firmware for multiple basestations in one chassis, please perform all firmware updates prior to restarting your chassis/computer. Alternatively, you can update each basestation separately if only one basestation at a time is inserted into the chassis. The Neuropixels plugin can only communicate with basestations that are running the same firmware.
