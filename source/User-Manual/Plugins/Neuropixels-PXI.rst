@@ -20,6 +20,12 @@ Neuropixels PXI
    "*Key Developers*", "Josh Siegle, Pavel Kulik"
    "*Source Code*", "https://github.com/open-ephys-plugins/neuropixels-pxi"
 
+Installing and the plugin
+###########################
+
+The Neuropixels PXI plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** to access the Plugin Installer, browse to the "Neuropix-PXI" plugin, and click the "Install" button.
+
+The Plugin Installer also allows you to upgrade to the latest version. If you're upgrading your plugin to version 0.2.0 (release on 11/23/2020), you'll need to close and reopen the GUI following the upgrade.
 
 Hardware requirements
 ######################
