@@ -287,4 +287,4 @@ Immediately after the basestation connect board firmware upload finished, use th
 
 Finally, once the basestation firmware is finished uploading, restart your computer and power cycle the PXI chassis for the changes to take effect.
 
-.. note:: If you need to update the firmware for multiple basestations in one chassis, please perform all firmware updates prior to restarting your chassis/computer. Alternatively, you can update each basestation separately if only one basestation at a time is inserted into the chassis. The Neuropixels plugin can only communicate with basestations that are running the same firmware.
+.. note:: If you need to update the firmware for multiple basestations in one chassis, please perform all firmware updates prior to restarting your chassis/computer. Alternatively, you can update each basestation separately if only one basestation at a time is inserted into the chassis. The Neuropixels plugin can only communicate with sets of basestations that are running the same firmware.
