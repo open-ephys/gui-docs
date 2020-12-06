@@ -32,6 +32,8 @@ The Plugin Installer also allows you to upgrade to the latest version. If you're
 Hardware requirements
 ######################
 
+* One desktop computer with an **Intel processor** (the Enclustra driver is not compatible with AMD processors)
+
 * One PXI chassis (so far we've tested National Instruments PXIe-1071 and PXIe-1082)
 
 * One PXI remote control module, housed in the PXI chassis (we've tested National Instruments PXIe-8381 and PXIe-8398) – requires NIDAQmx driver
