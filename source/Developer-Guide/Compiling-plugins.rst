@@ -7,15 +7,15 @@ Compiling plugins
 
 Whether you're creating a new plugin or you cloned an existing plugin repository, the following steps will allow you to compile your plugin across all three platforms. Note that `CMake <https://cmake.org/>`__ is required in all cases. See the :ref:`compiling the GUI <compilingthegui>` page for recommended instructions for installing CMake if you don't have it already.
 
-The first step for compiling a pre-existing plugin is downloading the source code. If you're planning to make your own changes to the plugin, we recommend first forking |fork icon| the `GUI's GitHub repository <https://github.com/open-ephys/plugin-GUI>`__ to your own account, then cloning the fork via the `command line <https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-using-the-command-line>`__ or the `GitHub Desktop app <https://desktop.github.com/>`__. If you're not planning to make any changes to the plugin, you can clone the original repository or download the code as a **.zip** file.
+The first step for compiling a pre-existing plugin is downloading the source code. If you're planning to make your own changes to the plugin, we recommend first forking |fork icon| the plugin's GitHub repository to your own account, then cloning the fork via the `command line <https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-using-the-command-line>`__ or the `GitHub Desktop app <https://desktop.github.com/>`__. If you're not planning to make any changes to the plugin, you can clone the original repository or download the code as a **.zip** file.
 
-Most Open Ephys GUI plugins work equally well on Windows, Linux, and Mac. However, there are some plugins that rely on platform-specific libraries, and can only be compiled for certain platforms. Be sure to check the :ref:`plugins` documentation page for platform compatibility.
+Most Open Ephys GUI plugins work equally well on Windows, Linux, and Mac. However, there are some plugins that rely on platform-specific libraries, and can only be compiled for certain platforms. Be sure to check the relevant :ref:`plugin documentation<plugins>` page for platform compatibility.
 
 
 Windows
 --------
 
-Generate the Visual Studio project files by typing the following from the command prompt inside the plugin's top-level directory:
+Generate the Visual Studio 2019 project files by typing the following from the command prompt inside the plugin's top-level directory:
 
 .. code-block:: bash
 
@@ -44,7 +44,7 @@ Next, launch Xcode and open the :code:`<plugin-name>.xcodeproj` file that now li
 
 Building the :code:`ALL_BUILD` scheme will build the plugin, while selecting :code:`INSTALL` will install the plugin in the appropriate location within the :code:`plugin-GUI` Build directory.
 
-The default Xcode build configuration is "Debug." To build the plugin in "Release" mode either modify the scheme settings or, instead of clicking Project/Build to build and install the plugin select Project > Build for > Profiling.
+The default Xcode build configuration is "Debug." To build the plugin in "Release" mode either modify the scheme settings or, instead of clicking Project/Build to build and install the plugin select **Project > Build for > Profiling**.
 
 Linux
 --------
@@ -66,7 +66,7 @@ Once the makefile generation step is finished, enter the following line from the
 
 This will build the plugin.
 
-Now, running:
+Next, running:
 
 .. code-block:: bash
 
@@ -75,3 +75,9 @@ Now, running:
 will copy the plugin and any additional required files to the appropriate location within the host application.
 
 
+.. |fork icon| image:: ../_static/images/developerguide/fork.svg
+   :height: 15
+
+.. |br| raw:: html
+
+  <br/>
