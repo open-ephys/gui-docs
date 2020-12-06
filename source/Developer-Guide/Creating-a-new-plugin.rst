@@ -2,7 +2,7 @@
 .. role:: raw-html-m2r(raw)
    :format: html
 
-Creating and compiling plugins
+Creating a new plugin
 ================================
 
 Plugins are the primary means of extending the GUI's functionality. You can create "source" plugins that interface with new types of data acquisition hardware, "filter" plugins that modify incoming data, or "sink" plugins that send data to other applications or output devices. "Record engines" are also plugins that define new formats for reading an writing data.
@@ -112,81 +112,11 @@ Including external libraries
 
 If your plugin depends on external libraries, it is necessary to manually edit the **CMakeLists.txt** file. The relevant lines are commented out at the end of this file.
 
-Compiling a plugin
-#################################
 
-Whether you're creating a new plugin or you cloned an existing plugin repository, the following steps will allow you to compile your plugin across all three platforms. Note that `CMake <https://cmake.org/>`__ is required in all cases. See the :ref:`compiling the GUI <compilingthegui>` page for recommended instructions for installing CMake if you don't have it already.
+Compiling your plugin
+#########################
 
-
-Windows
---------
-
-Generate the Visual Studio project files by typing the following from the command prompt inside the :code:`plugin-GUI` top-level directory:
-
-.. code-block:: bash
-
-   > cd Build
-   > cmake -G "Visual Studio 16 2019" -A x64 ..
-
-.. note:: For earlier versions of Visual Studio, substitute the last command with: |br| :code:`cmake -G "Visual Studio 12 2013 Win64" ..` |br| :code:`cmake -G "Visual Studio 14 2015 Win64" ..` |br| or |br| :code:`cmake -G "Visual Studio 15 2017 Win64" ..`
-
-Next, launch Visual Studio and open the :code:`OE_PLUGIN_<plugin-name>.sln` file that was just created in the "Build" folder. Select the appropriate configuration (Debug/Release) and either build the solution or build the :code:`ALL_BUILD` project. That will run the build process on all projects except :code:`INSTALL`, thus building the plugin.
-
-Selecting the INSTALL project and manually building it will trigger the install procedure, copying the plugin and any required files, if any, to the GUI's appropriate directories.
-
-macOS
---------
-
-To create the Xcode project files for the plugin, type the following commands from the plugin's top-level directory:
-
-.. code-block:: bash
-
-   $ cd Build
-   $ cmake -G "Xcode" ..
-
-Note that the final two periods are critical for getting this command to work.
-
-Next, launch Xcode and open the :code:`<plugin-name>.xcodeproj` file that now lives in the "Build" directory.
-
-Building the :code:`ALL_BUILD` scheme will build the plugin, while selecting :code:`INSTALL` will install the plugin in the appropriate location.
-
-The default build configuration is Debug. To build the plugin in Release mode either modify the scheme settings or, instead of clicking Project/Build to build and install the plugin select Project/Build for/Profiling
-
-Linux
---------
-
-Generate the Linux makefiles by entering the following from the plugin's top-level directory:
-
-.. code-block:: bash
-
-   $ cd Build
-   $ cmake -G "Unix Makefiles" ..
-
-.. note:: To specify "Debug" or "Release" mode, add :code:`-DCMAKE_BUILD_TYPE=Release` or :code:`-DCMAKE_BUILD_TYPE=Debug` to the last command, just before the two periods. Setting a variable using a :code:`-D` argument will be permanent, with following calls to :code:`cmake` in the same folder using its set value even if the argument is not used in them. Variables can be either set to a different value by calling cmake with a different :code:`-D` option (thereby overwriting the existing value) or unset by calling :code:`cmake -UVARIABLE`.
-
-Once the makefile generation step is finished, enter the following line from the "Build" directory:
-
-.. code-block:: bash
-
-   $ make
-
-This will build the plugin.
-
-Now, running:
-
-.. code-block:: bash
-
-   $ make install
-
-will copy the plugin and any additional required files to the appropriate location within the host application.
-
-Now, you can 
-
-Debugging plugins
-#################################
-
-What is the best way to debug plugins in their own repositories?
-
+Follow the instructions on :ref:`compilingplugins` to build your new plugin.
 
 
 
