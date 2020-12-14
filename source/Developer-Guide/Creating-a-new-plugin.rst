@@ -25,7 +25,7 @@ The first step in creating a new plugin is to create a repository from the `OEPl
 
 1. Log in to your `GitHub <https://github.com/>`__ account.
 
-2. Browse to https://github.com/open-ephys-plugins/OEPlugin 
+2. Browse to the `OEPlugin <https://github.com/open-ephys-plugins/OEPlugin>`__ template repository.
 
 3. Click the green "Use this template" button.
 
@@ -33,7 +33,7 @@ The first step in creating a new plugin is to create a repository from the `OEPl
 
 5. Click the green "Create repository from template" button.
 
-On your local machine, create an "OEPlugins" directory within the same directory that contains your :code:`plugin-GUI` repository: Then, using the command line or the `GitHub Desktop <https://desktop.github.com/`__ app, clone your the plugin repository into this new folder. Your directory structure should look something like this:
+On your local machine, create an "OEPlugins" directory within the same directory that contains your :code:`plugin-GUI` repository: Then, using the command line or the `GitHub Desktop <https://desktop.github.com/>`__ app, clone your the plugin repository into this new folder. Your directory structure should look something like this:
 
 .. code-block:: 
 
@@ -56,7 +56,7 @@ Inside the "Source" folder of the plugin repository you just cloned, you'll find
 **Processor** Plugins
 ----------------------
 
-Most plugins will be "processors," meaning they implement the :code:`process()` method of `GenericProcessor.cpp <https://github.com/open-ephys/plugin-GUI/blob/master/Source/Processors/GenericProcessor/GenericProcessor.cpp>`__. This method is called repeatedly during the GUI's acquisition loop, so each plugin has a chance to respond to incoming data (or generate its own). Processor plugins should uncomment and edit the following lines in :code:`OpenEphysLib.cpp`:
+Most plugins will be "processors," meaning they implement the :code:`process()` method of `GenericProcessor.h <https://github.com/open-ephys/plugin-GUI/blob/master/Source/Processors/GenericProcessor/GenericProcessor.h>`__. This method is called repeatedly during the GUI's acquisition loop, so each plugin has a chance to respond to incoming data (or generate its own). Processor plugins should uncomment and edit the following lines in :code:`OpenEphysLib.cpp`:
 
 .. code-block:: c++
    
@@ -98,7 +98,7 @@ Adding source code
 
 Add the plugin's source files to the "Source" directory, or use the included files as a starting point.
 
-If you're using the template files, choose the header and cpp files corresponding to the type of plugin you're creating (Processor, DataThread, RecordEngine, or FileSource), and delete the rest. you'll have to find and replace the default class name with the name of your plugin's class.
+If you're using the template files, choose the header and cpp files corresponding to the type of plugin you're creating (Processor or DataThread), and delete the rest. You'll have to find and replace the default class name with the name of your plugin's class.
 
 By default, CMake will add any files with **.h** or **.cpp** extensions that live in the "Source" directory. If you have files with alternate extensions, you'll have to edit the following line of **CMakeLists.txt**:
 
@@ -118,8 +118,4 @@ Compiling your plugin
 
 Follow the instructions on :ref:`compilingplugins` to build your new plugin.
 
-
-
-.. |br| raw:: html
-
-  <br/>
+|
