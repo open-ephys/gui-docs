@@ -145,7 +145,7 @@ h2 {
 }
 
 h3 {
-  margin: 2.75rem 0 1.05rem;
+  margin: 1.5rem 0 1.05rem;
   font-family: "Bitter", sans-serif;
   font-weight: 400;
   line-height: 1.15;
@@ -352,6 +352,7 @@ h4,
 h5,
 h6 {
   line-height: 1.5;
+  margin-bottom: 1em;
 }
 
 /* List items in main area, but not in side bars */
@@ -359,11 +360,13 @@ body > li,
 p {
   line-height: 1.5;
   margin: 0.3em 0;
+  margin-bottom: 1em;
 }
 
 /* ensure images stay within the column bounds*/
 img {
   max-width: 100%;
+  margin-bottom: 2em;
 }
 
 /* change color of Twitter logo */

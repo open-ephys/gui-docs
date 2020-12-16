@@ -8,8 +8,6 @@ Binary format
 .. image:: ../../_static/images/recordingdata/binary/header.png
   :alt: Binary data file icons
 
-|
-
 .. csv-table:: This is the default format for the Open Ephys GUI. Continuous data is stored in flat binary files, and everything else is in JSON / numpy format. Takes advantage of widely used open standards to maximize compatibility with existing and future analysis tools. 
    :widths: 18, 80
 
@@ -40,13 +38,9 @@ File organization
 
 Within a Record Node directory, data for each **experiments** (stop/start acquisition) is contained in its own sub-directory. Experiment directories are further sub-divided for individual **recordings** (stop/start recording).
 
-|
-
 .. image:: ../../_static/images/recordingdata/binary/organization.png
   :alt: Binary data directory structure
   :width: 300
-
-|
 
 A recording directory contains sub-directories for **continuous**, **events**, and **spikes** data. It also contains a :code:`structure.oebin`, which is a JSON file detailing channel information, channel metadata, and event metadata descriptions.
 
@@ -58,13 +52,9 @@ Continuous
 
 Continuous data is grouped by sub-processor (a block of synchronously sampled channels):
 
-|
-
 .. image:: ../../_static/images/recordingdata/binary/continuous.png
   :alt: Binary data continuous format
   :width: 300
-
-|
 
 Each **continuous** directory contains the following files:
 
@@ -79,13 +69,9 @@ Events
 
 Event data is organized by processor and by "event group" (e.g., :code:`TTL_<N>`). Each event group can contain data for multiple event channels.
 
-|
-
 .. image:: ../../_static/images/recordingdata/binary/events.png
   :alt: Binary data events format
   :width: 300
-
-|
 
 All types of events include the following files:
 
@@ -117,13 +103,9 @@ Spikes
 
 Spike data is organized by processor and by "spike group" (a group of spike sources with the same number of channels). If, for example, you have stereotrodes and tetrodes within the same Spike Sorter plugin, the stereotrodes and tetrodes will appear in separate spike groups.
 
-|
-
 .. image:: ../../_static/images/recordingdata/binary/spikes.png
   :alt: Binary data spikes format
   :width: 300
-
-|
 
 Each **spike group** directory contains the following files:
 

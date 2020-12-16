@@ -40,13 +40,9 @@ File organization
 
 Within a Record Node directory, data for each **experiment** (stop/start acquisition) is contained in a separate NWB file. Individual **recordings** are stored in separate groups inside the file.
 
-|
-
 .. image:: ../../_static/images/recordingdata/nwb/organization.png
   :alt: NWB data file structure
   :width: 300
-
-|
 
 Each NWB file also contains the following information:
 
@@ -64,13 +60,9 @@ Continuous
 
 Continuous data is grouped by sub-processor (a block of synchronously sampled channels):
 
-|
-
 .. image:: ../../_static/images/recordingdata/nwb/continuous.png
   :alt: NWB data continuous format
   :width: 300
-
-|
 
 Each **continuous** group is an NWB *ElectricalSeries* containing the following datasets:
 
@@ -85,13 +77,9 @@ Events
 
 Event data is organized by "event group" (e.g., :code:`TTL_<N>`). Each event group can contain data for multiple event channels.
 
-|
-
 .. image:: ../../_static/images/recordingdata/nwb/events.png
   :alt: NWB data events format
   :width: 300
-
-|
 
 TTL events include the following datasets:
 
@@ -107,13 +95,9 @@ Spikes
 
 Spike data is organized by electrode.
 
-|
-
 .. image:: ../../_static/images/recordingdata/nwb/spikes.png
   :alt: NWB data spikes format
   :width: 300
-
-|
 
 Each **spikes** group contains the following datasets:
 
