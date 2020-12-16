@@ -22,7 +22,7 @@ Computer specs
 
 * **Operating system** - the acquisition board works equally well on macOS, Windows, and Linux (all distros).
 
-* **Processor** - A 4-core, 3.0+ GHz processor is fine for 32-channel recordings, but you'll want more cores and more speed as you scale up. Having a faster processor will allow you to build more complex signal chains without worrying about CPU overload. The GUI uses multithreading for data acquisition and recording, so more cores is also helpful. 
+* **Processor** - A 4-core, 3.0+ GHz processor is fine for 32-channel recordings, but you'll want more cores and more speed as you scale up. Having a faster processor will allow you to build more complex signal chains without worrying about CPU overload. The GUI uses multithreading for data acquisition and recording, so having more cores is also helpful. 
 
 * **Memory** - at least 1 GB of memory per 32 channels.
 
@@ -57,15 +57,15 @@ Computer specs
 
 * **Operating system** - Windows 7 or 10 (Linux support is coming soon)
 
-* **Processor** - must be Intel. Minimum of 6 cores, 3.5 GHz
+* **Processor** - minimum of 6 cores, 3.5 GHz; must be an **Intel** processor.
 
-* **Memory** - 16 GB memory recommended; 2 GB per simultaneously recorded probe
+* **Memory** - at least 2 GB per simultaneously recorded probe; 16 GB is recommended.
 
-* **Data storage** - a solid state drive is essential (at least 500 MB/s write speed); NVMe drive is strongly recommended
+* **Data storage** - a solid state drive is essential (at least 500 MB/s write speed); an NVMe drive is strongly recommended.
 
-* **Graphics card** - the GUI doesn't rely on the GPU for processing, but GPUs are essential for offline processing. NVIDIA is likely required (for CUDA compatibility); GTX 1660 or better.
+* **Graphics card** - the GUI doesn't rely on the GPU for processing, but GPUs are essential for offline analysis. An NVIDIA GPU is likely required (for CUDA compatibility); we recommend buying a GTX 1660 or better.
 
-* **Connections** - Motherboard should have at least one x8-compatible PCIe slot
+* **Connections** - the motherboard should have at least one x8-compatible PCIe slot.
 
 
 Other hardware
