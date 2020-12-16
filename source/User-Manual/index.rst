@@ -29,6 +29,7 @@ If there's something missing from this documentation that you think should be in
     :maxdepth: 1
 
     Before-you-begin
+    Hardware-requirements
     Installing-the-GUI
     Exploring-the-user-interface
     Building-a-signal-chain
