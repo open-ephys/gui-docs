@@ -101,8 +101,8 @@ If these files cannot be found, the following warning will pop up:
   :alt: Calibration files missing warning
   :width: 500
 
-Configuring probes
-###################
+Configuring probe settings
+###########################
 
 To open the probe settings interface, press the "window" or "tab" button in the upper-right corner of the editor:
 
@@ -125,11 +125,18 @@ In addition, for 1.0, NHP, and Ultra probes, you can change the following settin
 
 * **AP Filter Cut** (ON = 300 Hz high-pass filter active, OFF = filter inactive; default = ON)
 
-For all probe types, you can change the following setting:
+Reference selection
+###########################
 
-* **Reference** (External, Tip, Internal Electrodes; default = External)
+All probe types include a **Reference** drop-down menu that can be used to select one of the following reference types:
 
-Settings are applied globally to all channels (i.e., you can't have a different gain for a subset of channels).
+* **External** (default) - references signals to the dedicated reference pad on the probe/flex cable. This pad can be connected to a wire immersed in saline above the brain (for acute recordings) or a screw embedded in the skull (for chronic recordings). It's common to connect the reference pad to the ground pad, to avoid the need for additional wires.
+
+* **Tip** - references signals to the large pad at the tip of the probe (or the tip of a particular shank, in the case of the 4-shank Neuropixels 2.0). The tip reference will likely reduce your overall noise levels, but it will also lead to leakage of low-frequency signals across all channels. If you want to do any analysis of the local field potential, you need to be sure to keep at least a few channels outside the brain, in order to subtract their signals offline.
+
+* **Internal** (e.g. 192) - references signals to one of the electrodes on the probe shank. These channels are too high-impedance to serve as a proper reference, and are not recommended for any applications. 
+
+In the Open Ephys GUI, reference settings are applied globally to all channels (i.e., you can't have a different gain for a subset of channels).
 
 .. caution:: When using multiple PXI basestations in the same chassis, some users have reported problems with the External reference. This manifests as randomly occurring saturating events on the LFP channels, combined with a sudden drop in gain on the AP channels. Such events are not seen when using the Tip reference.
 
