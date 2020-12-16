@@ -9,8 +9,6 @@ Neuropixels PXI
 .. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-01.png
   :alt: Annotated Neuropixels PXI editor
 
-|
-
 .. csv-table:: Streams data from a PXI-based Neuropixels data acquisition system. It can acquire data from up to 16 probes simultaneously.
    :widths: 18, 80
 
@@ -24,8 +22,6 @@ Installing and upgrading
 ###########################
 
 The Neuropixels PXI plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** to access the Plugin Installer, browse to the "Neuropix-PXI" plugin, and click the "Install" button.
-
-|
 
 The Plugin Installer also allows you to upgrade to the latest version. If you're upgrading your plugin to version 0.2.0 (release on 11/23/2020), you'll need to close and reopen the GUI following the upgrade.
 
@@ -60,8 +56,6 @@ Compatible probes
 
 This plugin can stream data from the following Neuropixels probe types:
 
-|
-
 .. csv-table::
    :widths: 50, 40, 80
 
@@ -78,19 +72,11 @@ Connecting to the PXI system
 
 Before using this plugin, make sure you've followed all of the steps in the `Neuropixels User Manual <https://docs.wixstatic.com/ugd/832f20_d2e8866f7a98448d90faf83d3df56140.pdf>`__ to set up and configure your hardware. Prior to using your Neuropixels PXI basestation, you must install the Enclustra drivers (available for `Windows 7/8 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/master/Resources/Enclustra_Win7%268.zip>`__ and `Windows 10 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/master/Resources/Enclustra_Win10.zip>`__). See section 4.2.2 of the User Manual for installation instructions.
 
-|
-
 Once your PXI system is up and running, you can drag and drop the "Neuropix-PXI" module from the Processor List onto the Editor Viewport. The GUI will automatically connect to any available basestations in your connected PXI chassis. If no PXI basestations are found, the plugin can be run in "simulation" mode.
-
-|
 
 The editor will automatically create a probe selection interface for each basestation that's available. Each basestation can communicate with up to 4 probes (for Neuropixels 1.0, NHP, and Ultra) or 8 probes (for 2.0). When the probes are initially detected, they show up as orange circles. Once they are initialized, connected probes become green. When the currently selected probe turns light green, it means that all settings have been properly loaded, and the plugin is ready to begin data acquisition. In the example at the top of this page, there are 6 probes connected, and the probe on basestation 2, port 1 is selected.
 
-|
-
 Besides the circles representing the four probes, each basestation column has a button to select a folder for writing data (if using the compressed NPX format), and a monitor to indicate buffer filling (from 0-100%).
-
-|
 
 On the right-hand side of the editor, there's an interface for updating sync settings (more information below).
 
@@ -120,26 +106,16 @@ Configuring probes
 
 To open the probe settings interface, press the "window" or "tab" button in the upper-right corner of the editor:
 
-|
-
 .. image:: ../../_static/images/plugins/neuropix-pxi/open-settings.png
   :alt: How to open the Neuropixels settings interface
   :width: 450
 
-|
-
 Each probe has its own interface for updating settings, which will be customized for each probe type. Selecting the green button corresponding to the probe's basestation and port in the plugin editor allows you to access the parameters for a particular probe:
-
-|
 
 .. image:: ../../_static/images/plugins/neuropix-pxi/ui-screenshot.png
   :alt: Overview of the Neuropixels settings interface
 
-|
-
 The interface on the left allows you to select/deselect electrodes from different banks. Use the mini probe overview visualization to scroll to the electrodes you want to activate, click or drag to select them in the zoomed visualization, and then click the "ENABLE" button. Selecting electrodes on one bank will automatically deactivate the electrodes on all other banks that are connected to the same set of channels.
-
-|
 
 In addition, for 1.0, NHP, and Ultra probes, you can change the following settings:
 
@@ -169,13 +145,9 @@ Copying settings between probes
 --------------------------------
 Settings can be transferred between probes using the "COPY", "PASTE", and "APPLY TO ALL" buttons:
 
-|
-
 .. image:: ../../_static/images/plugins/neuropix-pxi/probe-settings-buttons.png
   :alt: Probe settings buttons
   :width: 300
-
-|
 
 Settings can only be applied to probes of matching types (e.g. 1.0, NHP, Ultra, 2.0).
 
@@ -192,8 +164,6 @@ Plugin data streams
 
 The Neuropix-PXI plugin streams data from all connected probes through the GUI signal chain. To disable data transmission, a probe needs to be physically disconnected from the basestation. The plugin should be deleted and re-loaded any time a probe is connected or disconnected from the hardware.
 
-|
-
 If you're using Neuropixels 1.0, NHP, or Ultra probes, each probe will have two data streams: 
 
 * 384 channels of AP band data, sampled at 30 kHz
@@ -201,8 +171,6 @@ If you're using Neuropixels 1.0, NHP, or Ultra probes, each probe will have two 
 * 384 channels of LFP band data, sampled at 2.5 kHz. 
 
 Each data stream is represented by a separate "subprocessor" within the GUI. Even-numbered subprocessors correspond to AP band data, while odd-numbered subprocessors correspond to LFP band data.
-
-|
 
 If you're using Neuropixels 2.0 probes, each probe will have only one data stream:
 
@@ -218,7 +186,6 @@ For processing Neuropixels data, the recommended signal chain is:
 
 If you need to add plugins downstream of the LFP Viewer, it's recommended to use a :ref:`streammuxer` (stream multiplexer) plugin immediately to the right of the LFP Viewer. This will allow you to select one subprocessor at a time to send through the signal chain. All channels will still be recorded, but you'll only be processing one probe at a time with subsequent plugins.
 
-
 Synchronization
 ######################################
 
@@ -226,13 +193,9 @@ Properly configuring your synchronization signals is critical for Neuropixels re
 
 Each Neuropixels basestation contains one SMA connector for sync input. The behavior of these connectors is configured using the synchronization interface within the plugin editor:
 
-|
-
 .. image:: ../../_static/images/plugins/neuropix-pxi/sync-interface.png
   :alt: Updating sync settings
   :width: 500
-
-|
 
 * The top drop-down menu allows you to select one basestation's SMA connector to serve as the "master" sync. The signal on this line will be copied to the sync inputs of all other basestations.
 
@@ -267,8 +230,6 @@ Headstage tests
 
 If you have a headstage test module, you can run a suite of tests to ensure the headstage is functioning properly. When the Neuropix plugin is dropped into the signal chain and at least one headstage test module is connected to the PXI system, the GUI will automatically run all headstage tests and output the results in a popup window:
 
-|
-
 .. image:: ../../_static/images/plugins/neuropix-pxi/HST.png
   :alt: Headstage test board popup window
   :width: 400
@@ -283,13 +244,9 @@ The currently installed firmware version will appear in the info section of the 
 
 If you need to update your firmware, first click the "UPDATE FIRMWARE" button to open the firmware update interface:
 
-|
-
 .. image:: ../../_static/images/plugins/neuropix-pxi/firmware_update_interface.png
   :alt: Interface for updating firmware
   :width: 460
-
-|
 
 Next, select a :code:`.bin` file for the basestation connect board (:code:`QBSC*.bin`), and click "UPLOAD". The upload process can take anywhere from 10-15 minutes, so please be patient.
 

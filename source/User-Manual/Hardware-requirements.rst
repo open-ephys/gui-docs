@@ -17,8 +17,8 @@ More than 800 `Open Ephys acquisition boards <https://open-ephys.org/acq-board>`
 
 The following hardware is recommended for experiments that use the acquisition board:
 
-Computer
-########
+Computer specs
+#####################
 
 * **Operating system** - the acquisition board works equally well on macOS, Windows, and Linux (all distros).
 
@@ -49,13 +49,11 @@ These are the minimum requirements for getting up and running. You will likely n
 For Neuropixels probes
 ------------------------
 
-.. image:: ../_static/images/hardwarerequirements/neuropixels.jpg
+.. image:: ../_static/images/hardwarerequirements/neuropixels.png
   :alt: Neuropixels hardware
 
-Neuropixels can be 
-
-Computer
-#########
+Computer specs
+################
 
 * **Operating system** - Windows 7 or 10 (Linux support is coming soon)
 
@@ -67,22 +65,22 @@ Computer
 
 * **Graphics card** - the GUI doesn't rely on the GPU for processing, but GPUs are essential for offline processing. NVIDIA is likely required (for CUDA compatibility); GTX 1660 or better.
 
-* **Connections** - Motherboard should have at least one **x8**-compatible PCIe slot
+* **Connections** - Motherboard should have at least one x8-compatible PCIe slot
 
 
 Other hardware
 ###############
 
-Full details can be found on the :ref:`neuropixelspxi` plugin page:
+The following summarizes the additional hardware you'll need to buy to run Neuropixels experiments. Full details can be found on the :ref:`neuropixelspxi` plugin page.
 
-* One PXI chassis (so far we've tested National Instruments PXIe-1071 and PXIe-1082)
+* One **PXI chassis** (so far we've tested National Instruments PXIe-1071 and PXIe-1082)
 
-* One PXI remote control module, housed in the PXI chassis (we've tested National Instruments PXIe-8381 and PXIe-8398) – requires NIDAQmx driver
+* One **PXI remote control module** (we've tested National Instruments PXIe-8381 and PXIe-8398) – requires NIDAQmx driver
 
-* One PCIe interface card, housed in the computer (we've tested National Instruments PCIe-8381 and PCIe-8398)
+* One **PCIe interface card** (we've tested National Instruments PCIe-8381 and PCIe-8398)
 
-* *(optional)* One PXI-based analog and digital I/O module (see the :ref:`nidaqmx` page for a list of hardware we've tested)
+* *(optional)* One **PXI-based analog and digital I/O module** (see the :ref:`nidaqmx` page for a list of hardware we've tested)
 
-* Cables to connect the remote control module to the PCIe card (e.g., National Instruments MXI-Express Cables, Gen 3 x8)
+* **Cables** to connect the remote control module to the PCIe card (e.g., National Instruments MXI-Express Cables, Gen 3 x8)
 
 * From IMEC: Neuropixels PXIe module, cables, headstages, and probes

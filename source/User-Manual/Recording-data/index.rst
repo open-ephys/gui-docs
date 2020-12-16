@@ -79,14 +79,10 @@ Clicking on one of the continuous channel buffer monitors opens up a **channel s
 .. image:: ../../_static/images/recordingdata/EVERY_OTHER.png
   :alt: Selecting every other channel
 
-|
-
 Click and drag multi-channel selection is also available:
 
 .. image:: ../../_static/images/recordingdata/FREE_SELECT.png
   :alt: Selecting every other channel
-
-|
 
 Click anywhere outside the channel selector or use the ESC key to exit. 
 
@@ -117,21 +113,13 @@ Below each continuous channel buffer monitor is a **sync channel monitor** which
 
 The active master subprocessor will be indicated by a letter ‘M' on its sync channel monitor. This subprocessor will be used as the reference clock, to which all other subprocessors will be synchronized. 
 
-|
-
 .. image:: ../../_static/images/recordingdata/SynchronizerInterface.png
   :alt: View of the synchronizer interface
 
-|
-
 Once the synchronizer has been configured, starting data acquisition as normal will automatically start the synchronizer. Each sync channel monitor will change from gray to orange to indicate the synchronizer is running. Once a subprocessor has been synchronized with the master, the corresponding sync channel monitor will turn green. Data sources with higher sample rates will generally synchronize more quickly than those with lower sample rates.
-
-|
 
 .. image:: ../../_static/images/recordingdata/recordnode-03.png
   :alt: Another view of the synchronizer interface
-
-|
 
 Currently, the synchronizer will only generate outputs when using the Binary data format for recording. The result is a :code:`synchronized_timestamps.npy` file that contains a double (:code:`float64`) timestamp for each :code:`int64` timestamp found in the original, unsynchronized timestamps.npy file for each data source. 
 

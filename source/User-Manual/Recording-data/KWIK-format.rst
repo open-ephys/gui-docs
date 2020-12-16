@@ -9,8 +9,6 @@ KWIK format
 .. image:: ../../_static/images/recordingdata/kwik/header.png
   :alt: KWIK data file icon
 
-|
-
 .. csv-table:: This format stores data in separate HDF5 files for continuous, spikes, and events. The complete KWIK specification (created by Ken Harris' lab at UCL) can be found `here <https://github.com/klusta-team/kwiklib/wiki/Kwik-format>`__. Since it is not available by default, it must be downloaded via the GUI's Plugin Installer.
    :widths: 18, 80
 
@@ -43,13 +41,9 @@ File organization
 
 Within a Record Node directory, data for each **experiment** (stop/start acquisition) is stored across three separate HDF5 files. Individual **recordings** are stored in separate groups inside each file.
 
-|
-
 .. image:: ../../_static/images/recordingdata/kwik/organization.png
   :alt: KWIK data file structure
   :width: 300
-
-|
 
 Continuous data is stored in **.kwd** files (one per processor), event data is stored in **.kwe** files, and spike data is stored in **.kwx** files.
 
@@ -61,13 +55,9 @@ Continuous
 
 Inside the **.kwd** file for a particular processor, continuous data is grouped by recording number (0, 1, etc.):
 
-|
-
 .. image:: ../../_static/images/recordingdata/kwik/continuous.png
   :alt: KWIK data continuous format
   :width: 300
-
-|
 
 The group for each recording contains the following datasets:
 
@@ -80,13 +70,9 @@ Events
 
 Inside the **.kwe** file, event data is organized by event type (e.g., :code:`TTL`). All events of a particular type (regardless of the processor they originated from) are stored together. The **.kwe** file is an Open Ephys-specific file that was not defined in the original KWIK format specification.
 
-|
-
 .. image:: ../../_static/images/recordingdata/kwik/events.png
   :alt: KWIK data events format
   :width: 300
-
-|
 
 The top-level **events** group contains the following datasets:
 
@@ -108,13 +94,9 @@ Spikes
 
 Inside the **.kwx** file, data is organized by electrode.
 
-|
-
 .. image:: ../../_static/images/recordingdata/kwik/spikes.png
   :alt: Kwik data spikes format 
   :width: 300
-
-|
 
 Each electrode group contains the following datasets:
 

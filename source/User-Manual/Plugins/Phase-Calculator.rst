@@ -36,8 +36,6 @@ Plugin configuration
 .. image:: ../../_static/images/plugins/phasecalculator/phase_calculator_demo.png
   :alt: Phase Calculator demo
 
-|
-
 * Clicking the tab or window button opens the "event phase plot" view. This allows non-real-time plotting of the precise phase of received TTL events on a channel of interest. The data channel must be one that is selected for processing in the Phase Calculator "params" drawer, as the filtering step is shared between real-time phase estimation and event phase visualization. All plot controls can be used while acquisition is running. "Phase reference" subtracts the input (in degrees) from all phases (in both the rose plot and the statistics).
 
 .. image:: ../../_static/images/plugins/phasecalculator/phase_calculator_visualizer.png
