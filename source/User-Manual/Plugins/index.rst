@@ -115,6 +115,8 @@ Find the :code:`.dll` / :code:`.so` / :code:`.bundle` file of the plugin you wan
     Bandpass-Filter
     Channel-Map
     Common-Average-Reference
+    Crossing-Detector
+    Ephys-Socket
     Event-Broadcaster
     Event-Triggered-Average
     File-Reader
@@ -122,6 +124,7 @@ Find the :code:`.dll` / :code:`.so` / :code:`.bundle` file of the plugin you wan
     LFP-Viewer
     MATLAB-Interface
     Merger
+    Multiband-Integrator
     Network-Events
     Neuropixels-3a
     Neuropixels-PXI
@@ -134,6 +137,7 @@ Find the :code:`.dll` / :code:`.so` / :code:`.bundle` file of the plugin you wan
     Rectifier
     Rhythm-FPGA
     Serial-Port
+    Spectrum-Viewer
     Spike-Detector
     Spike-Sorter
     Spike-Viewer
