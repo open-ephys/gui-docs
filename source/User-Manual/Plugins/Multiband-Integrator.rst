@@ -50,7 +50,7 @@ The plugin editor allows the user to specify:
 
 * **Frequency Bands**: For each of 3 frequency bands, you can configure the **lower bound**, **upper bound**, and **gain**. To use fewer than three bands, set one or more of the gains to 0. Gains can also be set to negative values in order to subtract power in particular bands from the output.
 
-The plugin is typically used in conjunction with the :ref:`crossingdetector`. The screenshot below shows an example of detecting absence-like seizures, using the example data found in the `Multi-Band Integrator GitHub repository <"https://github.com/open-ephys-plugins/multi-band-integrator">`__:
+The plugin is typically used in conjunction with the :ref:`crossingdetector`. The screenshot below shows an example of detecting absence-like seizures, using the example data found in the `Multi-Band Integrator GitHub repository <https://github.com/open-ephys-plugins/multi-band-integrator>`__:
 
 .. image:: ../../_static/images/plugins/multibandintegrator/multibandintegrator-02.png
   :alt: Multi-Band Integrator in action
