@@ -24,7 +24,7 @@ Via installer (recommended)
 Via .zip file
 --------------
 
-1. Download the Windows **.zip** file from this link: https://dl.bintray.com/open-ephys-gui/Release/
+1. Download the Windows **.zip** file from this link: https://openephysgui.jfrog.io/artifactory/Release/windows/
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 
@@ -54,7 +54,7 @@ Via installer (Ubuntu only)
 Via .zip file (all distros)
 ----------------------------
 
-1. Download the Linux **.zip** file from this link: https://dl.bintray.com/open-ephys-gui/Release/
+1. Download the Linux **.zip** file from this link: https://openephysgui.jfrog.io/artifactory/Release/linux/
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 
@@ -86,7 +86,7 @@ Via DMG (recommended)
 Via .zip file
 --------------
 
-1. Download the Mac **.zip** file from this link: https://dl.bintray.com/open-ephys-gui/Release/
+1. Download the Mac **.zip** file from this link: https://openephysgui.jfrog.io/artifactory/Release/mac/
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 

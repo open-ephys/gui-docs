@@ -36,8 +36,6 @@ There are four example files included in the GUI repository that can be used wit
 
 * :code:`chirps_16_channels_At40kHz` - 16 channels of frequency sweeps at 40 kHz
 
-.. note:: These example files can also be downloaded via `this link <https://dl.bintray.com/open-ephys-gui/SampleData/DataFiles.zip>`__.
-
 
 
 

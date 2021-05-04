@@ -35,7 +35,7 @@ Code organization
 
 The top-level directory of the `plugin-GUI repository <https://github.com/open-ephys/plugin-GUI>`__ contains the following folders:
 
-* **.github** - GitHub Actions scripts for building the GUI on Linux, macOS, and Windows. Whenever the code is updated in the **testing** or **master** branches, these scripts will automatically regenerate the GUI's binaries and upload them to `Bintray <https://dl.bintray.com/open-ephys-gui/>`__.
+* **.github** - GitHub Actions scripts for building the GUI on Linux, macOS, and Windows. Whenever the code is updated in the **testing** or **master** branches, these scripts will automatically regenerate the GUI's binaries and upload them to `Artifactory <https://openephysgui.jfrog.io/ui/packages>`__.
 
 * **Build** - empty directory where platform-specific build files will be located. Any files that end up in this directory will not be included in your git commits.
 
