@@ -8,9 +8,8 @@ Tutorials
 .. note:: Tutorials are coming soon.
 
 .. toctree::
-    :hidden:
     :maxdepth: 5
     :titlesonly:
 
-    Tutorial-1
+    Closed-Loop-Latency
     Tutorial-2
