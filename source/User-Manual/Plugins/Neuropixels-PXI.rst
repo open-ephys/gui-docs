@@ -28,7 +28,11 @@ The Plugin Installer also allows you to upgrade to the latest version. If you're
 Hardware requirements
 ######################
 
-* One desktop computer with an **Intel processor** (the Enclustra driver is not compatible with AMD processors)
+* One desktop computer (an **Intel processor** is recommended for optimal compatibility with the Enclustra driver, but many users have machines with AMD processors that work without issues)
+
+  * The Allen Institute has tested and recommends the **ASUS ROG Strix Z390-E** Intel motherboard
+
+  * The International Brain Laboratory uses the **MSI X470 GAMING PLUS** AMD motherboard
 
 * One PXI chassis (so far we've tested National Instruments PXIe-1071 and PXIe-1082)
 
@@ -48,7 +52,7 @@ Hardware requirements
 
 * One or more Neuropixels probes (available from IMEC)
 
-.. warning:: In order to work properly, your PCIe card *must* be connected to an **x8**-compatible PCIe slot. Some motherboards only have x16 slots, which will not be able to communicate with the PXI hardware. If you are unsure whether your computer has the appropriate PCIe slots, please get in touch.
+.. warning:: Some users have reported not being able detect the PXIe remote control module, despite it being properly connected to the motherboard. In general, any physical x16 PCIe slot should be fine, but there are motherboards that contain x16 slots that are actually wired as x4, which won't work. There are also motherboards that have not been able to communicate with the PXI hardware for unknown reasons. If you are unsure whether your machine has the appropriate PCIe slots, please get in touch.
 
 
 Compatible probes
