@@ -57,7 +57,7 @@ Computer specs
 
 * **Operating system** - Windows 7 or 10 (Linux support is coming soon)
 
-* **Processor** - minimum of 6 cores, 3.5 GHz; must be an **Intel** processor.
+* **Processor** - minimum of 6 cores, 3.5 GHz; an **Intel** processor is recommended for optimum driver compatibility, but many users have AMD processors that work without issues.
 
 * **Memory** - at least 2 GB per simultaneously recorded probe; 16 GB is recommended.
 
@@ -65,7 +65,7 @@ Computer specs
 
 * **Graphics card** - the GUI doesn't rely on the GPU for processing, but GPUs are essential for offline analysis. An NVIDIA GPU is likely required (for CUDA compatibility); we recommend buying a GTX 1660 or better.
 
-* **Connections** - the motherboard should have at least one x8-compatible PCIe slot.
+* **Connections** - the motherboard should have at least one x8- or x16-compatible PCIe slot.
 
 
 Other hardware
