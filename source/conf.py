@@ -21,7 +21,7 @@ from datetime import datetime, timezone
 
 # -- Project information -----------------------------------------------------
 
-project = "Open Ephys Documentation"
+project = "Open Ephys GUI Docs"
 copyright = "2010-{}, Open Ephys & Contributors".format(datetime.now(timezone.utc).year)
 author = "Open Ephys & Contributors"
 
@@ -79,7 +79,7 @@ todo_include_todos = True
 html_theme = "pydata_sphinx_theme"
 html_logo = "_static/images/oe_logo_circle.svg"
 html_scaled_image_link = True
-
+html_title = project
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -124,7 +124,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (main_doc, "oe-docs.tex", "Open Ephys Documentation", "Open Ephys", "manual"),
+    (main_doc, "oe-docs.tex", "Open Ephys GUI Docs", "Open Ephys", "manual"),
 ]
 
 
@@ -132,7 +132,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(main_doc, "oe-docs", "Open Ephys Documentation", [author], 1)]
+man_pages = [(main_doc, "oe-docs", "Open Ephys GUI Docs", [author], 1)]
 
 
 # -- Options for Texinfo output ----------------------------------------------
@@ -143,10 +143,10 @@ man_pages = [(main_doc, "oe-docs", "Open Ephys Documentation", [author], 1)]
 texinfo_documents = [
     (
         main_doc,
-        "Open Ephys Documentation",
-        "Open Ephys Documentation",
+        "Open Ephys GUI Docs",
+        "Open Ephys GUI Docs",
         author,
-        "Open Ephys Documentation",
+        "Open Ephys GUI Docs",
         "Description",
         "Miscellaneous",
     ),
