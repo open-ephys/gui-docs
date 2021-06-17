@@ -62,6 +62,6 @@ If you want to contribute in a more substantial way, you could add funding for a
 
 **Can I license the Open Ephys GUI for a commercial project?**
 
-The GUI is released under a `GPL 3.0 license <https://github.com/open-ephys/plugin-GUI/blob/master/LICENSE>`__, which means that any derivative software much also be open source. However, if you'd like to use the GUI to acquire data from a closed-source device, this is both easy and encouraged! We would love for more companies to use the GUI, rather than choosing to build their own acquisition software from scratch. 
+The GUI is released under a `GPL 3.0 license <https://github.com/open-ephys/plugin-GUI/blob/master/LICENSE>`__, which means that any derivative software must also be open source. However, if you'd like to use the GUI to acquire data from a closed-source device, this is both easy and encouraged! We would love for more companies to use the GUI, rather than choosing to build their own acquisition software from scratch. 
 
 |
