@@ -12,4 +12,4 @@ Tutorials
     :titlesonly:
 
     Closed-Loop-Latency
-    Tutorial-2
+    Data-Synchronization
