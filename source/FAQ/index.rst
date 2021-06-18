@@ -10,7 +10,7 @@ FAQs
 
 In many cases, answers to common inquiries can be found by searching through our `forum <https://groups.google.com/g/open-ephys>`__ or `GitHub Issues page <https://github.com/open-ephys/plugin-GUI/issues>`__. If you can't find what you're looking for, we encourage you to post a question yourself.
 
-If you'd prefer to reach us by email, simply write to :code:`support@open-ephys.org` and we'll be happy to help. Support efforts are funded by sales from the `Open Ephys store <https://open-ephys.org/store>`__, as well as a `BRAIN Initiative U24 award <https://reporter.nih.gov/project-details/9645567>`__ to the Allen Institute.
+If you'd prefer to get assistance by email, simply write to :code:`support@open-ephys.org`. Support efforts are funded by sales from the `Open Ephys store <https://open-ephys.org/store>`__, as well as a `BRAIN Initiative U24 award <https://reporter.nih.gov/project-details/9645567>`__ to the Allen Institute.
 
 |
 
@@ -52,7 +52,7 @@ If you're interested in performing human EEG experiments, we recommend checking 
 
 **I love using open-source tools, but I'm not a developer myself. How can I contribute?**
 
-First and foremost, simply using the GUI is extremely helpful. Feedback about bugs and feature requests helps guide our development process and makes the software better for everyone. If you subscribe to our `forum <https://groups.google.com/g/open-ephys>`__, we'll send out requests to help test out new features prior to each release.
+First and foremost, simply using the GUI is extremely helpful. Feedback about bugs and feature requests helps guide our development process and makes the software better for everyone. If you subscribe to our `forum <https://groups.google.com/g/open-ephys>`__, you'll receive requests to help test out new features prior to each release.
 
 If you know someone with software engineering skills, you can advocate for them to be able to spend a portion of their time working on the GUI. We are more than happy to suggest projects and supervise developers along the way.
 
