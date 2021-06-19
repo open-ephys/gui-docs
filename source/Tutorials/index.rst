@@ -12,4 +12,5 @@ Tutorials
     :titlesonly:
 
     Closed-Loop-Latency
+    Data-Synchronization
     How-To-Make-Your-Own-Plugin
