@@ -5,18 +5,20 @@
 Synchronizing Data Streams
 ===========================
 
-The OpenEphys GUI is able to acquire, process and save data from multiple asynchronous data streams simultaneously. However, even if two asynchronous data streams have identical sample rates, they are neither guaranteed to start acquisition simultaneously nor acquire at the advertised sample rate exactly. The GUI is configurable to synchronize data from separate streams as data is written to disk. 
+The Open Ephys GUI is able to acquire, process, and save data from multiple asynchronous data streams simultaneously. Howver, even if two data streams have identical sample rates, they are neither guaranteed to start acquisition simultaneously nor acquire data at exactly the advertised sample rate. Therefore, some synchronization procedure is required. 
 
-This tutorial uses Neuropixels probes and a National Instruments Data Acquisition (NIDAQ) device to demonstrate how to synchronize data streams.
+Synchronization is typically performed offline, using the timing events on a "sync line" that is shared between each data acquisition device. But the GUI can also be configured to synchronize data from separate streams in real time, as it is being written to disk. This tutorial uses the example of Neuropixels probes and a National Instruments Data Acquisition (NIDAQ) device to demonstrate how to synchronize data streams online.
  
 Hardware Configuration
 ######################
 
-Synchronization works by sharing a common digital reference signal between two asynchronous source data streams. The hardware sources must be configurable one of two ways to achieve this: 
+Whether synchronization is being performed online or offline, all data streams must share a common hardware sync line. Synchronization in software is accurate to within a few millisecond, but is not precise enough for synchronizing electophysiogical signals acquired at tens of kHz. 
 
-* one data source generates a physical digital output that feeds into a digital input of the other source
+The hardware sources must be configurable one of two ways to achieve this: 
 
-* a completely separate digital source splits its digital output into both source streams
+* One data source (or an external source) generates a physical digital output that feeds into a digital input of the other source
+
+* A completely separate digital source (such as an Arduino) splits its digital output into both source streams
 
 .. image:: ../_static/images/tutorials/synchronization/sync_config.png
   :align: center
@@ -28,6 +30,9 @@ In the first case, the Neuropixels’ basestation can be configured to output it
 
 #. Connect the other end of the SMA cable to a digital input channel of the NIDAQ device*. 
 
+TODO: Hardware connection diagram
+---------------------------------
+
 In the second case, the Neuropixels’ basestation can be configured as an input accepting the digital output of an Arduino, for example:
 
 #. Connect one end of an SMA cable to the SMA connector at the bottom of the Neuropixels basestation.
@@ -38,6 +43,9 @@ In the second case, the Neuropixels’ basestation can be configured as an input
 
 .. note:: * You will likely need an adapter to match the digital terminals.
 
+TODO: Hardware connection diagram
+---------------------------------
+
 Software Configuration
 ######################
 
@@ -47,7 +55,7 @@ Online synchronization only occurs within a RecordNode as data is written to dis
 
 #. Insert a Neuropixels-PXI source processor into the signal chain.
 
-#. If using the Neuropixels-PXI as the digital reference  generating source, change the default selection on the sync control pull-down menu from :code:`INPUT` to :code:`OUTPUT`. Select the desired clock rate (default is 1Hz).
+#. If using the Neuropixels-PXI as the digital reference  generating source, change the default selection on the sync control pull-down menu from :code:`INPUT` to :code:`OUTPUT`. Select the desired clock rate (default is 1 Hz).
 
 #. Insert a NIDAQ source processor into the signal chain.
 
@@ -67,6 +75,9 @@ Online synchronization only occurs within a RecordNode as data is written to dis
 
 #. Ensure Record Events is enabled in the RecordNode.
 
+TODO: Software screenshot
+---------------------------------
+
 Monitoring and Recording
 ########################
 
@@ -74,7 +85,7 @@ At this point, the GUI is configured to write synchronized data to disk. In orde
 
 #. Start data acquisition by pressing the Play button in the Control Panel. The sync monitors turn orange once acquisition starts and then green as each stream becomes synchronized.
 
-#. Wait until all the orange sync monitors turn green. This generally happens instantaneously, however, it may take a few seconds to stabilize.
+#. Wait until all the orange sync monitors turn green. This generally happens instantaneously, however, in some cases it may take a few seconds to stabilize.
 
 #. Start recording by pressing the Record button in the Control Panel. Data streams with green sync control monitors will be written to disk with synchronized timestamps.
 
@@ -92,13 +103,13 @@ For spike data, the values in :code:`spike_times.npy` represent the sample index
 Offline Synchronization
 #######################
 
-Offline synchronization can be performed as long as the same digital reference signal is shared between streams during a recording.
+Offline synchronization can be performed as long as the same sync line event is shared between streams during a recording.
 
 Neuropixels sample at roughly 30 kHz, but the actual sample rate can be slightly higher or lower.
 
 If recording from multiple probes, or synchronizing data with another acquisition system, you’ll need to compute a timestamp scaling factor based on events that are shared across all data sources. Otherwise, the clocks will drift by ~10s of ms per hour.
 
-To perform the alignment, you’ll need to identify the first and last shared reference signal in the recording.
+To perform the alignment, you’ll need to identify the first and last shared sync line event in the recording.
 
 The temporal offset between the start of the first sync pulses defines the shift between any device and the master clock. Once this is known, you can calculate the expected interval between the first and last sync pulse (given the expected sample rate of a device).
 
@@ -113,4 +124,4 @@ More information regarding offline analysis can be found `here <https://github.c
 Questions ? 
 ###########
 
-If anything is still unclear after reading this tutorial, please reach out to support@open-ephys.org, we will respond directly and update the tutorial as needed. 
+If anything is still unclear after reading this tutorial, please reach out to :code:`support@open-ephys.org`, we will respond directly and update the tutorial as needed. 

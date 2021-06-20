@@ -1,6 +1,6 @@
 .. _openephyspluginAPI:
 
-.. default-domain: cpp
+.. default-domain:: cpp
 
 Open Ephys Plugin API
 =====================
@@ -73,7 +73,7 @@ When data acquisition is active, the GUI will start calling each plugin's :code:
     :return: The number of samples available in the current buffer for that channel.
     :example: See the `FilterNode::process() <https://github.com/open-ephys/plugin-GUI/blob/master/Plugins/FilterNode/FilterNode.cpp>`__ method.
 
-.. function:: float* buffer.getReadPointer(int channel_index)
+.. function:: float getReadPointer(int channel_index)
 
     Returns a pointer to the data for one channel; only use this if the plugin will not overwrite the continuous data buffer.
 
@@ -81,7 +81,7 @@ When data acquisition is active, the GUI will start calling each plugin's :code:
     :return: A pointer to the continuous data.
     :example: See the `PhaseDetector::process() <https://github.com/open-ephys/plugin-GUI/blob/master/Plugins/PhaseDetector/PhaseDetector.cpp>`__ method.
 
-.. function:: float* buffer.getWritePointer(int channel_index)
+.. function:: float getWritePointer(int channel_index)
 
     Returns a pointer to the data for one channel; only use this if the plugin will overwrite the continuous data buffer.
 
@@ -114,7 +114,7 @@ Implement the following method to respond to events:
 
 To add an event, call the following method:
 
-.. function:: void handleEvent(const EventChannel* eventInfo, const MidiMessage& event, int samplePosition = 0)
+.. function:: void addEvent(const EventChannel* eventInfo, const MidiMessage& event, int samplePosition = 0)
 
     Indicates that this plugin needs access to the events within the current buffer.
 
@@ -126,7 +126,7 @@ Spike data
 
 Assuming `checkForEvents(true)` has already been called, implement the following method to respond to spikes:
 
-.. function:: void handleEvent(const EventChannel* eventInfo, const MidiMessage& event, int samplePosition = 0)
+.. function:: void handleSpike(const EventChannel* eventInfo, const MidiMessage& event, int samplePosition = 0)
 
    Indicates that this plugin needs access to the events within the current buffer.
 
@@ -135,7 +135,7 @@ Assuming `checkForEvents(true)` has already been called, implement the following
 
 To add a spike to the data buffer, call the following method:
 
-.. function:: void handleEvent(const EventChannel* eventInfo, const MidiMessage& event, int samplePosition = 0)
+.. function:: void addSpike(const EventChannel* eventInfo, const MidiMessage& event, int samplePosition = 0)
 
       Indicates that this plugin needs access to the events within the current buffer.
 

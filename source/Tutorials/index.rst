@@ -5,8 +5,6 @@
 Tutorials
 =================================================
 
-.. note:: Tutorials are coming soon.
-
 .. toctree::
     :maxdepth: 5
     :titlesonly:
