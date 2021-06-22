@@ -148,7 +148,7 @@ To add a spike inside the :code:`process()` loop, call the following method:
    Indicates that this plugin needs access to the events within the current buffer.
 
    :param spikeChannel: Pointer to the SpikeChannel object containing information about the channel that generated this spike.
-   :param event: SpikeEvent object that holds the spike data.
+   :param spike: SpikeEvent object that holds the spike data.
    :param samplePosition: The sample within the current continuous buffer at which the spike occurred.
    :example: See the `SpikeSorter::process() <https://github.com/open-ephys/plugin-GUI/blob/ebf64f5fc89dee3cb452eb92f9fb63e04d8a68d0/Plugins/SpikeSorter/SpikeSorter.cpp#L988-L990>`__ method.
 
