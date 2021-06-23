@@ -5,14 +5,14 @@
 Synchronizing Data Streams
 ===========================
 
-The Open Ephys GUI is able to acquire, process, and save data from multiple asynchronous data streams simultaneously. Howver, even if two data streams have identical sample rates, they are neither guaranteed to start acquisition simultaneously nor acquire data at exactly the advertised sample rate. Therefore, some synchronization procedure is required. 
+The Open Ephys GUI is able to acquire, process, and save data from multiple asynchronous data streams simultaneously. However, even if two data streams have identical sample rates, they are neither guaranteed to start acquisition simultaneously nor acquire data at exactly the advertised sample rate. Therefore, some synchronization procedure is required. 
 
 Synchronization is typically performed offline, using the timing events on a "sync line" that is shared between each data acquisition device. But the GUI can also be configured to synchronize data from separate streams in real time, as it is being written to disk. This tutorial uses the example of Neuropixels probes and a National Instruments Data Acquisition (NIDAQ) device to demonstrate how to synchronize data streams online.
  
 Hardware Configuration
 ######################
 
-Whether synchronization is being performed online or offline, all data streams must share a common hardware sync line. Synchronization in software is accurate to within a few millisecond, but is not precise enough for synchronizing electophysiogical signals acquired at tens of kHz. 
+Whether synchronization is being performed online or offline, all data streams must share a common hardware sync line. Synchronization in software is accurate to within a few milliseconds, but is not precise enough for synchronizing electophysiogical signals acquired at tens of kHz. 
 
 The hardware sources must be configurable one of two ways to achieve this: 
 
@@ -30,8 +30,9 @@ In the first case, the Neuropixels’ basestation can be configured to output it
 
 #. Connect the other end of the SMA cable to a digital input channel of the NIDAQ device*. 
 
-TODO: Hardware connection diagram
----------------------------------
+.. image:: ../_static/images/tutorials/synchronization/config_1.png
+  :align: center
+  :alt: NPX + NIDAQ 
 
 In the second case, the Neuropixels’ basestation can be configured as an input accepting the digital output of an Arduino, for example:
 
@@ -41,10 +42,11 @@ In the second case, the Neuropixels’ basestation can be configured as an input
 
 #. Connect the same digital output of the Arduino into a digital input channel of the NIDAQ device*.
 
-.. note:: * You will likely need an adapter to match the digital terminals.
+.. image:: ../_static/images/tutorials/synchronization/config_2.png
+  :align: center
+  :alt: NPX + NIDAQ + Arduino
 
-TODO: Hardware connection diagram
----------------------------------
+.. note:: * You will likely need an adapter to match the digital terminals.
 
 Software Configuration
 ######################
@@ -75,8 +77,9 @@ Online synchronization only occurs within a RecordNode as data is written to dis
 
 #. Ensure Record Events is enabled in the RecordNode.
 
-TODO: Software screenshot
----------------------------------
+.. image:: ../_static/images/tutorials/synchronization/SynchronizerInterface.png
+  :align: center
+  :alt: Record Node Syncing
 
 Monitoring and Recording
 ########################
@@ -89,6 +92,10 @@ At this point, the GUI is configured to write synchronized data to disk. In orde
 
 #. Start recording by pressing the Record button in the Control Panel. Data streams with green sync control monitors will be written to disk with synchronized timestamps.
 
+.. image:: ../_static/images/tutorials/synchronization/recordnode-03.png
+  :align: center
+  :alt: Record Node Syncing
+
 Loading and Processing
 ######################
 
@@ -98,7 +105,7 @@ The :code:`synchronized_timestamps.npy` file contains one float timestamp (in se
 
 Events detected in a synchronized stream will only save their timestamps as sample numbers since acquisition started. For example, an event that occurred at sample number :code:`405012` will correspond to the continuous sample that occurred at timestamp :code:`405012`, which can then be mapped back to the common time base timestamp in the :code:`synchronized_timestamps.npy` file. 
 
-For spike data, the values in :code:`spike_times.npy` represent the sample index at which the spike occurred, relative to the beginning of the :code:`continuous.dat` file. To get the actual timestamp at which the spike occurred, you must add the first timestamp from timestamps.npy in the corresponding continuous data stream the spike was detected in. Again, that timestamp can be mapped back to the common time base timestamp in the :code:`synchronized_timestamps.npy` file.  
+For spike data, the values in :code:`spike_times.npy` represent the sample index at which the spike occurred, relative to the beginning of the :code:`continuous.dat` file. To get the actual timestamp at which the spike occurred, you must add the first timestamp from :code:`timestamps.npy` in the corresponding continuous data stream the spike was detected in. Again, that timestamp can be mapped back to the common time base timestamp in the :code:`synchronized_timestamps.npy` file.  
 
 Offline Synchronization
 #######################
