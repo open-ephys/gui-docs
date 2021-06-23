@@ -154,35 +154,38 @@ Then we will make sure the appropriate variables get re-set at the start of acqu
 
 Now, we are ready to add events in our process function:
 
-void TTLEventGenerator::process(AudioSampleBuffer* buffer)
-{
 
-   int totalSamples = getNumSamples(0);
+.. code-block:: c++
 
-   for (int i = 0; i < totalSamples; i++)
+   void TTLEventGenerator::process(AudioSampleBuffer* buffer)
    {
-      counter++;
 
-      if (counter == sampleRate)
+      int totalSamples = getNumSamples(0);
+
+      for (int i = 0; i < totalSamples; i++)
       {
+         counter++;
 
-         state = !state;
+         if (counter == sampleRate)
+         {
 
-         uint8 ttlData = state << myChannel;
+            state = !state;
 
-         TTLEventPtr event = TTLEvent::createTTLEvent(eventChannel, 
-                                                      getTimestamp(0) + i, 
-                                                      &ttlData, 
-                                                      sizeof(uint8), 
-                                                      0);
+            uint8 ttlData = state << myChannel;
 
-         addEvent(eventChannel, event, i);
+            TTLEventPtr event = TTLEvent::createTTLEvent(eventChannel, 
+                                                         getTimestamp(0) + i, 
+                                                         &ttlData, 
+                                                         sizeof(uint8), 
+                                                         0);
 
-         counter = 0;
+            addEvent(eventChannel, event, i);
 
+            counter = 0;
+
+         }
       }
    }
-}
 
 After recompiling the plugin, try dropping it into the signal chain after a :ref:`filereader`. Add an :ref:`lfpviewer` to the right of the plugin, and start acquisition. You should see the state of event channel 1 flipping once per second.
 
