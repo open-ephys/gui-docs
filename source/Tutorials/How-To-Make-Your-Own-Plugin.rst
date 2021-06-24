@@ -444,7 +444,7 @@ Now, we can define how these variables are updated inside the :code:`setParamete
    }
 
 
-Next, we'll edit the :code:`buttonEvent`, :code:`sliderEvent`, and :code:`comboBoxChanged` classes to calls to :code:`setParameter()`:
+Next, we'll edit the :code:`buttonEvent`, :code:`sliderEvent`, and :code:`comboBoxChanged` classes to call to :code:`setParameter()`:
 
 .. code-block:: c++
 
