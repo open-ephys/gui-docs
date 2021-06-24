@@ -370,7 +370,7 @@ Then, initialize the ComboBox, add output channels to the list, set bounds, add 
 
 .. code-block:: c++
 
-outputBitSelector = new ComboBox();
+   outputBitSelector = new ComboBox();
 
 	for (int bit = 1; bit <= 8; bit++)
       outputBitSelector->addItem(String(bit), bit);
@@ -422,7 +422,7 @@ Next, let's initialize their values in the constructor method.
    outputBit = 0; // the GUI uses 0-based indexing internally, even though the 
                   // user-facing labels use 1-based indexing
 
-.. critical:: Always be sure to initialize all member variables, in order to avoid unexpected behavior.
+.. important:: Always be sure to initialize all member variables, in order to avoid unexpected behavior.
 
 Now, we can define how these variables are updated inside the :code:`setParameter()` method:
 
@@ -457,6 +457,7 @@ Next, we'll edit the :code:`buttonEvent`, :code:`sliderEvent`, and :code:`comboB
    }
 
 .. code-block:: c++
+
    void TTLEventGeneratorEditor::sliderEvent(Slider* slider)
    {
       if(slider == eventFrequency)
