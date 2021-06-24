@@ -93,9 +93,9 @@ At this point, the GUI is configured to write synchronized data to disk. In orde
 
 #. Start recording by pressing the Record button in the Control Panel. Data streams with green sync control monitors will be written to disk with synchronized timestamps.
 
-.. image:: ../_static/images/tutorials/synchronization/recordnode-03.png
+.. image:: ../_static/images/tutorials/synchronization/synchronized.png
   :align: center
-  :alt: Record Node Syncing
+  :alt: Record Node Synchronized
 
 Loading and Processing
 ######################
