@@ -47,7 +47,7 @@ On your local machine, create an "OEPlugins" directory within the same directory
             README.md
 
 
-Removing unncessary files
+Removing unnecessary files
 #################################
 
 Since :code:`TTL Events` is going to be a "Filter" processor, remove all the files from the :file:`Source` directory except :file:`OpenEphysLib.cpp`, :file:`ProcessorPlugin.cpp`, and :file:`ProcessorPlugin.h` files.
@@ -81,10 +81,10 @@ To specify that this is a processor plugin, uncomment and edit the following lin
 Compiling your plugin
 ########################
 
-At this point, you should be able to compile your plugin and load it into the GUI.
+At this point, you should be able to compile your plugin and load it into the GUI. We advise you to compile the plugin every time you make changes, so that it is easier for you to identify what changes broke the code, if it happens.
 
-TODO: Add compilation instructions
------------------------------------
+To compile the plugin, please follow the os-specific instructions as mentioned on the :ref:`compiling plugins <compilingplugins>` page.
+
 
 Implementing the :code:`process()` method
 ##########################################
@@ -99,9 +99,11 @@ Before we can add events during acquisition, we need to announce to downstream p
 
    void createEventChannels() override;
 
-   void startAcquisition() override;
+   bool enable() override;
 
    EventChannel* eventChannel; // pointer to our event channel
+
+   int outputChannel;  // channel to overlay events
 
    int sampleRate; // holds the sample rate for incoming data
 
@@ -146,10 +148,12 @@ Then we will make sure the appropriate variables get re-set at the start of acqu
 
 .. code-block:: c++
 
-   void TTLGenerator::startAcquisition()
+   bool TTLGenerator::enable()
    {
       counter = 0;
       state = false;
+
+      return isEnabled;
    }
 
 Now, we are ready to add events in our process function:
@@ -171,7 +175,7 @@ Now, we are ready to add events in our process function:
 
             state = !state;
 
-            uint8 ttlData = state << myChannel;
+            uint8 ttlData = state << outputChannel;
 
             TTLEventPtr event = TTLEvent::createTTLEvent(eventChannel, 
                                                          getTimestamp(0) + i, 
@@ -241,30 +245,158 @@ After that, open :code:`TTLEventGeneratorEditor.h` and add the following lines o
 
    void TTLEventGeneratorEditor::updateSettings(){}
 
+|
+| Then, we need to let the GUI know that the plugin has a custom editor that needs to be created during runtime. To do that, uncomment the following lines of code in the :code:`TTLEventGenerator.h` file...
+
+.. code-block:: c++
+
+   bool hasEditor() const {return true;}
+
+   AudioProcessorEditor* createEditor() override;
+
+
+...and add the following lines of code to the :code:`TTLEventGenerator.h` file
+
+.. code-block:: c++
+
+   AudioProcessorEditor* TTLEventGenerator::createEditor()
+   {
+      editor = new TTLEventGeneratorEditor(this, true);
+      return editor;
+   }
 
 Now, when you re-compile your plugin and load it into the GUI, it will use this custom editor class. The editor should appear slightly wider than the default, because of the :code:`setDesiredWidth()` command we added.
 
 Adding UI components to the editor
 ####################################
 
-TODO
+Now that our plugin is able to generate events in the process() method and has its own editor, lets add some UI components to the editor that allows the user to change various parameters of the plugin.
 
 Create a button
 ----------------
 
-TODO - manually trigger an event
+To allow triggering events manually, let's add the button to the editor that the user can click on to generate an event. First of all, add the following class member to the editor's header file:
+
+.. code-block:: c++
+   
+   private:
+      ScopedPointer<UtilityButton> manualTrigger;
+
+Then, we'll initialize the button, add a button listener, set the bounds, and make it visible in the editor by adding the following lines of code to the :code:`TTLEventGeneratorEditor()` constructor:
+
+.. code-block:: c++
+
+   manualTrigger = new UtilityButton("Trigger", Font("Default", 20, Font::plain)); // button text, font to use
+   manualTrigger->addListener(this); // add listener to the button
+   manualTrigger->setBounds(10,35,75,25); // (x, y, width, height)
+   addAndMakeVisible(manualTrigger);  // add the button to the editor and make it visible
+
+We also need to handle button clicks by implementing the :code:`buttonEvent` method as below. For now, keep it empty, we'll come back to it later. Compile and load the plugin into the GUI to see the newly added button.
+
+.. code-block:: c++
+
+   void TTLEventGeneratorEditor::buttonEvent(Button* button)
+   {
+      if(button == manualTrigger)
+      {
+         // Do something
+      }
+   }
+
+.. image:: ../_static/images/tutorials/makeyourownplugin/button.png
+  :alt: Create a button
 
 Create a slider
 ----------------
 
-TODO - specify event frequency (0, 5 ms - 5 s)
-(50% duty cycle)
+To automatically generate events at certain intervals/frequency, lets add a slider with a range of event frequency between 5ms to 5000ms. Add the following function declaration and class member to the editor's header file:
+
+.. code-block:: c++
+
+   public:
+      void sliderEvent(Slider* slider) override; // handle slider change events
+
+   private:
+      ScopedPointer<Slider> eventFrequency;
+	   ScopedPointer<Label> frequencyLabel;
+
+Then, we'll initialize the slider, set range, set bounds, add a listener, add a label and make the slider and label visible by adding the following lines of code to the :code:`TTLEventGeneratorEditor()` constructor:
+
+.. code-block:: c++
+
+   eventFrequency = new Slider();
+	eventFrequency->setRange (5, 5000, 5);  // range between 5ms to 5000ms with 5ms intervals
+	eventFrequency->setTextValueSuffix (" ms");
+	eventFrequency->addListener (this);
+	eventFrequency->setBounds(25, 85, 200, 25);
+	addAndMakeVisible (eventFrequency);
+
+	frequencyLabel = new Label("FrequencyLabel", "Frequency");
+	frequencyLabel->attachToComponent(eventFrequency, false);
+	addAndMakeVisible(frequencyLabel);
+
+We also need to handle slider value changes by implementing the :code:`sliderEvent` method. For now, keep it empty, we'll come back to it later. Compile and load the plugin into the GUI to see the newly added slider.
+
+.. code-block:: c++
+
+   void TTLEventGeneratorEditor::sliderEvent(Slider* slider)
+   {
+      if(slider == eventFrequency)
+      {
+         // Do something
+      }
+   }
+
+.. image:: ../_static/images/tutorials/makeyourownplugin/slider.png
+  :alt: Create a slider
 
 Create a combobox
 ------------------
 
-TODO - select the output channel
+To select which channel to generate and show events in, a combobox needs to be created. This will allow the user to select an output channel from a drop-down menu. First, add :code:`ComboBox::Listener` as a base class to :code:`TTLEventGeneratorEditor` as that is not added by GenericEditor unlike button and slider listener classes. Then, add the following function declaration and class members to the editor's header file:
 
+.. code-block:: c++
+   
+   public:
+      void comboBoxChanged(ComboBox* comboBox) override;
+
+   private:
+      ScopedPointer<ComboBox> outputChannel;
+	   ScopedPointer<Label> outputLabel;
+
+Then, initialize the combobox, add output channels to the list, set bounds, add listener, add label and make it visible by adding the following lines of code to the :code:`TTLEventGeneratorEditor()` constructor:
+
+.. code-block:: c++
+
+   outputChannel = new ComboBox();
+
+	for (int chan = 1; chan <= 8; chan++)
+        outputChannel->addItem(String(chan), chan);
+
+    outputChannel->setSelectedId(1);
+    outputChannel->setBounds(50,35,50,25);
+    outputChannel->setTooltip("Output event channel");
+    outputChannel->addListener(this);
+    addAndMakeVisible(outputChannel);
+
+	outputLabel = new Label("Channel Label", "OUT");
+	outputLabel->attachToComponent(outputChannel, true);
+   addAndMakeVisible(outputLabel);
+
+Just like the button and slider, We also need to handle slider value changes by implementing the :code:`comboBoxChanged` method. For now, keep it empty, we'll come back to it later. Compile and load the plugin into the GUI to see the newly added combobox.
+
+.. code-block:: c++
+
+   void TTLEventGeneratorEditor::comboBoxChanged(ComboBox* comboBox)
+   {
+      if(comboBox == outputChannel)
+      {
+         // Do something
+      }
+   }
+
+.. image:: ../_static/images/tutorials/makeyourownplugin/combobox.png
+  :alt: Create a combobox
 
 Connecting these to parameters in the process method
 #####################################################
