@@ -418,6 +418,9 @@ First, let's uncomment the :code:`setParameter()` method and then add three vari
 
    private:
       bool shouldTriggerEvent;
+      bool eventWasTriggered;
+      int triggeredEventCounter;
+
       float eventIntervalMs;
       int outputBit;
    
@@ -426,6 +429,9 @@ Next, let's initialize their values in the :code:`TTLEventGenerator()` construct
 .. code-block:: c++
 
    shouldTriggerEvent = false;
+   eventWasTriggered = false;
+   triggeredEventCounter = 0;
+
    eventIntervalMs = 50.0f;
    outputBit = 0; // the GUI uses 0-based indexing internally, even though the 
                   // user-facing labels use 1-based indexing
@@ -498,10 +504,12 @@ Finally, we need to update our process method to make use of these parameters:
 
       if (shouldTriggerEvent)
       {
+
+         // add an event at the first sample.
          uint8 ttlData = true << outputBit;
 
          TTLEventPtr event = TTLEvent::createTTLEvent(eventChannel, 
-                                                         getTimestamp(0) + i, 
+                                                         getTimestamp(0), 
                                                          &ttlData, 
                                                          sizeof(uint8), 
                                                          0);
@@ -509,11 +517,31 @@ Finally, we need to update our process method to make use of these parameters:
          addEvent(eventChannel, event, i);
 
          shouldTriggerEvent = false;
+         eventWasTriggered = true;
+         triggeredEventCounter = 0;
       }
 
       for (int i = 0; i < totalSamples; i++)
       {
          counter++;
+
+         if (eventWasTriggered)
+            triggeredEventCounter++;
+
+         if (triggeredEventCounter == eventIntervalSamples)
+         {
+            uint8 ttlData = 0;
+
+            TTLEventPtr event = TTLEvent::createTTLEvent(eventChannel, 
+                                                         getTimestamp(0) + i, 
+                                                         &ttlData, 
+                                                         sizeof(uint8), 
+                                                         0);
+
+            addEvent(eventChannel, event, i);
+
+            eventWasTriggered = false;
+         }
 
          if (counter == eventIntervalInSamples)
          {
