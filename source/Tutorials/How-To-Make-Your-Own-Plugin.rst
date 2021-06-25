@@ -512,9 +512,9 @@ Finally, we need to update our process method to make use of these parameters:
                                                          getTimestamp(0), 
                                                          &ttlData, 
                                                          sizeof(uint8), 
-                                                         0);
+                                                         outputBit);
 
-         addEvent(eventChannel, event, i);
+         addEvent(eventChannel, event, 0);
 
          shouldTriggerEvent = false;
          eventWasTriggered = true;
@@ -528,7 +528,8 @@ Finally, we need to update our process method to make use of these parameters:
          if (eventWasTriggered)
             triggeredEventCounter++;
 
-         if (triggeredEventCounter == eventIntervalSamples)
+         // Turn off manually triggered event after selected interval
+         if (triggeredEventCounter == eventIntervalInSamples)
          {
             uint8 ttlData = 0;
 
@@ -536,11 +537,12 @@ Finally, we need to update our process method to make use of these parameters:
                                                          getTimestamp(0) + i, 
                                                          &ttlData, 
                                                          sizeof(uint8), 
-                                                         0);
+                                                         outputBit);
 
             addEvent(eventChannel, event, i);
 
             eventWasTriggered = false;
+            triggeredEventCounter = 0;
          }
 
          if (counter == eventIntervalInSamples)
@@ -554,13 +556,17 @@ Finally, we need to update our process method to make use of these parameters:
                                                          getTimestamp(0) + i, 
                                                          &ttlData, 
                                                          sizeof(uint8), 
-                                                         0);
+                                                         outputBit);
 
             addEvent(eventChannel, event, i);
 
             counter = 0;
 
          }
+
+         // reset counter to 0 if it goes out of bounds 
+         if (counter > eventIntervalInSamples)
+            counter = 0;
       }
    }
 
