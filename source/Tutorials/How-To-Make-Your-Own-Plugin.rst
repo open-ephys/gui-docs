@@ -97,16 +97,18 @@ Before we can add events during acquisition, we need to announce to downstream p
 
 .. code-block:: c++
 
-   void createEventChannels() override;
+   public:
+      void createEventChannels() override;
 
-   bool enable() override;
+      bool enable() override;
 
-   EventChannel* eventChannel; // pointer to our event channel
+      EventChannel* eventChannel; // pointer to our event channel
+   
+   private:
+      float sampleRate; // holds the sample rate for incoming data
 
-   float sampleRate; // holds the sample rate for incoming data
-
-   int counter; // counts the total number of incoming samples
-   bool state; // holds the channel state (on or off)
+      int counter; // counts the total number of incoming samples
+      bool state; // holds the channel state (on or off)
 
 This will allow us to override the default implementation of the :code:`createEventChannels()` method, which is automatically called whenever a plugin needs to update its settings.
 
@@ -290,7 +292,7 @@ Then, in the plugin editor's we'll initialize the button, add a button listener,
 
    manualTrigger = new UtilityButton("Trigger", Font("Default", 20, Font::plain)); // button text, font to use
    manualTrigger->addListener(this); // add listener to the button
-   manualTrigger->setBounds(10,35,75,25); // (x, y, width, height)
+   manualTrigger->setBounds(130, 35, 75, 25); // (x, y, width, height)
    addAndMakeVisible(manualTrigger);  // add the button to the editor and make it visible
 
 We also need to handle button clicks by implementing the :code:`buttonEvent` method as below. For now, keep it empty, we'll come back to it later. Compile and load the plugin into the GUI to see the newly added button.
@@ -320,22 +322,24 @@ To automatically generate events at certain intervals/frequency, lets add a slid
 
    private:
       ScopedPointer<Slider> eventFrequency;
-	   ScopedPointer<Label> frequencyLabel;
+      ScopedPointer<Label> frequencyLabel;
 
 Then, we'll initialize the slider, set range, set bounds, add a listener, add a label and make the slider and label visible by adding the following lines of code to the :code:`TTLEventGeneratorEditor()` constructor:
 
 .. code-block:: c++
 
-   eventFrequency = new Slider();
-	eventFrequency->setRange (50, 5000, 50);  // range between 50 ms to 5000 ms with 50 ms intervals
+	eventFrequency = new Slider();
+	eventFrequency->setRange(50, 5000, 50);  // range between 50 ms to 5000 ms with 50 ms intervals
+	eventFrequency->setValue(50);
 	eventFrequency->setTextValueSuffix (" ms");
 	eventFrequency->addListener (this);
-	eventFrequency->setBounds(25, 85, 200, 25);
+	eventFrequency->setChangeNotificationOnlyOnRelease(true);
+	eventFrequency->setBounds(25, 95, 200, 25);
 	addAndMakeVisible (eventFrequency);
 
-	frequencyLabel = new Label("FrequencyLabel", "Frequency");
-	frequencyLabel->attachToComponent(eventFrequency, false);
-	addAndMakeVisible(frequencyLabel);
+   frequencyLabel = new Label("FrequencyLabel", "Frequency");
+   frequencyLabel->attachToComponent(eventFrequency, false);
+   addAndMakeVisible(frequencyLabel);
 
 We also need to handle slider value changes by implementing the :code:`sliderEvent` method. For now, keep it empty, we'll come back to it later. Compile and load the plugin into the GUI to see the newly added slider.
 
@@ -372,7 +376,7 @@ Then, initialize the ComboBox, add output channels to the list, set bounds, add 
 
    outputBitSelector = new ComboBox();
 
-	for (int bit = 1; bit <= 8; bit++)
+   for (int bit = 1; bit <= 8; bit++)
       outputBitSelector->addItem(String(bit), bit);
 
    outputBitSelector->setSelectedId(1);
@@ -381,11 +385,11 @@ Then, initialize the ComboBox, add output channels to the list, set bounds, add 
    outputBitSelector->addListener(this);
    addAndMakeVisible(outputBitSelector);
 
-	outputLabel = new Label("Bit Label", "OUT");
-	outputLabel->attachToComponent(outputBitSelector, true);
+   outputLabel = new Label("Bit Label", "OUT");
+   outputLabel->attachToComponent(outputBitSelector, true);
    addAndMakeVisible(outputLabel);
 
-Just like the button and slider, We also need to handle slider value changes by implementing the :code:`comboBoxChanged` method. For now, keep it empty, we'll come back to it later. Compile and load the plugin into the GUI to see the newly added ComboBox.
+Just like the button and slider, We also need to handle combobox value changes by implementing the :code:`comboBoxChanged` method. For now, keep it empty, we'll come back to it later. Compile and load the plugin into the GUI to see the newly added ComboBox.
 
 .. code-block:: c++
 
@@ -405,15 +409,19 @@ Connecting these to parameters in the :code:`process()` method
 
 Now, let's allow our UI elements to change the state of the plugin. To do this, we need to create variables inside the :code:`TTLEventGenerator` class that can be updated by our button, slider, and ComboBox. The values of these variables *must* be updated through a special method, called :code:`setParameter()`, which takes two inputs, a parameter ID and a value. This is because the :code:`process()` method is called by a separate thread from the user interface, and the variables it needs to access can only be updated at specific times. Modifying variables via :code:`setParameter()` ensures that they are handled properly, and prevents unexpected behavior or segmentation faults.
 
-First, let's add three variables to the :code:`TTLEventGenerator` header file to store the state of our three parameters:
+First, let's uncomment the :code:`setParameter()` method and then add three variables to the :code:`TTLEventGenerator` header file to store the state of our three parameters:
 
 .. code-block:: c++
 
-   bool shouldTriggerEvent;
-   float eventIntervalMs;
-   int outputBit;
+   public:
+      void setParameter(int parameterIndex, float newValue) override;
+
+   private:
+      bool shouldTriggerEvent;
+      float eventIntervalMs;
+      int outputBit;
    
-Next, let's initialize their values in the constructor method.
+Next, let's initialize their values in the :code:`TTLEventGenerator()` constructor method.
 
 .. code-block:: c++
 
@@ -529,6 +537,9 @@ Finally, we need to update our process method to make use of these parameters:
    }
 
 And that's it! If you compile and test your plugin, the UI elements in the editor should now change the events that appear in the LFP Viewer.
+
+.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-03.png
+  :alt: Plugin in signal chain
 
 Next steps
 #############
