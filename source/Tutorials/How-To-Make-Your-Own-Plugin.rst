@@ -572,7 +572,7 @@ Finally, we need to update our process method to make use of these parameters:
 
 And that's it! If you compile and test your plugin, the UI elements in the editor should now change the events that appear in the LFP Viewer.
 
-.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-05.png
+.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-06.png
   :alt: Plugin in signal chain
 
 Next steps

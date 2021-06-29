@@ -4,8 +4,8 @@
    :format: html
 
 
-Tutorial overview
-==================
+Synchronizing Data Streams
+============================
 
 The Open Ephys GUI is able to acquire, process, and save data from multiple asynchronous data streams simultaneously. However, even if two data streams have identical sample rates, they are neither guaranteed to start acquisition simultaneously nor acquire data at exactly the advertised sample rate. Therefore, some synchronization procedure is required. 
 
