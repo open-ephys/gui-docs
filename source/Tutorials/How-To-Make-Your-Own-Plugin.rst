@@ -307,7 +307,7 @@ We also need to handle button clicks by implementing the :code:`buttonEvent` met
       }
    }
 
-.. image:: ../_static/images/tutorials/makeyourownplugin/button.png
+.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-03.png
   :alt: Create a button
 
 Create a slider
@@ -353,7 +353,7 @@ We also need to handle slider value changes by implementing the :code:`sliderEve
       }
    }
 
-.. image:: ../_static/images/tutorials/makeyourownplugin/slider.png
+.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-04.png
   :alt: Create a slider
 
 Create a ComboBox
@@ -401,7 +401,7 @@ Just like the button and slider, We also need to handle combobox value changes b
       }
    }
 
-.. image:: ../_static/images/tutorials/makeyourownplugin/combobox.png
+.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-05.png
   :alt: Create a combobox
 
 Connecting these to parameters in the :code:`process()` method
@@ -572,7 +572,7 @@ Finally, we need to update our process method to make use of these parameters:
 
 And that's it! If you compile and test your plugin, the UI elements in the editor should now change the events that appear in the LFP Viewer.
 
-.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-03.png
+.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-05.png
   :alt: Plugin in signal chain
 
 Next steps
@@ -580,9 +580,11 @@ Next steps
 
 This plugin are a number of ways this plugin could be enhanced. To practice creating different kinds of UI elements, you could try implementing some of the features below, or come up with your own!
 
+- Ensure an "OFF" event is sent when the output bit is changed.
+
 - Add a button that turns the plugin's output on and off.
 
-- Add an editable label that can be used to define the time between on/off events (currently the output bit flips at a 50% duty cycle).
+- Add an editable label that can be used to define the time between ON/OFF events (currently the output bit flips at a 50% duty cycle).
 
 |
 
