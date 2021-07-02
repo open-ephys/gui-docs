@@ -3,7 +3,7 @@
 .. role:: raw-html-m2r(raw)
    :format: html
 
-Measuring Closed Loop Latency
+Measuring Closed-Loop Latency
 ==============================
 
 One of the key features of the Open Ephys GUI is that it provides the ability to reconfigure your signal chains on the fly. "Source" plugins that acquire neural data can be combined with "filter" plugins that detect salient events, which can be linked to "Sink" plugins that can trigger electrical or optical stimulation to the brain. Because of the modular nature of the GUI, the same closed-loop signal chain can be used with a variety of different data sources.
@@ -98,20 +98,50 @@ Once all of the devices are connected, launch the Open Ephys GUI. Starting with 
 
 The final signal chain should look like this:
 
-TODO: Insert signal chain screenshot
-------------------------------------
+.. image:: ../_static/images/tutorials/closedlooplatency/closedlooplatency-04.png
+  :alt: Signal chain for closed-loop latency tutorial.
+
+.. tip:: Setting the LFP Viewer to trigger when an event appears on channel 1 will ensure that the display is always aligned with the incoming events.
 
 Measuring system latency
 ##########################
 
-Press the play button to start data acquisition. You should be able to visualize the signal on ADC channel 1 alternating between 0 and 5V. There should be a very short (5 ms) event that coincides with the rising edge of this signal, and a longer (XX ms) event that occurs shortly thereafter. The first event represents the time of the 0-5V transition picked up by the Crossing Detector, while the second event represents the digital output delivered by Arduino #2.
+Press the play button to start data acquisition. You should be able to visualize the signal on ADC channel 1 alternating between 0 and 5 volts (in the example screenshot above, the Arduino signal is emitting a 3.3 V signal). There should be a very short (5 ms) event that coincides with the rising edge of this signal, and another short event that occurs shortly thereafter. The first event represents the time of the low-to-high transition picked up by the Crossing Detector, while the second event represents the digital output delivered by Arduino #2.
 
 If these events do not appear as expected, double-check that the hardware connections and signal chain are configured correctly.
 
-Once you can see the events in the LFP Viewer, hit the record button to save data. After about 1 minute, hit the play button to stop acquisition and recording.
+Once you can see the events in the LFP Viewer, hit the record button to save data. After about 2 minutes, hit the play button  to stop acquisition and recording.
 
-TODO: Instructions for loading data
-------------------------------------
+The following code snippet shows how to load the event data using the `open-ephys-python-tools <https://github.com/open-ephys/open-ephys-python-tools>`__ library, and plot the intervals between events on channel 1 (from the Crossing Detector) and channel 2 (from the Arduino Output):
+
+.. code:: python
+
+  from open_ephys.analysis import Session
+
+  import matplotlib.pyplot as plt
+  
+  session = Session('/path/to/recording')  # create a Session object
+  
+  df = session.recordnodes[0].recordings[0].events  # load the events DataFrame
+  
+  trigger = df[(df.channel == 1) &
+                 (df.state == 1)] # select the "on" events on channel 1
+    
+  response = df[(df.channel == 2) & 
+                  (df.state == 1)] # select the "on" events on channel 2
+    
+  t_response = response.timestamp.values / 30000 * 1000 # convert to ms
+  t_trigger = trigger.timestamp.values / 30000 * 1000 # convert to ms
+    
+  plt.hist(t_response - t_trigger, bins=np.arange(0,40,2))
+  plt.show()
+
+This should generate a plot that looks like this:
+
+.. image:: ../_static/images/tutorials/closedlooplatency/closedlooplatency-05.png
+  :alt: Latency histogram for 23 ms buffer.
+
+This indicates the distribution of latencies for your system.
 
 Settings that affect latency
 ##############################
@@ -120,19 +150,21 @@ The Open Ephys GUI (and most other software for real-time processing) moves data
 
 There are two types of buffers that affect the latency in this setup. The first is the hardware-to-software buffer that is used to transmit data between the acquisition board and the Rhythm FPGA plugin. Because the USB protocol has a high amount of overhead for each data packet, this buffer is set to XX samples (XX ms at 30 kHz). If using a different type of transmission interface (such as Ethernet or PCIe), much smaller buffer sizes are possible. Changing the size of this buffer for the Rhythm FPGA plugin requires editing the source code and re-compiling the GUI.
 
-The second, and more easily configurable, type of buffer is the one used to pass data between plugins in the GUI's signal chain. The size of this buffer can be changed by opening the "Audio Settings" interface, accessible via the "latency" button in the GUI's control panel:
+The second, and more easily configurable, type of buffer is the one used to pass data between plugins in the GUI's signal chain. The size of this buffer can be changed by opening the "Audio Settings" interface, accessible via the "latency" button in the GUI's control panel. The samples displayed in the latency interface are based on the sample rate of your computer's audio card (44.1 kHz in most cases).
 
-TODO: Latency settings screenshot
-------------------------------------
+.. image:: ../_static/images/tutorials/closedlooplatency/closedlooplatency-07.png
+  :alt: Audio settings interface.
 
 The default latency is 23 ms, which works well for most open-loop signal chains. If you're delivering closed-loop feedback, it may be desirable to use a lower latency setting. However, keep in mind that smaller buffers have lower throughput, which may cause the CPU meter to spike.
 
-.. note:: The samples displayed in the latency interface are based on the sample rate of your computer's audio card (44.1 kHz in most cases).
+Here is what the same latency measurements look like for a 10 ms and 5 ms buffer size:
 
-The buffer size is also affected by the number of channels that are being processed simultaneously. If your CPU meter is spiking, try reducing the number of continuous channels by disabling unused channels with a :ref:`channelmap` plugin:
+.. image:: ../_static/images/tutorials/closedlooplatency/closedlooplatency-06.png
+  :alt: Latency histogram for 10 ms and 5 ms buffers.
 
-TODO: Channel map screenshot
-------------------------------------
+Note the diminishing returns for a 5 ms buffer, due to the fact that overall latency is limited by the size of the USB buffer, which is about XX ms.
+
+The minimum latency is also affected by the number of continuous channels that are being processed simultaneously. If your CPU meter is spiking for smaller buffer sizes, try reducing the number of continuous channels by disabling unused channels with a :ref:`channelmap` plugin.
 
 Next steps
 ###########
