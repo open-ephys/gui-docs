@@ -148,7 +148,7 @@ Settings that affect latency
 
 The Open Ephys GUI (and most other software for real-time processing) moves data around using *buffers*. Each buffer contains a block of samples for a set of channels. The larger the buffer (in terms of samples or channels), the more time it takes to process, and hence higher latency. However, larger buffers can typically have higher *throughput*, because the overhead involved in initiating each buffer exchange consumes a smaller fraction of overall processing time.
 
-There are two types of buffers that affect the latency in this setup. The first is the hardware-to-software buffer that is used to transmit data between the acquisition board and the Rhythm FPGA plugin. Because the USB protocol has a high amount of overhead for each data packet, this buffer is set to XX samples (XX ms at 30 kHz). If using a different type of transmission interface (such as Ethernet or PCIe), much smaller buffer sizes are possible. Changing the size of this buffer for the Rhythm FPGA plugin requires editing the source code and re-compiling the GUI.
+There are two types of buffers that affect the latency in this setup. The first is the hardware-to-software buffer that is used to transmit data between the acquisition board and the Rhythm FPGA plugin. Because the USB protocol has a high amount of overhead for each data packet, this buffer is set to 10 ms at 30 kHz. If using a different type of transmission interface (such as Ethernet or PCIe), much smaller buffer sizes are possible. Changing the size of this buffer for the Rhythm FPGA plugin requires editing the source code and re-compiling the GUI.
 
 The second, and more easily configurable, type of buffer is the one used to pass data between plugins in the GUI's signal chain. The size of this buffer can be changed by opening the "Audio Settings" interface, accessible via the "latency" button in the GUI's control panel. The samples displayed in the latency interface are based on the sample rate of your computer's audio card (44.1 kHz in most cases).
 
@@ -162,16 +162,12 @@ Here is what the same latency measurements look like for a 10 ms and 5 ms buffer
 .. image:: ../_static/images/tutorials/closedlooplatency/closedlooplatency-06.png
   :alt: Latency histogram for 10 ms and 5 ms buffers.
 
-Note the diminishing returns for a 5 ms buffer, due to the fact that overall latency is limited by the size of the USB buffer, which is about XX ms.
+Note the diminishing returns for a 5 ms buffer, due to the fact that overall latency is limited by the size of the USB buffer.
 
 The minimum latency is also affected by the number of continuous channels that are being processed simultaneously. If your CPU meter is spiking for smaller buffer sizes, try reducing the number of continuous channels by disabling unused channels with a :ref:`channelmap` plugin.
 
 Next steps
 ###########
 
-Use a File Reader to read in actual data (won't be able to measure latency in this case)
-
-Try theta-triggered stimulation using the Phase Detector plugin (see Siegle et al., 2014 for an example application)
-
-Create your own plugin (with this tutorial)
+Once you've gotten the above setup working, it can be helpful to try using the :ref:`filereader` plugin to trigger feedback. For example, you could use the :code:`data_stream_16ch_hippocampus` dataset that's included in the example data in combination with a :ref:`bandpassfilter` and :ref:`phasedetector` plugin to replicate the theta-phase-specific stimulation used in `Siegle et al., 2014 <https://elifesciences.org/articles/03061>`__. In this case, you won't be able to measure the true latency, but it will allow you to test out a signal chain that can be used in an actual experiment.
 

@@ -5,6 +5,13 @@
 Tutorials
 =================================================
 
+.. image:: ../_static/images/noun_books.svg
+   :alt: Tutorials icon
+   :width: 250px
+
+
+The following tutorials are available for the Open Ephys GUI:
+
 .. toctree::
     :maxdepth: 5
     :titlesonly:
@@ -12,3 +19,5 @@ Tutorials
     Closed-Loop-Latency
     Data-Synchronization
     How-To-Make-Your-Own-Plugin
+
+If you have suggestions for additional tutorials, or would like to write one of your own, please write to :code:`support@open-ephys.org`.

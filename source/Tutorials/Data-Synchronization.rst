@@ -12,7 +12,7 @@ The Open Ephys GUI is able to acquire, process, and save data from multiple asyn
 Synchronization is typically performed offline, using the timing events on a "sync line" that is shared between each data acquisition device. But the GUI can also be configured to synchronize data from separate streams in real time, as it is being written to disk. This tutorial uses the example of Neuropixels probes and a National Instruments Data Acquisition (NIDAQ) device to demonstrate how to synchronize data streams online.
 
 General principles of synchronization
-=======================================
+############################################
  
 Whether synchronization is being performed online or offline, all data streams must share a common hardware sync line. Synchronization in software is accurate to within a few milliseconds, but is not precise enough for synchronizing electophysiogical signals acquired at tens of kilohertz.
 
@@ -157,7 +157,7 @@ Events detected in a synchronized stream will only save their timestamps as samp
 
 For spike data, the values in :code:`spike_times.npy` represent the sample index at which the spike occurred, relative to the beginning of the :code:`continuous.dat` file. To get the actual timestamp at which the spike occurred, you must add the first timestamp from :code:`timestamps.npy` in the corresponding continuous data stream the spike was detected in. Again, that timestamp can be mapped back to the common time base timestamp in the :code:`synchronized_timestamps.npy` file. 
 
-More information regarding offline analysis can be found `here <https://github.com/open-ephys/open-ephys-python-tools/tree/main/open_ephys/analysis>`__ for Python tools and `here <https://github.com/open-ephys/open-ephys-matlab-tools/tree/main/open_ephys/analysis>`__ for Matlab tools.
+More information regarding offline analysis can be found `here <https://github.com/open-ephys/open-ephys-python-tools/tree/main/open_ephys/analysis>`__ for Python tools and `here <https://github.com/open-ephys/open-ephys-matlab-tools/tree/master/open_ephys/analysis>`__ for Matlab tools.
 
 Questions? 
 ###########

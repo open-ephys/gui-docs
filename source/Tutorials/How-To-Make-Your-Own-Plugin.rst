@@ -328,14 +328,14 @@ Then, we'll initialize the slider, set range, set bounds, add a listener, add a 
 
 .. code-block:: c++
 
-	eventFrequency = new Slider();
-	eventFrequency->setRange(50, 5000, 50);  // range between 50 ms to 5000 ms with 50 ms intervals
-	eventFrequency->setValue(50);
-	eventFrequency->setTextValueSuffix (" ms");
-	eventFrequency->addListener (this);
-	eventFrequency->setChangeNotificationOnlyOnRelease(true);
-	eventFrequency->setBounds(25, 95, 200, 25);
-	addAndMakeVisible (eventFrequency);
+   eventFrequency = new Slider();
+   eventFrequency->setRange(50, 5000, 50);  // range between 50 ms to 5000 ms with 50 ms intervals
+   eventFrequency->setValue(50);
+   eventFrequency->setTextValueSuffix (" ms");
+   eventFrequency->addListener (this);
+   eventFrequency->setChangeNotificationOnlyOnRelease(true);
+   eventFrequency->setBounds(25, 95, 200, 25);
+   addAndMakeVisible (eventFrequency);
 
    frequencyLabel = new Label("FrequencyLabel", "Frequency");
    frequencyLabel->attachToComponent(eventFrequency, false);
@@ -409,7 +409,7 @@ Connecting these to parameters in the :code:`process()` method
 
 Now, let's allow our UI elements to change the state of the plugin. To do this, we need to create variables inside the :code:`TTLEventGenerator` class that can be updated by our button, slider, and ComboBox. The values of these variables *must* be updated through a special method, called :code:`setParameter()`, which takes two inputs, a parameter ID and a value. This is because the :code:`process()` method is called by a separate thread from the user interface, and the variables it needs to access can only be updated at specific times. Modifying variables via :code:`setParameter()` ensures that they are handled properly, and prevents unexpected behavior or segmentation faults.
 
-First, let's uncomment the :code:`setParameter()` method and then add three variables to the :code:`TTLEventGenerator` header file to store the state of our three parameters:
+First, let's uncomment the :code:`setParameter()` method and then add some variables to the :code:`TTLEventGenerator` header file to store the state of our parameters:
 
 .. code-block:: c++
 
