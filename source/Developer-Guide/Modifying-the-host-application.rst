@@ -41,10 +41,6 @@ The top-level directory of the `plugin-GUI repository <https://github.com/open-e
 
 * **JuceLibraryCode** - a customized version of the source code for the `Juce Library <https://juce.com/>`__. The Open Ephys GUI uses this library for a wide variety of functions, including drawing the user interface, real-time data processing, threading, and file I/O.
 
-* **Licenses** - soon to be deprecated
-
-* **PluginGenerator** - (deprecated) this is a separate application, based on Juce's "Projucer," which walks you through the steps required to auto-generate the source code for a new plugin. It is not compatible with the latest CMake build scheme, but the code is still included in case someone wants to make the necessary modifications.
-
 * **Plugins** - source code for plugins that are included by default with the host application. Eventually, these plugins will be migrated to their own repositories, so they can be installed an upgraded via the Plugin Installer.
 
 * **Resources** - includes a variety of useful resources, including sample data files, scripts, and libraries used by the GUI.
