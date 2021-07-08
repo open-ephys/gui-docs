@@ -18,7 +18,7 @@ If you'd prefer to get assistance by email, simply write to :code:`support@open-
 
 Absolutely. The GUI has been used to collect data for `over 200 publications and preprints <https://open-ephys.org/publications>`__ , which have appeared in every major neuroscience journal. 
 
-Crashes are still possible, but they usually happen when testing out new features or new combinations of plugins. Once you find a signal chain that works for your needs, it can be used for many hours of uninterrupted recording.
+As with any software under active development, crashes are still possible. But they usually happen when testing out new features or new combinations of plugins. Once you find a signal chain that works for your needs, it can be used for many hours of uninterrupted recording.
 
 |
 
