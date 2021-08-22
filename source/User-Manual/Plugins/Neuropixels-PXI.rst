@@ -217,7 +217,7 @@ Each Neuropixels basestation contains one SMA connector for sync input. The beha
 Built-in self tests
 #####################
 
-If you have a probe that's not working properly, these tests can be used to help pinpoint where the problem lies.
+If you have a probe that's not working properly, these tests can be used to help pinpoint where the problem lies. It's not recommended to run the tests prior to every recording; the tests are only necessary to diagnose an issue with a probe that is not transmitting data.
 
 To run each test, select one from the drop-down menu, and click the "RUN" button. After the test completes, the name of the test will be updated to indicated whether it passed or failed.
 
@@ -235,6 +235,7 @@ To run each test, select one from the drop-down menu, and click the "RUN" button
    "Test Heartbeat", "3 s", "Tests whether the heartbeat signal between the headstage and BSC is working properly"
    "Test Basestation", "<1 s", "Tests the BSC board"
 
+.. note:: If the "probe signal" and "probe noise" tests fail, it does not necessarily indicate that the probe is broken. If your probe is successfully transmitting data, the outcome of these tests can be ignored.
 
 Headstage tests
 #################
@@ -245,6 +246,7 @@ If you have a headstage test module, you can run a suite of tests to ensure the 
   :alt: Headstage test board popup window
   :width: 400
 
+.. note:: The headstage test module will only work if you have *not* updated your basestation firmware. However, we have also found that the headstage tests are rarely needed to accurately diagnose a problem with data transmission. If you are unsure whether your headstage is functional, swapping it out with a different headstage is usually more informative than running the headstage tests.
 
 Updating basestation firmware
 ######################################
