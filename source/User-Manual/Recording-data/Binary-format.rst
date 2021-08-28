@@ -58,7 +58,7 @@ Continuous data is grouped by sub-processor (a block of synchronously sampled ch
 
 Each **continuous** directory contains the following files:
 
-* :code:`continuous.dat`: A simple binary file containing *N* channels x *M* samples 16-bit integers in little-endian format. Data is saved as :code:`ch1_samp1, ch2_samp1, ... chN_samp1, ch1_samp2, ch2_samp2, ..., chN_sampM`. The value of the least significant bit needed to convert the 16-bit integres to microvolts is specified in the :code:`bitVolts` field of the relevant channel in the :code:`structure.oebin` JSON file.
+* :code:`continuous.dat`: A simple binary file containing *N* channels x *M* samples 16-bit integers in little-endian format. Data is saved as :code:`ch1_samp1, ch2_samp1, ... chN_samp1, ch1_samp2, ch2_samp2, ..., chN_sampM`. The value of the least significant bit needed to convert the 16-bit integers to physical units is specified in the :code:`bitVolts` field of the relevant channel in the :code:`structure.oebin` JSON file. For "headstage" channels, multiplying by :code:`bitVolts` converts the values to microvolts, whereas for "ADC" channels, :code:`bitVolts` converts the values to volts.
 
 * :code:`timestamps.npy`: A numpy array containing *M* 64-bit integers that represent the timestamps for each sample.
 

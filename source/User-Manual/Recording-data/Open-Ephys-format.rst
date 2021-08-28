@@ -69,7 +69,7 @@ All headers are 1024 bytes long, and are written as a MATLAB-compatible string w
 
 * bufferSize = 1024
 
-* bitVolts = (floating point value of microvolts/bit)
+* bitVolts = (floating point value of microvolts/bit for headstage channels, or volts/bit for ADC channels)
 
 For those not using MATLAB, each header entry is on a separate line with the following format:
 

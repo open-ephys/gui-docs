@@ -101,7 +101,7 @@ Spike data is organized by electrode.
 
 Each **spikes** group contains the following datasets:
 
-* :code:`data`: array with dimensions *S* spikes x *N* channels x *M* samples containing the spike waveforms. The :code:`conversion` attribute stores the "bitVolts" value required to convert these values into volts.
+* :code:`data`: array with dimensions *S* spikes x *N* channels x *M* samples containing the spike waveforms. The :code:`conversion` attribute stores the "bitVolts" value required to convert these values into microvolts (headstage channels) or volts (ADC channels).
 
 * :code:`timestamps`: *S* 64-bit floats containing the timestamps (in seconds) corresponding to the peak of each spike
 
