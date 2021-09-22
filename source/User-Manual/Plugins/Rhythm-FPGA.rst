@@ -21,6 +21,8 @@ Rhythm FPGA
    "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Plugins/RhythmNode"
 
 
+.. tip:: For more in-depth documentation on the Open Ephys Acquisition Board, please refer to the `Acquisition Board docs site <https://open-ephys.github.io/acq-board-docs/>`__.
+
 Plugin configuration
 ====================
 
@@ -46,7 +48,7 @@ Used to determine the settings for the analog high and low cut filters on the In
 DSP button
 ###########
 
-in addition to the analog filters, the Intan chips also have an on-chip DSP high cut filter for removing the DC offset on each channel. This can be toggled on and off by clicking the "DSP" button (yellow = on), and the cutoff frequency can be changed by typing a value into the associated text box. Again, there are only certain values for the cutoff frequency; the chip will choose the one closest to what you selected and return this value to the GUI.
+in addition to the analog filters, the Intan chips also have an on-chip DSP high-pass filter for removing the DC offset on each channel. This can be toggled on and off by clicking the "DSP" button (yellow = on), and the cutoff frequency can be changed by typing a value into the associated text box. Again, there are only certain values for the cutoff frequency; the chip will choose the one closest to what you selected and return this value to the GUI.
 
 Audio output
 #############
