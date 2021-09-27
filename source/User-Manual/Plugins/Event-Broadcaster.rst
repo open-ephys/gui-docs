@@ -25,9 +25,9 @@ Plugin configuration
 
 **Restart connection**: Resets the ZeroMQ data streaming backend
 
-**Port number**: modify the port number from which this plugin will send data 
+**Port number**: Modifies the port number from which this plugin will send data 
 
-**Format**: event packet format (:code:`Header/JSON` recommended)
+**Format**: Select the event packet format (:code:`Header/JSON` recommended)
 
 Packet format
 ##############
