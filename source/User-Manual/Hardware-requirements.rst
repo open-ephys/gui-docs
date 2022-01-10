@@ -81,6 +81,6 @@ The following summarizes the additional hardware you'll need to buy to run Neuro
 
 * *(optional)* One **PXI-based analog and digital I/O module** (see the :ref:`nidaqmx` page for a list of hardware we've tested)
 
-* **Cables** to connect the remote control module to the PCIe card (e.g., National Instruments MXI-Express Cables, Gen 3 x8)
+* **Cables** to connect the remote control module to the PCIe card (e.g., National Instruments MXI-Express Cables, Gen 2 x8)
 
 * From IMEC: Neuropixels PXIe module, cables, headstages, and probes
