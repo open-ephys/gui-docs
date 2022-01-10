@@ -116,9 +116,11 @@ Find the :code:`.dll` / :code:`.so` / :code:`.bundle` file of the plugin you wan
     Channel-Map
     Common-Average-Reference
     Crossing-Detector
+    Dynamic-Thresholder
     Ephys-Socket
     Event-Broadcaster
     Event-Triggered-Average
+    Falcon-Output
     File-Reader
     Intan-Recording-Controller
     LFP-Viewer
@@ -143,6 +145,9 @@ Find the :code:`.dll` / :code:`.so` / :code:`.bundle` file of the plugin you wan
     Spike-Viewer
     Splitter
     Stream-Muxer
+    Tracking-Plugin
+    Virtual-Reference
+    Whitening-Node
     ZMQ-Interface
     
     
