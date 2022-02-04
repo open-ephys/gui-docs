@@ -21,7 +21,7 @@ Required hardware
 
 * 1 `Open Ephys Acquisition Board <https://open-ephys.org/acquisition-system/eux9baf6a5s8tid06hk1mw5aafjdz1>`__ with 5V power supply and USB cable (headstages are optional)
 * 2 `Open Ephys I/O Boards <https://open-ephys.org/acquisition-system/io-board-pcb>`__ with HDMI cables
-* 2 Arduinos with 5V operating voltage (e.g. `Arduino Uno <https://store.arduino.cc/usa/arduino-uno-rev3>`__). along with the appropriate USB cables
+* 2 Arduinos with 5V operating voltage (e.g. `Arduino Uno <https://store-usa.arduino.cc/products/arduino-uno-rev3/?selectedStore=us>`__). along with the appropriate USB cables
 * 2 BNC cables 
 * 2 BNC Female-to-Binding Post Adapters (e.g., `Thorlabs T1452 <https://www.thorlabs.com/thorproduct.cfm?partnumber=T1452>`__)
 * 4 hookup wires (minimum 5" long) with bare ends

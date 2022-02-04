@@ -44,11 +44,9 @@ To deliver closed-loop feedback as a function of position, the Open Ephys GUI mu
 Setting up the camera
 ----------------------
 
-These instructions assume you have a Flea3 PointGrey camera (https://www.ptgrey.com/). Configuration for other cameras may differ.
+These instructions assume you have a FLIR `Flea3 <https://www.flir.com/products/flea3-usb3/>`__ (formerly Point Grey) camera. Configuration for other cameras may differ.
 
-To download the drivers and set-up the camera, download the FlyCapture or Spinnaker SDK from the `PointGrey downloads page <https://www.ptgrey.com/support/downloads>`__.
-
-.. warning:: The Bonsai FlyCapture package has combatibility issues with the FlyCapture SDK version >2.11. Therefore, we recommend installing the SDK v2.11 from here: https://groups.google.com/forum/#!msg/bonsai-users/Wq2Bo1DnCD8/jb0BfvIVAgAJ
+.. warning:: The Bonsai FlyCapture package has combatibility issues with the FlyCapture SDK version >2.11. Therefore, we recommend installing SDK v2.11 from this `link on the Bonsai forum <https://groups.google.com/forum/#!msg/bonsai-users/Wq2Bo1DnCD8/jb0BfvIVAgAJ>`__
 
 From the FlyCapture software, you can activate GPIO triggers that can be recorded with the Open Ephys board for precise synchronization, and also change the frame rate.
 
