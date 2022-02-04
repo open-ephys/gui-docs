@@ -116,7 +116,6 @@ Find the :code:`.dll` / :code:`.so` / :code:`.bundle` file of the plugin you wan
     Channel-Map
     Common-Average-Reference
     Crossing-Detector
-    Dynamic-Thresholder
     Ephys-Socket
     Event-Broadcaster
     Event-Triggered-Average
@@ -147,7 +146,6 @@ Find the :code:`.dll` / :code:`.so` / :code:`.bundle` file of the plugin you wan
     Stream-Muxer
     Tracking-Plugin
     Virtual-Reference
-    Whitening-Node
     ZMQ-Interface
     
     
