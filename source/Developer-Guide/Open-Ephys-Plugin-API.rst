@@ -5,7 +5,7 @@
 Open Ephys Plugin API
 =====================
 
-The Open Ephys Plugin API consists of all of the classes and methods that can be called by plugins. The Plugin API defines how plugins can interact with the rest of the GUI, and also provides some convenient functions for building user interfaces and processing data. Classes and methods that are part of the Plugin API are indicated by the :code:`PLUGIN_API` macro. 
+The Open Ephys Plugin API consists of all of the classes and methods that can be used by plugins. The Plugin API defines how plugins can interact with the rest of the GUI, and also provides some convenient functions for building user interfaces and processing data. Classes and methods that are part of the Plugin API are indicated by the :code:`PLUGIN_API` macro. 
 
 .. note:: This documentation is focused on "Processor" plugins, which inherit from the :code:`GenericProcessor` class. Not all of the methods described below are available to other types of plugins, such as DataThreads, RecordEngines, and FileSources.
 
@@ -16,11 +16,11 @@ There are three primary situations in which information is transferred in/out of
 
 #. while building the signal chain
 #. during acquisition
-#. when loading/saving settings.
+#. when loading/saving settings
 
 In each of these situations, there are three primary types of data that can be handled by plugins:
 
-#. continuous data
+#. continuous
 #. events
 #. spikes
 
@@ -35,9 +35,7 @@ When your plugin is dropped into the signal chain, the GUI will call :code:`Gene
 #. :code:`eventChannelArray`
 #. :code:`spikeChannelArray`
 
-The GUI will then call :code:`createEventChannels()` and :code:`createSpikeChannels()`, to allow the plugin to optionally append its own :code:`EventChannel` or :code:`SpikeChannel` objects to these arrays. The plugin should override these methods if it generates event or spike data.
-
-Finally, the GUI will call :code:`GenericProcessor::updateSettings()`, which allows the plugin to edit its channel objects. For example, a plugin could change the name of a data channel, re-order channels, or add metadata to a channel object. Note that updating these channel objects is the *only* way that a plugin can communicate its settings to downstream plugins. Any local settings that are not applied to these channel objects will not be visible to other plugins.
+The GUI will then call :code:`GenericProcessor::updateSettings()`, which allows the plugin to edit or add to its channel objects. For example, a plugin could change the name of a data channel, re-order channels, or add metadata to a channel object. Note that updating these channel objects is the *only* way that a plugin can communicate its settings to downstream plugins. Any local settings that are not applied to these channel objects will not be visible to other plugins.
 
 There are three types of continuous channels that plugins will encounter:
 
