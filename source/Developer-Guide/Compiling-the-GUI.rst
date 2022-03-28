@@ -5,13 +5,13 @@
 Compiling the GUI
 =====================
 
-If you'd like to build the GUI from source, you'll have to download the code to your local machine. We recommend first forking |fork icon| the `GUI's GitHub repository <https://github.com/open-ephys/plugin-GUI>`__ to your own account, then cloning the fork via the `command line <https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-using-the-command-line>`__ or the `GitHub Desktop app <https://desktop.github.com/>`__. 
+If you'd like to build the GUI from source, you'll have to download the code to your local machine. We recommend first forking the `GUI's GitHub repository <https://github.com/open-ephys/plugin-GUI>`__ to your own account, then cloning the fork via the `command line <https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-using-the-command-line>`__ or the `GitHub Desktop app <https://desktop.github.com/>`__. 
 
 
 Windows
 #######
 
-Building the GUI on Windows requires Visual Studio (the free Community Edition is fine). We recommend using `Visual Studio 2019 <https://visualstudio.microsoft.com/downloads/>`__, but it will also work with VS2013, 2015, or 2017.
+Building the GUI on Windows requires Visual Studio (the free Community Edition is fine). We recommend using `Visual Studio 2022 Community <https://visualstudio.microsoft.com/downloads/>`__, but it will also work with VS2013, 2015, 2017, or 2019.
 
 You'll also need to install `CMake <https://cmake.org/download/>`__ from the official download page. During installation, we recommend selecting the option  to *"Add CMake to the system PATH"* for either all users or current users, to allow easy use of the CMake command-line tools.
 
@@ -20,9 +20,9 @@ Once you have CMake installed, you can generate the Visual Studio project files 
 .. code-block:: bash
 
    > cd Build
-   > cmake -G "Visual Studio 16 2019" -A x64 ..
+   > cmake -G "Visual Studio 17 2022" -A x64 ..
 
-.. note:: For earlier versions of Visual Studio, substitute the last command with: |br| :code:`cmake -G "Visual Studio 12 2013 Win64" ..` |br| :code:`cmake -G "Visual Studio 14 2015 Win64" ..` |br| or |br| :code:`cmake -G "Visual Studio 15 2017 Win64" ..`
+.. note:: For earlier version of Visual Studio, substitute the last command with: |br| :code:`cmake -G "Visual Studio 16 2019" -A x64 ..` |br| :code:`cmake -G "Visual Studio 15 2017 Win64" ..` |br| :code:`cmake -G "Visual Studio 14 2015 Win64" ..` |br| or |br| :code:`cmake -G "Visual Studio 12 2013 Win64" ..`
 
 Next, launch Visual Studio and open the :code:`open-ephys.sln` file that was just created in the "Build" folder.
 

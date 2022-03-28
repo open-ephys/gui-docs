@@ -7,7 +7,7 @@ Compiling plugins
 
 Whether you're creating a new plugin or you cloned an existing plugin repository, the following steps will allow you to compile your plugin across all three platforms. Note that `CMake <https://cmake.org/>`__ is required in all cases. See the :ref:`compiling the GUI <compilingthegui>` page for recommended instructions for installing CMake if you don't have it already.
 
-The first step for compiling a pre-existing plugin is downloading the source code. If you're planning to make your own changes to the plugin, we recommend first forking |fork icon| the plugin's GitHub repository to your own account, then cloning the fork via the `command line <https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-using-the-command-line>`__ or the `GitHub Desktop app <https://desktop.github.com/>`__. If you're not planning to make any changes to the plugin, you can clone the original repository or download the code as a **.zip** file.
+The first step for compiling a pre-existing plugin is downloading the source code. If you're planning to make your own changes to the plugin, we recommend first forking the plugin's GitHub repository to your own account, then cloning the fork via the `command line <https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-using-the-command-line>`__ or the `GitHub Desktop app <https://desktop.github.com/>`__. If you're not planning to make any changes to the plugin, you can clone the original repository or download the code as a **.zip** file.
 
 Most Open Ephys GUI plugins work equally well on Windows, Linux, and Mac. However, there are some plugins that rely on platform-specific libraries, and can only be compiled for certain platforms. Be sure to check the relevant :ref:`plugin documentation<plugins>` page for platform compatibility.
 
@@ -15,14 +15,14 @@ Most Open Ephys GUI plugins work equally well on Windows, Linux, and Mac. Howeve
 Windows
 --------
 
-Generate the Visual Studio 2019 project files by typing the following from the command prompt inside the plugin's top-level directory:
+Generate the Visual Studio 2022 project files by typing the following from the command prompt inside the plugin's top-level directory:
 
 .. code-block:: bash
 
    > cd Build
-   > cmake -G "Visual Studio 16 2019" -A x64 ..
+   > cmake -G "Visual Studio 17 2022" -A x64 ..
 
-.. note:: For earlier versions of Visual Studio, substitute the last command with: |br| :code:`cmake -G "Visual Studio 12 2013 Win64" ..` |br| :code:`cmake -G "Visual Studio 14 2015 Win64" ..` |br| or |br| :code:`cmake -G "Visual Studio 15 2017 Win64" ..`
+.. note:: For earlier version of Visual Studio, substitute the last command with: |br| :code:`cmake -G "Visual Studio 16 2019" -A x64 ..` |br| :code:`cmake -G "Visual Studio 15 2017 Win64" ..` |br| :code:`cmake -G "Visual Studio 14 2015 Win64" ..` |br| or |br| :code:`cmake -G "Visual Studio 12 2013 Win64" ..`
 
 Next, launch Visual Studio and open the :code:`OE_PLUGIN_<plugin-name>.sln` file that was just created in the "Build" folder. Select the appropriate configuration (Debug/Release) and either build the solution or build the :code:`ALL_BUILD` project. That will run the build process on all projects except :code:`INSTALL`, thus building the plugin.
 

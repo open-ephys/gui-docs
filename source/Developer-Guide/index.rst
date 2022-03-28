@@ -39,8 +39,7 @@ If you are interested in helping out with longer-term projects, or if you're abl
     Compiling-the-GUI
     Compiling-plugins
     Creating-a-new-plugin
-    Adding-a-new-data-format
-    Open-Ephys-Plugin-API
+    Open-Ephys-Plugin-API/index
     Distributing-plugins
     Modifying-the-host-application
 
