@@ -21,12 +21,12 @@ These are the components you'll be interacting with most often:
 1. Processor List
 ------------------
 
-Here you'll find all the available modules for building the signal chain, organized by type. "Sources" bring data into the application, either by communicating with an external device, reading data from a file, or generating samples on the fly. "Filters" alter the data in some way, either by modifying continuous signals or creating new events. "Sinks" send data outside the signal chain, for example to a USB device or a display. "Utilities" are used to construct the signal chain or control recording, but they don't modify data in any way. Finally, "Recording" processors are used for saving data. For the most part, "processors" and synonymous with "plugins," although some processors are currently built into the GUI, so are not technically plugins.
+Here you'll find all the available modules for building the signal chain, organized by type. "Sources" bring data into the application, either by communicating with an external device, reading data from a file, or generating samples on the fly. "Filters" alter the data in some way, either by modifying continuous signals or creating new events. "Sinks" send data outside the signal chain, for example to a USB device or a display. "Utilities" are used to construct the signal chain or control recording/audio monitoring, but they don't modify data in any way. Finally, "Recording" processors are used for saving data. For the most part, "processors" and synonymous with "plugins," although some processors are currently built into the GUI, so are not technically plugins.
 
 2. Signal Chain
 ----------------
 
-The processing pipeline is configured by dragging modules from the Processor List and dropping them in the appropriate order onto the Signal Chain. Once a processor has been added to the Signal Chain, its settings will be accessible through a custom interface. The buttons on the left-hand side of the Signal Chain allow you to toggle between different branches of your signal chain (if it contains multiple sources).
+The processing pipeline is configured by dragging modules from the Processor List and dropping them in the appropriate order onto the Signal Chain. Once a processor has been added to the Signal Chain, its settings will be accessible through a custom interface. The buttons on the left-hand side of the Signal Chain allow you to toggle between up to 8 different branches of your signal chain (if it contains multiple source processors).
 
 3. Message Center
 -----------------
@@ -42,17 +42,17 @@ From left to right:
 
 * **CPU Meter**. Displays the fraction of available time that the signal chain takes to complete one processing cycle. The values in this display will differ from your computer's built-in CPU monitor, and are a better indicator of whether you are hitting your machine's performance limits. Ideally, the CPU meter should stay below 20% at all times. If it's spiking to over 50%, it indicates that you are attempting to acquire more channels than your computer can handle, or your signal chain is too complex.
 
-* **Disk Space Meter**. Displays the fraction of available disk space used by the default recording directory. Keep an eye on this meter to ensure that you don't run out of space for recording data.
+* **Disk Space Meter**. Displays the fraction of available disk space used by the default recording directory. Keep an eye on this meter to ensure that you don't run out of space for recording data. There are also individual disk space meters inside each Record Node.
 
 * **Volume Slider**. Used to adjust the volume of the GUI's built-in audio monitor.
 
 * **Gate Slider**. Used to adjust the "gate" of the audio monitor, which enhances the sound of individual spikes while suppressing background noise.
 
-* **Audio Settings**. This button (which displays the audio buffer size in milliseconds) opens the Audio Settings interface. Data acquisition is driven by your computer's audio card. If you have multiple audio cards installed, this interface can be used to select which one to use. It can also be used to change the size of the audio buffer, which determines the amount of time it takes to complete one processing cycle. If the CPU meter is jumping around a lot, increasing the size of the audio buffer can smooth it out, by giving the GUI more time to process each chunk of data that comes in. However, this will increase the average time it takes for the GUI to deliver closed-loop feedback, if your signal chain includes plugins for trigger stimulation based on incoming neural data.
+* **Audio Settings**. This button (which displays the audio buffer size in milliseconds) opens the Audio Settings interface. Data acquisition is driven by your computer's audio card. If you have multiple audio cards installed, this interface can be used to select which one to use. It can also be used to change the size of the audio buffer, which determines the amount of time it takes to complete one processing cycle. If the CPU meter is jumping around a lot, increasing the size of the audio buffer can smooth it out by giving the GUI more time to process each chunk of data that comes in. However, this will increase the average time it takes for the GUI to deliver closed-loop feedback, if your signal chain includes plugins for triggering stimulation based on neural data.
 
 * **Play**. This button is used to start and stop data acquisition. If there are no processors present in the signal chain, it won't do anything.
 
-* **Record**. This button is used to start and stop recording. If the play button hasn't been pressed yet, the record button will also start data acquisition.
+* **Record**. This button is used to start and stop recording. Recording is only possible if there is at least one Record Node in the signal chain. If the play button hasn't been pressed yet, the record button will also start data acquisition.
 
 * **Clock**. The clock displays the amount of time elapsed since data acquisition started. Or, if data is being recorded, it turns red and displays the amount of time since the current recording began.
 
@@ -64,7 +64,7 @@ Below the control panel is a collapsible interface for changing recording option
 6. Viewport
 ------------
 
-The center of the user interface is used for a variety of different displays, each contained in a separate tab. By default, the viewport shows a high-level overview of the signal chain that allows you to jump to the configuration interfaces for each processor. It also larger visualizations that do not fit inside the Signal Chain view at the bottom of the window.
+The center of the user interface is used for a variety of different displays, each contained in a separate tab. By default, the viewport shows a high-level overview of the signal chain that allows you to jump to the configuration interfaces for each processor. It also holds larger visualizations that do not fit inside the Signal Chain view at the bottom of the window.
 
 
 Menu items
@@ -74,41 +74,47 @@ Below you'll find documentation for all of the commands available from the GUI's
 
 File
 -----
-* **Open**: browse for a previously saved signal chain XML file, and load it into the GUI.
+* **Open**: Browse for a previously saved signal chain XML file, and load it into the GUI.
 
-* **Save**: save the current signal chain to an XML file.
+* **Save**: Save the current signal chain to an XML file.
 
-* **Save as...**: select a new location to store the current signal chain.
+* **Save as...**: Select a new location to store the current signal chain.
 
-* **Reload on startup**: if checked, the GUI will automatically re-load the signal chain that was active the last time the GUI was closed.
+* **Reload on startup**: If checked, the GUI will automatically re-load the signal chain that was active the last time the GUI was closed.
 
-* **Plugin Installer**: open the Plugin Installer interface. See the :ref:`plugins` page for more details.
+* **Enable HTTP server**: If checked, the GUI will automatically start an HTTP server that listens for commands on port 37497.
+
+* **Load a default config**: Open the interface for selecting a default signal chain.
+
+* **Plugin Installer**: Open the Plugin Installer interface. See the :ref:`plugins` page for more details.
 
 Edit
 -----
-* **Undo**: *[not implemented]* undo the most recent action.
+* **Undo**: Undo the most recent action related to building the signal chain (e.g., adding a plugin, deleting a plugin, moving a plugin).
 
-* **Redo**: *[not implemented]* redo the action that was most recently undone.
+* **Redo**: Redo the signal chain action that was most recently undone.
 
-* **Copy**: *[not implemented]* copy the currently selected processor.
+* **Copy**: Copy the currently selected processor.
 
-* **Paste**: *[not implemented]* paste the most recently copied processor to the right of the currently selected processor.
+* **Paste**: Paste the most recently copied processor to the right of the currently selected processor.
 
-* **Clear signal chain**: removes all processors from the signal chain.
-
-* **Timestamp source**: opens an interface for selecting the global timestamp source. Processors that do not generate their own timestamps will inherit them from the global source.
+* **Clear signal chain**: Remove all processors from the signal chain.
 
 View
 -----
 
-* **Processor List**: shows/hides the Processor List interface.
+* **Processor List**: Show/hide the Processor List interface.
 
-* **Signal Chain**: shows/hides the Signal Chain interface.
+* **Signal Chain**: Show/hide the Signal Chain interface.
 
-* **File Info**: shows/hides the Record Options interface.
+* **File Info**: Show/hide the Record Options interface.
 
-* **Reset window bounds**: restores the GUI window to the default size and location (helpful if the window gets lost offscreen).
+* **Reset window bounds**: Restore the GUI window to the default size and location (helpful if the window gets lost offscreen).
 
+Help
+-----
+
+* **Online documentation...**: Open the GUI's documentation site in a browser window (requires access to the interent).
 
 
 Debug console
