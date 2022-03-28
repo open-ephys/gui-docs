@@ -112,6 +112,7 @@ Find the :code:`.dll` / :code:`.so` / :code:`.bundle` file of the plugin you wan
     :maxdepth: 5
 
     Arduino-Output
+    Audio-Monitor
     Bandpass-Filter
     Channel-Map
     Common-Average-Reference
