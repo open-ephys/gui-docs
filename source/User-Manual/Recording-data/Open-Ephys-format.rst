@@ -3,7 +3,7 @@
    :format: html
 
 
-Open Ephys format
+Open Ephys Format
 ========================
 
 .. image:: ../../_static/images/recordingdata/open-ephys/header.png

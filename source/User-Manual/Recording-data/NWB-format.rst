@@ -2,7 +2,7 @@
 .. role:: raw-html-m2r(raw)
    :format: html
 
-NWB format
+NWB 2.0 Format
 =====================
 
 

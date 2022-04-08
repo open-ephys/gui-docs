@@ -2,7 +2,7 @@
 .. role:: raw-html-m2r(raw)
    :format: html
 
-Binary format
+Binary Format
 ========================
 
 .. image:: ../../_static/images/recordingdata/binary/header.png

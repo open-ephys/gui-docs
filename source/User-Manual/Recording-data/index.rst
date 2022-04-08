@@ -138,7 +138,6 @@ Currently, the synchronizer will only generate outputs when using the Binary dat
     Binary-format
     Open-Ephys-format
     NWB-format
-    KWIK-format
 
 .. role:: raw-html-m2r(raw)
    :format: html

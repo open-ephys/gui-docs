@@ -136,15 +136,12 @@ Find the :code:`.dll` / :code:`.so` / :code:`.bundle` file of the plugin you wan
     Probe-Viewer
     Pulse-Pal
     Record-Control
-    Rectifier
     Rhythm-FPGA
-    Serial-Port
     Spectrum-Viewer
     Spike-Detector
     Spike-Sorter
     Spike-Viewer
     Splitter
-    Stream-Muxer
     Tracking-Plugin
     Virtual-Reference
     ZMQ-Interface

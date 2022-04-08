@@ -11,7 +11,7 @@ Splitter
 
 |
 
-.. csv-table:: Allows the signal chain to be split into two. This is essential for things like visualizing spikes and LFP from the same data source..
+.. csv-table:: Creates a copy of all incoming continuous channels, spikes, and events, allowing data to be processed independently along two branches of the signal chain.
    :widths: 18, 80
 
    "*Plugin Type*", "Utility"
