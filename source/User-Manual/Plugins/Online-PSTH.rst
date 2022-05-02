@@ -1,24 +1,23 @@
-.. _eventtriggeredaverage:
+.. _onlinepsth:
 .. role:: raw-html-m2r(raw)
    :format: html
 
 
 #########################
-Event Triggered Average
+Online PSTH
 #########################
 
-.. image:: ../../_static/images/plugins/eventtriggeredavg/eventtriggeredavg-01.png
+.. image:: ../../_static/images/plugins/onlinepsth/onlinepsth-01.png
   :alt: Annotated Event Triggered Average settings interface
 
-|
 
-.. csv-table:: Aligns spike times to events, in order to create a peri-stimulus time histogram display.
+.. csv-table:: Aligns spike times to incoming TTL events in order to create a peri-stimulus time histogram display.
    :widths: 18, 80
 
-   "*Plugin Type*", "Filter"
+   "*Plugin Type*", "Sink"
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
-   "*Key Developers*", "Clayton Barnes"
+   "*Key Developers*", "Clayton Barnes, Josh Siegle"
    "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Plugins/EvntTrigAvg"
 
 

@@ -130,9 +130,9 @@ To display the debug console on Linux, just run the :code:`open-ephys` applicati
 macOS
 -------
 
-To display the debug console on MacOS, open a terminal, navigate to the directory where the GUI application is located and run it inside the console.
+To display the debug console on macOS, open a terminal, navigate to the directory where the GUI application is located and run it inside the console.
 
-Due to the structure of MacOS app bundles, the whole command to run the GUI would be :code:`./open-ephys.app/Contents/MacOS/open-ephys`. Run this command from the directory which contains the App bundle. Do not access the internal App directories and run :code:`./open-ephys` from there, as some features will not be available that way.
+Due to the structure of macOS app bundles, the whole command to run the GUI would be :code:`./open-ephys.app/Contents/MacOS/open-ephys`. Run this command from the directory which contains the App bundle. Do not access the internal App directories and run :code:`./open-ephys` from there, as some features will not be available that way.
 
 Windows
 ---------

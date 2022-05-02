@@ -21,13 +21,15 @@ Binary Format
 
 * Continuous data is stored in a compact format of tiled 16-bit integers, which can be memory mapped for efficient loading.
 
-* Additional files are stored as JSON or NumPy data format, which can be read using :code:`numpy.load` in Python, or the `npy-matlab <https://github.com/kwikteam/npy-matlab>`__ package.
+* Additional files are stored as JSON or NumPy data format, which can be read using :code:`numpy.load` in Python, or the `npy-matlab <https://github.com/cortex-lab/npy_matlab>`__ package.
 
-* The format is compatible with any combination of processors or subprocessors supported by the GUI
+* The format has no limit on the number of channels that can be recorded simultaneously.
+
+* Continuous data files are immediately compatible with most spike sorting packages.
 
 **Limitations**
 
-* Requires slightly more disk space because it stores a 64-bit timestamp for every sample.
+* Requires slightly more disk space because it stores two 64-bit timestamps for every sample.
 
 * Continuous files are not self-contained, i.e., you need to know the number of channels and the "bit-volts" multiplier in order to read them properly.
 
@@ -50,7 +52,7 @@ Format details
 Continuous
 ----------------
 
-Continuous data is grouped by sub-processor (a block of synchronously sampled channels):
+Continuous data is written separately for each stream within a processor (a block of synchronously sampled channels):
 
 .. image:: ../../_static/images/recordingdata/binary/continuous.png
   :alt: Binary data continuous format
@@ -60,66 +62,61 @@ Each **continuous** directory contains the following files:
 
 * :code:`continuous.dat`: A simple binary file containing *N* channels x *M* samples 16-bit integers in little-endian format. Data is saved as :code:`ch1_samp1, ch2_samp1, ... chN_samp1, ch1_samp2, ch2_samp2, ..., chN_sampM`. The value of the least significant bit needed to convert the 16-bit integers to physical units is specified in the :code:`bitVolts` field of the relevant channel in the :code:`structure.oebin` JSON file. For "headstage" channels, multiplying by :code:`bitVolts` converts the values to microvolts, whereas for "ADC" channels, :code:`bitVolts` converts the values to volts.
 
-* :code:`timestamps.npy`: A numpy array containing *M* 64-bit integers that represent the timestamps for each sample.
+* :code:`sample_numbers.npy`: A numpy array containing *M* 64-bit integers that represent the index of each sample in the :code:`.dat` file since the start of acquisition.
 
-* :code:`synchronized_timestamps.npy`: A numpy array containing *M* 64-bit floats representing the timestamps in seconds relative to the start of the master sub-processor.
+* :code:`timestamps.npy`: A numpy array containing *M* 64-bit floats representing the global timestamps in seconds relative to the start of the Record Node's main data stream (assuming this stream was synchronized before starting recording).
 
 Events
 -------
 
-Event data is organized by processor and by "event group" (e.g., :code:`TTL_<N>`). Each event group can contain data for multiple event channels.
+Event data is organized by stream and by "event channel" (typically :code:`TTL`). Each event channel records the states of multiple TTL lines.
 
 .. image:: ../../_static/images/recordingdata/binary/events.png
   :alt: Binary data events format
   :width: 300
 
-All types of events include the following files:
+Directories for TTL event channels include the following files:
 
-* :code:`timestamps.npy` Contains *N* 64-bit timestamps for each event
+* :code:`states.npy`:  numpy array of *N* 16-bit integers, indicating ON (+CH_number) and OFF (-CH_number) states
 
-* :code:`channels.npy` Contains *N* unsigned 16-bit integers indicating the virtual channel associated to each event.
+* :code:`sample_numbers.npy` Contains *N* 64-bit integers indicating the sample number of each event since the start of acquisition
 
-* :code:`metadata.npy` (optional) If the events contain metadata fields, they will be stored as an array of *N* lists of fields or, if there is just one field, a *N* x :code:`length_of_field` array of the relevant type.
+* :code:`timestamps.npy` Contains *N* 64-bit floats indicating representing the global timestamp of each event in seconds relative to the start of the Record Node's main data stream (assuming this stream was synchronized before starting recording)
+
+* :code:`full_words.npy`: Contains *N* 64-bit integers containing the "TTL word" consisting of the current state of *all* lines when the event occurred
 
 Text events
 ^^^^^^^^^^^^
 
+Text events are routed through the GUI's Message Center, and are stored in a directory called :code:`MessageCenter`. They contain the following files:
+
 * :code:`text.npy`: numpy array of *N* strings
 
-Binary events
-^^^^^^^^^^^^^^
+* :code:`sample_numbers.npy` Contains *N* 64-bit integers indicating the sample number of each text event on the Record Node's main data stream
 
-* :code:`data_array.npy`: numpy array of *N* x :code:`data_length` elements of the relevant type
+* :code:`timestamps.npy` Contains *N* 64-bit floats indicating representing the global timestamp of each text event in seconds relative to the start of the Record Node's main data stream
 
-TTL events
-^^^^^^^^^^
-
-* :code:`channel_states.npy`:  numpy array of *N* 16-bit integers, indicating ON (+CH_number) and OFF (-CH_number) states.
-
-* :code:`full_words.npy`: numpy array of *N* x log2(numBits) unsigned 8-bit integers containing the binary representations of the full words received by the TTL source, in case they need to be treated as full qualified binary data.
 
 Spikes
 --------
 
-Spike data is organized by processor and by "spike group" (a group of spike sources with the same number of channels). If, for example, you have stereotrodes and tetrodes within the same Spike Sorter plugin, the stereotrodes and tetrodes will appear in separate spike groups.
+Spike data is organized first by stream and then by electrode.
 
 .. image:: ../../_static/images/recordingdata/binary/spikes.png
   :alt: Binary data spikes format
   :width: 300
 
-Each **spike group** directory contains the following files:
+Each **electrode** directory contains the following files:
 
-* :code:`spike_waveforms.npy`: numpy array with dimensions *S* spikes x *N* channels x *M* samples containing the spike waveforms
+* :code:`waveforms.npy`: numpy array with dimensions *S* spikes x *N* channels x *M* samples containing the spike waveforms
 
-* :code:`spike_times.npy`: numpy array of *S* 64-bit integers containing the timestamps corresponding to the peak of each spike
+* :code:`sample_numbers.npy`: numpy array of *S* 64-bit integers containing the sample number corresponding to the peak of each spike
 
-* :code:`spike_electrode_indices.npy`: numpy array of *S* unsigned 16-bit integers specifying which of the electrodes within the group the spike originated from
+* :code:`timestamps.npy`: numpy array of *S* 64-bit floats containing the global timestamp in seconds corresponding to the peak of each spike (assuming this stream was synchronized before starting recording)
 
-* :code:`spike_clusters.npy`: numpy array of *S* unsigned 16-bit integers containing the sorted cluster ID for each spike (defaults to 0 if this is not available).
+* :code:`clusters.npy`: numpy array of *S* unsigned 16-bit integers containing the sorted cluster ID for each spike (defaults to 0 if this is not available).
 
-* :code:`metadata.npy`: (optional) If the spikes contain metadata fields, they will be stored as an array of *S* lists of fields or, if there is just one field, a *S* x :code:`length_of_field` array of the relevant type.
-
-Detailed information about the electrodes contained in each spike group as well as the metadata fields, if any, is stored in the :code:`structure.oebin` JSON file.
+More detailed information about each electrode is stored in the :code:`structure.oebin` JSON file.
 
 
 Reading data in Python

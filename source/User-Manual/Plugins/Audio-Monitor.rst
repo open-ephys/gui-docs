@@ -9,8 +9,6 @@ Audio Monitor
 .. image:: ../../_static/images/plugins/audiomonitor/audiomonitor-01.png
   :alt: Annotated Audio Monitor settings interface
 
-|
-
 .. csv-table:: Streams data from incoming continuous channels to the computer's audio output.
    :widths: 18, 80
 
@@ -22,35 +20,41 @@ Audio Monitor
 
 
 
-Configuring your Arduino
+Overview
 =========================
 
-This plugin works with any Arduino running the `Firmata <https://www.arduino.cc/en/reference/firmata>`__ firmware. To install this on your device, first make sure you've downloaded the `Arduino IDE <https://www.arduino.cc/en/main/software>`__ (version 1.0 or higher) for your platform of choice.
+The Audio Monitor can be used to listen to any continuous signals processed by the GUI's signal chain. It automatically upsamples the data to match the sampling rate of the computer's audio card, and includes a built-in bandpass filter to enhance the sound of spikes.
 
-Next, connect the Arduino to your computer and upload the sketch in `File > Examples > Firmata > StandardFirmata`. This will allow your computer to control the state of the Arduino from software.
+**IMPORTANT:** The Audio Monitor only works if it is placed in the middle of a signal chain (not at the end). Ideally it should be located downstream of any Spike Detectors, but upstream of at least one visualizer (e.g. :ref:`spikeviewer` or :ref:`lfpviewer`).
 
 Plugin configuration
 ====================
 
-You'll need a signal chain capable of generating TTL events. These can either come from a source node (such as the :ref:`rhythmfpga`, with the I/O board connected to the Digital Input port) or from a processor (such as the :ref:`phasedetector`). The Arduino Output is a sink, so it needs to be placed at the end of the signal chain. If you want to visualize your data with an :ref:`lfpviewer` as well, you'll need to use a :ref:`splitter` to split the data stream into two.
+Channel selection
+------------------
 
-Before you start acquisition, select the device you want to use via the device selector drop-down menu. It will take a few seconds for the GUI to initialize communication with the board. The status of the connection will appear in the Message Center.
+The "Channels" button allows the user to select up to 4 continuous channels to monitor at a time. 
 
-The other three drop-down menus determine the input ("Trig") channel that will translate software events into hardware outputs, the gate ("Gate") channel that determines whether or not the Arduino Output is active, and the output ("Output CH") channel of the Arduino that will be activated. 
+Alternatively, if there is a :ref:`spikedetector` to the left of the Audio Monitor, the continuous channels for each electrode can be selected by choosing an electrode from the drop-down menu at the bottom of the editor.
 
-All three of the these parameters can be changed while acquisition is active.
+.. tip:: You can select channels to monitor directly from the Spike Viewer (by clicking one of the "MON" buttons) or the LFP Viewer (by right-clicking on any channel to display a pop-up menu).
 
+Output options
+------------------
 
-Default settings
-----------------
+The audio for each Audio Monitor can be directed to the left, right, or both speakers by clicking the buttons in the middle of the editor. This can be useful for directing the output of one electrode to the left channel and one electrode to the right channel (via a separate Audio Monitor).
 
-* The Arduino can be triggered by any TTL event (regardless of the channel)
+Individual Audio Monitors can be muted by clicking the button in the upper right of the editor.
 
-* There is no gate (the output will always be able to be activated)
+The output volume is controlled by the slider in the control panel. There is also a "gate" slider, which can be used to enhance the sound of individual spikes while suppressing background noise.
 
-* The output channel is 13 (the one tied to the LED on the Arduino Uno, useful for debugging purposes)
+.. tip:: If you can't hear any output from the Audio Monitor, check the volume slider in the control panel as well as you're computer's system volume.
 
-|
+Working with multiple data streams
+===================================
+
+Each Audio Monitor can only be used to listen to channels from one data stream at a time. The active stream corresponds to whichever stream is currently visible in the stream selector interface (accessed by clicking the vertical bars on the right-hand side of the editor). To listen to data from multiple streams simultaneously, you can place several Audio Monitors in succession.
+
 |
 
 

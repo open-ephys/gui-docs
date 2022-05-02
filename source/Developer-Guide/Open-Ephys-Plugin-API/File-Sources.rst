@@ -5,6 +5,14 @@
 File Sources
 =====================
 
-The Open Ephys Plugin API consists of all of the classes and methods that can be used by plugins. The Plugin API defines how plugins can interact with the rest of the GUI, and also provides some convenient functions for building user interfaces and processing data. Classes and methods that are part of the Plugin API are indicated by the :code:`PLUGIN_API` macro. 
+.. csv-table:: File Sources stream pre-recorded continuous data and events into the File Reader.
+   :widths: 18, 80
 
-.. note:: This documentation is focused on "Processor" plugins, which inherit from the :code:`GenericProcessor` class. Not all of the methods described below are available to other types of plugins, such as DataThreads, RecordEngines, and FileSources.
+   "*Type*", ":code:`Plugin::Type::FILE_SOURCE`"
+   "*Base Class*", ":code:`FileSource`"
+   "*Template*", "https://github.com/open-ephys-plugins/file-source-template"
+
+Overview
+---------
+
+Text goes here.

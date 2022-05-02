@@ -9,9 +9,7 @@ Arduino Output
 .. image:: ../../_static/images/plugins/arduinooutput/arduinooutput-01.png
   :alt: Annotated Arduino Output settings interface
 
-|
-
-.. csv-table:: Allows events from within the GUI to control the state of digital output pins on an Arduino running `Firmata <https://www.arduino.cc/en/reference/firmata>`__. Provides a quick and easy way to translate information from software to hardware via USB.
+.. csv-table:: Allows events from within the GUI to control the state of digital output pins on an Arduino running `Firmata <https://www.arduino.cc/en/reference/firmata>`__. Provides a quick and easy way to translate information from software to hardware.
    :widths: 18, 80
 
    "*Plugin Type*", "Sink"
@@ -21,7 +19,6 @@ Arduino Output
    "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Plugins/ArduinoOutput"
 
 
-
 Configuring your Arduino
 =========================
 
@@ -29,28 +26,29 @@ This plugin works with any Arduino running the `Firmata <https://www.arduino.cc/
 
 Next, connect the Arduino to your computer and upload the sketch in `File > Examples > Firmata > StandardFirmata`. This will allow your computer to control the state of the Arduino from software.
 
+.. image:: ../../_static/images/plugins/arduinooutput/arduinooutput-02.png
+  :alt: Annotated Arduino Output settings interface
+
+.. caution:: Trying to connect to an Arduino that's running firmware other than Firmata can cause the GUI to crash.
+
 Plugin configuration
 ====================
 
-You'll need a signal chain capable of generating TTL events. These can either come from a source node (such as the :ref:`rhythmfpga`, with the I/O board connected to the Digital Input port) or from a processor (such as the :ref:`phasedetector`). The Arduino Output is a sink, so it needs to be placed at the end of the signal chain. If you want to visualize your data with an :ref:`lfpviewer` as well, you'll need to use a :ref:`splitter` to split the data stream into two.
+In order for the Arduino to send output pulses, you'll need a signal chain capable of generating TTL events. These can either come from a source node (such as the :ref:`rhythmfpga`, with the I/O board connected to the Digital Input port) or from a processor that generates events (such as the :ref:`phasedetector`).
 
-Before you start acquisition, select the device you want to use via the device selector drop-down menu. It will take a few seconds for the GUI to initialize communication with the board. The status of the connection will appear in the Message Center.
+Before you start acquisition, select the Arduino device you want to use via the device selector drop-down menu. It will take a few seconds for the GUI to initialize communication with the board. The status of the connection will appear in the Message Center, and the plugin will turn green if the connection is successful.
 
-The other three drop-down menus determine the input ("Trig") channel that will translate software events into hardware outputs, the gate ("Gate") channel that determines whether or not the Arduino Output is active, and the output ("Output CH") channel of the Arduino that will be activated. 
+.. note:: On Mac the Arduino often appears as a USB modem.
 
-All three of the these parameters can be changed while acquisition is active.
+After the device is connected, there are three parameters can be changed:
 
+* :code:`OUTPUT_PIN`: The digital I/O pin on your Arduino that will mimic the state of a TTL input line.
 
-Default settings
-----------------
+* :code:`INPUT_LINE`: The TTL line that will be translated into digital outputs.
 
-* The Arduino can be triggered by any TTL event (regardless of the channel)
-
-* There is no gate (the output will always be able to be activated)
-
-* The output channel is 13 (the one tied to the LED on the Arduino Uno, useful for debugging purposes)
+* :code:`GATE_LINE`: The TTL line that will gate the hardware output. If this is set to a value other than zero, the Arduino will only send output when the gate line is "high."
 
 |
-|
+
 
 

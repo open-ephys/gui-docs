@@ -119,7 +119,7 @@ Find the :code:`.dll` / :code:`.so` / :code:`.bundle` file of the plugin you wan
     Crossing-Detector
     Ephys-Socket
     Event-Broadcaster
-    Event-Triggered-Average
+    Event-Translator
     Falcon-Output
     File-Reader
     Intan-Recording-Controller
@@ -131,6 +131,7 @@ Find the :code:`.dll` / :code:`.so` / :code:`.bundle` file of the plugin you wan
     Neuropixels-3a
     Neuropixels-PXI
     NIDAQmx
+    Online-PSTH
     Phase-Calculator
     Phase-Detector
     Probe-Viewer

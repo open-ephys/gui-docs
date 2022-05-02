@@ -43,7 +43,7 @@ In the Spike Detector, an "Electrode" represents a group of continuous channels 
 #. **Stereotrodes** - 2 channels
 #. **Tetrodes** - 4 channels
 
-The Spike Detector can be configured with an arbitrary number of electrodes of any type, which may or may not share continuous channels with one another.
+The Spike Detector can be configured with an arbitrary number of electrodes of any type, which may or may not have overlapping continuous channels.
 
 To create new electrodes, first click on the "Configure" button to bring up the "Add electrode" menu:
 

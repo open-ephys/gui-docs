@@ -5,9 +5,18 @@
 Record Engines
 =====================
 
-The Open Ephys Plugin API consists of all of the classes and methods that can be used by plugins. The Plugin API defines how plugins can interact with the rest of the GUI, and also provides some convenient functions for building user interfaces and processing data. Classes and methods that are part of the Plugin API are indicated by the :code:`PLUGIN_API` macro. 
+.. csv-table:: Record Engines define how continuous data, events, and spikes are written to disk.
+   :widths: 18, 80
 
-.. note:: This documentation is focused on "Processor" plugins, which inherit from the :code:`GenericProcessor` class. Not all of the methods described below are available to other types of plugins, such as DataThreads, RecordEngines, and FileSources.
+   "*Type*", ":code:`Plugin::Type::RECORD_ENGINE`"
+   "*Base Class*", ":code:`RecordEngine`"
+   "*Template*", "https://github.com/open-ephys-plugins/record-engine-template"
+
+
+Overview
+========================
+
+Text goes here.
 
 Adding a new data format
 ========================

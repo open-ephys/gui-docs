@@ -33,6 +33,8 @@ If there's something missing from this documentation that you think should be in
     Installing-the-GUI
     Exploring-the-user-interface
     Building-a-signal-chain
+    Settings-files
+    Whats-new-in-version-06X
     Recording-data/index
     Plugins/index
 

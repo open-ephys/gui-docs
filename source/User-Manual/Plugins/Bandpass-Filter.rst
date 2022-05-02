@@ -26,7 +26,7 @@ Filter parameters
 
 The bandpass filter has two parameters, :code:`LOW_CUT` and :code:`HIGH_CUT`. These parameters define the upper and lower cutoff frequencies of the filter, respectively. To change these values, simply type a different number into either text box. 
 
-**Acceptable parameter range:** The minimum value for both parameters is 1 Hz, and the maximum value is 15,000 Hz. The low cut cannot be set to a value that's higher than the high cut, and the high cut cannot be set to a value that's lower than the low cut.
+**Acceptable parameter range:** The minimum value for both parameters is 0.1 Hz, and the maximum value is 15,000 Hz. The low cut cannot be set to a value that's higher than the high cut, and the high cut cannot be set to a value that's lower than the low cut.
 
 .. note:: Filter parameters can be changed during recording, but these changes will not be logged. The parameters that are active at the start of recording will be stored in the :code:`settings.xml` file.
 

@@ -5,4 +5,14 @@
 Data Threads
 =====================
 
-The Open Ephys Plugin API consists of all of the classes and methods that can be used by plugins. The Plugin API defines how plugins can interact with the rest of the GUI, and also provides some convenient functions for building user interfaces and processing data. Classes and methods that are part of the Plugin API are indicated by the :code:`PLUGIN_API` macro. 
+.. csv-table:: Data Threads bring data into the signal chain from external hardware.
+   :widths: 18, 80
+
+   "*Type*", ":code:`Plugin::Type::DATA_THREAD`"
+   "*Base Classes*", ":code:`DataThread`, :code:`DataBuffer`"
+   "*Template*", "https://github.com/open-ephys-plugins/data-thread-template"
+
+Overview
+#####################
+
+Text goes here.

@@ -9,8 +9,6 @@ LFP Viewer
 .. image:: ../../_static/images/plugins/lfpviewer/lfpviewer-01.png
   :alt: Annotated LFP Viewer settings interface
 
-|
-
 .. csv-table:: "LFP" stands for "local field potential," but this visualizer can display any type of continuous signal. It's an essential plugin for monitoring overall data quality before and during an experiment. Each LFP Viewer can display up to 3 segments of data at a time, either side-by-side or stacked on top of one another.
    :widths: 18, 80
 
@@ -21,10 +19,6 @@ LFP Viewer
    "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Plugins/LfpDisplayNode"
 
 |
-
-
-
-.. note:: As of GUI version 0.5.4, the "Beta" version of the LFP Viewer Beta has been deprecated, and is no longer included as a default plugin.
 
 Plugin configuration
 ######################

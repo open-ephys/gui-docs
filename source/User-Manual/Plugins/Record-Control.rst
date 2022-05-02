@@ -9,9 +9,7 @@ Record Control
 .. image:: ../../_static/images/plugins/recordcontrol/recordcontrol-01.png
   :alt: Annotated Record Control editor
 
-|
-
-.. csv-table:: Allows recording to be automatically toggled on and off by event channels, instead of manually pressing the record button. It can be used to trigger recording using external TTLs, or based on events that are detected in a continuous data stream.
+.. csv-table:: Allows recording to be automatically toggled on and off by TTL inputs, instead of manually pressing the record button. It can be used to trigger recording using external TTLs, or based on events that are detected in a continuous data stream.
    :widths: 18, 80
 
    "*Plugin Type*", "Utility"
@@ -20,17 +18,22 @@ Record Control
    "*Key Developers*", "Josh Siegle, Aarón Cuevas López"
    "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Plugins/RecordControl"
 
-|
-
 Plugin configuration
 #####################
 
-You need to select an appropriate trigger channel before it will do anything. Acquisition must be running as usual for the node to respond to TTL events.
+First, make sure the correct TTL trigger line is selected (the line labels use 1-based indexing). Then check the desired edge type ("Rising" or "Falling").
 
-Trigger type and edge options select how TTL events will control recording: With "Edge set" an edge event corresponding to the one selected will start recording while the opposite will stop it. That allows for recording to run as long as the TTL signal is in positive or negative state. "Edge toggle" will toggle recording each time an edge of the specified type is detected, allowing for starting recording with one pulse and disabling with the next.
+Acquisition must be running for the Record Control plugin to respond to TTL events. Record Control modules can be dropped anywhere in the signal chain as long as there's a data source upstream, and data will pass through them unchanged.
 
-Since it's a utility, a Record Control module can be dropped anywhere in the signal chain (except at the source). Data will pass through it unchanged.
+.. caution:: If trigger events are too close together, the Record Nodes may not have enough time to open and close the relevant files. There should be at least one second between events that toggle the recording state.
 
-.. note:: If two start/stop events are too close the recording subsystem might not properly register the state change. We recommend at least 1 second of separation between events that toggle recording state.
+Trigger modes 
+-------------
+
+* **Edge set**: Starts recording when the selected edge (rising or falling) is detected, and stops recording when the opposite edge is detected. Use this mode to record data whenever a particular TTL line is "high" or "low."
+
+* **Edge toggle**: Starts recording when the selected edge (rising or falling) is detected, and stops recording when the next edge of the same type is detected. Use this mode to toggle recording state using incoming events on a particular TTL line.
+
+|
 
 
