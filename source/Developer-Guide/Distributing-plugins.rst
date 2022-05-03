@@ -14,40 +14,78 @@ Setting up the plugin repository
 
 1. Fork the plugin of interest to the :code:`open-ephys-plugins` GitHub account (requires login).
 
-2. Add :code:`bintrayUsername` and :code:`bintrayApiKey` to GitHub secrets under repository settings.
+2. Go to :code:`open-ephys-plugins` organization settings and navigate to Secrets->Actions.
 
-3. Add GitHub workflows for macOS, Linux, and Windows (exampes available in the :code:`open-ephys-plugins-ci` repository)
+   .. image:: ../_static/images/developerguide/artifactory-secret.png
+      :alt: Organization secret settings
+      :target: ../_static/images/developerguide/artifactory-secret.png
 
-.. note:: If the plugin has dependencies that are a part of the plugin repository, refer to the `neuropixels-pxi <https://github.com/open-ephys-plugins/neuropixels-pxi>`__ plugin workflows to understand the proper way to package dependencies inside the plugin's zip file.
+3. Update the :code:`ARTIFACTORYAPIKEY` settings by clicking on Update and then going to Repository access settings.
 
-Setting up the Bintray repository
-#################################
+4. Select and enable your plugin repository from the list of organization repositories, and click on update selection.   
 
-1. Open the :code:`open_ephys_plugins_ci.py` script.
+Setting up the Artifactory repository
+######################################
 
-2. Modify the script with the plugin-specific information.
+1. Login to the `openephys.jfrog.io <https://openephys.jfrog.io/>`_ account.
 
-3. Run the script.
+2. Go to Administration settings and open Repositories from the left sidebar.
 
-4. Login to the Bintray account.
+   .. image:: ../_static/images/developerguide/jfrog-repository-settings.png
+      :alt: JFrog repository settings
+      :target: ../_static/images/developerguide/jfrog-repository-settings.png
 
-5. Verify the repository and its packages have been created. 
+3. Click on "Add Repositories" on the top-right corner and create a "Local Repository". Select the package type as "Generic".
 
-.. note:: Be sure the labels for the repository have been set correctly. The first label should always be the plugin display name that should appear in Plugin Installer. Remaining labels specify the type of plugin, e.g. Source, Filter, or Sink.
+4. Now, specify the name of the plugin in the :code:`Repository Key` field.
+
+   .. note:: The name of the repository should have the :code:`-plugin` string appended. So, if your plugin name is Online PSTH, then the repository name should be :code:`OnlinePSTH-plugin`.
+
+   .. image:: ../_static/images/developerguide/create-artifactory-repo.png
+      :alt: Create Artifactory Repository
+      :target: ../_static/images/developerguide/create-artifactory-repo.png
+
+5. Enter the plugin description in the :code:`Public Description` field.
+
+6. Click on :code:`Create Local Repository`. That should create the plugin Artifactory repository for you.
+
+7. Now, go to the Artifactory homepage and click on Artifactory->Artifacts. 
+
+8. Navigate to the repository you just created.
+
+9. Click on properties, and add the following properties to the repository: 
+
+   .. csv-table:: Properties for Artifactory repository
+      :header: "Property Name", "Property Value"
+      :widths: 30, 120
+
+      "**Name**", "The actual name of the plugin as specified in the :code:`OpenEphysLib.cpp` file"
+      "**Type**", "Source, Filter, Sink, RecordEngine, or CommonLib"
+      "**Developers**", "Name(s) of the plugin developer(s)"
+      "**Docs**", "Link to the plugin documentation page on"
+      "**Dependencies**", "*(Optional)* Names of external plugin dependencies (if any) that have their own repository"
+
+   .. image:: ../_static/images/developerguide/artifactory-repo-properties.png
+      :alt: Create Artifactory Repository
+      :target: ../_static/images/developerguide/artifactory-repo-properties.png
 
 Configuring external dependencies (if any)
 ##############################################
 
-If the plugin needs any external dependency that requires its own repository to build, you'll have to follow all the steps mentioned above to set up the GitHub and Bintray repositories. **Importantly,** while setting up the Bintray repository using the script, make sure you add "Dependency" as the second label (type of plugin) in the script. 
+If the plugin has any external dependency that requires its own repository to be built and deployed, you'll have to follow all the steps mentioned above to set up the GitHub and Artifactory repositories. **Importantly,** while setting up the Artifactory repository properties, make sure you add "Type" property with "CommonLib" as it's value. No need to specify any other properties.
 
-Once the external dependency is setup, go to the plugin's repository that needs this dependency. For each platform package, go to the "Custom Attributes" menu and add the dependency *repository* name to the "Name" field and the dependency *package* name for the platform as the "Value".
+Once the external dependency is setup, go to the plugin's Artifactory repository that needs this dependency. Add the "Dependencies" property and the dependency repository name without the appended "-plugin" string as the value.
 
 Releasing the plugin
 #################################
 
 * For each new release, tag the latest commit on GitHub with the version number. Versions should follow the `semantic versioning <https://semver.org/>`_ scheme. (Do not add a 'v' in front of the version number).
 
-* After pushing the tag to the repository, it should run the GitHub Actions workflows across all the platforms which should build the plugin, package it, and publish it to Bintray.
+* Add GitHub Actions workflows for macOS, Linux, and Windows (examples available in the :code:`open-ephys-plugins-ci` repository)
+
+.. note:: If the plugin has dependencies that are a part of the plugin repository, refer to the `neuropixels-pxi <https://github.com/open-ephys-plugins/neuropixels-pxi>`__ plugin workflows to understand the proper way to package dependencies inside the plugin's zip file.
+
+* After pushing the workflows and the tag to the Github repository, it should run the GitHub Actions workflows across all the platforms which should build the plugin, package it, and publish it to Artifactory.
 
 * Once the workflows run successfully, the plugins (or its latest version) should be available to download from the GUI's Plugin Installer.
 
