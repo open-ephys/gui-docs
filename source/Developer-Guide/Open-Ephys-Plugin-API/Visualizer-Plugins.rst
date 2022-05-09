@@ -13,6 +13,6 @@ Visualizer Plugins
    "*Template*", "https://github.com/open-ephys-plugins/visualizer-plugin-template"
 
 Overview
----------
+#####################
 
 Text goes here.

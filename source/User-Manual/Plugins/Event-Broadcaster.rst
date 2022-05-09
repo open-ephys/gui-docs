@@ -9,8 +9,6 @@ Event Broadcaster
 .. image:: ../../_static/images/plugins/eventbroadcaster/eventbroadcaster-01.png
   :alt: Annotated Event Broadcaster editor
 
-|
-
 .. csv-table:: Sends events from the GUI to external applications.
    :widths: 18, 80
 

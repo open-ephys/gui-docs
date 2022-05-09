@@ -13,6 +13,6 @@ File Sources
    "*Template*", "https://github.com/open-ephys-plugins/file-source-template"
 
 Overview
----------
+#####################
 
 Text goes here.

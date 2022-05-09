@@ -128,7 +128,6 @@ Find the :code:`.dll` / :code:`.so` / :code:`.bundle` file of the plugin you wan
     Merger
     Multiband-Integrator
     Network-Events
-    Neuropixels-3a
     Neuropixels-PXI
     NIDAQmx
     Online-PSTH
