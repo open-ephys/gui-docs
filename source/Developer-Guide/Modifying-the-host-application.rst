@@ -12,7 +12,7 @@ Recommended workflow
 
 If you're planning to update the host application, or any of the plugins in the `plugin-GUI repository <https://github.com/open-ephys/plugin-GUI>`__, we encourage you to follow these steps:
 
-1. Fork |fork icon| the `GUI's GitHub repository <https://github.com/open-ephys/plugin-GUI>`__ to your own account.
+1. Fork the `GUI's GitHub repository <https://github.com/open-ephys/plugin-GUI>`__ to your own account.
 
 2. Clone the fork via the `command line <https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-using-the-command-line>`__ or the `GitHub Desktop app <https://desktop.github.com/>`__. 
 
@@ -41,7 +41,7 @@ The top-level directory of the `plugin-GUI repository <https://github.com/open-e
 
 * **JuceLibraryCode** - a customized version of the source code for the `Juce Library <https://juce.com/>`__. The Open Ephys GUI uses this library for a wide variety of functions, including drawing the user interface, real-time data processing, threading, and file I/O.
 
-* **Plugins** - source code for plugins that are included by default with the host application. Eventually, these plugins will be migrated to their own repositories, so they can be installed an upgraded via the Plugin Installer.
+* **Plugins** - source code for plugins that are included by default with the host application.
 
 * **Resources** - includes a variety of useful resources, including sample data files, scripts, and libraries used by the GUI.
 
@@ -108,14 +108,9 @@ There are five main types of plugins that can be placed in the ProcessorGraph:
 
 In addition to the user-defined signal chain, one module is created by default:
 
-* The **AudioNode** allows signals to be sent to the computer's audio card, for purposes of audio monitoring. Every plugin (except for Sinks) is automatically connected to the AudioNode.
+* The **AudioNode** allows signals to be sent to the computer's audio card, for purposes of audio monitoring. The last two channels of every :ref:`audiomonitor` are automatically connected to the Audio Node.
 
 
-
-
-
-.. |fork icon| image:: ../_static/images/developerguide/fork.svg
-   :height: 15
 
 .. |br| raw:: html
 

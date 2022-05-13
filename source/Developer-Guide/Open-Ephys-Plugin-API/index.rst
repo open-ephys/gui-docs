@@ -23,13 +23,13 @@ Detailed information about the five different types of plugins that can be creat
     Record-Engines 
     File-Sources
 
-In addition, some general features of the plugin API are covered below:
+Some general features of the plugin API are covered below:
 
 
 Logging
 #########
 
-When plugins need to log information, they should ideally use the GUI's built-in logger class, defined in :code:`Utils.h`. This is preferred to calling :code:`std::cout` or `printf`, because the logger class will (optionally) print output to the console as well as to a log file that is created each time the GUI is run.
+When plugins need to log information, they should ideally use the GUI's built-in logger class, defined in :code:`Utils.h`. This is preferred to calling :code:`std::cout` or `printf`, because the logger class will print output to the console as well as to a log file that is created each time the GUI is run.
 
 The two primary methods are:
 
@@ -44,13 +44,13 @@ These are used by calling, e.g.:
 
 where the arguments are strings, integers, floats, etc. -- any values that can be converted to strings by `std::cout`. There is no limit to the number of arguments that can be used.
 
-In addition, there are several other methods that are reserved for specific cases:
+In addition, there are several other logging methods that are reserved for specific cases:
 
 - :code:`LOGA` ("log action"): writes a line in the log file whenever the user performs an action (e.g. pressing a button, updating a label, etc.).
-- :code:`LOGB` ("log buffer"): logs messages inside the :code:`process()` callback (never do this in release mode).
+- :code:`LOGB` ("log buffer"): logs messages inside a plugin's :code:`process()` callback (never do this in release mode).
 - :code:`LOGE` ("log error"): prints the console output via :code:`std::cerr` instead of :code:`std::cout`.
 - :code:`LOGF` ("log file"): prints to the log file only.
-- :code:`LOGG` ("log graph"): messages related to constructing the GUI's processor graph.
+- :code:`LOGG` ("log graph"): logs messages related to constructing the GUI's processor graph.
 
 Core Services
 ##############
@@ -185,24 +185,24 @@ All types of plugins can access the :code:`CoreServices` class, which includes t
     Set the text to be prepended to the name of newly created recording directories.
 
 
-.. function:: String getRecordingDirectoryAppendText()
+.. function:: String CoreServices::getRecordingDirectoryAppendText()
 
     Set the text to be appended to the name of newly reated recording directories.
 
 
-.. function:: void setRecordingDirectoryPrependText(String text)
+.. function:: void CoreServices::setRecordingDirectoryPrependText(String text)
 
     Set the text to be prepended to the name of newly created recording directories.
 
 
-.. function:: void setRecordingDirectoryAppendText(String text)
+.. function:: void CoreServices::setRecordingDirectoryAppendText(String text)
 
     Set the text to be appended to the name of newly created recording directories.
 
     :param text: The 
 
 
-.. function:: bool allRecordNodesAreSynchronized()
+.. function:: bool CoreServices::allRecordNodesAreSynchronized()
 
     Returns :code:`true` if all Record Nodes are in a "synchronized" state. A Record Node is synchronized if it only has one data stream as input, or if all of its incoming streams share a hardware sync line that has received at least two events.
 
