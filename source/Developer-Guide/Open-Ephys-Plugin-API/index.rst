@@ -59,27 +59,27 @@ All types of plugins can access the :code:`CoreServices` class, which includes t
 
 .. function:: String CoreServices::getGUIVersion()
 
-    Returns the version of the host application as a string. This can be useful if certain aspects of a plugin's functionality requires a minimum version of the GUI.
+    :returns: The version of the host application as a string. This can be useful if certain aspects of a plugin's functionality requires a minimum version of the GUI.
 
 
 .. function:: File CoreServices::getDefaultUserSaveDirectory()
 
-    Returns a Juce :code:`File` object that specifies the location where files are saved by default (typically in the "Documents" directory). This is useful if a plugin needs to save custom data files.
+    :returns: A Juce :code:`File` object that specifies the location where files are saved by default (typically in the "Documents" directory). This is useful if a plugin needs to save custom data files.
 
 
 .. function:: File CoreServices::getSavedStateDirectory()
 
-    Returns a Juce :code:`File` object that specifies the location where the GUI's configuration files are stored. This is useful if a plugin needs to save a custom settings file (although it's recommended to use the GUI's built-in XML settings file whenever possible).
+    :returns: A Juce :code:`File` object that specifies the location where the GUI's configuration files are stored. This is useful if a plugin needs to save a custom settings file (although it's recommended to use the GUI's built-in XML settings file whenever possible).
 
 
 .. function:: void CoreServices::saveRecoveryConfig()
 
-    Triggers the GUI to save the recovery configuration file (:code:`recoveryConfig.xml`). This file is re-generated automatically whenever the signal chain is updated, but a plugin may wish to re-generate it when its internal parameters have changed, so these can be re-loaded in the event of a crash.
+    Triggers the GUI to save the recovery configuration file (:code:`recoveryConfig.xml`). This file is re-generated automatically whenever the signal chain is updated, but a plugin may wish to re-generate it when its internal parameters have changed, so these can be properly re-loaded in the event of a crash.
 
 
 .. function:: void CoreServices::updateSignalChain(GenericEditor* editor)
 
-    Updates all processors downstream of the specified :code:`GenericEditor`. This should be used whenever a plugin adds or remove continuous, spike, or event channels, or changes the properties of these channels (such as their name or other metadata).
+    Updates all processors downstream of the specified :code:`GenericEditor`. This should be called whenever a plugin adds or remove continuous, spike, or event channels, or changes the properties of these channels (such as their name or other metadata).
 
     :param editor: A pointer to the editor of the processor that has been modified.
 
@@ -100,7 +100,7 @@ All types of plugins can access the :code:`CoreServices` class, which includes t
 
 .. function:: bool CoreServices::getAcquisitionStatus()
 
-    Returns true if acquisition is active. If a plugin needs to check this frequently, it's recommended to store a local variable that's updated inside the :code:`GenericProcessor::startAcquisition()` and :code:`GenericProcessor::stopAcquisition()` methods.
+    :returns: :code:`true` if acquisition is active. If a plugin needs to check this frequently, it's recommended to store a local variable that's updated inside the :code:`GenericProcessor::startAcquisition()` and :code:`GenericProcessor::stopAcquisition()` methods.
 
 
 .. function:: void CoreServices::setAcquisitionStatus(bool enable)
@@ -112,7 +112,7 @@ All types of plugins can access the :code:`CoreServices` class, which includes t
 
 .. function:: bool CoreServices::getRecordingStatus()
 
-    Returns true if recording is active. If a plugin needs to check this frequently, it's recommended to store a local variable that's updated inside the :code:`GenericProcessor::startRecording()` and :code:`GenericProcessor::stopRecording()` methods.
+    :returns: :code:`true` if recording is active. If a plugin needs to check this frequently, it's recommended to store a local variable that's updated inside the :code:`GenericProcessor::startRecording()` and :code:`GenericProcessor::stopRecording()` methods.
 
 
 .. function:: void CoreServices::setRecordingStatus(bool enable)
@@ -124,36 +124,36 @@ All types of plugins can access the :code:`CoreServices` class, which includes t
 
 .. function:: void CoreServices::sendStatusMessage(const String& text)
 
-    Display a message to the user in the Message Center at the bottom of the screen. These messages will not be saved by the Record Node; to write messages that are saved, call :code:`GenericProcessor::broadcastMessage()` while recording is active.
+    Displays a message to the user in the Message Center (located at the bottom of the GUI's main window). These messages will not be saved by the Record Node; to write messages that are saved, but not displayed to the user, call :code:`GenericProcessor::broadcastMessage()` while recording is active.
 
     :param text: The message to display.
 
 
 .. function:: int64 CoreServices::getSoftwareTimestamp()
 
-    Returns the current software timestamp (milliseconds since midnight Jan 1st 1970 UTC).
+    :returns: The current software timestamp (milliseconds since midnight Jan 1st 1970 UTC).
 
 
 .. function:: float CoreServices::getSoftwareSampleRate();
 
-    Returns the ticker frequency of the software timestamp clock (1000 Hz).
+    :returns: The ticker frequency of the software timestamp clock (1000 Hz).
 
 
 .. function:: File CoreServices::getRecordingParentDirectory()
 
-    Returns the default recording directory.
+    :returns: The default recording directory.
 
 
 .. function:: void CoreServices::setRecordingParentDirectory(String dir)
 
     Sets new default recording directory. This will only affect new Record Nodes, and will not be applied to Record Nodes that are already in the signal chain. To set the recording directory for existing Record Nodes, use :code:`CoreServices::RecordNode::setRecordingDirectory()` (see below).
 
-    :param dir: The absolute path of the new recording directory.
+    :param dir: Absolute path of the new recording directory.
 
 
 .. function:: void CoreServices::RecordNode::setRecordingDirectory(String dir, int nodeId, bool applyToAll = false)
     
-    Sets new recording directory for one or all existing Record Nodes.
+    Sets a new recording directory for one or all existing Record Nodes.
 
     :param dir: The absolute path of the new recording directory.
     :param nodeId: The ID of the Record Node (if only one is being updated).
@@ -162,47 +162,51 @@ All types of plugins can access the :code:`CoreServices` class, which includes t
 
 .. function:: Array<int> CoreServices::getAvailableRecordNodeIds()
 
-    Returns an array of IDs for Record Nodes currently in the signal chain.
+    :returns: An array of IDs for Record Nodes currently in the signal chain.
 
 
 .. function:: void CoreServices::setRecordingDirectoryBasename(String dir)
 
-    Sets new basename for the recording directory (does not affect prepend/append text)
+    Sets new basename for the recording directory (does not affect prepend/append text).
+
+    :param dir: The recording directory basename (overrides the auto-generated date string).
 
 
 .. function:: String CoreServices::getRecordingDirectoryName()
 
-    Returns the full name of the current recording directory (empty string if none has started)
+    :returns: The full name of the current recording directory (or empty string if no recording has been started yet).
 
 
 .. function:: void CoreServices::createNewRecordingDirectory()
 
-    Creates new directory the next time recording is started.
+    Instructs all Record Ndodes to create a new directory the next time recording is started.
 
 
 .. function:: String CoreServices::getRecordingDirectoryPrependText()
 
-    Set the text to be prepended to the name of newly created recording directories.
+    :returns: The text that will be prepended to the basename of newly created recording directories.
 
 
 .. function:: String CoreServices::getRecordingDirectoryAppendText()
 
-    Set the text to be appended to the name of newly reated recording directories.
+    :returns: The text that will be appended to the basename of newly created recording directories.
 
 
 .. function:: void CoreServices::setRecordingDirectoryPrependText(String text)
 
-    Set the text to be prepended to the name of newly created recording directories.
+    Sets the text to be prepended to the basename of newly created recording directories.
+
+    :param text: The text to prepend.
 
 
 .. function:: void CoreServices::setRecordingDirectoryAppendText(String text)
 
-    Set the text to be appended to the name of newly created recording directories.
+    Sets the text to be appended to the basename of newly created recording directories.
 
-    :param text: The 
+    :param text: The text to append.
 
 
 .. function:: bool CoreServices::allRecordNodesAreSynchronized()
 
-    Returns :code:`true` if all Record Nodes are in a "synchronized" state. A Record Node is synchronized if it only has one data stream as input, or if all of its incoming streams share a hardware sync line that has received at least two events.
+    :returns: :code:`true` if all Record Nodes are in a "synchronized" state. A Record Node is synchronized if it only has one data stream as input, or if all of its incoming streams share a hardware sync line that has received at least two events.
 
