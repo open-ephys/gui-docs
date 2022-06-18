@@ -40,9 +40,9 @@ The following commands are available:
 
 :code:`StopAcquisition` – Stops data aquisition
 
-:code:`StartRecord [CreateNewDir=1] [RecDir=recording_directory_path] [PrependText=some_text] [AppendText=some_text]` – Starts recording of data
+:code:`StartRecord [RecordNode=record_node_id] [CreateNewDir=1] [RecDir=recording_directory_path] [PrependText=some_text] [AppendText=some_text]` – Starts recording of data
 
-The last command includes ptional keyword arguments of the form :code:`kwarg=value`:
+* :code:`RecordNode` – Only apply the `CreateNewDir` & `RecDir` options to the specified record node
 
 * :code:`CreateNewDir` – creates a new (sub)directory with the current date string
 
@@ -53,6 +53,18 @@ The last command includes ptional keyword arguments of the form :code:`kwarg=val
 * :code:`AppendText` – sets the text to be appended to the date string
 
 :code:`StopRecord` – Stops recording
+
+:code:`IsAcquiring` – Returns 1 if acquiring, 0 if not
+
+:code:`IsRecording` – Returns 1 if recording is active, 0 if not
+
+:code:`GetRecordingPath [RecordNode=record_node_id]` – Get's the main recording path or, if record node is specified, then record node specific recording path
+
+:code:`GetRecordingNumber [RecordNode=record_node_id]` – Get's the main recording number or, if record node is specified, then record node specific recording number
+
+:code:`GetExperimentNumber [RecordNode=record_node_id]` – Get's the main experiment number or, if record node is specified, then record node specific experiment number
+
+:code:`TTL [Channel=channel_number] [On=0/1]` – Sends a on(On=1) or off(On=0) TTL event on the specified channel number 
 
 
 Example Code
