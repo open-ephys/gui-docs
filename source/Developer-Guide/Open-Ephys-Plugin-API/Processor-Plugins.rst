@@ -18,10 +18,10 @@ Overview
 
 If you're developing a new plugin for the GUI, it will most likely be a **Processor Plugin**. The core functionality of these plugins is defined in their :code:`process()` method, which determines how they generate, modify, or respond to data passing through the GUI's signal chain.
 
-There are three type of Processor Plugins:
+There are three main types of Processor Plugins:
 
-#. **Sources** generate data, and must be placed at the beginning of a signal chain. Note that if a source is communicating with external hardware that is not synchronized with the GUI's signal chain callbacks, a :ref:`datathreads` plugin should be used instead.
-#. **Filters** modify data, either by changing the samples contained in the continuous channel data buffer or adding TTL events or spikes to the event bufer. Filters must receive data from at least one Source.
+#. **Sources** generate data, and must be placed at the beginning of a signal chain. Note that if sources are communicating with external hardware that is not synchronized with the GUI's signal chain callbacks, they should be :ref:`datathreads` instead.
+#. **Filters** modify data, either by changing the samples contained in the continuous channel data buffer or by adding TTL events or spikes to the event bufer. Filters must receive data from at least one Source.
 #. **Sinks** send data outside the signal chain, without modifying it in any way. Sinks are typically used for visualizing data or sending triggers to external hardware.
 
 Processor Plugins must also implement an "Editor" derived from the :code:`GenericEditor` class which contains various UI elements for changing the plugin's parameters.
@@ -54,7 +54,7 @@ The :code:`GenericProcessor` constructor includes one parameter that specifies h
 GenericEditor constructor
 -----------------------------
 
-The constructor for the plugin's editor class must also be defined as follows:
+The constructor for the plugin's editor class must be defined as follows:
 
 .. code-block:: c++
 
@@ -83,11 +83,11 @@ Next, you'll need to make sure the plugin's :code:`createEditor()` method is cor
 Updating plugin settings
 ===========================
 
-Whenever the signal chain is modified, the GUI will call :code:`updateSettings()` on all plugins downstream of the modification, to allow them to respond to changes and inform downstream plugins about their current state:
+Whenever the signal chain is modified, the GUI will call :code:`updateSettings()` on all plugins downstream of the modification, to allow them to respond to the changes and inform downstream plugins about their current state:
 
 .. function:: void updateSettings()
 
-    Processor plugins should override this method in order to respond to configuration information about upstream plugins, and ensure their own configuration information is sent to downstream plugins.
+    Processor plugins should override this method in order to respond to changes in configuration information about upstream plugins, and ensure their own configuration information is sent to downstream plugins.
 
 The following internal variables are used to pass information between plugins prior to the start of acquisition:
 
@@ -95,11 +95,11 @@ The following internal variables are used to pass information between plugins pr
 
 * :code:`continuousChannels` - A Juce :code:`OwnedArray` that stores pointers to the available :code:`ContinuousChannel` objects that will be processed by this plugin. Each :code:`ContinuousChannel` must be associated with a :code:`DataStream` containing all of the other channels that are sampled synchronously.
 
-* :code:`eventChannels` - A Juce :code:`OwnedArray` that stores pointers to the available :code:`EventChannel` objects that will be processed by this plugin. Similar to :code:`ContinuousChannel` objects, each :code:`EventChannel` must be associated with one and only one :code:`DataStream`. Note that each :code:`EventChannel` object can track state changes across many TTL "lines." 
+* :code:`eventChannels` - A Juce :code:`OwnedArray` that stores pointers to the available :code:`EventChannel` objects that will be processed by this plugin. Similar to :code:`ContinuousChannel` objects, each :code:`EventChannel` must be associated with one and only one :code:`DataStream`. Note that each :code:`EventChannel` object can track state changes across up to 256 TTL "lines." 
 
 * :code:`spikeChannels` - A Juce :code:`OwnedArray` that stores pointers to the available :code:`SpikeChannel` objects that will be processed by this plugin. Each :code:`SpikeChannel` must be associated with one and only one :code:`DataStream`, and will also contain pointers to the :code:`ContinuousChannel` objects that represent the continuous channels from which spikes are samples. A :code:`SpikeChannel` will generate spikes that are associated with one "Electrode" (e.g. single electrode, stereotrode, or tetrode).
 
-.. important:: :code:`DataStream`, :code:`ContinuousChannel`, :code:`EventChannel`, and :code:`SpikeChannel` objects do *not* persist between calls to :code:`updateSettings()`. Do not store pointers to these objects outside the standard locations, as the underlying objects will be deleted the next time the signal chain is modified.
+.. important:: :code:`DataStream`, :code:`ContinuousChannel`, :code:`EventChannel`, and :code:`SpikeChannel` objects do *not* persist between calls to :code:`updateSettings()`. Do not store separate pointers to these objects, as the underlying objects will be deleted the next time the signal chain is modified.
 
 If a plugin will generate continuous, event, or spike data, it must create new channel info objects and add them to the appropriate :code:`DataStream` inside the :code:`updateSettings()` method.
 
@@ -120,6 +120,8 @@ If a plugin needs to update its internal state just before the start of acquisit
 .. function:: bool startAcquisition()
 
     Informs a plugin that acquisition is about to begin. If a plugin is not ready to handle incoming data, it can return :code:`false` to prevent acquisition from starting.
+
+If a plugin needs to update its internal state just after acquisition completes, it should override the following method:
 
 .. function:: bool stopAcquisition()
 
@@ -150,32 +152,29 @@ Before performing any read/write operations on a continuous channel, it is neces
 
     :param streamId: The ID of the data stream to check.
     :return: The number of samples available in the current buffer for the specified stream.
-    :example: See the `FilterNode::process() <https://github.com/open-ephys/plugin-GUI/blob/ebf64f5fc89dee3cb452eb92f9fb63e04d8a68d0/Plugins/FilterNode/FilterNode.cpp#L260-L270>`__ method.
 
 A plugin should never request samples that are above the index returned by this method. This method can sometimes return 0, if there are no samples available for a given data stream.
 
 In order to read or write data from the continuous buffer, the following methods should be used:
 
-.. function:: float * getReadPointer(int globalChannelIndex)
+.. function:: float* getReadPointer(int globalChannelIndex)
 
-    Returns a pointer to the data for one channel; only use this if the plugin will not overwrite the continuous data buffer.
+    Returns a pointer to the data for one channel; only use this if the plugin does not need to overwrite the continuous data buffer.
 
-    :param globalChannelIndex: The global index of the continuous data channel
-    :return: A pointer to the continuous data.
-    :example: See the `PhaseDetector::process() <https://github.com/open-ephys/plugin-GUI/blob/ebf64f5fc89dee3cb452eb92f9fb63e04d8a68d0/Plugins/PhaseDetector/PhaseDetector.cpp#L241>`__ method.
+    :param globalChannelIndex: The global index of the continuous data channel to read.
+    :return: A pointer to the continuous data at the specified channel index.
 
-.. function:: float * getWritePointer(int globalChannelIndex)
+.. function:: float* getWritePointer(int globalChannelIndex)
 
     Returns a pointer to the data for one channel; only use this if the plugin will overwrite the continuous data buffer.
 
     :param globalChannelIndex: The global index of the continuous data channel to modify.
-    :return: A pointer to the continuous data.
-    :example: See the `FilterNode::process() <https://github.com/open-ephys/plugin-GUI/blob/ebf64f5fc89dee3cb452eb92f9fb63e04d8a68d0/Plugins/FilterNode/FilterNode.cpp#L260-L270>`__ method.
+    :return: A pointer to the continuous data at the specified channel index.
 
 Spike and event data
 ---------------------
 
-To notify the GUI that the plugin needs to respond to incoming events and spikes within the :code:`process()` method, the following method must be called:
+To notify the GUI that a plugin needs to respond to incoming events and spikes, the following method must be called inside the :code:`process()` method:
 
 .. function:: int checkForEvents(bool respondToSpikes)
 
@@ -183,23 +182,21 @@ To notify the GUI that the plugin needs to respond to incoming events and spikes
 
     :param respondToSpikes: Set to :code:`true` if the plugin needs to receive spikes as well.
 
-The plugin should override the following methods to actually deal with incoming events and spikes:
+The plugin should also override the following methods so it can handle incoming events and spikes:
 
 .. function:: void handleTTLEvent(TTLEventPtr event)
 
     Passes the next available incoming event to the plugin.
 
     :param event: Pointer to a :code:`TTLEvent` object containing information about this event. This include the event channel that generated it, the ID of the data stream it is associated with, the line on which the event occurred, and the sample number of the event (relative to the start of acquisition).
-    :example: See the `ArduinoOutput::handleEvent() <https://github.com/open-ephys/plugin-GUI/blob/ebf64f5fc89dee3cb452eb92f9fb63e04d8a68d0/Plugins/ArduinoOutput/ArduinoOutput.cpp#L101-L138>`__ method.
 
 .. function:: void handleSpike(SpikePtr event)
 
     Passes the next available incoming spike to the plugin.
 
-    :param event: Pointer to a :code:`Spike` object containing information about this spike. This include the spike channel that generated it, the ID of the data stream it is associated with, the sample number of the event (relative to the start of acquisition), and the full spike waveform (in units of microvolts).
-    :example: See the `SpikeDisplayNode::handleSpike() <https://github.com/open-ephys/plugin-GUI/blob/ebf64f5fc89dee3cb452eb92f9fb63e04d8a68d0/Plugins/ArduinoOutput/ArduinoOutput.cpp#L101-L138>`__ method.
+    :param event: Pointer to a :code:`Spike` object containing information about this spike. This includes a pointer to the spike channel that generated the spike, the ID of the data stream it is associated with, the sample number of the event (relative to the start of acquisition), and the full spike waveform (in units of microvolts).
 
-Assuming that :code:`addTTLChannel()` was called inside the :code:`process()` method (see above), a plugin can add events using the following method:
+Assuming that :code:`addTTLChannel()` was called inside the :code:`updateSettings()` method (see above), a plugin can add events using the following convenience methods:
 
 .. function:: void flipTTLState(int sampleIndex, int lineIndex)
 
@@ -210,16 +207,16 @@ Assuming that :code:`addTTLChannel()` was called inside the :code:`process()` me
 
 .. function:: void setTTLState(int sampleIndex, int lineIndex, bool state)
 
-    Adds an event with a specified state value (ON or OFF). Note that consecutive "ON" or "OFF" events are valid within software, even if they would be impossible to generate using actual hardware.
+    Adds an event with a specified state value (**ON** or **OFF**). Note that consecutive **ON** or **OFF** events are valid within software, even if they would be impossible to generate using actual hardware.
 
     :param sampleIndex: The sample index (relative to the start of acquisition for a particular stream) at which this state change occurred.
     :param lineIndex: The TTL line on which the state change occurred (0-255).
-    :param state: The state of the TTL line (ON = :code:`true`, OFF = :code:`false`).
+    :param state: The state of the TTL line (**ON** = :code:`true`, **OFF** = :code:`false`).
 
 Sending and receiving messages
 ================================
 
-While acquisition is not active, plugins can respond to **configuration messages** and send **status messages**:
+While acquisition is *not* active, plugins can respond to **configuration messages** and send **status messages** by overriding the following methods:
 
 .. function:: void handleConfigMessage(String message)
 
@@ -255,7 +252,7 @@ Plugin parameters
 The GUI's built-in :code:`Parameter` class provides an easy way to manage the parameters for your plugin. Using this class provides the following advantages:
 
 * Parameter names, default values, and ranges are defined with one line of code
-* Parameter editors can be auto-generated with a second line of code
+* Parameter editors can be auto-generated with one additional line of code
 * Parameters values can be safely updated while acquisition is active
 * The GUI will automatically track parameters across different data streams
 * Parameter values will be automatically saved and loaded
@@ -289,18 +286,18 @@ For global parameters, use the following method:
 
     :param name: The name of the parameter.
 
-The easiest way to access stream-specific parameters is through the overloaded bracket operator:
+The easiest way to access stream-specific parameters is through the overloaded bracket operator, e.g.:
 
 .. code-block:: c++
 
     (*stream)["parameter_name"]->getValue();
 
-In both cases, requesting a parameter name that doesn't exist will result in a segfault.
+In both cases, requesting a parameter name that doesn't exist will result in a segfault, so be sure that the parameter name is formatted correctly.
 
 Creating parameter editors
 ========================================
 
-Parameters can be modified using editors that are auto-generated by the GUI. These must be initialized in the class constructor for the plugin's editor, e.g.:
+Parameters can be modified by the user via editors that are auto-generated by the GUI. These must be initialized in the class constructor for the plugin's editor, e.g.:
 
 .. function:: void addTextBoxParameterEditor (const String& name, int xPos, int yPos)
 
@@ -315,14 +312,13 @@ See `GenericEditor.h <https://github.com/open-ephys/plugin-GUI>`__ for a complet
 Responding to parameter value changes
 ========================================
 
-Your plugin can implement a custom response to parameter changes. For example, if the filter high cut changes and a filter needs to be updated. To do this, override this virtual method in your plugin.
+Your plugin can implement a custom response to parameter changes. For example, if a parameter representing the high cut of a bandpass filter is changed, the actual filter object will need to be informed when this parameter is modified. To do this, you should override this virtual method in your plugin:
 
 .. function:: void parameterValueChanged(Parameter*) override
 
     Called whenever a parameter value changes.
 
     :param Parameter*: A pointer to the parameter object that was updated.
-
 
 
 Saving and loading custom parameters
@@ -337,7 +333,7 @@ The GUI saves the signal chain in the following situations:
 
 In addition, the settings for individual plugins are stored in memory whenever a plugin is copied.
 
-If the plugin uses any parameters that are not use the built-in :code:`Parameter` class, it needs to implement the following functions to ensure they are saved and loaded properly:
+If a plugin uses any parameters that are not based on the built-in :code:`Parameter` class, it needs to implement the following functions to ensure they are saved and loaded properly:
 
 .. function:: void saveCustomParametersToXml(XmlElement* xml)
 
@@ -359,13 +355,13 @@ The name string cannot have any spaces, and the value can be a boolean, integer,
 
     :param xml: Pointer to an XmlElement that was saved previously.
 
-To read out the parameters, you can use the following methods:
+To read out the previously saved parameters, you can use the following methods:
 
 .. code-block:: c++
 
     int parameter1Value = xml->getIntAttribute("parameter1Name", 0);
     bool parameter2Value = xml->getBoolAttribute("parameter2Name", false);
-    String parameter2Value = xml->getStringAttribute("parameter3Name", "default");
+    String parameter3Value = xml->getStringAttribute("parameter3Name", "default");
 
 Be sure to supply a default value (the second argument), in case the parameter doesn't exist in the config file being loaded.
 
