@@ -18,7 +18,7 @@ If you'd prefer to get assistance by email, simply write to :code:`support@open-
 
 Absolutely. The GUI has been used to collect data for `over 200 publications and preprints <https://open-ephys.org/publications>`__ , which have appeared in every major neuroscience journal. 
 
-As with any software under active development, crashes are still possible. But they usually happen when testing out new features or new combinations of plugins. Once you find a signal chain that works for your needs, it can be used for many hours of uninterrupted recording.
+Crashes are possible, but they usually happen when testing out new features or new combinations of plugins. Once you find a signal chain that works for your needs, it can be used for many hours of uninterrupted recording.
 
 |
 
@@ -34,7 +34,7 @@ Synchronization is one of the most important issues we face in our experiments â
 
 If you're using multiple applications to acquire data in parallel, there are two general approaches to synchronization:
 
-(1) *Software-based triggering.* The GUI's :ref:`networkevents` plugin can be used to start your recordings from a Python or Matlab script. Assuming your other software has similar remote triggering functionality, this will ensure that all of your data streams begin within a few milliseconds of one another.
+(1) *Software-based triggering.* The GUI's built-in HTTP Server can be used to start your recordings from a Python or Matlab script. Assuming your other software has similar remote triggering functionality, this will ensure that all of your data streams begin within a few milliseconds of one another.
 
 (2) *Shared hardware sync line.* For precise, sub-millisecond level synchronization, all of your data streams need to share at least one digital or analog input line. This line should include a sequence of on/off events that can be used to align the data offline. To learn more about hardware-based synchronization, check out the :ref:`synchronization` tutorial.
 
