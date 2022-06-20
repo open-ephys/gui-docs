@@ -5,10 +5,8 @@
 File Reader
 =====================
 
-.. image:: ../../_static/images/plugins/filereader/filereader-02.png
+.. image:: ../../_static/images/plugins/filereader/filereader-01.png
   :alt: Annotated File Reader settings interface
-
-|
 
 .. csv-table:: Reads data from a local file.
    :widths: 18, 80
@@ -22,17 +20,16 @@ File Reader
 Loading Data
 ###################
 
-The File Reader is compatible with files saved in the :ref:`binaryformat` (indexed with a :code:`structure.oebin` file), :ref:`openephysformat` (indexed with a :code:`structure.openephys` file) and :ref:`nwbdataformat` (indexed with a :code:`*.nwb` file) which can either be saved directly from the Open Ephys GUI or from another program. 
+By default, the File Reader is compatible with files saved in the :ref:`binaryformat` (indexed with a :code:`structure.oebin` file). If the appropriate plugins are installed, the File Reader can also read data stored in the :ref:`openephysformat` (indexed with a :code:`structure.openephys` file) and :ref:`nwbdataformat` (saved inside a :code:`*.nwb` file). 
 
-Each input file can contain mulitple streams but only one stream can be played back per FileReader during acquisition. The pulldown menu below the active filename allows switching between the available streams. In order to play multiple streams simultaneously, you can merge multiple FileReaders, each with the same input file and a different selected stream.  
+Each input file can contain multiple streams/recordings, but only one stream/recording can be played back per File Reader during acquisition. The drop-down menu below the active file name makes it possible to switch between the available streams when acquisition is paused. In order to play multiple streams simultaneously, you can merge multiple File Readers, each with the same input file and a different selected stream.  
 
 You can play back a subset of a recorded file by changing the "start" and "end" times at the bottom of the File Reader editor.
 
 File Scrubbing
 ######################
 
-For recordings longer than 30 seconds, a drawer button will appear on the left side of the File Reader to access the Scrubber Interface. 
-The interface allows finer control over configuring playback.
+For recordings longer than 30 seconds, a drawer button will appear on the left side of the File Reader to access the Scrubbing Interface. This interface makes it possible to quickly browse to different parts of the data file.
 
 **Full Timeline**
 
@@ -49,12 +46,21 @@ The playback button's state indicates whether or not to playback the currently s
 Sample Data
 ######################
 
-There are four example files included in the GUI repository that can be used with the File Reader, found in the `Resources/DataFiles` directory (source code download) or the `DataFiles` directory (executable download):
+By default, the File Reader reads a recording of 16 channels from 8 stereotrodes implanted in the barrel cortex of an awake mouse.
 
-* :code:`data_stream_16ch_cortex` - data from 8 stereotrodes (16 channels total) recorded from barrel cortex of an awake mouse. The signals contain many action potentials, and are useful for test spike detection pipelines.
+There are also four example files included in the `GUI's GitHub repository <https://github.com/open-ephys/plugin-GUI>`__ that can be used with the File Reader, found in the :code:`Resources/DataFiles` directory.
 
-* :code:`data_stream_16ch_hippocampus` - one channel of data recorded from mouse CA1, copied across 16 channels. The signals have large-amplitude theta oscillations, and can be used to test phase-triggered stimulation.
+* :code:`data_stream_16ch_cortex` - Same as the default data file. The signals contain many action potentials, and are useful for testing spike detection pipelines.
 
-* :code:`data_stream_sine_wave` - 16 channels of a simple, 1000-microvolt sine wave. There's a small glitch near the end.
+* :code:`data_stream_16ch_hippocampus` - One channel of data recorded from mouse CA1, replicated across 16 channels. The signals have large-amplitude theta oscillations, and can be used to test phase-triggered stimulation.
 
-* :code:`chirps_16_channels_At40kHz` - 16 channels of frequency sweeps at 40 kHz
+* :code:`data_stream_sine_wave` - 16 channels of a 1000-microvolt sine wave.
+
+* :code:`chirps_16_channels_At40kHz` - 16 channels of frequency sweeps at 40 kHz.
+
+Other input data
+######################
+
+The File Reader should be able to read any datasets that have been previously saved by the GUI (v0.6.0+). If you make a recording that is not compatible with the File Reader for some reason, please send a message to :code:`support@open-ephys.org`.
+
+|
