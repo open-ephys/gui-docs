@@ -20,6 +20,10 @@ Probe Viewer
    "*Key Developers*", "Josh Siegle, K. Michael Fox"
    "*Source Code*", "https://github.com/open-ephys-plugins/probe-viewer"
 
+.. note:: The Probe Viewer plugin is not yet available for GUI version 0.6.X.
+
+
+
 Plugin configuration
 ######################
 

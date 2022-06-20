@@ -18,6 +18,8 @@ Spectrum Viewer
    "*Key Developers*", "Sumedh Nagrale, Mark Schatza, Josh Siegle"
    "*Source Code*", "https://github.com/open-ephys-plugins/spectrum-viewer"
 
+.. note:: The Spectrum Viewer plugin is not yet available for GUI version 0.6.X.
+
 Installing and upgrading
 ###########################
 

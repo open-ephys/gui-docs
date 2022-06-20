@@ -18,6 +18,8 @@ Virtual Reference
    "*Key Developers*", "Arne Meyer"
    "*Source Code*", "https://github.com/open-ephys-plugins/VirtualReferencePlugin"
 
+.. note:: The Virtual Reference plugin is not yet available for GUI version 0.6.X.
+
 Installing and upgrading
 ###########################
 

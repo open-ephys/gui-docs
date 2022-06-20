@@ -18,6 +18,10 @@ Tracking Plugin
    "*Key Developers*", "Alessio Buccino"
    "*Source Code*", "https://github.com/open-ephys-plugins/tracking-plugin"
 
+.. note:: The Tracking Plugin is not yet available for GUI version 0.6.X.
+
+
+
 Installing and upgrading
 ###########################
 

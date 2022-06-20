@@ -20,6 +20,8 @@ Pulse Pal
    "*Key Developers*", "Josh Siegle, Michelle Fogerson"
    "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Plugins/PulsePalOutput"
 
+.. note:: The Pulse Pal plugin is not yet available for GUI version 0.6.X.
+
 Plugin configuration
 ######################
 
