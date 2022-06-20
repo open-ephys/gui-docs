@@ -34,7 +34,7 @@ The GUI's main control panel contains a collapsible panel with the global record
 
 * A button for creating a new directory for the next recording
 
-.. note:: To prevent data from being overwritten, files are grouped by "experiments" and "recordings". Whenever acquisition is stopped, the GUI begins a new experiment; whenever recording is stopped (without stopping acquisition), the GUI begins a new recording. Pressing the **+** button will reset both of these counters to 1.
+.. note:: To prevent data from being overwritten, files are grouped by "experiments" and "recordings". Whenever acquisition is stopped, the GUI begins a new experiment; whenever recording is stopped (without stopping acquisition), the GUI begins a new recording. Pressing the **+** button will generate a new data directory the next time recording is started, and the "experiment" and "recording" counters will be reset to 1.
 
 Available data formats
 #######################

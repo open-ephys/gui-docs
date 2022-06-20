@@ -17,16 +17,15 @@ Open Ephys Format
    "*Key Developers*", "Josh Siegle, Aarón Cuevas López"
    "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Source/Processors/RecordNode/OpenEphysFormat"
 
-
 **Advantages**
 
-* Data is stored in blocks with well-defined record markers, meaning data recovery is possible even if files are truncated.
+* Data is stored in blocks with well-defined record markers, meaning data recovery is possible even if files are truncated by a crash.
 
 * The file header contains all the information required to load the file.
 
 **Limitations**
 
-* Operating systems impose a limit on the number files that can be written to simultaneously, meaning the Open Ephys format is not compatible with high-channel-count recordings (>256 channels).
+* Windows imposes a limit on the number files that can be written to simultaneously, meaning the Open Ephys format is not compatible with very high-channel-count recordings (>8000 channels).
 
 * In order to achieve robustness, files contain redundant information, meaning they use extra space and take longer to load.
 
@@ -39,7 +38,7 @@ All data files are stored within the same Record Node directory, with a complete
   :alt: Open Ephys data directory structure
   :width: 300
 
-Each Record Node directory also contains :code:`Continuous_Data.openephys`, an XML file with metadata about the :code:`.continuous` files, and :code:`messages.events`, a text file containing text events saved by the GUI.
+Each Record Node directory also contains at least one :code:`structure.openephys` file, an XML file with metadata about the available files, as well as :code:`messages.events`, a text file containing text events saved by the GUI.
 
 Format details
 ################
@@ -57,7 +56,7 @@ All headers are 1024 bytes long, and are written as a MATLAB-compatible string w
 
 * description = '(String describing the header)'
 
-* date_created = 'dd-Mmm-yyyy hhmmss'
+* date_created = 'dd-mm-yyyy hhmmss'
 
 * channel = '(String with channel name)'
 
@@ -84,7 +83,7 @@ For those not using MATLAB, each header entry is on a separate line with the fol
 Continuous
 ----------------
 
-Continuous data for each channel is stored in a separate :code:`.continuous` file, identified by the processor ID (e.g. :code:`100`) and channel name (e.g. :code:`CH0`). After the 1024-byte header, continuous data is organized into "records," each containing 1024 samples.
+Continuous data for each channel is stored in a separate :code:`.continuous` file, identified by the processor ID (e.g. :code:`100`), stream name, and channel name (e.g. :code:`CH1`). After the 1024-byte header, continuous data is organized into "records," each containing 1024 samples.
 
 .. image:: ../../_static/images/recordingdata/open-ephys/continuous.png
   :alt: Open Ephys data continuous format
@@ -96,7 +95,7 @@ Each record is 2070 bytes long, and is terminated by a 10-byte record marker (0 
 Events
 -------
 
-Event from all processors is stored in :code:`all_channels.events`. Each "record" contains the data for an individual event stored according to the following scheme:
+Events for each stream is stored in a :code:`.events` file. Each "record" contains the data for an individual event stored according to the following scheme:
 
 .. image:: ../../_static/images/recordingdata/open-ephys/events.png
   :alt: Open Ephys data events format
@@ -106,7 +105,7 @@ Event from all processors is stored in :code:`all_channels.events`. Each "record
 Spikes
 --------
 
-Data from each electrode is saved in a separate file. The filename is derived from the electrode type (:code:`SE` = single electrode, :code:`ST` = stereotrode, :code:`TT` = tetrode), the source processor (e.g., :code:`p104.0`), and the electrode index (e.g., :code:`n0`, :code:`n1`, etc.).
+Data from each electrode is saved in a separate file. The filename is derived from the electrode name with spaces removed (e.g., "Electrode1") and the data stream name.
 
 Each record contains an individual spike event (saved for one or more channels), and is written in the following format:
 

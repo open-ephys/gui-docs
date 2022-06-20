@@ -12,13 +12,10 @@ Open Ephys GUI
 
 |
 
-This is the new documentation site for the Open Ephys GUI, an open-source, plugin-based application for acquiring extracellular electrophysiology data.
-
-The GUI was designed by neuroscientists to make their experiments more flexible and enjoyable. It works equally well on macOS, Linux, and Windows, although
+The Open Ephys GUI is an open-source, plugin-based application for acquiring extracellular electrophysiology data. It was designed by neuroscientists to make their experiments more flexible and enjoyable. It works equally well on macOS, Linux, and Windows, although
 some plugins are only available for certain operating systems. 
 
-Previously, the GUI's documentation lived on the `Open Ephys wiki <https://open-ephys.atlassian.net/wiki/spaces/OEW/pages/491527/Open+Ephys+GUI>`__. 
-We are planning to migrate all of the docs to this site over time.
+Previously, the GUI's documentation lived on the `Open Ephys wiki <https://open-ephys.atlassian.net/wiki/spaces/OEW/pages/491527/Open+Ephys+GUI>`__, but almost all of the information from the wiki has now been migrated to this site.
 
 .. raw:: html
 

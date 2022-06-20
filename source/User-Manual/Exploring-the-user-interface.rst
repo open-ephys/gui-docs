@@ -5,13 +5,13 @@
 Exploring the user interface
 ==================================
 
-Functionally, the GUI is very similar to traditional programs for acquiring extracellular electrophysiology data. It allows you to control input sources, adjust filter settings, visualize spikes and LFPs, and save all of your data to disk. Conceptually, however, the GUI is more similar to audio processing applications, such as `Ableton Live`_. Rather than hard-coding the signal chain, the processing pathway can be created dynamically by the user. This feature will hopefully make the GUI easier to comprehend, less painful to modify, and more enjoyable to use. While most open-loop electrophysiology experiments require roughly the same signal chain, closed-loop experiments rarely do. A more flexible user-interface will allow neuroscientists to build up a library of modules that can be re-used and shared, rather than relying on purpose-built code in Matlab or LabVIEW that's used for one experiment then scrapped.
+Functionally, the GUI is very similar to traditional programs for acquiring extracellular electrophysiology data. It allows you to configure input sources, adjust filter settings, visualize spikes and LFPs, and save all of your data to disk. Conceptually, however, the GUI is more similar to audio processing applications, such as `Ableton Live`_. Rather than hard-coding the signal chain, the processing pathway can be created dynamically by the user. This feature will hopefully make the GUI easier to comprehend, less painful to modify, and more enjoyable to use. While most open-loop electrophysiology experiments require roughly the same signal chain, closed-loop experiments rarely do. A more flexible user-interface also allows neuroscientists to build up a library of plugins that can be re-used and shared, rather than relying on purpose-built code in Matlab or LabVIEW that's used for one experiment then scrapped.
 
 
 Main components
 ##########################
 
-The GUI is designed to ensure all of the most important elements are accessible from a single window, to keep everything organized. However, many components can be collapsed when they are not in use.
+The GUI is designed to ensure all of the most important elements are accessible from a single window, to keep everything organized. However, many components can also be collapsed when they are not in use.
 
 These are the components you'll be interacting with most often:
 
@@ -21,12 +21,12 @@ These are the components you'll be interacting with most often:
 1. Processor List
 ------------------
 
-Here you'll find all the available modules for building the signal chain, organized by type. "Sources" bring data into the application, either by communicating with an external device, reading data from a file, or generating samples on the fly. "Filters" alter the data in some way, either by modifying continuous signals or creating new events. "Sinks" send data outside the signal chain, for example to a USB device or a display. "Utilities" are used to construct the signal chain or control recording/audio monitoring, but they don't modify data in any way. Finally, "Recording" processors are used for saving data. For the most part, "processors" and synonymous with "plugins," although some processors are currently built into the GUI, so are not technically plugins.
+Here you'll find all the available modules for building the signal chain, organized by type. "Sources" bring data into the application, either by communicating with an external device, reading data from a file, or generating samples on the fly. "Filters" alter the data in some way, either by modifying continuous signals or creating new events. "Sinks" send data outside the signal chain, for example to a USB device or a display. "Utilities" are used to construct the signal chain or control recording/audio monitoring, but they don't modify data in any way. Finally, "Recording" processors are used for saving data. For the most part, "processors" and synonymous with "plugins," although some processors are built into the GUI, and are therefore not technically plugins.
 
 2. Signal Chain
 ----------------
 
-The processing pipeline is configured by dragging modules from the Processor List and dropping them in the appropriate order onto the Signal Chain. Once a processor has been added to the Signal Chain, its settings will be accessible through a custom interface. The buttons on the left-hand side of the Signal Chain allow you to toggle between up to 8 different branches of your signal chain (if it contains multiple source processors).
+The processing pipeline is configured by dragging modules from the Processor List and dropping them in the appropriate order onto the Signal Chain, also known as the "Editor Viewport." Once a processor has been added to the Signal Chain, its settings will be accessible through a custom interface, called an "editor." The buttons on the left-hand side of the Signal Chain allow you to toggle between up to 8 different branches of your signal chain (if it contains multiple source processors).
 
 3. Message Center
 -----------------
@@ -139,6 +139,27 @@ Windows
 
 Debug console is automatically displayed on Windows when you run the :code:`open-ephys` application.
 
+
+
+Log files
+###############
+
+Every action taken by the user is logged to a file, along with additional information that can be useful for spotting issues when things go wrong. If the GUI exits sucessfully, the latest log file will be overwritten the next time the GUI is launched. If the GUI crashes, then the name of the latest log file will be appended with a unique date string.
+
+Linux
+-------
+
+Log files are written to :code:`<insert here>`
+
+macOS
+-------
+
+Log files are written to :code:`/Users/<username>/Library/Application Support/open-ephys/configs-api8`. 
+
+Windows
+---------
+
+Log files are written to :code:`C:\ProgramData\Open Ephys\configs-api8`.
 
 .. _Ableton Live: https://www.ableton.com/en/live/
 

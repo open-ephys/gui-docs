@@ -13,7 +13,7 @@ Windows
 Via installer (recommended)
 ----------------------------
 
-1. Click the "Windows" link on `this page`_ to download the installer.
+1. Click the "Windows" link on `this page`_ to download the installer for the latest version of the GUI.
 
 2. Double-click the downloaded executable to launch the installer.
 
@@ -24,7 +24,7 @@ Via installer (recommended)
 Via .zip file
 --------------
 
-1. Download the Windows **.zip** file from this link: https://openephysgui.jfrog.io/artifactory/Release/windows/
+1. Download a **.zip** file for any previous release via this link: https://openephysgui.jfrog.io/artifactory/Release/windows/
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 
@@ -40,7 +40,7 @@ Linux
 Via installer (Ubuntu only)
 -----------------------------
 
-1. Click the "Linux" link on `this page`_ to download the **.deb** file.
+1. Click the "Linux" link on `this page`_ to download the **.deb** file for the latest version of the GUI.
 
 2. Double-click on the .deb file, and enter your password when prompted.
 
@@ -54,7 +54,7 @@ Via installer (Ubuntu only)
 Via .zip file (all distros)
 ----------------------------
 
-1. Download the Linux **.zip** file from this link: https://openephysgui.jfrog.io/artifactory/Release/linux/
+1. Download a **.zip** file for any previous release via this link: https://openephysgui.jfrog.io/artifactory/Release/linux/
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 
@@ -73,7 +73,7 @@ macOS
 Via DMG (recommended)
 ----------------------
 
-1. Click the "macOS" link on `this page`_ to download the DMG file.
+1. Click the "macOS" link on `this page`_ to download the DMG file for the latest version of the GUI.
 
 2. Double-click on the downloaded file to open it.
 
@@ -86,7 +86,7 @@ Via DMG (recommended)
 Via .zip file
 --------------
 
-1. Download the Mac **.zip** file from this link: https://openephysgui.jfrog.io/artifactory/Release/mac/
+1. Download a **.zip** file for any previous release via this link: https://openephysgui.jfrog.io/artifactory/Release/mac/
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 

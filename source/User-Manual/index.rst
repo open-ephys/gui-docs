@@ -3,7 +3,7 @@
 User Manual
 ===============
 
-Welcome to the Open Ephys GUI user manual! Here you will find information about how to run experiments with this software. If you're interested in learning how to write your own plugins or understand the source code, check out the :ref:`developerguide`.
+Welcome to the Open Ephys GUI user manual! Here you will find information about how to run experiments with this software. If you're interested in learning how to write your own plugins or better understand the GUI's source code, check out the :ref:`developerguide`.
 
 The GUI was designed to process, record, and visualize multichannel extracellular electrophysiology data. It currently includes plugins that are compatible the following data sources:
 
@@ -22,7 +22,7 @@ This manual covers key topics, such as:
 
 It also includes documentation for individual :ref:`plugins`, the heart of the GUI's functionality.
 
-If there's something missing from this documentation that you think should be included, please `open an issue on GitHub <https://github.com/open-ephys/gui-docs/issues>`__ or send a message to the `Open Ephys forum <https://groups.google.com/forum/#!forum/open-ephys>`__
+If there's something missing from this documentation that you think should be included, please `open an issue on GitHub <https://github.com/open-ephys/gui-docs/issues>`__ or send a message to the `Open Ephys forum <https://groups.google.com/forum/#!forum/open-ephys>`__.
 
 .. toctree::
     :hidden:
@@ -33,9 +33,8 @@ If there's something missing from this documentation that you think should be in
     Installing-the-GUI
     Exploring-the-user-interface
     Building-a-signal-chain
-    Settings-files
-    Whats-new-in-version-06X
     Recording-data/index
+    Whats-new-in-version-06X
     Plugins/index
 
 .. role:: raw-html-m2r(raw)
