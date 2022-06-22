@@ -6,7 +6,7 @@
 ZMQ Interface
 ################
 
-.. image:: ../../_static/images/plugins/zmqinterface/zmq_interface.png
+.. image:: ../../_static/images/plugins/zmqinterface/zmqinterface-01.png
   :alt: ZMQ interface
 
 |
