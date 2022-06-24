@@ -38,15 +38,14 @@ The most important parameters are available in the plugin editor:
 
 * **Output channel**: Event (TTL) channel on which this plugin will output events.
 
-* **Threshold**: Threshold value (in units of the selected input channel). For neural data channels, the units are in microvolts.
-
 * **Timeout**: Minimum time elapsed between one event and the next. If the signal crosses the threshold within <timeout> ms after the last event, no event will be emitted.
 
 Additional parameters can be configured by clicking the "tab" or "window" buttons in the upper right of the plugin's editor. The settings interface can be seen here:
 
 .. image:: ../../_static/images/plugins/crossingdetector/crossingdetector-02.png
-  :alt: Annotated Crossing Detector editor
+  :alt: Crossing Detector visualizer with additional settings
 
 .. note:: By default, the event duration is set to 5 ms, which is too short to be visualized in the LFP Viewer. To ensure that the events are displayed, change the duration to 100 ms or higher.
 
-|
+.. image:: ../../_static/images/plugins/crossingdetector/crossingdetector-03.png
+  :alt: Sample output of Crossing Detector

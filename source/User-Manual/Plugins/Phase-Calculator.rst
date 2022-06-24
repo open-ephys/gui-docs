@@ -11,7 +11,7 @@ Phase Calculator
 
 |
 
-.. csv-table:: This plugin estimates the phase of inputs an input signal within a specified passband in real time. Its primary purpose is to enable closed-loop stimulation, typically in combination with the Crossing Detector and either the Pulse Pal or an external stimulation system that receives ZeroMQ events (for example, the `LabVIEW implementation here <https://github.com/tne-lab/closed-loop-stim>`__). It can also output the magnitude or imaginary component of the band-limited analytic signal instead of the phase. (The "PH+MAG" mode outputs both phase and magnitude, in separate channels.) Finally, the visualization tab or window can receive TTL events and display the delayed but precise phase of a specified input at the event onset samples in a rose plot. This allows real-time monitoring of stimulation accuracy.
+.. csv-table:: This plugin estimates the phase of inputs an input signal within a specified passband in real time. Its primary purpose is to enable closed-loop stimulation, typically in combination with the Crossing Detector and either the Pulse Pal or an external stimulation system that receives ZeroMQ events (for example, the `LabVIEW implementation here <https://github.com/tne-lab/closed-loop-stim>`__). The visualization tab or window can receive TTL events and display the delayed but precise phase of a specified input at the event onset samples in a rose plot. This allows real-time monitoring of stimulation accuracy.
    :widths: 18, 80
 
    "*Plugin Type*", "Filter"
@@ -23,7 +23,7 @@ Phase Calculator
 Plugin configuration
 ######################
 
-* **Important!** Since the phase estimation algorithm is somewhat processor-intensive, by default all input channels are disabled. To enable the channels you would like to estimate the phase (or other component) of, select them in the "PARAM" section of the drawer. If "PH+MAG" is selected as the output, this will also create the additional magnitude outputs for each selected input.
+* **Important!** Since the phase estimation algorithm is somewhat processor-intensive, by default all input channels are disabled. To enable the channels you would like to estimate the phase (or other component) of, select them in the pop-up channel selector .
 
 * In the FREQ RANGE drop-down menu, choose a range of frequencies that includes the band you want to filter to. This determines which of the pre-designed Hilbert transformer filters is used internally (since if we tried to use one filter for all frequencies, it would end up with terrible performance everywhere). Note that the delta band is just too low to get a reasonably accurate phase estimate, even when downsampling to 500 Hz as this plugin does (before interpolating the output).
 
