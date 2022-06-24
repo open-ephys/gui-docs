@@ -8,14 +8,14 @@ Network Events
 ################
 
 .. image:: ../../_static/images/plugins/networkevents/networkevents-01.png
-  :alt: Annotated Merger editor
+  :alt: Annotated Network Events editor
 
 |
 
-.. csv-table:: Checks for incoming messages and adds them to the signal processing stream as timestamped strings. These messages can be sent from another program on the same machine, or a different machine on the same network.
+.. csv-table:: Adds TTL events via a network connection.
    :widths: 18, 80
 
-   "*Plugin Type*", "Source"
+   "*Plugin Type*", "Filter"
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No"
    "*Key Developers*", "Shay Ohayon, Josh Siegle, Aarón Cuevas López, Christopher Stawarz, Arne Meyer"
@@ -64,7 +64,7 @@ The following commands are available:
 
 :code:`GetExperimentNumber [RecordNode=record_node_id]` – Get's the main experiment number or, if record node is specified, then record node specific experiment number
 
-:code:`TTL [Channel=channel_number] [On=0/1]` – Sends a on(On=1) or off(On=0) TTL event on the specified channel number 
+:code:`TTL [Line=0-255] [On=0/1]` – Sends an **ON** (1) or **OFF** (0) TTL event on the specified TTL line. 
 
 
 Example Code
