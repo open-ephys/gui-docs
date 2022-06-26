@@ -3,13 +3,11 @@
    :format: html
 
 ################
-Rhythm FPGA
+Rhythm Plugins
 ################
 
 .. image:: ../../_static/images/plugins/rhythmfpga/rhythmfpga-01.png
   :alt: Rhythm FPGA plugin settings interface
-
-|
 
 .. csv-table:: Streams data from any FPGA running Intan's "Rhythm" firmware. It is compatible with both the `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__ and the `Intan RHD USB Interface Board <http://intantech.com/RHD_USB_interface_board.html>`__.
    :widths: 18, 80

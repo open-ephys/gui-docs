@@ -9,42 +9,63 @@ Spike Sorter
 .. image:: ../../_static/images/plugins/spikesorter/spikesorter-01.png
   :alt: Annotated Spike Sorter settings interface
 
-|
-
-.. csv-table:: Detects spikes in continuous data and packages them as events that can be read by downstream processors. Makes it possible to assign IDs to individual units using box sorting and PCA methods.
+.. csv-table:: Sorts spikes based on manually drawn boxes in waveform space, or boundaries in PCA space. Must be used in combination with a plugin that generates spikes, such as the :ref:`spikedetector`.
    :widths: 18, 80
 
    "*Plugin Type*", "Filter"
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
-   "*Key Developers*", "Shay Ohayon"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Plugins/SpikeSorter"
+   "*Key Developers*", "Shay Ohayon, Josh Siegle"
+   "*Source Code*", "https://github.com/open-ephys-plugins/spike-sorter/tree/main"
 
-.. note:: The Spike Sorter's functionality is a superset of the :ref:`spikedetector`. In addition to detecting spikes from continuous signals. The Spike Detector will stick around for a while, but there's nothing that it can do that the Spike Sorter can't.
+.. note:: As of GUI version 0.6.0, the Spike Sorter no longer detects spikes on its own. Instead, it must be placed downstream of the :ref:`spikedetector`, allowing it to apply sorted IDs to the incoming spikes. This change was made in order to prevent the need for redundant functionality between these two plugins.
+
+Installing and upgrading
+###########################
+
+The Spike Sorter plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Spike Sorter" plugin, and click the "Install" button.
+
+The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
+
 
 Plugin configuration
 #####################
 
-To initialize the spike sorter, you must configure the electrode layout. Here are the steps to follow:
+In order to use the Spike Sorter, you must have at least upstream plugin that generates spikes. Currently, the only plugin capable of generating spikes is the :ref:`spikedetector`. Please refer to that plugin's documentation page to understand how to create and configure electrodes.
 
-#. Use the arrow buttons to select the number of electrodes you want to add.
+Downstream plugins will be able to access the :code:`sortedId` for all spikes that pass through the Spike Sorter. Note that these IDs will only be written to disk by Record Nodes that are placed to the *right* of the Spike Sorter.
 
-#. Click on the plus button and select the type of electrodes you want (single electrodes, stereotrodes, or tetrodes).
+All of the Spike Sorter configuration happens inside its visualizer. This can be accessed by clicking the "window" or "tab" buttons in the upper right of the Spike Sorter editor:
 
-#. Use the buttons in the upper-right to open the Spike Sorter display in a tab (left icon) or new window (right icon):
+.. image:: ../../_static/images/plugins/spikesorter/spikesorter-02.png
+  :alt: Spike sorter configuration window
 
-.. image:: ../../_static/images/plugins/spikesorter/spike_sorter_pca.png
-  :alt: Spike Sorter PCA view
+To select an electrode to configure, either use the drop-down menu in the Spike Sorter editor, or press the **<<** and **>>** buttons to browse through consecutive electrodes.
+
+The Spike Sorter visualizer contains two main sections:
+
+1. On the left is the waveform view, which shows the waveforms of incoming spikes on the active electrode.
+
+2. On the right is the PCA view, which represents each waveform as a dot in 2D principal component space.
+
+The Spike Sorter includes the following tools:
+
+* **New Box Unit** - Creates a new Box Unit in the waveform view. Any spikes with waveforms that cross through this box will be assigned to this unit. The boundaries of the box can be dragged freely, or the entire box can be dragged. For multi-channel electrodes (e.g. stereotrodes or tetrodes), Box Units can only be configured for the first channel.
+
+* **Add Box** - Add an additional box to the currently selected Box Unit. Spikes will only be assigned to this unit if their waveforms pass through *all* boxes.
+
+* **New Polygon Unit** - Creates a new Polygon Unit in the PCA view. After pressing this button, click and drag in the PCA view to define the boundaries of this unit. Once a Polygon Unit is created, it can be dragged in PCA space, but its boundaries cannot be modified. Note that polygons can only be drawn *after* the initial PCs have been calculated (this usually takes a few seconds after acquisition begins).
+
+* **Delete** - Deletes the currently selected (Polygon or Box) unit.
+
+* **Re-PCA** - Re-calculates the principal components from scratch.
+
+* **New IDs** - Generates new unique IDs for units across all electrodes.
+
+* **Delete All** - Deletes all units on the active electrode. 
 
 |
 
-Within the Spike Sorter display, you can change thresholds (by dragging the red threshold lines) You can also add "Box Units" (e.g., unit #1 in the image above) in the waveform display and "Polygon Units" (e.g. unit #2 and unit #3) in PCA space. The image above is a bad example, since these do not define actual well-isolated clusters.
-
-To send a given electrode to the Audio Output, click the "Monitor" button.
-
-As with the Spike Detector, spikes will only be saved if a Record Node is downstream of this plugin.
-
-The advancer and DAC output functions are not currently supported.
 
 
 

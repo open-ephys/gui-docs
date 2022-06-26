@@ -9,7 +9,7 @@ Crossing Detector
 .. image:: ../../_static/images/plugins/crossingdetector/crossingdetector-01.png
   :alt: Annotated Crossing Detector editor
 
-.. csv-table:: Emits events when continuous signals cross a threshold
+.. csv-table:: Emits a TTL event when a continuous channel crosses a specified threshold level. Each Crossing Detector can only process one input channel at a time, but multiple detectors can be placed in series to trigger on as many channels as desired.
    :widths: 18, 80
 
    "*Plugin Type*", "Filter"
@@ -21,31 +21,56 @@ Crossing Detector
 Installing and upgrading
 ###########################
 
-The Crossing Detector plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** to access the Plugin Installer, browse to the "Crossing Detector" plugin, and click the "Install" button.
+The Crossing Detector plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to access the Plugin Installer, browse to the "Crossing Detector" plugin, and click the "Install" button.
 
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
+
+Recommended signal chain
+#########################
+
+The Crossing Detector analyzes the values on an incoming continuous channel and outputs events whenever a threshold is crossed. It is meant to be used in conjunction with plugins that output smoothly varying continuous signals, such as the :ref:`phasecalculator` and the :ref:`multibandintegrator`. 
 
 Plugin Configuration
 ######################
 
-The Crossing Detector analyzes the values on an incoming continuous channel, and outputs events whenever a threshold is crossed. It is meant to be used in conjunction with plugins that output smoothly varying continuous signals, such as the :ref:`phasecalculator` and the :ref:`multibandintegrator`. 
+General settings
+-----------------
 
-The most important parameters are available in the plugin editor:
+* When the **Channel** that is selected **Rises** and/or **Falls** across the threshold level (specified in the visualizer window), an event is triggered on the `TTL_OUT` line.
 
-* **Input channel**: Continuous (input) channel to be analyzed.
-
-* **Rising/falling selector**: Determines whether events are emitted whenever the signal rises above the threshold, or falls below the threshold.
-
-* **Output channel**: Event (TTL) channel on which this plugin will output events.
-
-* **Timeout**: Minimum time elapsed between one event and the next. If the signal crosses the threshold within <timeout> ms after the last event, no event will be emitted.
+* `TIMEOUT_MS` controls the minimum time between two consecutive events (i.e. for this number of milliseconds after an event fires, no more crossings can be detected).
 
 Additional parameters can be configured by clicking the "tab" or "window" buttons in the upper right of the plugin's editor. The settings interface can be seen here:
 
 .. image:: ../../_static/images/plugins/crossingdetector/crossingdetector-02.png
   :alt: Crossing Detector visualizer with additional settings
 
-.. note:: By default, the event duration is set to 5 ms, which is too short to be visualized in the LFP Viewer. To ensure that the events are displayed, change the duration to 100 ms or higher.
+Threshold level
+----------------
 
-.. image:: ../../_static/images/plugins/crossingdetector/crossingdetector-03.png
-  :alt: Sample output of Crossing Detector
+There are three different types of thresholds that can be used:
+
+#. **Constant** (default) - the threshold is set to a constant value.
+
+#. **Random** - the plugin randomly chooses a new threshold for each event, based on a uniform distribution
+
+#. **Continuous channel** - the input channel is compared with a second continuous channel on a sample-by-sample basis, to allow the threshold to change dynamically.
+
+Event criteria
+---------------
+
+There are three options that can reduce the frequency of spuriously triggered events:
+
+#. **Jump size limit** - prevents triggers when the difference across the threshold is too large in magnitude. This is useful for filtering out wrapped phase jumps, for example.
+
+#. **Sample voting** - makes detection more robust to noise by requiring a larger span of samples before or after :code:`t0` to be on the correct side of the threshold.
+
+#. **Ignore crossings near the end of buffers**
+
+Event duration
+----------------
+
+The **event duration** specifies the delay (in ms) between the "OFF" event and the time at which an "ON" event is triggered. The default duration is 100 ms.
+
+|
+

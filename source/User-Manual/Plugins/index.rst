@@ -114,7 +114,6 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Event-Translator
     Falcon-Output
     File-Reader
-    Intan-Recording-Controller
     LFP-Viewer
     MATLAB-Interface
     Merger
@@ -128,7 +127,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Probe-Viewer
     Pulse-Pal
     Record-Control
-    Rhythm-FPGA
+    Rhythm-Plugins
     Spectrum-Viewer
     Spike-Detector
     Spike-Sorter

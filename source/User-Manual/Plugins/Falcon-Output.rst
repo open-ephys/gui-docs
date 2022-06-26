@@ -18,6 +18,9 @@ Falcon Output
    "*Key Developers*", "Marine Chaput"
    "*Source Code*", "https://github.com/open-ephys-plugins/falcon-output"
 
+.. note:: The Falcon Output plugin is not yet available for GUI version 0.6.X.
+  
+
 Installing and upgrading
 ###########################
 

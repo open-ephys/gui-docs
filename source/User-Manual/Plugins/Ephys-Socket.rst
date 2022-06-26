@@ -21,7 +21,7 @@ Ephys Socket
 Installing and upgrading
 ###########################
 
-The Ephys Socket plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** to access the Plugin Installer, browse to the "Ephys Socket" plugin, and click the "Install" button.
+The Ephys Socket plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to access the Plugin Installer, browse to the "Ephys Socket" plugin, and click the "Install" button.
 
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
 

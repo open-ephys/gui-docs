@@ -9,8 +9,6 @@ Probe Viewer
 .. image:: ../../_static/images/plugins/probeviewer/probeviewer-01.png
   :alt: Annotated Probe Viewer editor
 
-|
-
 .. csv-table:: Visualizes the signal from a linear probe as a heatmap (time x channels). Can be configured to show RMS signal, spike rate, or power in different frequency bands.
    :widths: 18, 80
 

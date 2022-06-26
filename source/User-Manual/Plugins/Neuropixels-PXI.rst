@@ -195,8 +195,6 @@ For processing Neuropixels data, the recommended signal chain is:
 2. Record Node
 3. LFP Viewer
 
-If you need to add plugins downstream of the LFP Viewer, it's recommended to use a :ref:`streammuxer` (stream multiplexer) plugin immediately to the right of the LFP Viewer. This will allow you to select one subprocessor at a time to send through the signal chain. All channels will still be recorded, but you'll only be processing one probe at a time with subsequent plugins.
-
 Synchronization
 ######################################
 
