@@ -16,7 +16,7 @@ Splitter
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Josh Siegle, Aarón Cuevas López"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Source/Processors/Splitter"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/Source/Processors/Splitter"
 
 
 Recommended usage

@@ -16,7 +16,7 @@ ZMQ Interface
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No"
    "*Key Developers*", "Francesco Battaglia, András Széll, Anjal Doshi"
-   "*Source Code*", "https://github.com/open-ephys-plugins/zmq-interface/tree/main"
+   "*Source Code*", "https://github.com/open-ephys-plugins/zmq-interface"
 
 .. tip:: The client application may be written in any language/platform supporting ZeroMQ.
 

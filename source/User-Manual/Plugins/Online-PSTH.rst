@@ -18,7 +18,7 @@ Online PSTH
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Clayton Barnes, Josh Siegle"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Plugins/EvntTrigAvg"
+   "*Source Code*", "https://github.com/open-ephys-plugins/online-psth"
 
 
 Installing and upgrading

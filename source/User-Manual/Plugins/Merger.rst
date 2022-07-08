@@ -16,7 +16,7 @@ Merger
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Josh Siegle, Aarón Cuevas López"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Source/Processors/Merger"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/Source/Processors/Merger"
 
 Recommended usage
 ######################

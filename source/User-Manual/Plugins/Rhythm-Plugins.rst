@@ -16,7 +16,7 @@ Rhythm Plugins
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Josh Siegle, Aarón Cuevas López"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Plugins/RhythmNode"
+   "*Source Code*", "https://github.com/open-ephys-plugins/rhythm-plugins
 
 
 .. tip:: For more in-depth documentation on the Open Ephys Acquisition Board, please refer to the `Acquisition Board docs site <https://open-ephys.github.io/acq-board-docs/>`__.

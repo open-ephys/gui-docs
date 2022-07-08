@@ -16,7 +16,7 @@ Record Control
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Josh Siegle, Aarón Cuevas López"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Plugins/RecordControl"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/Plugins/RecordControl"
 
 Plugin configuration
 #####################

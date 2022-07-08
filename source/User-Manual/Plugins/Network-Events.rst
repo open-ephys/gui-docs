@@ -19,7 +19,7 @@ Network Events
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No"
    "*Key Developers*", "Shay Ohayon, Josh Siegle, Aarón Cuevas López, Christopher Stawarz, Arne Meyer"
-   "*Source Code*", "https://github.com/open-ephys-plugins/NetworkEvents"
+   "*Source Code*", "https://github.com/open-ephys-plugins/network-events"
 
 
 Installing and upgrading

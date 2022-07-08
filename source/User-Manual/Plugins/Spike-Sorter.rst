@@ -16,7 +16,7 @@ Spike Sorter
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Shay Ohayon, Josh Siegle"
-   "*Source Code*", "https://github.com/open-ephys-plugins/spike-sorter/tree/main"
+   "*Source Code*", "https://github.com/open-ephys-plugins/spike-sorter"
 
 .. note:: As of GUI version 0.6.0, the Spike Sorter no longer detects spikes on its own. Instead, it must be placed downstream of the :ref:`spikedetector`, allowing it to apply sorted IDs to the incoming spikes. This change was made in order to prevent the need for redundant functionality between these two plugins.
 

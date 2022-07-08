@@ -16,7 +16,7 @@ Multi-Band Integrator
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No"
    "*Key Developers*", "Michelle Fogerson"
-   "*Source Code*", "https://github.com/open-ephys-plugins/multi-band-integrator/tree/main"
+   "*Source Code*", "https://github.com/open-ephys-plugins/multi-band-integrator"
 
 The output of the Multi-Band Integrated can be thought of as a real-time power signal for waveforms with complex but well-specified frequency components. It can be paired with the :ref:`crossingdetector` plugin to trigger events when the output power reaches a threshold.
 

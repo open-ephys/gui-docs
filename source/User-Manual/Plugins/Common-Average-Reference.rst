@@ -16,7 +16,7 @@ Common Average Reference
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Ryan Maloney, Josh Siegle, Kirill Abramov"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Plugins/CAR"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/Plugins/CommonAverageRef"
 
 Plugin configuration
 =====================

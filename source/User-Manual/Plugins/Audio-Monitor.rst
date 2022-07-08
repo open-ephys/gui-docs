@@ -16,7 +16,7 @@ Audio Monitor
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Anjal Doshi, Josh Siegle"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/development-juce6/Plugins/AudioMonitor"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/Source/Processors/AudioMonitor"
 
 
 

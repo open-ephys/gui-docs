@@ -16,7 +16,7 @@ Ephys Socket
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No"
    "*Key Developers*", "Jon Newman"
-   "*Source Code*", "https://github.com/open-ephys-plugins/EphysSocket"
+   "*Source Code*", "https://github.com/open-ephys-plugins/ephys-socket"
 
 Installing and upgrading
 ###########################

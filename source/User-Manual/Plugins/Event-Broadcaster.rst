@@ -16,7 +16,7 @@ Event Broadcaster
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No"
    "*Key Developers*", "Christopher Stawarz"
-   "*Source Code*", "https://github.com/open-ephys-plugins/EventBroadcaster"
+   "*Source Code*", "https://github.com/open-ephys-plugins/event-broadcaster"
 
 
 Installing and upgrading
