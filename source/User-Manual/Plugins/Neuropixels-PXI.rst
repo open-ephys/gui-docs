@@ -9,7 +9,7 @@ Neuropixels PXI
 .. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-01.png
   :alt: Annotated Neuropixels PXI editor
 
-.. csv-table:: Streams data from a PXI-based Neuropixels data acquisition system. It can acquire data from up to 16 probes simultaneously.
+.. csv-table:: Streams data from a PXI-based Neuropixels data acquisition system.
    :widths: 18, 80
 
    "*Plugin Type*", "Source"
@@ -28,21 +28,17 @@ The Plugin Installer also allows you to upgrade to the latest version. If you're
 Hardware requirements
 ######################
 
-* One desktop computer (an **Intel processor** is recommended for optimal compatibility with the Enclustra driver, but many users have machines with AMD processors that work without issues)
+* One computer (see :ref:`hardwarerequirements` for recommended specs)
 
-  * The Allen Institute has tested and recommends the **ASUS ROG Strix Z390-E** Intel motherboard
+* One PXI chassis (so far we've tested National Instruments PXIe-1071 and PXIe-1082, and ADLINK PXES-2301)
 
-  * The International Brain Laboratory uses the **MSI X470 GAMING PLUS** AMD motherboard
-
-* One PXI chassis (so far we've tested National Instruments PXIe-1071 and PXIe-1082)
-
-* One PXI remote control module, housed in the PXI chassis (we've tested National Instruments PXIe-8381 and PXIe-8398) – requires NIDAQmx driver
+* One PXI remote control module, housed in the PXI chassis (we've tested National Instruments PXIe-8381 and PXIe-8398) – requires `NIDAQmx driver <https://www.ni.com/en-us/support/downloads/drivers/download.ni-daqmx.html>`__
 
 * One PCIe interface card, housed in the computer (we've tested National Instruments PCIe-8381 and PCIe-8398)
 
 * *(optional)* One PXI-based analog and digital I/O module (see the :ref:`nidaqmx` page for a list of hardware we've tested)
 
-* Cables to connect the remote control module to the PCIe card (e.g., National Instruments MXI-Express Cables, Gen 3 x8)
+* Cables to connect the remote control module to the PCIe card (e.g., National Instruments MXI-Express Cables, Gen 2 x8)
 
 * One or more Neuropixels PXIe modules (available from IMEC)
 
@@ -63,24 +59,26 @@ This plugin can stream data from the following Neuropixels probe types:
 .. csv-table::
    :widths: 50, 40, 80
 
-   "**Probe**", "**Channels**", "**Notes**"
-   "Neuropixels 1.0", "384 AP, 384 LFP", ""
-   "Neuropixels NHP Active", "384 AP, 384 LFP", ""
-   "Neuropixels NHP Passive", "128 AP, 128 LFP", "May require firmware update (see below)"
-   "Neuropixels Ultra", "384 AP, 384 LFP", ""
-   "Neuropixels 2.0 Single Shank", "384 wideband", "May require firmware update (see below)"
-   "Neuropixels 2.0 Four Shank", "384 wideband", "May require firmware update (see below)"
+   "**Probe**", "**Channels**", "**Compatible Firmware**"
+   "Neuropixels 1.0", "384 AP, 384 LFP", "Any"
+   "Neuropixels NHP Active", "384 AP, 384 LFP", "Any"
+   "Neuropixels NHP Passive", "128 AP, 128 LFP", "Latest only (see below)"
+   "Neuropixels Ultra - Fixed", "384 AP, 384 LFP", "Any"
+   "Neuropixels Ultra - Switchable", "384 AP, 384 LFP", "Latest only (see below)"
+   "Neuropixels 2.0 Single Shank", "384 wideband", "Latest only (see below)"
+   "Neuropixels 2.0 Four Shank", "384 wideband", "Latest only (see below)"
+   "Neuropixels Opto", "384 AP, 384 LFP", "Latest only (see below)"
 
 Connecting to the PXI system
 ##############################
 
-Before using this plugin, make sure you've followed all of the steps in the `Neuropixels User Manual <https://docs.wixstatic.com/ugd/832f20_d2e8866f7a98448d90faf83d3df56140.pdf>`__ to set up and configure your hardware. Prior to using your Neuropixels PXI basestation, you must install the Enclustra drivers (available for `Windows 7/8 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/master/Resources/Enclustra_Win7%268.zip>`__ and `Windows 10 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/master/Resources/Enclustra_Win10.zip>`__). See section 4.2.2 of the User Manual for installation instructions.
+Before using this plugin, make sure you've followed all of the steps in the `Neuropixels User Manual <https://www.neuropixels.org/support>`__ to set up and configure your hardware. Prior to using your Neuropixels PXI basestation, you must install the Enclustra drivers (available for `Windows 7/8 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/master/Resources/Enclustra_Win7%268.zip>`__ and `Windows 10 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/master/Resources/Enclustra_Win10.zip>`__). See section 4.2.2 of the User Manual for installation instructions.
 
 Once your PXI system is up and running, you can drag and drop the "Neuropix-PXI" module from the Processor List onto the Editor Viewport. The GUI will automatically connect to any available basestations in your connected PXI chassis. If no PXI basestations are found, the plugin can be run in "simulation" mode.
 
-The editor will automatically create a probe selection interface for each basestation that's available. Each basestation can communicate with up to 4 probes (for Neuropixels 1.0, NHP, and Ultra) or 8 probes (for 2.0). When the probes are initially detected, they show up as orange circles. Once they are initialized, connected probes become green. When the currently selected probe turns light green, it means that all settings have been properly loaded, and the plugin is ready to begin data acquisition. In the example at the top of this page, there are 6 probes connected, and the probe on basestation 2, port 1 is selected.
+The editor will automatically create a probe selection interface for each basestation that's available. Each basestation can communicate with up to 4 probes (for Neuropixels 1.0, NHP, and Ultra) or 8 probes (for 2.0). When the probes are initially detected, they show up as orange circles. Once they are initialized, connected probes become green. After the probes turn green, the plugin is ready to begin data acquisition. In the example at the top of this page, there are 6 probes connected, and the probe on basestation 2, port 1 is selected.
 
-Besides the circles representing the four probes, each basestation column has a button to select a folder for writing data (if using the compressed NPX format), and a monitor to indicate buffer filling (from 0-100%).
+Besides the circles representing the four probes, each basestation column has a monitor to indicate buffer filling (from 0-100%).
 
 On the right-hand side of the editor, there's an interface for updating sync settings (more information below).
 
