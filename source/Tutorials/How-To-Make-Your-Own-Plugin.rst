@@ -288,7 +288,7 @@ Every parameter editor *must* refer to a parameter with the same name that's dec
 
 Now, compile and load the plugin into the GUI to see the newly added slider.
 
-.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-04.png
+.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-03.png
   :alt: Create a slider
 
 Creating a ComboBox parameter editor
@@ -316,11 +316,11 @@ Also be sure to initilaize the corresponding parameter inside the :code:`TTLEven
 
 Compile and load the plugin into the GUI to see the newly added ComboBox.
 
-.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-05.png
+.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-04.png
   :alt: Create a combobox
 
-Creating a custom parameter editor
-----------------------------------
+Creating a custom parameter editor (optional)
+-----------------------------------------------
 
 To make it possible for the user to trigger TTL events manually, we will add a button to the editor that the user can click on to generate an event. Since there is no built-in parameter editor for this, we need to create a custom one. To do this, add a  :code:`ManualTriggerButton` class above the main editor class in the :code:`TTLEventGeneratorEditor.h` file:
 
@@ -402,7 +402,7 @@ Now, we need to initialize the custom parameter editor inside the :code:`TTLEven
 
 Compile and load the plugin into the GUI to see the newly added button:
 
-.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-03.png
+.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-05.png
   :alt: Create a custom parameter editor
 
 Responding to parameter value changes
