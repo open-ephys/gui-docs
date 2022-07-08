@@ -22,7 +22,7 @@ Event Broadcaster
 Installing and upgrading
 ###########################
 
-The Event Broadcaster plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Multi-Band Integrator" plugin, and click the "Install" button.
+The Event Broadcaster plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Event Broadcaster" plugin, and click the "Install" button.
 
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
 

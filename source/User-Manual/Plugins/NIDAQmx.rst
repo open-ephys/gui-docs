@@ -5,7 +5,7 @@
 NIDAQmx
 ===========
 
-.. image:: ../../_static/images/plugins/nidaqmx/NIDAQmx.png
+.. image:: ../../_static/images/plugins/nidaqmx/nidaqmx-01.png
   :alt: NIDAQmx plugin settings interface
 
 .. csv-table:: Streams analog and digital data from National Instruments (NI) hardware. Use multiple instances of this plugin to acquire data from several PXI-, PCI-, and/or USB-based NI devices simultaneously. Can be used in tandem with the Neuropix-PXI plugin, to read in analog and digital inputs in parallel with Neuropixels data.

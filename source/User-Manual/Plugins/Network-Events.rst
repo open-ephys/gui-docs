@@ -21,20 +21,35 @@ Network Events
    "*Key Developers*", "Shay Ohayon, Josh Siegle, Aarón Cuevas López, Christopher Stawarz, Arne Meyer"
    "*Source Code*", "https://github.com/open-ephys-plugins/NetworkEvents"
 
+
+Installing and upgrading
+###########################
+
+The Network Events plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Network Events" plugin, and click the "Install" button.
+
+The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
+
+
 Plugin configuration
 ########################
 
-Since the Network Events module sends events, and not continuous data, it needs to be used in conjunction with another source. The best way to do this is with a Merger, with both the Network Events module and the other source feeding into the same signal chain.
-
-It uses the `ZeroMQ`_ library under the hood.
+Since the Network Events module sends events, and not continuous data, it cannot be placed at the beginning of a signal chain. The plugin will add events to all data streams that pass through it.
 
 
 Remote control commands
 ################################################
 
-The network events module provides features for controlling data acquisition and recording functions.
+TTL Events
+-----------
 
-The following commands are available:
+The primary purpose of the Network Events module is to add TTL events to one or more of the GUI's data streams via a remote connection. This makes it straightforward to store event times and trigger outputs from external software, such as Python or Matlab scripts.
+
+:code:`TTL [Line=0-255] [State=0/1]` – Sends an **ON** (1) or **OFF** (0) TTL event on the specified TTL line. 
+
+Other commands
+---------------
+
+The Network Events module can also respond to commands related to starting/stopping acquisition and recording. However, these commands are also available via the Open Ephys HTTP Server (added in GUI version 0.6.0). It's recommended to use the HTTP Server commands whenever possible, as these do not rely on a specific plugin.
 
 :code:`StartAcquisition` – Starts data aquisition
 
@@ -63,8 +78,6 @@ The following commands are available:
 :code:`GetRecordingNumber [RecordNode=record_node_id]` – Get's the main recording number or, if record node is specified, then record node specific recording number
 
 :code:`GetExperimentNumber [RecordNode=record_node_id]` – Get's the main experiment number or, if record node is specified, then record node specific experiment number
-
-:code:`TTL [Line=0-255] [On=0/1]` – Sends an **ON** (1) or **OFF** (0) TTL event on the specified TTL line. 
 
 
 Example Code
