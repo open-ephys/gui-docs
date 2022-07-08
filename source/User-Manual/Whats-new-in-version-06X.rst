@@ -18,6 +18,17 @@ The most important change in version 0.6.0 is that channels are now organized by
 
 When a signal chain includes multiple streams (e.g., when using multiple Neuropixels probes, or multiple sources merged together), the user can browse through the streams that pass through downstream plugins and apply settings on a per-stream basis. For example, this makes it possible to have a separate :ref:`commonaveragereference` for each stream. The stream selector interface also includes a visualization of the state of all TTL lines for a given stream, as well as the overall processing delay introduced by the signal chain.
 
+Default configurations
+========================
+
+The first time the GUI is launched (or after selecting "Load a default config" from the **File** menu), the user has the option to choose from up to three different default configurations:
+
+#. **Acq. Board** - Streams data from the Open Ephys acquisition board (if available).
+
+#. **File Reader** - Streams data from a file (useful if no acquisition hardware is available).
+
+#. **Neuropixels** (Windows only) - Streams data from one or more Neuropixels PXI basestations.
+
 
 Fewer built-in plugins
 ========================
@@ -46,6 +57,7 @@ Settings file format
 ========================
 
 The XML files that store the state of the Open Ephys signal chain are now much more compact and easier to read. Instead of storing the state of every single channel, they only include the minimal amount of information required to reproduce the signal chain. Because the settings file format has changed substantially, settings files saved by GUI version 0.5.X and lower cannot be opened by version 0.6.0+.
+
 
 Built-in HTTP server
 ========================

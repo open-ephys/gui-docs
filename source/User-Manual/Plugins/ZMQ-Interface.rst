@@ -105,7 +105,7 @@ Example Code
 
 The example code for receiving continuous data is written in Python, although in principle it should be possible from any language supporting ZeroMQ. 
 
-In the **Resources** directory of the plugin repository, there is an example Python client called :code:`simple_plotter_zmq.py`` which plots the continuous data received from the Open Ephys GUI over a network port (see image below).
+In the **Resources/python_client** directory of the plugin repository, there is an example Python client called :code:`simple_plotter_zmq.py`` which plots the continuous data received from the Open Ephys GUI over a network port (see image below).
 
 .. image:: ../../_static/images/plugins/zmqinterface/zmqinterface-02.png
   :alt: ZMQ Client in Python

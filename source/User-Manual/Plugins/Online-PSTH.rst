@@ -21,17 +21,24 @@ Online PSTH
    "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Plugins/EvntTrigAvg"
 
 
+Installing and upgrading
+==========================
+
+The Online SPTH plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Online PSTH" plugin, and click the "Install" button.
+
+The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
+
 
 Plugin configuration
 ======================
 
-The Event Triggered Average plugin won't work unless there is at least one event-generating plugin and one spike-generating plugin upstream from it in the signal chain. Assuming this is true, use the following steps to configure the plugin:
+The Online PSTH plugin won't work unless there is at least one event-generating plugin and one spike-generating plugin upstream from it in the signal chain. Assuming this is true, use the following steps to configure the plugin:
 
-1. Select the event channel to use for triggered (mandatory)
+1. Select the TTL line to use for triggering.
 
-2. Enter the histogram bin size (default: 10 ms).
+2. Enter the histogram bin size (default: 25 ms).
 
-3. Enter the histogram window size (default: 1000 ms).
+3. Enter the pre-event and post-event window size (default: 500 ms).
 
 
 Plugin usage
@@ -39,10 +46,11 @@ Plugin usage
 
 * Use the buttons in the upper-right of the editor to open the visualizer in a separate tab or window to scroll through detected electrodes.
 
-* Mouse over data points to view the corresponding time window and number of spikes in the bottom right of the window.
+* Mouse over data points to view the corresponding time window and number of spikes in a given bin.
 
-* Press the "clear" button in the top left of the window to reset the histograms
+* Press the "clear" button in the top left of the window to reset the histograms.
 
-By default, the module creates histograms per detected data channel. Sort spikes in the spike sorter module to generate a histogram with the corresponding ID and spike data. These sorted ID histograms will appear beneath and in the same color as the data channels they originate from in the Event Triggered Average window.
+|
+
 
 

@@ -23,6 +23,8 @@ Recommended usage
 
 A Merger is required whenever downstream plugins need information from multiple data streams in order to perform their functionality. An example of this would be the Record Node, which can automatically synchronize incoming data streams that share a common digital input line. If it's not necessary to combine information from multiple streams (e.g., if you're just visualizing data in the LFP Viewer), then a Merger is not needed; instead, it's usually better to process the data streams in parallel to reduce the complexity of the overall signal chain.
 
+.. note:: It is not possible to place multiple Mergers in a row. If you need to merge more than two data sources together, insert at least one other plugin between the Mergers.
+
 Plugin configuration
 ######################
 

@@ -21,12 +21,10 @@ Probe Viewer
 .. note:: The Probe Viewer plugin is not yet available for GUI version 0.6.X.
 
 
-
 Plugin configuration
 ######################
 
-.. image:: ../../_static/images/plugins/probeviewer/probeviewer-02.png
-  :alt: Probe Viewer configuration
+Documentation coming soon.
 
 |
 |
