@@ -5,7 +5,7 @@
 NI-DAQmx
 ===========
 
-.. image:: ../../_static/images/plugins/NI-DAQmx/NI-DAQmx-01.png
+.. image:: ../../_static/images/plugins/nidaqmx/nidaqmx-01.png
   :alt: NI-DAQmx plugin settings interface
 
 .. csv-table:: Streams analog and digital data from National Instruments (NI) hardware. Use multiple instances of this plugin to acquire data from several PXI-, PCI-, and/or USB-based NI devices simultaneously. Can be used in tandem with the Neuropix-PXI plugin, to read in analog and digital inputs in parallel with Neuropixels data.
@@ -100,12 +100,12 @@ For Neuropixels probes, you can use the Neuropixels PXI as the main synchronizat
 
 In Open Ephys, place a :ref:`merger` before the Record Node and connect both the :ref:`neuropixelspxi` plugin and the NI-DAQmx plugin. The Record Node will show either one or two subprocessors per Neuropixels probe (depending if the 2.5kHz LFP band is included by the probe model) and one subprocessor for the NIDAQ device. Each subprocessor’s sync channel monitor will turn green if the digital line on that subprocessor is synchronized with any of the other subprocessors coming into that Record Node. 
 
-.. image:: ../../_static/images/plugins/NI-DAQmx/NIDAQ_NPXMerged.png
+.. image:: ../../_static/images/plugins/nidaqmx/NIDAQ_NPXMerged.png
   :alt: NI-DAQmx plugin syncing
 
 Upon starting acquisition, the first and third sync channel monitors in the Record Node turn green first, as these contain the 30 kHz AP band of the probes and the source of the synchronization signal. Shortly after, the fifth sync channel monitor turns green, which contains the sync signal coming into the NIDAQ device from the Neuropixels probe's basestation. 
 
-.. image:: ../../_static/images/plugins/NI-DAQmx/NPX_NIDAQSynchronized.png
+.. image:: ../../_static/images/plugins/nidaqmx/NPX_NIDAQSynchronized.png
   :alt: NI-DAQmx plugin synced
 
 .. tip:: For more information about recording and synchronization in Open Ephys, please see the :ref:`recordingdata` page.
@@ -121,14 +121,14 @@ PXI-6133
 ---------
 The PXI‑6133 supports simultaneous-sampling, which means the analog and digital channels are guaranteed to be sampled simultaneously in time and synchronized with each other before they reach the GUI. Passing the square wave test signal to both the first analog and first digital input on the card shows that both signals are synchronized:
 
-.. image:: ../../_static/images/plugins/NI-DAQmx/6133_SyncedPulse_zoomed.png
+.. image:: ../../_static/images/plugins/nidaqmx/6133_SyncedPulse_zoomed.png
   :alt: NI-DAQmx plugin PXO-6133 synced input signal magnified
 
 .. note:: The 6133 takes a few (3-5) seconds to initialize after the acquisition button has been pressed; therefore, there will be a delay before data starts to appear in the LFP Viewer.
 
 Furthermore, the analog input channels on the 6133 are well-isolated and there is no signal cross-talk on any of the unused analog input channels:
 
-.. image:: ../../_static/images/plugins/NI-DAQmx/6133_SyncedPulse.png
+.. image:: ../../_static/images/plugins/nidaqmx/6133_SyncedPulse.png
   :alt: NI-DAQmx plugin PXI 6133 synced signal with no interference on unused channels
 
 .. tip:: The voltage on the unused channels may float at a constant non-zero value if left open. It is good practice to either ground or short the non-used analog inputs to avoid this. 
@@ -138,12 +138,12 @@ PXIe-6341
 ----------
 The PXIe-6341 performs almost as well as the 6133, however, there is cross-talk across unused channels when applying the same test signal as above. That is, if a signal is physically connected to only the first analog input channel, a ‘ghost’ of the signal will appear across all of the open analog input channels as shown below:
 
-.. image:: ../../_static/images/plugins/NI-DAQmx/6341_SyncedPulse.png
+.. image:: ../../_static/images/plugins/nidaqmx/6341_SyncedPulse.png
   :alt: NI-DAQmx plugin PXIE-6341 syned input signal
 
 However, if a 10Hz square wave is added to the second analog input and to the second digital input, there is no interference between the new signal and the original test signal on either the analog or digital channels:
 
-.. image:: ../../_static/images/plugins/NI-DAQmx/6341_Combo.png
+.. image:: ../../_static/images/plugins/nidaqmx/6341_Combo.png
   :alt: NI-DAQmx plugin PXIE-6341 multiple analog and digital inputs without interference
 
 PXI-6521 
@@ -154,18 +154,18 @@ PCIe-6321
 -----------
 The PCIe-6321 card does not require a PXI chassis and can be connected directly to the PCIe slot of a PC motherboard. This card exhibits the same behavior with the test signal as the PXI-6341, however, there is some overshooting observed at steep signal transition points. Smooth analog signals will not exhibit this behavior. 
 
-.. image:: ../../_static/images/plugins/NI-DAQmx/6321_synced_ringing.png
+.. image:: ../../_static/images/plugins/nidaqmx/6321_synced_ringing.png
   :alt: NI-DAQmx plugin PCIE-6321 seep signal ringing
 
 USB-6001
 ----------
 Applying the test signal to the first analog and second digital input of the USB 6001 results in the digital channels going high significantly before the analog channels. The USB devices also inherit the ghosting and overshooting issues mentioned in previous devices. 
 
-.. image:: ../../_static/images/plugins/NI-DAQmx/USB-6001-Unsynced.png
+.. image:: ../../_static/images/plugins/nidaqmx/USB-6001-Unsynced.png
   :alt: NI-DAQmx plugin USB-6001 ghosting with single analog channel
 
 The delay between the observed analog and digital inputs is not guaranteed to be constant. By grounding any unused analog channels, the USB-6001 can still achieve a clean and isolated signal on its analog channels:
 
-.. image:: ../../_static/images/plugins/NI-DAQmx/USB-6001-Grounded.png
+.. image:: ../../_static/images/plugins/nidaqmx/USB-6001-Grounded.png
   :alt: NI-DAQmx plugin USB-6001 grounded unused analog inputs
  
