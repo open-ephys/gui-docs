@@ -119,6 +119,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Merger
     Multiband-Integrator
     Network-Events
+    Neuropixels-CAR
     Neuropixels-PXI
     NIDAQmx
     Online-PSTH

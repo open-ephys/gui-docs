@@ -21,7 +21,7 @@ Neuropixels PXI
 Installing and upgrading
 ############################
 
-The Neuropixels PXI plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Neuropixel PXI" plugin, and click the "Install" button. Alternatively, you can select the "Neuropixels" default configuration the first time the GUI is launched, and the plugin will be downloaded and installed automatically.
+The Neuropixels PXI plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Neuropixels PXI" plugin, and click the "Install" button. Alternatively, you can select the "Neuropixels" default configuration the first time the GUI is launched, and the plugin will be downloaded and installed automatically.
 
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
 
