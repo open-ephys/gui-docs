@@ -6,7 +6,7 @@
 Neuropixels CAR
 ################
 
-.. image:: ../../_static/images/plugins/neuropix-pxi/neuropixels-car-01.png
+.. image:: ../../_static/images/plugins/neuropixels-car/neuropixels-car-01.png
   :alt: Annotated Neuropixels CAR editor
 
 .. csv-table:: A common average reference optimized for use with Neuropixels probes.
@@ -34,7 +34,7 @@ If a Neuropixels data stream is detected, the Neuropixels probe type will be dis
 
 The **Channels** button can be used to mask out particular channels from the averaging operation, for example if there are any channels that are in the air (i.e., not in a solution that is conductive with the brain).
 
-.. note:: This plugin uses an *averaging* operation, rather than a *median* operation, because the average across channels is much faster to calculate in real time. However, because averaging is more sensitive to outliers, it is recommended to save data prior to applying the Neuropixels CAR, and to remove the offline prior to spike sorting (for example using `SpikeInterface <https://spikeinterface.readthedocs.io/en/latest/modules/preprocessing/plot_1_preprocessing.html#sphx-glr-modules-preprocessing-plot-1-preprocessing-py>`__).
+.. note:: This plugin uses an *averaging* operation, rather than a *median* operation, because the average across channels is much faster to calculate in real time. However, because averaging is more sensitive to outliers, it is recommended to save data prior to applying the Neuropixels CAR, and to use median subtraction to remove noise *offline*, prior to spike sorting (for example using `SpikeInterface <https://spikeinterface.readthedocs.io/en/latest/modules/preprocessing/plot_1_preprocessing.html#sphx-glr-modules-preprocessing-plot-1-preprocessing-py>`__).
 
 Neuropixels sampling pattern
 ##############################
@@ -43,7 +43,7 @@ All Neuropixels probes have fewer ADCs (analog-to-digital converters) than chann
 
 Neuropixels 1.0 probes have 16 ADCs, each of which digitizes 12 channels (for a total of 384). Neuropixels 2.0 probes have 12 ADCs, each of which digitizes 16 channels (for a total of 384). The following diagrams show the sampling pattern for each probe type (simultaneously sampled channels have the same color):
 
-.. image:: ../../_static/images/plugins/neuropix-pxi/neuropixels-car-02.png
+.. image:: ../../_static/images/plugins/neuropixels-car/neuropixels-car-02.png
   :alt: Annotated Neuropixels 1.0 and 2.0 shanks
 
 |
