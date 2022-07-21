@@ -20,7 +20,7 @@ If you're planning to update the host application, or any of the plugins in the 
 
 4. `Open an issue <https://github.com/open-ephys/plugin-GUI/issues>`__ describing the changes you'd like to make, whether it's fixing a bug or adding a new feature. This will ensure that we avoid any redundant development efforts.
 
-5. Create a new branch for your changes: :code:`git checkout -b <newbranchname>`
+5. Create a new branch for your changes based on the **main** branch: :code:`git checkout -b <newbranchname>`
 
 6. Make your changes (and ensure that the GUI successfully compiles).
 

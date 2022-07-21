@@ -49,7 +49,7 @@ Setting up the Artifactory repository
 
 6. Click on :code:`Create Local Repository`. That should create the plugin Artifactory repository for you.
 
-7. Now, go to the Artifactory homepage and click on Artifactory->Artifacts. 
+7. Now, go to the Artifactory homepage and click on **Artifactory > Artifacts**. 
 
 8. Navigate to the repository you just created.
 
@@ -72,7 +72,7 @@ Setting up the Artifactory repository
 Configuring external dependencies (if any)
 ##############################################
 
-If the plugin has any external dependency that requires its own repository to be built and deployed, you'll have to follow all the steps mentioned above to set up the GitHub and Artifactory repositories. **Importantly,** while setting up the Artifactory repository properties, make sure you add "Type" property with "CommonLib" as it's value. No need to specify any other properties.
+If the plugin has any external dependency that requires its own repository to be built and deployed, you'll have to follow all the steps mentioned above to set up the GitHub and Artifactory repositories. **Importantly,** while setting up the Artifactory repository properties, make sure you add "Type" property with "CommonLib" as it's value. There's no need to specify any other properties.
 
 Once the external dependency is setup, go to the plugin's Artifactory repository that needs this dependency. Add the "Dependencies" property and the dependency repository name without the appended "-plugin" string as the value.
 
@@ -81,7 +81,7 @@ Releasing the plugin
 
 * For each new release, tag the latest commit on GitHub with the version number. Versions should follow the `semantic versioning <https://semver.org/>`_ scheme. (Do not add a 'v' in front of the version number).
 
-* Add GitHub Actions workflows for macOS, Linux, and Windows (examples available in the :code:`open-ephys-plugins-ci` repository)
+* Add GitHub Actions workflows for macOS, Linux, and Windows (examples available in the private `open-ephys-plugins-ci <https://github.com/open-ephys-plugins/open-ephys-plugins-ci>`__ repository)
 
 .. note:: If the plugin has dependencies that are a part of the plugin repository, refer to the `neuropixels-pxi <https://github.com/open-ephys-plugins/neuropixels-pxi>`__ plugin workflows to understand the proper way to package dependencies inside the plugin's zip file.
 

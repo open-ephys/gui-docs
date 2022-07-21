@@ -59,7 +59,7 @@ All Visualizers must implement three pure virtual methods:
 
 .. function:: void refresh()
 
-   Called on each animation cycle; the Visualizer should make sure all the relevant components are re-drawn inside this method. This is used iinstead of Juce's :code:`repaint()` to avoid re-painting sub-components that don't need to be updated. To modify the animation refresh rate, a Visualizer should change the value of its :code:`refreshRate` member.
+   Called on each animation cycle; the Visualizer should make sure all the relevant components are re-drawn inside this method. This is used instead of Juce's :code:`repaint()` to avoid re-painting sub-components that don't need to be updated. To modify the animation refresh rate, a Visualizer should change the value of its :code:`refreshRate` member.
 
 
 .. function:: void refreshState()

@@ -12,7 +12,7 @@ File Sources
    "*Base Class*", ":code:`FileSource`"
    "*Template*", "https://github.com/open-ephys-plugins/file-source-template"
 
-A File Source plugin allows the GUI's File Reader to stream data from a new type of data format. By default, the File Reader can load data stored in the GUI's :ref:`binaryformat`. Plugins for the :ref:`openephysformat` and :ref:`nwbdataformat` can be installed via the Plugin Installer.
+A File Source plugin allows the GUI's File Reader to stream data from a new type of data format. By default, the File Reader can load data stored in the GUI's :ref:`binaryformat`. File Source plugins for the :ref:`openephysformat` and :ref:`nwbdataformat` can be installed via the Plugin Installer.
 
 A data format may contain data for multiple recordings and/or data streams, but the File Reader can only read one of these at a time. Each "Record" within a File Source represents one recording (a block of contiguous samples) from one data stream (a block of channels that are sampled synchronously). When a new file is loaded, the File Source must provide information about all of the Records that are available, and then the user can select which one to read at any given time. To read in data from multiple recordings or data streams simultaneously, multiple File Readers can be connected via a :ref:`merger`.
 

@@ -12,7 +12,7 @@ Data Threads
    "*Base Classes*", ":code:`DataThread`, :code:`DataBuffer`"
    "*Template*", "https://github.com/open-ephys-plugins/data-thread-template"
 
-**Data Threads** are special types of :ref:`processorplugins` that communicate with a data acquisition device whose clock is not synchronized with the GUI's internal processing callbacks. Instead of implementing a :code:`process()` method, as a "Source" processor would, a Data Thread must implement an :code:`updateBuffer()` method that is called inside a separate thread. Any available data in this buffer will be automatically copied into the GUI's signal chain for further processing.
+**Data Threads** are special types of :ref:`processorplugins` that communicate with a data acquisition device whose clock is not synchronized with the GUI's internal processing callbacks. Instead of implementing a :code:`process()` method as a "Source" processor would, a Data Thread must implement an :code:`updateBuffer()` method that is called inside a separate thread. Any available data in this buffer will be automatically copied into the GUI's signal chain for further processing.
 
 Each Data Thread can generate an arbitrary number of data streams, each with an independent sample clock. The only limitations are that each data stream can only have one event "channel" (with up to 64 TTL lines), and the incoming data cannot contain spike events. Provided that the incoming data fits within these limitations, then it is strongly recommended to derive your plugin from a Data Thread, rather than building a Source Processor.
 
@@ -91,7 +91,7 @@ The following is an example of a minimal implementation of :code:`DataThread::up
 
       DataStream* stream = new DataStream(settings);
 
-		sourceStreams->add(stream); // add pointer to owned array
+      sourceStreams->add(stream); // add pointer to owned array
 
       for (int i = 0; i < numChannels; i++)
       {
@@ -116,7 +116,7 @@ The following is an example of a minimal implementation of :code:`DataThread::up
 			8                        // maximum number of TTL lines
 		};
 
-		eventChannels->add(new EventChannel(settings));
+      eventChannels->add(new EventChannel(settings));
    }
 
 A Data Thread must also implement the following three methods in order to be complete:
@@ -162,5 +162,5 @@ In addition, the following virtual methods can be overriden to extend the functi
    Allows the DataThread plugin to handle a configuration message (usually sent via the OpenEphysHTTPServer) while acquisition is not active.
 
    :param msg: The message that was sent. There are no restrictions on how this string will be formatted; each plugin is responsible for parsing this message in the appropriate way.
-
+   :returns String: The response to the sender (e.g., an acknowledgement that the configuration message was handled properly)
 |
