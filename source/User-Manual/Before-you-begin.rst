@@ -16,7 +16,7 @@ We don't think that the Open Ephys GUI is the perfect solution to this problem, 
 About Open Ephys
 -----------------
 
-`Open Ephys`_ is a US-based nonprofit founded by Josh Siegle and Jakob Voigts in order to promote the use of open-source tools for electrophysiology experiments. Open Ephys showcases open-source tools developed in academia, some of which are sold under the "Open Ephys" brand, while others are independent. Through a partnership with `Open Ephys Production Site`_ in Portugal, we are able to sell open-source hardware that is validated, tested, and supported, all at an affordable price. Purchases made through the `Open Ephys Store`_ ensure that your money is invested back into the community.
+`Open Ephys`_ is an employee-owned cooperative founded by Josh Siegle, Jakob Voigts, and Jon Newman in order to promote the use of open-source tools for electrophysiology experiments. The Open Ephys website showcases a variety of open-source tools designed by neuroscientists, some of which are sold under the "Open Ephys" brand. Through a partnership with `Open Ephys Production Site`_ in Portugal, we are able to sell open-source hardware that is validated, tested, and supported, all at an affordable price. Purchases made through the `Open Ephys Store`_ ensure that your money is invested back into the community.
 
 The `Open Ephys GUI`_ is often just called "Open Ephys," but it's actually part of a wider range of software and hardware that is part of the Open Ephys ecosystem. Development of the GUI began in the Wilson Lab at MIT around 2010. In 2014, Aarón Cuevas López was hired as the official support person, using revenues from the `Open Ephys Store`_. Since 2019, support for the GUI has been funded by a `BRAIN Initiative U24 Award`_ to the Allen Institute.
 
@@ -62,7 +62,7 @@ The Open Ephys GUI is freely available to anyone who wants to use it. However, w
 .. _Open Ephys Production Site: https://www.oeps.tech/
 .. _Open Ephys Store: https://open-ephys.org/store
 .. _Open Ephys GUI: https://open-ephys.org/gui
-.. _BRAIN Initiative U24 Award: https://projectreporter.nih.gov/project_info_description.cfm?aid=9645567
+.. _BRAIN Initiative U24 Award: https://reporter.nih.gov/project-details/9645567
 .. _Bonsai: https://bonsai-rx.org/
 .. _this paper: https://iopscience.iop.org/article/10.1088/1741-2552/aacf45/meta
 .. _JUCE: https://juce.com/

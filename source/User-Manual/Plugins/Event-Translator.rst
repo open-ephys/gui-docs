@@ -16,7 +16,7 @@ Event Translator
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Josh Siegle"
-   "*Source Code*", "https://github.com/open-ephys/Source/Processors/EventTranslator"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/main/Source/Processors/EventTranslator"
 
 
 Recommended signal chain

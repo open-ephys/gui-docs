@@ -85,7 +85,7 @@ To create a new NPY file, a Record Engine should use the following methods:
    Constructor for a 1-dimensional NPY file with a specified type. 
 
    :param path: Absolute path to the file.
-   :param type: The data type for this file. The available types are defined in `Metadata.h <https://github.com/open-ephys/plugin-GUI/blob/development-juce6/Source/Processors/Settings/Metadata.h>`__.
+   :param type: The data type for this file. The available types are defined in `Metadata.h <https://github.com/open-ephys/plugin-GUI/blob/main/Source/Processors/Settings/Metadata.h>`__.
 
 Here are some usage examples for common data types:
 

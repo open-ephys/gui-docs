@@ -17,7 +17,7 @@ When you submit an issue, make sure to include what version of the GUI you're us
 Building a new plugin
 ----------------------
 
-The recommended way to add features to the GUI is by building a new plugin. Plugins allow the GUI to interface with new data sources, trigger events on specific neural states, display data within rich visualizations, or write data to a new format, among many other possibilities. Officially supported plugins are listed in the :ref:`User Manual<plugins>`, and a list of additional community-generated plugins is maintained `here <https://open-ephys.atlassian.net/wiki/display/OEW/Third-party+plugin+repositories>`__.
+The recommended way to add features to the GUI is by building a new plugin. Plugins allow the GUI to interface with new data sources, trigger events on specific neural states, display data within rich visualizations, or write data to a new format, among many other possibilities. Officially supported plugins are listed in the :ref:`User Manual<plugins>`, and a list of additional community-generated plugins is maintained `here <https://open-ephys.atlassian.net/wiki/spaces/OEW/pages/47841283/Third-party+plugin+repositories>`__.
 
 Before you :ref:`create a new plugin<creatinganewplugin>`, you'll need to have some familiarity with C++, as well as makefiles (Linux), Xcode (macOS), or Visual Studio (Windows).
 

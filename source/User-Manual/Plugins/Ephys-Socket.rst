@@ -47,7 +47,7 @@ In Bonsai
 
 #. Start the workflow to initiate the data stream.
 
-The workflow should look something like the one pictured below (:code:`.bonsai` file available in the `Ephys Socket GitHub repo <https://github.com/open-ephys-plugins/EphysSocket/tree/master/Resources>`__):
+The workflow should look something like the one pictured below (:code:`.bonsai` file available in the `Ephys Socket GitHub repo <https://github.com/open-ephys-plugins/ephys-socket/tree/main/Resources>`__):
 
 .. image:: ../../_static/images/plugins/ephyssocket/ephyssocket-02.png
   :alt: A compatible Bonsai workflow

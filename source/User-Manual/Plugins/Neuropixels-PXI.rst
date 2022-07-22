@@ -36,7 +36,7 @@ Hardware requirements
 
 * One **PCIe interface card**, housed in the computer (we've tested National Instruments PCIe-8381 and PCIe-8398)
 
-* *(optional)* One **PXI-based analog and digital I/O module** (see the :ref:`nidaqmx` page for a list of hardware we've tested)
+* *(optional)* One **PXI-based analog and digital I/O module** (see the :ref:`NI-DAQmx` page for a list of hardware we've tested)
 
 * **Cables** to connect the remote control module to the PCIe card (e.g., National Instruments MXI-Express Cables, Gen 2 x8)
 
@@ -72,7 +72,7 @@ This plugin can stream data from the following Neuropixels probe types:
 Connecting to the PXI system
 ##############################
 
-Before using this plugin, make sure you've followed all of the steps in the `Neuropixels User Manual <https://www.neuropixels.org/support>`__ to set up and configure your hardware. Prior to using your Neuropixels PXI basestation, you must install the Enclustra drivers (available for `Windows 7/8 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/master/Resources/Enclustra_Win7%268.zip>`__ and `Windows 10 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/master/Resources/Enclustra_Win10.zip>`__). See section 4.2.2 of the User Manual for installation instructions.
+Before using this plugin, make sure you've followed all of the steps in the `Neuropixels User Manual <https://www.neuropixels.org/support>`__ to set up and configure your hardware. Prior to using your Neuropixels PXI basestation, you must install the Enclustra drivers (available for `Windows 7/8 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/main/Resources/Enclustra_Win7%268.zip>`__ and `Windows 10 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/main/Resources/Enclustra_Win10.zip>`__). See section 4.2.2 of the User Manual for installation instructions.
 
 Once your PXI system is up and running, you can drag and drop the "Neuropix-PXI" module from the Processor List onto the Editor Viewport. The GUI will automatically connect to any available basestations in your connected PXI chassis. If no PXI basestations are found, the plugin can be run in :ref:`simulation mode<Simulation mode>`.
 
@@ -272,7 +272,7 @@ If you have a headstage test module, you can run a suite of tests to ensure the 
 Updating basestation firmware
 ######################################
 
-This plugin is compatible with any recent basestation firmware version. However, if you're using Neuropixels 2.0, NHP Passive, or switchable Ultra probes, you'll need to upgrade to the latest firmware (available `here <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/master/Resources/Neuropixels_PXI_APIv3_Firmware.zip>`__).
+This plugin is compatible with any recent basestation firmware version. However, if you're using Neuropixels 2.0, NHP Passive, or switchable Ultra probes, you'll need to upgrade to the latest firmware (available `here <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/main/Resources/Neuropixels_PXI_APIv3_Firmware.zip>`__).
 
 The currently installed firmware version will appear in the info section of the Neuropixels settings interface (upper right text block). If your basesation firmware version is "2.0137" and your basestation connect board firmware version is "3.2176", you already have the latest firmware installed.
 

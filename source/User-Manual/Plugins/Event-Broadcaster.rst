@@ -87,7 +87,7 @@ When sending packets in raw binary mode, the Event Broadcaster serializes the ev
 Receiving data in Python
 ########################
 
-See the `open-ephys-python-tools <https://github.com/open-ephys/open-ephys-python-tools/blob/main/open_ephys/streaming/>`__ repository for a more complete implementation.
+See the `open-ephys-python-tools <https://github.com/open-ephys/open-ephys-python-tools/tree/main/open_ephys/streaming/>`__ repository for a more complete implementation.
 
 .. code-block:: python
 

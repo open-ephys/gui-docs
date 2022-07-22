@@ -5,7 +5,7 @@
 Hardware requirements
 ======================
 
-You can demo the Open Ephys GUI on almost any modern computer using the :ref:`filereader` to read in data that's already been saved. But if you are planning to run experiments, you'll need to make sure your hardware is capable enough to keep up with data acquisition. In general, the minimum requirements will depend on how many channels you'd like to acquire simultaneously, and whether you need low-latency closed-loop feedback. Below, we provide some guidelines for configuring your data acquisition machine.
+You can demo the Open Ephys GUI on any computer using the :ref:`filereader` to read in data that's already been saved. But if you are planning to run experiments, you'll need to make sure your system is capable enough to keep up with data acquisition. In general, the minimum requirements will depend on how many channels you'd like to acquire simultaneously, and whether you need low-latency closed-loop feedback. Below, we provide some guidelines for configuring your data acquisition machine.
 
 For the Open Ephys acquisition board
 -------------------------------------
@@ -41,7 +41,7 @@ These are the minimum requirements for getting up and running. You will likely n
 
 * **I/O boards** for interfacing with auxiliary analog and digital signals (available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/io-board-pcb>`__)
 
-* **Headstages and cables** (available as part of the `Open Ephys Starter Kit <https://open-ephys.org/acquisition-system/starter-kit>`__ or from `Intan Technologies <http://intantech.com/pricing.html>`__; there is also a low-profile headstage available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/low-profile-spi-headstage-64ch>`__)
+* **Headstages and cables** (available as part of the `Open Ephys Starter Kit <https://open-ephys.org/acquisition-system/starter-kit>`__ or from `Intan Technologies <https://intantech.com/pricing.html>`__; there is also a low-profile headstage available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/low-profile-spi-headstage-64ch>`__)
 
 * **Electrodes** - there is lots of flexibility here, as long as you have some way to interface between your electrodes and a compatible headstage. For tetrodes, we recommend the `shuttleDrive <https://open-ephys.org/drive-implant>`__.
 
@@ -65,7 +65,7 @@ Computer specs
 
 * **Graphics card** - the GUI doesn't rely on the GPU for processing, but GPUs are essential for offline analysis. An NVIDIA GPU is likely required (for CUDA compatibility); we recommend buying a GTX 1660 or better.
 
-* **Connections** - the motherboard should have at least one x8- or x16-compatible PCIe slot.
+* **Connections** - the motherboard should have at least one x8- or x16-compatible PCIe slot, in addition to the one used by the GPU.
 
 
 Other hardware
@@ -79,7 +79,7 @@ The following summarizes the additional hardware you'll need to buy to run Neuro
 
 * One **PCIe interface card** (we've tested National Instruments PCIe-8381 and PCIe-8398)
 
-* *(optional)* One **PXI-based analog and digital I/O module** (see the :ref:`nidaqmx` page for a list of hardware we've tested)
+* *(optional)* One **PXI-based analog and digital I/O module** (see the :ref:`NI-DAQmx` page for a list of hardware we've tested)
 
 * **Cables** to connect the remote control module to the PCIe card (e.g., National Instruments MXI-Express Cables, Gen 2 x8)
 

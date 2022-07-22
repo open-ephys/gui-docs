@@ -15,7 +15,7 @@ File Reader
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Aarón Cuevas López, Pavel Kulik"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/Source/Processors/FileReader"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/main/Source/Processors/FileReader"
 
 Loading Data
 ###################

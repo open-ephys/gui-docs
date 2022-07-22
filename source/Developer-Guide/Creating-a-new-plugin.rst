@@ -12,9 +12,9 @@ Some plugins still live inside the main `plugin-GUI <https://github.com/open-eph
 Some examples of externally hosted plugins include:
 
 * `Neuropixels PXI <https://github.com/open-ephys-plugins/neuropixels-pxi>`__ (**DataThread**)
-* `Multi-Band Integrator <https://github.com/open-ephys-plugins/StreamMuxer>`__ (**Processor Plugin**)
+* `Multi-Band Integrator <https://github.com/open-ephys-plugins/multi-band-integrator>`__ (**Processor Plugin**)
 * `Probe Viewer <https://github.com/open-ephys-plugins/probe-viewer>`__ (**Visualizer Plugin**)
-* `NWB Format <https://github.com/open-ephys-plugins/NWBFormat>`__ (**Record Engine** & **File Source**)
+* `NWB Format <https://github.com/open-ephys-plugins/nwb-format>`__ (**Record Engine** & **File Source**)
 
 This page will show you how to create new plugins and compile them for Linux, Mac, and Windows. These instructions assume you have already compiled the main application. If not, follow the instructions on :ref:`this page <compilingthegui>`.
 

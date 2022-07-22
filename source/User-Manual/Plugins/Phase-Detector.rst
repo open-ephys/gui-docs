@@ -16,7 +16,7 @@ Phase Detector
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Josh Siegle"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/Plugins/PhaseDetector"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/main/Plugins/PhaseDetector"
 
 .. note:: The Phase Detector uses the simplest possible algorithm to trigger outputs when an incoming signal reaches a peak, trough, or zero-crossing. If you would like to perform more precise phase-specific stimulation, you should use the :ref:`phasecalculator` plugin, which uses a Hilbert transform to predict the timing of each cycle with a higher degree of accuracy.
 

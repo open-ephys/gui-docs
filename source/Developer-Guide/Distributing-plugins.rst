@@ -81,7 +81,7 @@ Releasing the plugin
 
 * For each new release, tag the latest commit on GitHub with the version number. Versions should follow the `semantic versioning <https://semver.org/>`_ scheme. (Do not add a 'v' in front of the version number).
 
-* Add GitHub Actions workflows for macOS, Linux, and Windows (examples available in the private `open-ephys-plugins-ci <https://github.com/open-ephys-plugins/open-ephys-plugins-ci>`__ repository)
+* Add GitHub Actions workflows for macOS, Linux, and Windows (examples available in the private :code:`open-ephys-plugins-ci` repository)
 
 .. note:: If the plugin has dependencies that are a part of the plugin repository, refer to the `neuropixels-pxi <https://github.com/open-ephys-plugins/neuropixels-pxi>`__ plugin workflows to understand the proper way to package dependencies inside the plugin's zip file.
 

@@ -144,4 +144,4 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
    :format: html
 
 
-.. _Open Ephys Plugins GitHub Account: https://github.com/open-ephys-plugins?tab=repositories
+.. _Open Ephys Plugins GitHub Account: https://github.com/open-ephys-plugins

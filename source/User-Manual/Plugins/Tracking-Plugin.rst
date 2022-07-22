@@ -57,7 +57,7 @@ From the FlyCapture software, you can activate GPIO triggers that can be recorde
 Setting up Bonsai
 ------------------
 
-If you haven't already, `install Bonsai <https://bonsai-rx.org/docs/installation/>`__. After opening Bonsai, find the package manager and install the **Vision**, **Vision Design**, **PointGrey**, **OSC**, **OSC Design**, and **Scripting** packages.
+If you haven't already, `install Bonsai <https://bonsai-rx.org/docs/articles/installation.html>`__. After opening Bonsai, find the package manager and install the **Vision**, **Vision Design**, **PointGrey**, **OSC**, **OSC Design**, and **Scripting** packages.
 
 Once everything is installed, download and unzip the files in `this directory <https://github.com/open-ephys-plugins/tracking-plugin/raw/master/Resources/tracking-plugin-bonsai.zip>`__. Then, open the :code:`tracking.bonsai` workflow file in Bonsai.
 

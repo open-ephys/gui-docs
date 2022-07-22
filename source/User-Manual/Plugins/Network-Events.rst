@@ -93,8 +93,8 @@ An Python example can be found at in the `Python Resources`_ folder: :code:`reco
 
 
 .. _ZeroMQ: https://zeromq.org/
-.. _Matlab Resources: https://github.com/open-ephys/plugin-GUI/tree/master/Resources/Matlab
-.. _Python Resources: https://github.com/open-ephys/plugin-GUI/tree/master/Resources/Python
+.. _Matlab Resources: https://github.com/open-ephys-plugins/network-events/tree/main/Resources/Matlab
+.. _Python Resources: https://github.com/open-ephys-plugins/network-events/tree/main/Resources/Python
 
 
 

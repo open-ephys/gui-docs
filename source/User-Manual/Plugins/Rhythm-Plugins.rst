@@ -9,7 +9,7 @@ Rhythm Plugins
 .. image:: ../../_static/images/plugins/rhythmfpga/rhythmfpga-01.png
   :alt: Annotated settings interface for the Acquisition Board plugin
 
-.. csv-table:: Streams data from any device running Intan's "Rhythm" firmware. It is currently compatible with both the `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__ and the `Intan RHD USB Interface Board <http://intantech.com/RHD_USB_interface_board.html>`__. Support for additional Intan hardware is coming soon.
+.. csv-table:: Streams data from any device running Intan's "Rhythm" firmware. It is currently compatible with both the `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__ and the `Intan RHD USB Interface Board <https://intantech.com/RHD_USB_interface_board.html>`__. Support for additional Intan hardware is coming soon.
    :widths: 18, 80
 
    "*Plugin Type*", "Source"

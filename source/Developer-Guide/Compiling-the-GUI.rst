@@ -5,7 +5,7 @@
 Compiling the GUI
 =====================
 
-If you'd like to build the GUI from source, you'll have to download the code to your local machine. We recommend first forking the `GUI's GitHub repository <https://github.com/open-ephys/plugin-GUI>`__ to your own account, then cloning the fork via the `command line <https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-using-the-command-line>`__ or the `GitHub Desktop app <https://desktop.github.com/>`__. 
+If you'd like to build the GUI from source, you'll have to download the code to your local machine. We recommend first forking the `GUI's GitHub repository <https://github.com/open-ephys/plugin-GUI>`__ to your own account, then cloning the fork via the `command line <https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository-using-the-command-line>`__ or the `GitHub Desktop app <https://desktop.github.com/>`__. 
 
 
 Windows

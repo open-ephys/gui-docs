@@ -16,7 +16,7 @@ Spike Detector
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Josh Siegle"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/Plugins/BasicSpikeDisplay/SpikeDetector"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/main/Plugins/BasicSpikeDisplay/SpikeDetector"
 
 .. note:: The Spike Detector has changed significantly in GUI version 0.6.0+. Be sure to read the documentation carefully to understand the new user interface.
 

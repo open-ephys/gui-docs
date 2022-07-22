@@ -1,4 +1,4 @@
-.. _synchronization:
+.. _datasynchronization:
 
 .. role:: raw-html-m2r(raw)
    :format: html
@@ -62,7 +62,7 @@ The Open Ephys GUI can perform these calculations in real time, provided the har
 Hardware Configuration
 ######################
 
-When using the :ref:`neuropixelspxi` and :ref:`nidaqmx` plugins, there are two options for setting up the sync line:
+When using the :ref:`neuropixelspxi` and :ref:`NI-DAQmx` plugins, there are two options for setting up the sync line:
 
 #. Use the built-in sync output of the Neuropixels PXI basestation.
 

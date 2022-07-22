@@ -97,5 +97,5 @@ Via .zip file
 |
 
 .. _this page: https://open-ephys.org/gui
-.. _Visual Studio 2015 2017 and 2019 redistributable package: https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads
+.. _Visual Studio 2015 2017 and 2019 redistributable package: https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170
 

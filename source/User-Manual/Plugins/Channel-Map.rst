@@ -16,7 +16,7 @@ Channel Map
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Josh Siegle"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/Plugins/ChannelMappingNode"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/main/Plugins/ChannelMappingNode"
 
 .. warning:: Due to the way that the GUI connects channels between plugins, channel 1 *must* be enabled. If you disable channel 1 in the Channel Map, then no data will be transmitted downstream.
 

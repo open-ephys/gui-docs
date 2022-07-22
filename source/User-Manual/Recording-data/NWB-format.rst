@@ -14,7 +14,7 @@ NWB Format
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No"
    "*Key Developers*", "Aarón Cuevas López, Pavel Kulik, Josh Siegle"
-   "*Source Code*", "https://github.com/open-ephys-plugins/NWBFormat"
+   "*Source Code*", "https://github.com/open-ephys-plugins/nwb-format"
 
 
 **Advantages**

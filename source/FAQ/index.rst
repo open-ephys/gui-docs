@@ -36,7 +36,7 @@ If you're using multiple applications to acquire data in parallel, there are two
 
 (1) *Software-based triggering.* The GUI's built-in HTTP Server can be used to start your recordings from a Python or Matlab script. Assuming your other software has similar remote triggering functionality, this will ensure that all of your data streams begin within a few milliseconds of one another.
 
-(2) *Shared hardware sync line.* For precise, sub-millisecond level synchronization, all of your data streams need to share at least one digital or analog input line. This line should include a sequence of on/off events that can be used to align the data offline. To learn more about hardware-based synchronization, check out the :ref:`synchronization` tutorial.
+(2) *Shared hardware sync line.* For precise, sub-millisecond level synchronization, all of your data streams need to share at least one digital or analog input line. This line should include a sequence of on/off events that can be used to align the data offline. To learn more about hardware-based synchronization, check out the :ref:`datasynchronization` tutorial.
 
 For synchronizing the GUI with camera streams, you can either record the frame triggers (if available) or record a digital input that activates an LED in the camera's field of view. We recommend using `Bonsai <https://bonsai-rx.org/>`__ for acquiring video data.
 

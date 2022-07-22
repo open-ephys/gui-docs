@@ -16,7 +16,7 @@ Spike Viewer
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Josh Siegle"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/Plugins/BasicSpikeDisplay/SpikeDisplayNode"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/main/Plugins/BasicSpikeDisplay/SpikeDisplayNode"
 
 
 Recommended signal chain
