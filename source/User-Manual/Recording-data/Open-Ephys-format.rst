@@ -95,7 +95,7 @@ Each record is 2070 bytes long, and is terminated by a 10-byte record marker (0 
 Events
 -------
 
-Events for each stream is stored in a :code:`.events` file. Each "record" contains the data for an individual event stored according to the following scheme:
+Events for each stream are stored in a :code:`.events` file. Each "record" contains the data for an individual event stored according to the following scheme:
 
 .. image:: ../../_static/images/recordingdata/open-ephys/events.png
   :alt: Open Ephys data events format
