@@ -7,7 +7,7 @@ Open Ephys GUI
 
 .. **Download documentation**: `PDF Version <open-ephys-documentation.pdf>`__ | `Zipped HTML <open-ephys-documentation.zip>`__
 
-.. image:: _static/images/main_screenshot.jpeg
+.. image:: _static/images/screenshot-0-6-0.png
   :alt: A screenshot of the Open Ephys GUI
 
 |
