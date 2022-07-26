@@ -7,7 +7,7 @@ How To Make Your Own Plugin
 
 The Open Ephys GUI was designed to be extended via plugins that can be developed and shared independently of the main application. This is the primary way in which end users are encouraged to add new functionality to the GUI.  
 
-This tutorial will guide you through the steps involved in making a plugin from scratch. At then, you will have created a "TTL Event Generator" plugin, which can emit TTL events when a button is pressed, or continuously at a customizable frequency. TTL events represent ON/OFF transitions that are traditionally associated with "Transistor-Transitor Logic" circuits. Within the Open Ephys GUI, TTL events are used to represent state transitions on both physical and virtual "lines." Each TTL channel can track the state of up to 256 lines, but for simplicity our plugin will only use the first 8.
+This tutorial will guide you through the steps involved in making a plugin from scratch. At then, you will have created a "TTL Event Generator" plugin, which can emit TTL events when a button is pressed, or continuously at a customizable frequency. TTL events represent ON/OFF transitions that are traditionally associated with "Transistor-Transistor Logic" circuits. Within the Open Ephys GUI, TTL events are used to represent state transitions on both physical and virtual "lines." Each TTL channel can track the state of up to 256 lines, but for simplicity our plugin will only use the first 8.
 
 Along with explaining how to configure the plugin and set up the main :code:`process()` method, this tutorial will demonstrate how to create UI components for the plugin using the GUI's built-in parameter editors. 
 
@@ -75,7 +75,7 @@ When you're finished, the file should look like this:
    {
       /* API version, defined by the GUI source.
       Should not be changed to ensure it is always equal to the one used in the latest codebase.
-      The GUI refueses to load plugins with mismatched API versions */
+      The GUI refuses to load plugins with mismatched API versions */
       info->apiVersion = PLUGIN_API_VER;
       info->name = "TTL Event Generator"; // <---- UPDATE
       info->libVersion = "0.1.0"; // <---- UPDATE
@@ -302,7 +302,7 @@ To select which TTL line to send events on, we will use a "ComboBox" or drop-dow
    // event output line
    addComboBoxParameterEditor("out", 50, 35);
 
-Also be sure to initilaize the corresponding parameter inside the :code:`TTLEventGenerator` processor constructor:
+Also be sure to initialize the corresponding parameter inside the :code:`TTLEventGenerator` processor constructor:
 
 .. code-block:: c++
    :caption: TTLEventGenerator.cpp
@@ -366,7 +366,7 @@ Then, in the custom parameter editor's constructor, we'll initialize the button,
       setBounds(0, 0, 60, 20); // set the bounds of custom parameter editor
    }
 
-To handle button clicks, implement the :code:`buttonClicked` method as indicated below. Inside this method, we need to call :code:`setNextValue()` on the parameter as that will notfiy the processor about parameter value change. We aslo need to set the bounds of the button in the :code:`resized()` method as follows:
+To handle button clicks, implement the :code:`buttonClicked` method as indicated below. Inside this method, we need to call :code:`setNextValue()` on the parameter as that will notify the processor about parameter value change. We also need to set the bounds of the button in the :code:`resized()` method as follows:
 
 .. code-block:: c++
    :caption: TTLEventGeneratorEditor.cpp
@@ -383,7 +383,7 @@ To handle button clicks, implement the :code:`buttonClicked` method as indicated
    }
 
 
-Now, we need to initialize the custom parameter editor inside the :code:`TTLEventGeneratorEditor` constructor by getting the pointer to the parameter that we will create inside the :code:`TTLEventGenerator` processor constrcutor, like this:
+Now, we need to initialize the custom parameter editor inside the :code:`TTLEventGeneratorEditor` constructor by getting the pointer to the parameter that we will create inside the :code:`TTLEventGenerator` processor constructor, like this:
 
 .. code-block:: c++
    :caption: TTLEventGeneratorEditor.cpp
@@ -408,7 +408,7 @@ Compile and load the plugin into the GUI to see the newly added button:
 Responding to parameter value changes
 #####################################
 
-Now, let's allow our UI elements to change the state of the plugin. To do this, we need to create variables inside the :code:`TTLEventGenerator` class that can be updated by our button, slider, and ComboBox parameter edtiors. The values of these variables *must* be updated through a special method, called :code:`parameterValueChanged()`, which responds to any parameter editor value changes. This is because the :code:`process()` method is called by a separate thread from the user interface, and the variables it needs to access can only be updated at specific times. Modifying variables via :code:`parameterValueChanged()` ensures that they are handled properly, and prevents unexpected behavior or segmentation faults.
+Now, let's allow our UI elements to change the state of the plugin. To do this, we need to create variables inside the :code:`TTLEventGenerator` class that can be updated by our button, slider, and ComboBox parameter editors. The values of these variables *must* be updated through a special method, called :code:`parameterValueChanged()`, which responds to any parameter editor value changes. This is because the :code:`process()` method is called by a separate thread from the user interface, and the variables it needs to access can only be updated at specific times. Modifying variables via :code:`parameterValueChanged()` ensures that they are handled properly, and prevents unexpected behavior or segmentation faults.
 
 First, let's update the :code:`TTLEventGenerator` header file as follows:
 
