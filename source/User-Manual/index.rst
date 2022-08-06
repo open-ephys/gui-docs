@@ -36,6 +36,7 @@ If there's something missing from this documentation that you think should be in
     Recording-data/index
     Whats-new-in-version-06X
     Plugins/index
+    Remote-control
 
 .. role:: raw-html-m2r(raw)
    :format: html
