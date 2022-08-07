@@ -62,9 +62,9 @@ Each **continuous** directory contains the following files:
 
 * :code:`continuous.dat`: A simple binary file containing *N* channels x *M* samples 16-bit integers in little-endian format. Data is saved as :code:`ch1_samp1, ch2_samp1, ... chN_samp1, ch1_samp2, ch2_samp2, ..., chN_sampM`. The value of the least significant bit needed to convert the 16-bit integers to physical units is specified in the :code:`bitVolts` field of the relevant channel in the :code:`structure.oebin` JSON file. For "headstage" channels, multiplying by :code:`bitVolts` converts the values to microvolts, whereas for "ADC" channels, :code:`bitVolts` converts the values to volts.
 
-* :code:`sample_numbers.npy`: A numpy array containing *M* 64-bit integers that represent the index of each sample in the :code:`.dat` file since the start of acquisition.
+* :code:`sample_numbers.npy`: A numpy array containing *M* 64-bit integers that represent the index of each sample in the :code:`.dat` file since the start of acquisition. **Note:** This file was called :code:`timestamps.npy` in GUI version 0.5.X. To avoid ambiguity, "sample numbers" always refer to integer sample index values starting in version 0.6.0.
 
-* :code:`timestamps.npy`: A numpy array containing *M* 64-bit floats representing the global timestamps in seconds relative to the start of the Record Node's main data stream (assuming this stream was synchronized before starting recording).
+* :code:`timestamps.npy`: A numpy array containing *M* 64-bit floats representing the global timestamps in seconds relative to the start of the Record Node's main data stream (assuming this stream was synchronized before starting recording). **Note:** This file was called :code:`synchronized_timestamps.npy` in GUI version 0.5.X. To avoid ambiguity, "timestamps" always refer to float values (in units of seconds) starting in version 0.6.0.
 
 Events
 -------
@@ -79,9 +79,9 @@ Directories for TTL event channels include the following files:
 
 * :code:`states.npy`:  numpy array of *N* 16-bit integers, indicating ON (+CH_number) and OFF (-CH_number) states
 
-* :code:`sample_numbers.npy` Contains *N* 64-bit integers indicating the sample number of each event since the start of acquisition
+* :code:`sample_numbers.npy` Contains *N* 64-bit integers indicating the sample number of each event since the start of acquisition. **Note:** This file was called :code:`timestamps.npy` in GUI version 0.5.X. To avoid ambiguity, "sample numbers" always refer to integer sample index values starting in version 0.6.0.
 
-* :code:`timestamps.npy` Contains *N* 64-bit floats indicating representing the global timestamp of each event in seconds relative to the start of the Record Node's main data stream (assuming this stream was synchronized before starting recording)
+* :code:`timestamps.npy` Contains *N* 64-bit floats indicating representing the global timestamp of each event in seconds relative to the start of the Record Node's main data stream (assuming this stream was synchronized before starting recording). **Note:** This file did not exist in GUI version 0.5.X. Synchronized (float) timestamps for events first became available in version 0.6.0.
 
 * :code:`full_words.npy`: Contains *N* 64-bit integers containing the "TTL word" consisting of the current state of *all* lines when the event occurred
 
@@ -92,9 +92,9 @@ Text events are routed through the GUI's Message Center, and are stored in a dir
 
 * :code:`text.npy`: numpy array of *N* strings
 
-* :code:`sample_numbers.npy` Contains *N* 64-bit integers indicating the sample number of each text event on the Record Node's main data stream
+* :code:`sample_numbers.npy` Contains *N* 64-bit integers indicating the sample number of each text event on the Record Node's main data stream. **Note:** This file was called :code:`timestamps.npy` in GUI version 0.5.X. To avoid ambiguity, "sample numbers" always refer to integer sample index values starting in version 0.6.0.
 
-* :code:`timestamps.npy` Contains *N* 64-bit floats indicating representing the global timestamp of each text event in seconds relative to the start of the Record Node's main data stream
+* :code:`timestamps.npy` Contains *N* 64-bit floats indicating representing the global timestamp of each text event in seconds relative to the start of the Record Node's main data stream. **Note:** This file did not exist in GUI version 0.5.X. Synchronized (float) timestamps for events first became available in version 0.6.0.
 
 
 Spikes
@@ -110,9 +110,9 @@ Each **electrode** directory contains the following files:
 
 * :code:`waveforms.npy`: numpy array with dimensions *S* spikes x *N* channels x *M* samples containing the spike waveforms
 
-* :code:`sample_numbers.npy`: numpy array of *S* 64-bit integers containing the sample number corresponding to the peak of each spike
+* :code:`sample_numbers.npy`: numpy array of *S* 64-bit integers containing the sample number corresponding to the peak of each spike. **Note:** This file was called :code:`timestamps.npy` in GUI version 0.5.X. To avoid ambiguity, "sample numbers" always refer to integer sample index values starting in version 0.6.0.
 
-* :code:`timestamps.npy`: numpy array of *S* 64-bit floats containing the global timestamp in seconds corresponding to the peak of each spike (assuming this stream was synchronized before starting recording)
+* :code:`timestamps.npy`: numpy array of *S* 64-bit floats containing the global timestamp in seconds corresponding to the peak of each spike (assuming this stream was synchronized before starting recording). **Note:** This file did not exist in GUI version 0.5.X. Synchronized (float) timestamps for spikes first became available in version 0.6.0.
 
 * :code:`clusters.npy`: numpy array of *S* unsigned 16-bit integers containing the sorted cluster ID for each spike (defaults to 0 if this is not available).
 
