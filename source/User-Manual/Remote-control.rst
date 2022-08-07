@@ -3,7 +3,7 @@
 Remote control
 ##############
 
-The **Open Ephys HTTP Server** enables remote control of the GUI via a RESTful API. Immediately upon launching, the GUI starts an HTTP server on port **37497** (:code:`EPHYS` on a phone keypad) of the machine running the GUI. You can confirm that the server is running by pointing a web browser to :code:`http://localhost:37497/api/processors`. This should display a JSON string with information about the current signal chain.
+The **Open Ephys HTTP Server** enables remote control of the GUI via a RESTful API. Immediately upon launching, the GUI starts an HTTP server on port **37497** (:code:`EPHYS` on a phone keypad). You can confirm that the server is running by pointing a web browser to :code:`http://localhost:37497/api/processors`. If you're using a different computer, substitute :code:`localhost` with the IP address of the machine running the GUI. This should display a JSON string with information about the current signal chain.
 
 The HTTP server can be disabled or re-enabled via the **File** menu.
 
