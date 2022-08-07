@@ -34,10 +34,10 @@ If there's something missing from this documentation that you think should be in
     Exploring-the-user-interface
     Building-a-signal-chain
     Recording-data/index
+    Remote-control
     Whats-new-in-version-06X
     Plugins/index
-    Remote-control
-
+    
 .. role:: raw-html-m2r(raw)
    :format: html
 

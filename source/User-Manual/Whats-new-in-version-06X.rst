@@ -68,15 +68,19 @@ The XML files that store the state of the Open Ephys signal chain are now much m
 Built-in HTTP server
 ========================
 
-Remote control of the GUI's state was previously handled by the Network Events plugin, which had to be installed separately from the host application. Now, the GUI automatically runs an HTTP server that listens for commands on port 37497 ("EPHYS" on a phone keypad). This can be used to get information about the current signal chain, change the recording directory, and start/stop acquisition and recording, among other things. 
+Remote control of the GUI's state was previously handled by the Network Events plugin, which had to be installed separately from the host application. Now, the GUI automatically runs a :ref:`remotecontrol` server that listens for commands on port **37497** (:code:`EPHYS` on a phone keypad). This can be used to get information about the current signal chain, change the recording directory, and start/stop acquisition and recording, among other things. 
 
 The API is "RESTful", such that the resource URLs are:
 
-- :code:`GET /api/status` : returns a JSON string with the GUI's current mode (**IDLE**, **ACQUIRE**, **RECORD**)
+- :code:`GET /api/status` : returns a JSON string with the GUI's current mode (**IDLE**, **ACQUIRE**, **RECORD**).
 
-- :code:`PUT /api/status` : sets the GUI's mode, e.g.: :code:`{"mode" : "ACQUIRE"}`
+- :code:`PUT /api/status` : sets the GUI's mode, e.g.: :code:`{"mode" : "ACQUIRE"}`.
  
-- :code:`PUT /api/message` : sends a broadcast message to all processors, e.g.: :code:`{"text" : "Message content"}`
+- :code:`PUT /api/message` : sends a broadcast message to all processors while acquisition is active, e.g.: :code:`{"text" : "Message content"}`.
+
+- :code:`GET /api/processors` : returns a JSON string with information about the GUI's signal chain.
+
+- :code:`PUT /api/processors/<processor_id>/config` : sends a configuration message to one processor, e.g.: :code:`{"text" : "Message content"}`.
  
 - :code:`GET /api/recording`` : returns a JSON string with information about recording parameters, including the IDs of the available Record Nodes.
 
