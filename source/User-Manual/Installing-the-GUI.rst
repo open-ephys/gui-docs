@@ -51,6 +51,28 @@ Via installer (Ubuntu only)
 5. To uninstall, type :code:`sudo dpkg --remove open-ephys` in a terminal window.
 
 
+Via Portage (Gentoo only)
+-----------------------------
+
+The GUI is available at the gentoo science overlay. 
+
+1. Install the eselect-repository package: :code:`emerge --ask --noreplace --verbose eselect-repository`
+
+2. Activate the science overlay: :code:`eselect repository enable science`
+
+3. Install the GUI: :code:`emerge --ask --verbose open-ephys-gui`
+
+4. Run :code:`open-ephys-VERSION` to launch the GUI, where :code:`VERSION` is the installed version. To see all installed versions, run :code:`ls /usr/bin/open-ephys*`.
+
+5. To uninstall a specific version, run :code:`emerge --ask --verbose --depclean =sci-biology/open-ephys-gui-VERSION`.
+
+6. To uninstall all installed versions, run :code:`emerge --ask --verbose --depclean open-ephys-gui`.
+
+.. note:: Having the GUI version in the executable name may be a minor inconvenience, but it allows installation of multiple versions of the GUI, which can be very useful for testing a new version while keepping the current version in case something goes wrong.
+
+.. note:: Brave users can also install the main branch version (:code:`emerge --ask --verbose =sci-biology/open-ephys-gui-9999`) or the development branch version (:code:`emerge --ask --verbose =sci-biology/open-ephys-gui-99999999`). Since installation is slotted, you can keep all versions installed simultaneously, in case you want to try them without removing the stable version.
+
+
 Via .zip file (all distros)
 ----------------------------
 
@@ -62,7 +84,7 @@ Via .zip file (all distros)
 
 4. Enter :code:`sudo cp 40-open-ephys.rules /etc/udev/rules.d` followed by your password.
 
-5. Enter :code:`service udev restart` on Ubuntu/Debian or :code:`sudo udevadm control --reload-rules` on Fedora/CentOS to allow the GUI to communicate with the Open Ephys acquisition board.
+5. Enter :code:`service udev restart` on Ubuntu/Debian or :code:`sudo udevadm control --reload-rules` on Fedora/CentOS/Gentoo to allow the GUI to communicate with the Open Ephys acquisition board.
 
 6. Double-click the **open-ephys** executable (or enter :code:`./open-ephys` in the terminal) to run the application.
 
