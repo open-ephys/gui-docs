@@ -35,7 +35,7 @@ If there's something missing from this documentation that you think should be in
     Building-a-signal-chain
     Recording-data/index
     Remote-control
-    Whats-new-in-version-06X
+    Whats-new
     Plugins/index
     
 .. role:: raw-html-m2r(raw)

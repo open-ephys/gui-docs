@@ -3,15 +3,15 @@
    :format: html
 
 ############################
-What's new in version 0.6.X
+What's new in version 0.6.x
 ############################
 
-Version 0.6.0 (released in July 2022) is the biggest update in the GUI's history, with a number of changes designed to make the GUI more efficient and easier to use. This page explains some of the major updates in this release, to help you get up and running faster.
+Version 0.6.x (released in July 2022) is the biggest update in the GUI's history, with a number of changes designed to make the GUI more efficient and easier to use. This page explains some of the major updates in this release, to help you get up and running faster.
 
 Stream-based processing
 ========================
 
-The most important change in version 0.6.0 is that channels are now organized by "streams," which represent a group of continuous channels that are sampled synchronously. Previously, synchronously sampled channels were grouped together into "subprocessors," but there was minimal information available about subprocessors, and settings were still applied on a channel-by-channel basis. Now, each plugin includes a "stream selector" interface that replaces the old "channel selector" interface:
+The most important change in version 0.6.x is that channels are now organized by "streams," which represent a group of continuous channels that are sampled synchronously. Previously, synchronously sampled channels were grouped together into "subprocessors," but there was minimal information available about subprocessors, and settings were still applied on a channel-by-channel basis. Now, each plugin includes a "stream selector" interface that replaces the old "channel selector" interface:
 
 .. image:: ../_static/images/whatsnew/whatsnew-01.png
   :alt: Channel selector vs stream selector
@@ -33,7 +33,7 @@ The first time the GUI is launched (or after selecting "Load a default config" f
 Fewer built-in plugins
 ========================
 
-In version 0.6.0, a number of plugins that were previously included by default have been moved to separate repositories. This includes the "Rhythm FPGA" plugin (now split in two and renamed "Acqusition Board" and "Intan RHD USB"), the :ref:`spikesorter`, and the :ref:`pulsepal`. Moving these plugins to their own repositories makes it possible to upgrade them via the Plugin Installer, instead of having to update the entire host application.
+In version 0.6.x, a number of plugins that were previously included by default have been moved to separate repositories. This includes the "Rhythm FPGA" plugin (now split in two and renamed "Acqusition Board" and "Intan RHD USB"), the :ref:`spikesorter`, and the :ref:`pulsepal`. Moving these plugins to their own repositories makes it possible to upgrade them via the Plugin Installer, instead of having to update the entire host application.
 
 
 Audio Monitor plugin
@@ -62,7 +62,7 @@ In previous versions of the GUI, the word "timestamp" would sometimes refer to a
 Settings file format
 ========================
 
-The XML files that store the state of the Open Ephys signal chain are now much more compact and easier to read. Instead of storing the state of every single channel, they only include the minimal amount of information required to reproduce the signal chain. Because the settings file format has changed substantially, settings files saved by GUI version 0.5.X and lower cannot be opened by version 0.6.0+.
+The XML files that store the state of the Open Ephys signal chain are now much more compact and easier to read. Instead of storing the state of every single channel, they only include the minimal amount of information required to reproduce the signal chain. Because the settings file format has changed substantially, settings files saved by GUI version 0.5.x and lower cannot be opened by version 0.6.x.
 
 
 Built-in HTTP server
