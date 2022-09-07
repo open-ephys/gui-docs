@@ -24,7 +24,7 @@ Once you have CMake installed, you can generate the Visual Studio project files 
 
 .. note:: For earlier version of Visual Studio, substitute the last command with: |br| :code:`cmake -G "Visual Studio 16 2019" -A x64 ..` |br| :code:`cmake -G "Visual Studio 15 2017 Win64" ..` |br| :code:`cmake -G "Visual Studio 14 2015 Win64" ..` |br| or |br| :code:`cmake -G "Visual Studio 12 2013 Win64" ..`
 
-Next, launch Visual Studio and open the :code:`open-ephys.sln` file that was just created in the "Build" folder.
+Next, launch Visual Studio and open the :code:`open-ephys-GUI.sln` file that was just created in the "Build" folder.
 
 To compile the GUI, select "Build > Build Solution" (shortcut key: F6), or press the "Debug" button to build and run. This will build the main application, the :code:`open-ephys.lib` file, and all of the plugins that are included in the main repository.
 
