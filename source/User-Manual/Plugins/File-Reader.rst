@@ -22,6 +22,8 @@ Loading Data
 
 By default, the File Reader is compatible with files saved in the :ref:`binaryformat` (indexed with a :code:`structure.oebin` file). If the appropriate plugins are installed, the File Reader can also read data stored in the :ref:`openephysformat` (indexed with a :code:`structure.openephys` file) and :ref:`nwbdataformat` (saved inside a :code:`*.nwb` file). 
 
+.. note:: Data saved by previous versions of the GUI may not load in version 0.6.x. For help updating your files to work with the latest File Reader, send a message to `support@open-ephys.org <mailto:support@open-ephys.org>`__.
+
 Each input file can contain multiple streams/recordings, but only one stream/recording can be played back per File Reader during acquisition. The drop-down menu below the active file name makes it possible to switch between the available streams when acquisition is paused. In order to play multiple streams simultaneously, you can merge multiple File Readers, each with the same input file and a different selected stream.  
 
 You can play back a subset of a recorded file by changing the "start" and "end" times at the bottom of the File Reader editor.
