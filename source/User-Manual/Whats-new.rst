@@ -58,6 +58,11 @@ Consistent timestamp conventions
 
 In previous versions of the GUI, the word "timestamp" would sometimes refer to actual times in seconds, but could also refer to sample numbers since the start of acquisition. To remove this ambiguity, "timestamp" now refers exclusively to global times in seconds (floating point values), while "sample number" is used for counting samples from an individual data source (integer values). This change has been implemented throughout the source code, as well as in the data files. This may cause some confusion, as the :ref:`binaryformat` previously saved sample numbers in the :code:`timestamps.npy` file. Now, :code:`timestamps.npy` stores globally synchronized timestamps from a given Record Node, while :code:`sample_numbers.npy` stores the local sample numbers for each source.
 
+The naming conventions around events have also changed. An event "channel" produces samples at irregularly spaced intervals within single data stream, similar to how a continuous channel generates samples at regularly spaced intervals within one stream. Each processor can have multiple event channels to represent different types of events. However, it's most common for processors that produce events to have one "TTL channel" per stream. TTL channels are a special type of event channel that can specify the state of one or more "lines" that can either be "ON" or "OFF". To avoid ambiguity, the :ref:`binaryformat` now stores the state of each TTL line in :code:`states.npy` rather than :code:`channel_states.npy`.
+
+In addition, we are now stricter about adhering to the convention that user-facing numbering should use 1-based indexing, while the software uses 0-based indexing under the hood (including in configuration files). Most people prefer to see channel and line numbers that start at 1, whereas C++ operations usually assume numbering starts at 0. 
+
+
 
 Settings file format
 ========================
