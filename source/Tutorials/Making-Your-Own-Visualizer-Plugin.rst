@@ -27,7 +27,7 @@ The first step in creating a plugin is to create a new code repository from a te
 .. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-01.png
   :alt: Visualizer Plugin Template Repository
 
-4. Name the repository "rate-viewer", since the main purpose of this plugin is to visualize spike rate.
+4. Name the repository "rate-viewer", since the main purpose of this plugin is to visualize spike rate of an electrode.
 
 5. Click the green "Create repository from template" button.
 
@@ -58,7 +58,7 @@ Inside the "Source" directory, you'll find the :file:`OpenEphysLib.cpp` file tha
 
 Rate Viewer plugin will be a "sink", meaning it creates a canvas to visualize the data by inheriting the `Visualizer <https://github.com/open-ephys/plugin-GUI/blob/master/Source/Processors/GenericProcessor/GenericProcessor.h>`__ class. This Visualizer is is owned by the plugin's editor which needs to inherit from the `VisualizerEditor <https://github.com/open-ephys/plugin-GUI/blob/main/Source/Processors/Editors/VisualizerEditor.h>`__ class. 
 
-Now, the GUI's Plugin Manager needs to know all the required information to load the plugin into the GUI. Edit the following lines in :code:`OpenEphysLib.cpp`:
+Now, we can provide the plugin's metadata (name, type, creator, etc.) to the GUI's Plugin Manager by editing the following lines in :code:`OpenEphysLib.cpp`:
 
 1. Change :code:`info->name` to :code:`Rate Viewer`
 
@@ -75,7 +75,7 @@ When you're finished, the file should look like this:
    {
       /* API version, defined by the GUI source.
       Should not be changed to ensure it is always equal to the one used in the latest codebase.
-      The GUI refueses to load plugins with mismatched API versions */
+      The GUI refuses to load plugins with mismatched API versions */
       info->apiVersion = PLUGIN_API_VER;
       info->name = "Rate Viewer"; // Name of the plugin library <---- UPDATE
       info->libVersion = "0.1.0"; //Version of the plugin
@@ -112,7 +112,7 @@ When you're finished, the file should look like this:
 
 |
 
-Next, rename the :code:`VisualizerPlugin.cpp` & :code:`VisualizerPlugin.h` files to :code:`RateViewer.cpp` and :code:`RateViewer.h`, and find and replace the **VisualizerPlugin** class name with **RateViewer** in the .cpp and .h files. Do the same with :code:`VisualizerPluginEditor.cpp`, :code:`VisualizerPluginEditor.h`, :code:`VisualizerPluginCanvas.cpp`, and :code:`VisualizerPluginCanvas.h`. 
+Next, rename the :code:`VisualizerPlugin.cpp` & :code:`VisualizerPlugin.h` files to :code:`RateViewer.cpp` and :code:`RateViewer.h`, and find and replace the **VisualizerPlugin** class name with **RateViewer** everywhere in the .cpp and .h files. Do the same with :code:`VisualizerPluginEditor.cpp`, :code:`VisualizerPluginEditor.h`, :code:`VisualizerPluginCanvas.cpp`, and :code:`VisualizerPluginCanvas.h`. 
 
 Also, don't forget to update the include inside :code:`OpenEphysLib.cpp` from :code:`#include "VisualizerPlugin.h"` to :code:`#include "RateViewer.h"`.
 
@@ -127,178 +127,240 @@ To compile the plugin, please follow the OS-specific instructions described on t
 Setting up the Processor methods
 ##########################################
 
-Right now, our plugin won't have any effect on incoming data when it's placed in the signal chain. Data passed into the :code:`process()` method will not be processed in any way.
+Right now, our plugin won't do anything with the incoming data when it's placed in the signal chain. Spike data passed into the :code:`process()` method will not be used in any way.
 
-Let's change that by inserting code to add a TTL ON and OFF events at an interval of 1 second. For now, we will hard-code the relevant parameters. In the subsequent steps, we will make it possible to change these parameters via UI elements in the plugin's editor.
+Let's change that by inserting code to grab all the available spike channels (electrodes) and store the channel metadata locally. This is necessary as we want the user to have the ability to change the electrode for spike rate visualization. For now, we will just save the electrode information. In the subsequent steps, we will make it possible to change the active electrode via a drop-down menu (ComboBox) in the plugin's editor.
 
-Before we can add events during acquisition, we need to announce to downstream processors that this plugin is capable of generating its own events. This is done by adding a TTL event channel in the :code:`updateSettings()` method, which is called whenever the signal chain is modified. 
+To make sure all available electrodes' information is valid throughout the session, we need to update the electrode metadata in the :code:`updateSettings()` method, which is called whenever the signal chain is modified. Before overriding the :code:`updateSettings()` method, we need a something to store the electrode information, so we'll define a electrode :code:`struct` first.
 
-In the plugin's :code:`.cpp` file, add the following line to :code:`updateSettings()`:
-
-.. code-block:: c++
-   :caption: TTLEventGenerator.cpp
-
-   void TTLEventGenerator::updateSettings()
-   {
-      // create and add a default TTL channel to the first data stream
-      addTTLChannel("TTL Event Generator Output");
-   }
-
-Now, if you re-compile the plugin and load it into the signal chain, you should see an extra TTL channel has been added to this plugin and all downstream plugins in the Graph View.
-
-Next, we will add some internal variables to track the state of our TTL lines, as well as a method to ensure their state is reset at the start of acquisition.
-
-In the plugin's :code:`.h` file, add the following lines after :code:`loadCustomParametersFromXml`:
+In the plugin processor's :code:`.h` file, add the following lines under the :code:`private` specifier:
 
 .. code-block:: c++
-   :caption: TTLEventGenerator.h
-
-      bool startAcquisition() override;
+   :caption: RateViewer.h
 
    private:
-      int counter; // counts the total number of incoming samples
-      bool state; // holds the channel state (on or off)
 
-In the :code:`.cpp` file, add a new method called :code:`startAcquisition()` that resets the state of these variables:
-
-Then we will make sure the appropriate variables get re-set at the start of acquisition:
-
-.. code-block:: c++
-   :caption: TTLEventGenerator.cpp
-
-   bool TTLEventGenerator::startAcquisition()
-   {
-      counter = 0;
-      state = false;
-
-      return true;
-   }
-
-Now, we are ready to add events to inside our process method:
-
-.. code-block:: c++
-   :caption: TTLEventGenerator.cpp
-
-   void TTLEventGenerator::process(AudioBuffer<float>* buffer)
-   {
-
-      // loop through the streams
-      for (auto stream : getDataStreams())
+      struct Electrode
       {
-         // Only generate on/off event for the first data stream
-         if(stream == getDataStreams()[0])
+         String name;
+
+         uint16 streamId;
+
+         float sampleRate;
+
+         bool isActive = false; // To keep track of which electrode is being visualized
+      };
+
+
+      OwnedArray<Electrode> electrodes;
+      std::map<const SpikeChannel*, Electrode*> electrodeMap;
+
+
+Note that we need to create an array of :code:`.h` to store information of all the incoming SpikeChannels as well as a :code:`std::map` to map all the electrodes to its respective SpikeChannel.
+
+Next, inside the :code:`updateSettings()` method, we will loop through the available SpikeChannels and store its metadata.
+
+In the plugin's :code:`.cpp` file, add the following lines 
+
+.. code-block:: c++
+   :caption: RateViewer.cpp
+
+   void RateViewer::updateSettings()
+   {
+      electrodes.clear(); // clear previous entries first
+      electrodeMap.clear();
+
+      for(auto spikeChan : spikeChannels)
+      {
+         if(spikeChan->isValid())
          {
-            int totalSamples = getNumSamplesInBlock(stream->getStreamId());
-
-            int eventIntervalInSamples = (int) stream->getSampleRate();
-
-            for (int i = 0; i < totalSamples; i++)
-            {
-               counter++;
-               
-               if (counter == eventIntervalInSamples)
-               {
-
-                  state = !state;
-                  setTTLState(i, 0, state);
-                  counter = 0;
-
-               }
-
-               if (counter > eventIntervalInSamples)
-                  counter = 0;
-            }
+               Electrode* electrode = new Electrode();
+               electrode->name = spikeChan->getName();
+               electrode->streamId = spikeChan->getStreamId();
+               electrode->sampleRate = spikeChan->getSampleRate();
+               electrodes.add(electrode);
+               electrodeMap[spikeChan] = electrode;
          }
       }
    }
 
-After recompiling the plugin, try dropping it into the signal chain after a :ref:`filereader`. Add an :ref:`lfpviewer` to the right of the plugin, and start acquisition. You should see the state of TTL event line 1 flipping once per second.
+Now, the processor is ready to receive spike events. Inside our process method, we need to enable checking for spike events. To do so, update the :code:`process()` method as follows:
+
+.. code-block:: c++
+   :caption: RateViewer.cpp
+
+   void RateViewer::process(AudioBuffer<float>& buffer)
+   {	
+      checkForEvents(true); // true as plugin handle's spikes
+   }
+
 
 Adding UI components to the editor
 ###################################
 
-Currently, the TTL line and interval for generating events are hard-coded inside the :code:`process()` method. In order to make these parameters easy to change at runtime, we need to create a user interface for our plugin. This UI will be defined inside of the :code:`TTLEventGeneratorEditor` class.
+Currently, there is no active electrode set for which spike data needs to be processed. In order to change the active electrode during runtime, we need to create a user interface for our plugin. This UI will be defined inside of the :code:`RateViewerEditor` class.
 
 You should have already modified the file and class names for the plugin's editor; make sure the editor's :code:`.h` and :code:`.cpp` files look like this:
 
 .. code-block:: c++
-   :caption: TTLEventGeneratorEditor.h
+   :caption: RateViewerEditor.h
 
-   #include <EditorHeaders.h>
+   #include <VisualizerEditorHeaders.h>
 
-   class TTLEventGeneratorEditor : public GenericEditor
+   class RateViewerEditor  : public VisualizerEditor
    {
    public:
 
       /** Constructor */
-      TTLEventGeneratorEditor(GenericProcessor* parentNode);
+      RateViewerEditor(GenericProcessor* parentNode);
 
       /** Destructor */
-      ~TTLEventGeneratorEditor() { }
+      ~RateViewerEditor() { }
+
+      /** Creates the canvas */
+      Visualizer* createNewCanvas();
 
    private:
 
       /** Generates an assertion if this class leaks */
-      JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TTLEventGeneratorEditor);
+      JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(RateViewerEditor);
    };
 
 
 .. code-block:: c++
-   :caption: TTLEventGeneratorEditor.cpp
+   :caption: RateViewerEditor.cpp
 
-   #include "TTLEventGeneratorEditor.h"
+   #include "RateViewerEditor.h"
 
-   TTLEventGeneratorEditor::TTLEventGeneratorEditor(GenericProcessor* parentNode) 
-      : GenericEditor(parentNode)
+   #include "RateViewerCanvas.h"
+   #include "RateViewer.h"
+
+
+   RateViewerEditor::RateViewerEditor(GenericProcessor* p)
+      : RateViewerEditor(p, "Spike Rate", 210) // second parameter is the tab name, third is the editor width
    {
-
-      desiredWidth = 150;
 
    }
 
+   Visualizer* RateViewerEditor::createNewCanvas()
+   {
+      return new RateViewerCanvas((RateViewerEditor*) getProcessor());
+   }
 
-Creating a slider parameter editor
--------------------------------------
 
-To automatically generate events at certain intervals/frequency, let's add a slider with a range of event frequencies between 5 ms to 5000 ms. We will create a slider inside the :code:`TTLEventGeneratorEditor` constructor using one of the built-in parameter editors, like so:
+Creating a ComboBox
+--------------------
+
+To allow changing the active electrode, we will create a ComboBox or a drop-down menu that will list all the available electrodes for the currently selected stream in the editor. We will create a JUCE::ComboBox inside the editor's constructor as follows: 
 
 .. code-block:: c++
-   :caption: TTLEventGeneratorEditor.cpp
+   :caption: RateViewerEditor.cpp
 
-   TTLEventGeneratorEditor::TTLEventGeneratorEditor(GenericProcessor* parentNode) 
-      : GenericEditor(parentNode)
+   RateViewerEditor::RateViewerEditor(GenericProcessor* p)
+      : VisualizerEditor(p, "Spike Rate", 210),
+        rateViewerCanvas(nullptr)
    {
 
-      desiredWidth = 250;
+      electrodeList = std::make_unique<ComboBox>("Electrode List");
+      electrodeList->addListener(this);
+      electrodeList->setBounds(50,40,120,20);
+      addAndMakeVisible(electrodeList.get());
 
-      // event frequency slider
-      addSliderParameterEditor("frequency", 25, 95); // (parameter name, x pos, y pos)
-
+      rateViewerNode = (RateViewer*)p;
    }
-   
-Note that we also changed the desired width of the plugin to 250, to allow more space for parameter editors.
 
-Every parameter editor *must* refer to a parameter with the same name that's declared in the plugin constructor. Let's initialize the corresponding parameter inside the :code:`TTLEventGenerator` constructor:
 
 .. code-block:: c++
-   :caption: TTLEventGenerator.cpp
+   :caption: RateViewerEditor.h
 
-   TTLEventGenerator::TTLEventGenerator()
-      : GenericProcessor("TTL Event Generator")
+   private:
+
+      std::unique_ptr<ComboBox> electrodeList;
+
+      RateViewerCanvas* rateViewerCanvas;
+      RateViewer* rateViewerNode;
+
+
+Compile and load the plugin into the GUI to see the newly added ComboBox, which will be empty for now.
+
+To add the available electrodes list to the ComboBox, we will have to ask the processor for the list. Since we want to make sure the list gets updated every time the signal chain is modified or a different stream is selected, we have to carry out the entire process inside the editor's :code:`selectedStreamHasChanged()` method. 
+
+First, lets add a function in the processor that returns an array of electrode names for the specified stream.
+
+.. code-block:: c++
+   :caption: RateViewer.cpp
+
+   Array<String> RateViewer::getElectrodesForStream(uint16 streamId)
    {
-      // Event frequency
-      addFloatParameter(Parameter::GLOBAL_SCOPE, "frequency", "Generate events at regular intervals", 50.0f, 5.0f, 5000.0f, 5.0f);
+      Array<String> electrodesForStream;
+
+      for (auto electrode : electrodes)
+      {
+         if (electrode->streamId == streamId)
+               electrodesForStream.add(electrode->name);
+      }
+
+      return electrodesForStream;
    }
 
-Now, compile and load the plugin into the GUI to see the newly added slider.
+.. code-block:: c++
+   :caption: RateViewer.h
+
+   public:
+
+      /** Returns an array of available electrodes*/
+      Array<String> getElectrodesForStream(uint16 streamId);
+
+
+Now, we can override the :code:`selectedStreamHasChanged()` method as follows:
+
+
+.. code-block:: c++
+   :caption: RateViewerEditor.cpp
+
+   void RateViewerEditor::selectedStreamHasChanged()
+   {
+      electrodeList->clear();
+
+      if (selectedStream == 0)
+      {
+         return;
+      }
+
+
+      currentElectrodes = rateViewerNode->getElectrodesForStream(selectedStream);
+
+      int id = 0;
+
+      for (auto electrode : currentElectrodes)
+      {
+
+         electrodeList->addItem(electrode, ++id);
+               
+      }
+
+      electrodeList->setSelectedId(1, sendNotification);
+   }
+
+.. code-block:: c++
+   :caption: RateViewerEditor.h
+
+   public:
+
+      /** Called when selected stream is updated*/
+      void selectedStreamHasChanged() override;
+
+Once compiled and loaded into the GUI, if there are any SpikeChannels, then the ComboBox will be populated with the list of electrodes.
 
 .. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-03.png
   :alt: Create a slider
 
-Creating a ComboBox parameter editor
+
+
+Creating a TextBox parameter editors
 --------------------------------------
 
-To select which TTL line to send events on, we will use a "ComboBox" or drop-down menu. Add the following line to the :code:`TTLEventGeneratorEditor` constructor to initialize the GUI's built-in ComboBox parameter editor:
+To calculate the actual spike rate of an electrode, we need to define a window with a set size (in milliseconds) that encapsulates all the spikes in that time frame and then bin those spikes into smaller windows that allows us to gauge the rate of spikes in a specific bin.
 
 .. code-block:: c++
    :caption: TTLEventGeneratorEditor.cpp
