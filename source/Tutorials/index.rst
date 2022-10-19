@@ -19,5 +19,6 @@ The following tutorials are available for the Open Ephys GUI:
     Closed-Loop-Latency
     Data-Synchronization
     How-To-Make-Your-Own-Plugin
+    Making-Your-Own-Visualizer-Plugin
 
 If you have suggestions for additional tutorials, or would like to write one of your own, please write to :code:`support@open-ephys.org`.
