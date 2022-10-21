@@ -20,7 +20,7 @@ The first step in creating a plugin is to create a new code repository from a te
 
 1. Log in to your `GitHub <https://github.com/>`__ account.
 
-2. Browse to the `Processor Plugin Template <https://github.com/open-ephys-plugins/visualizer-plugin-template>`__ repository.
+2. Browse to the `Visualizer Plugin Template <https://github.com/open-ephys-plugins/visualizer-plugin-template>`__ repository.
 
 3. Click the green "Use this template" button.
 
@@ -365,8 +365,8 @@ Now, we can override the :code:`selectedStreamHasChanged()` method in the editor
 
 Once compiled and loaded into the GUI, if there are any SpikeChannels, the ComboBox will be populated with the list of electrodes.
 
-.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-03.png
-  :alt: Create a slider
+.. image:: ../_static/images/tutorials/makeyourownvisualizerplugin/makeyourownvisualizerplugin-1.png
+  :alt: Create a comboBox
 
 
 
@@ -417,8 +417,8 @@ Since every parameter editor must refer to a parameter with the same name thatâ€
 
 Compile and load the plugin into the GUI to see the newly added text boxes.
 
-.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-04.png
-  :alt: Create a combobox
+.. image:: ../_static/images/tutorials/makeyourownvisualizerplugin/makeyourownvisualizerplugin-2.png
+  :alt: Create TextBoxes
 
 
 Responding to parameter value changes
@@ -573,6 +573,9 @@ Now that out processor and editors are setup, we can move on to creating the Vis
 
 
 Once compiled and loaded into the GUI, you can open the canvas via the editor and you should be able to see a blank 2D chart inside.
+
+.. image:: ../_static/images/tutorials/makeyourownvisualizerplugin/makeyourownvisualizerplugin-3.png
+  :alt: Blank Canvas Plot
 
 We also need to make sure the processor has a reference to the canvas to relay all the parameter updates onto the canvas. We can do by creating a RateViewerCanvas pointer winside the processor and the update the pointer inside the :code:`RateViewerEditor::createNewCanvas()` which is called by the editor every time to create a new canvas.
 
@@ -1097,6 +1100,9 @@ And then, update the process to notify the editor to begin animation (timer call
    }
 
 And thatâ€™s it! If you compile and test your plugin, the canvas should start plotting the spike rate of the selected electrode, and modifying any of the UI prameters will have its related effects.
+
+.. image:: ../_static/images/tutorials/makeyourownvisualizerplugin/makeyourownvisualizerplugin-4.png
+  :alt: Plugin with spike rate plot visualized
 
 
 Next steps
