@@ -194,6 +194,7 @@ Now, the processor is ready to receive spike events. Inside our process method, 
       checkForEvents(true); // true as plugin handle's spikes
    }
 
+Next step for the processor is to handle the incoming spikes. But, before we can proceed with that, we need to add UI components to allow the user to interact with the plugin and change certain parameters.
 
 Adding UI components to the editor
 ###################################
@@ -254,11 +255,30 @@ Creating a ComboBox
 To allow changing the active electrode, we will create a ComboBox or a drop-down menu that will list all the available electrodes for the currently selected stream in the editor. We will create a JUCE::ComboBox inside the editor's constructor as follows: 
 
 .. code-block:: c++
+   :caption: RateViewerEditor.h
+
+   class RateViewerEditor : public VisualizerEditor,
+                            public ComboBox::Listener
+   {
+      public:
+         
+         ...
+
+         /** ComboBox::Listener callback*/
+         void comboBoxChanged(ComboBox* comboBox) override;
+
+      private:
+
+         std::unique_ptr<ComboBox> electrodeList;
+
+         RateViewer* rateViewerNode;
+
+
+.. code-block:: c++
    :caption: RateViewerEditor.cpp
 
    RateViewerEditor::RateViewerEditor(GenericProcessor* p)
       : VisualizerEditor(p, "Spike Rate", 210),
-        rateViewerCanvas(nullptr)
    {
 
       electrodeList = std::make_unique<ComboBox>("Electrode List");
@@ -269,17 +289,10 @@ To allow changing the active electrode, we will create a ComboBox or a drop-down
       rateViewerNode = (RateViewer*)p;
    }
 
-
-.. code-block:: c++
-   :caption: RateViewerEditor.h
-
-   private:
-
-      std::unique_ptr<ComboBox> electrodeList;
-
-      RateViewerCanvas* rateViewerCanvas;
-      RateViewer* rateViewerNode;
-
+   void RateViewerEditor::comboBoxChanged(ComboBox* comboBox)
+   {
+      /* Keep it empty for now
+   }
 
 Compile and load the plugin into the GUI to see the newly added ComboBox, which will be empty for now.
 
@@ -312,7 +325,7 @@ First, lets add a function in the processor that returns an array of electrode n
       Array<String> getElectrodesForStream(uint16 streamId);
 
 
-Now, we can override the :code:`selectedStreamHasChanged()` method as follows:
+Now, we can override the :code:`selectedStreamHasChanged()` method in the editor as follows:
 
 
 .. code-block:: c++
@@ -350,262 +363,746 @@ Now, we can override the :code:`selectedStreamHasChanged()` method as follows:
       /** Called when selected stream is updated*/
       void selectedStreamHasChanged() override;
 
-Once compiled and loaded into the GUI, if there are any SpikeChannels, then the ComboBox will be populated with the list of electrodes.
+Once compiled and loaded into the GUI, if there are any SpikeChannels, the ComboBox will be populated with the list of electrodes.
 
 .. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-03.png
   :alt: Create a slider
 
 
 
-Creating a TextBox parameter editors
+Creating TextBox parameter editors
 --------------------------------------
 
-To calculate the actual spike rate of an electrode, we need to define a window with a set size (in milliseconds) that encapsulates all the spikes in that time frame and then bin those spikes into smaller windows that allows us to gauge the rate of spikes in a specific bin.
+To calculate the actual spike rate of an electrode, we need to define a window with a set size (in milliseconds) that encapsulates all the spikes in that time frame and then bin those spikes into smaller windows that allows us to gauge the rate of spikes in a specific bin. So, the user needs a way to change the window size as well as bin size. This can be done by creating a TextBox parameter editor for both of them inside the :code:`RateViewerEditor` constructor, like so:
 
 .. code-block:: c++
-   :caption: TTLEventGeneratorEditor.cpp
-   
-   // event output line
-   addComboBoxParameterEditor("out", 50, 35);
+   :caption: RateViewerEditor.cpp
 
-Also be sure to initialize the corresponding parameter inside the :code:`TTLEventGenerator` processor constructor:
+   RateViewerEditor::RateViewerEditor(GenericProcessor* p)
+    : VisualizerEditor(p, "Spike Rate", 210)
+   {
+
+      electrodeList = std::make_unique<ComboBox>("Electrode List");
+      electrodeList->addListener(this);
+      electrodeList->setBounds(50,40,120,20);
+      addAndMakeVisible(electrodeList.get());
+
+      addTextBoxParameterEditor("window_size", 15, 75); // <--------
+
+      addTextBoxParameterEditor("bin_size", 120, 75); // <--------
+
+      rateViewerNode = (RateViewer*)p;
+
+   }
+
+
+Since every parameter editor must refer to a parameter with the same name that’s declared in the plugin constructor, let’s initialize the corresponding parameter inside the :code:`RateViewer` constructor:
 
 .. code-block:: c++
-   :caption: TTLEventGenerator.cpp
+   :caption: RateViewer.cpp
 
-   StringArray outputs;
-   for(int i = 1; i <= 8; i++)
-      outputs.add(String(i));
+   RateViewer::RateViewer() 
+    : GenericProcessor("Rate Viewer"),
+   {
+      addIntParameter(Parameter::GLOBAL_SCOPE,
+                     "window_size",
+                     "Size of the window in ms",
+                     500, 10, 1000); // Default: 500, Min: 10, Max: 1000
+      
+      addIntParameter(Parameter::GLOBAL_SCOPE,
+                     "bin_size",
+                     "Size of the bins in ms",
+                     25, 1, 100); // Default: 25, Min: 1, Max: 100
+   }
 
-   // Event output line
-   addCategoricalParameter(Parameter::GLOBAL_SCOPE, "out", "Event output line", outputs, 0);
-
-Compile and load the plugin into the GUI to see the newly added ComboBox.
+Compile and load the plugin into the GUI to see the newly added text boxes.
 
 .. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-04.png
   :alt: Create a combobox
 
-Creating a custom parameter editor (optional)
------------------------------------------------
-
-To make it possible for the user to trigger TTL events manually, we will add a button to the editor that the user can click on to generate an event. Since there is no built-in parameter editor for this, we need to create a custom one. To do this, add a  :code:`ManualTriggerButton` class above the main editor class in the :code:`TTLEventGeneratorEditor.h` file:
-
-.. code-block:: c++
-   :caption: TTLEventGeneratorEditor.h
-
-   class ManualTriggerButton : public ParameterEditor,
-      public Button::Listener
-   {
-   public:
-
-      /** Constructor */
-      ManualTriggerButton(Parameter* param);
-
-      /** Destructor*/
-      virtual ~ManualTriggerButton() { }
-
-      /** Respond to trigger button clicks*/
-      void buttonClicked(Button* label) override;
-
-      /** Update view of the parameter editor component*/
-      void updateView() {};
-
-      /** Sets component layout*/
-      void resized() override;
-
-   private:
-      std::unique_ptr<TextButton> triggerButton;
-   };
-
-Then, in the custom parameter editor's constructor, we'll initialize the button, add a button listener, set the bounds, and make it visible in the editor by adding the following lines of code:
-
-.. code-block:: c++
-   :caption: TTLEventGeneratorEditor.cpp
-
-   ManualTriggerButton::ManualTriggerButton(Parameter* param)
-	: ParameterEditor(param)
-   {
-      triggerButton = std::make_unique<UtilityButton>("Trigger", Font("Fira Code", "Regular", 12.0f)); // button text, font to use
-      triggerButton->addListener(this); // add listener to the button
-      addAndMakeVisible(triggerButton.get());  // add the button to the editor and make it visible
-
-      setBounds(0, 0, 60, 20); // set the bounds of custom parameter editor
-   }
-
-To handle button clicks, implement the :code:`buttonClicked` method as indicated below. Inside this method, we need to call :code:`setNextValue()` on the parameter as that will notify the processor about parameter value change. We also need to set the bounds of the button in the :code:`resized()` method as follows:
-
-.. code-block:: c++
-   :caption: TTLEventGeneratorEditor.cpp
-
-   void ManualTriggerButton::buttonClicked(Button* b)
-   {
-      param->setNextValue(triggerButton->getLabel());
-   }
-
-   void ManualTriggerButton::resized()
-   {
-
-      triggerButton->setBounds(0, 0, 60, 20);
-   }
-
-
-Now, we need to initialize the custom parameter editor inside the :code:`TTLEventGeneratorEditor` constructor by getting the pointer to the parameter that we will create inside the :code:`TTLEventGenerator` processor constructor, like this:
-
-.. code-block:: c++
-   :caption: TTLEventGeneratorEditor.cpp
-
-   // custom button parameter editor
-   Parameter* manualTrigger = getProcessor()->getParameter("manual_trigger");
-   addCustomParameterEditor(new ManualTriggerButton(manualTrigger), 60, 95);
-
-.. code-block:: c++
-   :caption: TTLEventGenerator.cpp
-
-    // Parameter for manually generating events
-   addStringParameter(Parameter::GLOBAL_SCOPE, "manual_trigger", "Manually trigger TTL events", String());
-
-.. note:: Since the custom button parameter editor is only used to tell the processor to trigger an event, we are creating the parameter to handle button click callbacks only. 
-
-Compile and load the plugin into the GUI to see the newly added button:
-
-.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-05.png
-  :alt: Create a custom parameter editor
 
 Responding to parameter value changes
 #####################################
 
-Now, let's allow our UI elements to change the state of the plugin. To do this, we need to create variables inside the :code:`TTLEventGenerator` class that can be updated by our button, slider, and ComboBox parameter editors. The values of these variables *must* be updated through a special method, called :code:`parameterValueChanged()`, which responds to any parameter editor value changes. This is because the :code:`process()` method is called by a separate thread from the user interface, and the variables it needs to access can only be updated at specific times. Modifying variables via :code:`parameterValueChanged()` ensures that they are handled properly, and prevents unexpected behavior or segmentation faults.
+Now, let's allow our UI elements to change the state of the plugin. To do this, we need to declare member variables inside the :code:`RateViewer` processor class that can be updated by our TextBox parameter editors as well as add a function to the processor to update the active electrode as soon as the user changes it via the ComboBox . The values of these variables *must* be updated through a special method, called :code:`parameterValueChanged()`, which responds to any parameter editor value changes.
 
-First, let's update the :code:`TTLEventGenerator` header file as follows:
+First, let's update the :code:`RateViewer` header file as follows:
 
 .. code-block:: c++
-   :caption: TTLEventGenerator.h
+   :caption: RateViewer.h
 
    public:
       /** Called whenever a parameter's value is changed */
       void parameterValueChanged(Parameter* param) override;
 
-   private:
-      bool shouldTriggerEvent;
-      bool eventWasTriggered;
-      int triggeredEventCounter;
+      /** Called whenever selected eletcrode is changed in the editor combobox */ 
+      void setActiveElectrode(String name);
 
-      float eventIntervalMs;
-      int outputLine;
+   private:
+
+      int windowSize, binSize;
+
    
-Next, let's initialize the parameters variables in the :code:`TTLEventGenerator()` constructor method.
+Next, let's initialize the parameter variables in the :code:`TTLEventGenerator()` constructor initializer list, like so:
 
 .. code-block:: c++
-   :caption: TTLEventGenerator.cpp
+   :caption: RateViewer.cpp
 
-   shouldTriggerEvent = false;
-   eventWasTriggered = false;
-   triggeredEventCounter = 0;
-
-   eventIntervalMs = 50.0f;
-   outputLine = 0;
+   RateViewer::RateViewer() 
+      : GenericProcessor("Rate Viewer"),
+         windowSize(500),
+         binSize(25)
+   {
+      ...
+   }
 
 .. important:: Always be sure to initialize all member variables in the class constructor in order to avoid unexpected behavior.
 
 Now, we can define how these variables are updated inside the :code:`parameterValueChanged()` method:
 
 .. code-block:: c++
-   :caption: TTLEventGenerator.cpp
+   :caption: RateViewer.cpp
 
-   void TTLEventGenerator::parameterValueChanged(Parameter* param)
+   void RateViewer::parameterValueChanged(Parameter* param)
    {
-      if (param->getName().equalsIgnoreCase("manual_trigger"))
-      {   
-         shouldTriggerEvent = true;
-      }
-      else if(param->getName().equalsIgnoreCase("frequency"))
+      if (param->getName().equalsIgnoreCase("window_size"))
       {
-         eventIntervalMs = (float)param->getValue();
+         windowSize = (int)param->getValue();
       }
-      else if(param->getName().equalsIgnoreCase("out"))
+      else if (param->getName().equalsIgnoreCase("bin_size"))
       {
-         outputLine = (int)param->getValue() - 1;
+         binSize = (int)param->getValue();
+      }
+   }
+
+For responding to active electrode ComboBox changes, we need to go back to the editor and deine the :code:`comboBoxChanged()` method as follows:
+
+.. code-block:: c++
+   :caption: RateViewerEditor.cpp
+
+   void RateViewerEditor::comboBoxChanged(ComboBox* comboBox)
+   {
+      if (comboBox == electrodeList.get())
+      {
+         if(currentElectrodes.size() == 0)
+         {
+               rateViewerNode->setActiveElectrode("None");
+         }
+         else
+         {
+               rateViewerNode->setActiveElectrode(
+                  currentElectrodes[electrodeList->getSelectedId() - 1]);
+         }
       }
    }
 
 
-Finally, we need to update our process method to make use of these parameters:
+and then define the :code:`RateViewer::setActiveElectrode()` method to make sure the correct electrode is set active in the processor.
+
+.. code-block:: c++
+   :caption: RateViewer.cpp
+
+   void RateViewer::setActiveElectrode(String name)
+   {
+      for (auto electrode : electrodes)
+      {
+         if (electrode->name.equalsIgnoreCase(name))
+         {
+               electrode->isActive = true; // activate the selected electrode
+         }
+         else
+         {
+               electrode->isActive = false; //de-activate all other electrodes
+         }
+      }
+   }
+
+
+Our editor UI is ready! 
+
+
+Creating the Visualizer
+########################
+
+Now that out processor and editors are setup, we can move on to creating the Visualizer by defining the :code:`RateViewerCanvas` class. The Visualizer is going to use the GUI's built-in `InteractivePlot <https://open-ephys.github.io/gui-docs/Developer-Guide/Open-Ephys-Plugin-API/Visualizer-Plugins.html#interactive-plots>`__ class that provides all the functionalities for drawing 2D charts. The X-axis is going to be the spike offset time in milliseconds, and the Y-axis is going to be the spike rate in Hz. To create the plot, we will create a :code:`juce::Viewport`  which is used to contain a larger child component, and allows the child to be automatically scrolled around, and add the InteractivePlot object as a child of the viewport. Lets do that as follows:
 
 
 .. code-block:: c++
+   :caption: RateViewerCanvas.h
 
-   void TTLEventGenerator::process(AudioSampleBuffer& buffer)
+   private:
+
+      /** Pointer to the processor class */
+      RateViewer* processor;
+
+      /** Viewport to house the plot */
+      std::unique_ptr<Viewport> viewport;
+
+      /** Class for plotting data */
+      InteractivePlot plt;
+
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.cpp
+
+   RateViewerCanvas::RateViewerCanvas(RateViewer* processor_)
+	: processor(processor_),
    {
-      // loop through the streams
-      for (auto stream : getDataStreams())
+      // Initialize the viewport
+      viewport = std::make_unique<Viewport>("Viewport");
+      viewport->setScrollBarsShown(true, true);
+
+      // Initialize the plot
+      plt.xlabel("Offset(ms)");
+      plt.ylabel("Rate (Hz)");
+      plt.setInteractive(InteractivePlotMode::OFF);
+      plt.setBackgroundColour(Colours::darkslategrey);
+      plt.show();
+
+      // Add the plot to the viewport and make them visible
+      viewport->setViewedComponent(&plt, false);
+      addAndMakeVisible(viewport.get());
+   }
+
+   // called every time window is resized. Need to set bounds of each component here.
+   void RateViewerCanvas::resized()
+   {
+      viewport->setBounds(0, 50, getWidth(), getHeight()-50);
+      plt.setBounds(0, 0, getWidth() - viewport->getScrollBarThickness(), getHeight() - 100);
+   }
+
+
+Once compiled and loaded into the GUI, you can open the canvas via the editor and you should be able to see a blank 2D chart inside.
+
+We also need to make sure the processor has a reference to the canvas to relay all the parameter updates onto the canvas. We can do by creating a RateViewerCanvas pointer winside the processor and the update the pointer inside the :code:`RateViewerEditor::createNewCanvas()` which is called by the editor every time to create a new canvas.
+
+.. code-block:: c++
+   :caption: RateViewer.h
+
+   public:   
+      
+      ...
+
+      RateViewerCanvas* canvas;
+
+   private:
+
+.. code-block:: c++
+   :caption: RateViewerEditor.h
+
+   Visualizer* RateViewerEditor::createNewCanvas()
+   {
+      rateViewerCanvas = new RateViewerCanvas(rateViewerNode);
+
+      rateViewerNode->canvas = rateViewerCanvas;
+
+      selectedStreamHasChanged();
+
+      return rateViewerCanvas;
+   }
+
+
+Updating Canvas parameters
+---------------------------
+
+After that, we need to make sure all the parameters and their updates from the processor are passed on to the canvas to do the actual spike rate calculation. For that, we need to relay the window size, bin size and electrode name information to the canvas. We also need to send the sample rate of the currently active electrode to the canvas as we'll need that to convert the bins from milliseconds to sample number to compare it with the incoming spikes sample number. We can do that by first creating member variables to store those values and helper functions to modify them inside the canvas.
+
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.h
+
+   public:
+
+      ...
+
+      void setWindowSizeMs(int windowSize_);
+
+	   void setBinSizeMs(int binSize_);
+
+	   void setSampleRate(float sampleRate);
+
+      void setPlotTitle(const String& title);
+
+   private:
+
+      ...
+
+      float sampleRate;
+
+	   int windowSize, binSize;
+
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.cpp
+
+   RateViewerCanvas::RateViewerCanvas(RateViewer* processor_)
+   : processor(processor_),
+      sampleRate(0.0f),
+      binSize(0),
+      windowSize(0)
+   {
+      
+      ...
+
+   }
+
+   void RateViewerCanvas::setWindowSizeMs(int windowSize_)
+   {
+      windowSize = windowSize_;
+   }
+
+   void RateViewerCanvas::setBinSizeMs(int binSize_)
+   {
+      binSize = binSize_;
+   }
+
+   void RateViewerCanvas::setSampleRate(float sampleRate_)
+   {
+      sampleRate = sampleRate_;
+   }
+
+   void RateViewerCanvas::setPlotTitle(const String& title)
+   {
+      plt.title(title);
+   }
+
+
+and then update the processor to call those helper functions every time a prameter changes. Before we update any canvas values, we need to make sure the canvas actually exists as there can be cases where the canvas is not created while the plugin is loaded into the GUI resulting into segmentation faults.
+
+.. code-block:: c++
+   :caption: RateViewer.cpp
+
+   void RateViewer::parameterValueChanged(Parameter* param)
+   {
+      if (param->getName().equalsIgnoreCase("window_size"))
       {
-         // Only generate on/off event for the first data stream
-         if(stream == getDataStreams()[0])
+         windowSize = (int)param->getValue();
+
+         if(canvas != nullptr)
+               canvas->setWindowSizeMs(windowSize);  // Update window size in canvas
+      }
+      else if (param->getName().equalsIgnoreCase("bin_size"))
+      {
+         binSize = (int)param->getValue();
+
+         if(canvas != nullptr)
+               canvas->setBinSizeMs(binSize); // update bin size in canvas
+      }
+   }
+
+   void RateViewer::setActiveElectrode(String name)
+   {
+      for (auto electrode : electrodes)
+      {
+         if (electrode->name.equalsIgnoreCase(name))
          {
-            int totalSamples = getNumSamplesInBlock(stream->getStreamId());
+               electrode->isActive = true;
 
-            int eventIntervalInSamples = (int) stream->getSampleRate() * eventIntervalMs / 2 / 1000;
-
-            if (shouldTriggerEvent)
-            {
-
-               // add an ON event at the first sample.
-               setTTLState(0, outputLine, true);
-
-               shouldTriggerEvent = false;
-               eventWasTriggered = true;
-               triggeredEventCounter = 0;
-            }
-
-            for (int i = 0; i < totalSamples; i++)
-            {
-               counter++;
-
-               if (eventWasTriggered)
-                  triggeredEventCounter++;
-
-               if (triggeredEventCounter == eventIntervalInSamples)
+               if(canvas != nullptr)
                {
-                  setTTLState(i, outputLine, false);
+                  // set the canvas's sample rate to electrode's sample rate
+                  canvas->setSampleRate(electrode->sampleRate);
 
-                  eventWasTriggered = false;
-                  triggeredEventCounter = 0;
+                  // set the canvas's plot tile to selected electrode's name
+                  canvas->setPlotTitle(electrode->name);
                }
+
+         }
+         else
+         {
+               electrode->isActive = false;
+         }
+      }
+   }
+
+Whenever the canvas is created, we need to make sure the correct parameter values are loaded by the canvas. Since the processor only updates the canvas when a parameter has changed, we need to let the canvas provide a way to access the processor's parameter values as soon as the canvas is initialized. We can do that by adding helper functions inside the processor  like this:
+
+
+.. code-block:: c++
+   :caption: RateViewer.h
+
+   public:
+      ...
+      
+      int getWindowSizeMs();
+
+      int getBinSizeMs();
+
+      RateViewerCanvas* canvas;
+
+
+.. code-block:: c++
+   :caption: RateViewer.cpp
+
+   int RateViewer::getWindowSizeMs()
+   {
+      return windowSize;
+   }
+
+   int RateViewer::getBinSizeMs()
+   {
+      return binSize;
+   }
+
+and update the Canvas to initialize the window and bin size values inside its constructor:
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.cpp
+
+   RateViewerCanvas::RateViewerCanvas(RateViewer* processor_)
+   : processor(processor_),
+      sampleRate(0.0f),
+      binSize(0),
+      windowSize(0)
+   {
+      ...
+
+      setWindowSizeMs(processor->getWindowSizeMs());
+
+   }
+
+
+
+Adding spikes to the canvas
+----------------------------
+
+Since all the parameters are set-up, we can start adding spike sample numbers for each incoming spike handled by the processor. First, lets create an array of sample numbers inside the canvas to store all the incoming data and also create a function inside the canvas whcih will be used by the processor to send spike sample numbers to the canvas.
+
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.h
+
+   public:
+
+      /** Adds a spike sample number */
+      void addSpike(int64 sample_number);
+
+   private:
+
+      Array<int64> incomingSpikeSampleNums;
+   
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.cpp
+
+   void RateViewerCanvas::addSpike(int64 sample_num)
+   {
+      incomingSpikeSampleNums.add(sample_num);
+   }
+
+
+Now, since the processor is already set to receive spike events, we need to handle the spikes by overriding the :code:`void handleSpike()` method which is called for every incoming spike. Inside this method we will get the spike sample number and pass it on to the canvas.
+
+.. code-block:: c++
+   :caption: RateViewer.cpp
+
+   void RateViewer::handleSpike(SpikePtr spike)
+   {
+      if(spike->getStreamId() == getEditor()->getCurrentStream() // spike stream matches the current stream
+         && electrodeMap.at(spike->getChannelInfo())->isActive // electrode is active
+         && canvas != nullptr) // canvas exists
+      {
+         canvas->addSpike(spike->getSampleNumber());
+      } 
+   }
+   
+
+Since the :code:`process()` method brings the data in blocks / buffers, we need a way to ensure the incoming spikes fall in the window time-frame defined by the user. This can be done by passing the most recent sample number for the current buffer to the canvas every process loop. Update the :code:`process()` method as follows:
+
+.. code-block:: c++
+   :caption: RateViewer.cpp
+
+   void RateViewer::process(AudioBuffer<float>& buffer)
+   {	
+      checkForEvents(true);
+
+      for(auto stream : getDataStreams())
+      {
+         if(stream->getStreamId() == getEditor()->getCurrentStream())
+         {
+               int64 mostRecentSample = getFirstSampleNumberForBlock(stream->getStreamId()) + getNumSamplesInBlock(stream->getStreamId());
+
+               if(canvas != nullptr)
+                  canvas->setMostRecentSample(mostRecentSample);
+         }
+      }
+
+   }
+
+
+and add a member variable to store the most recent sample number as a function to update that number inside the canvas.
+
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.h
+
+   public:
+
+      void setMostRecentSample(int64 sampleNum);
+
+   private:
+
+      int64 mostRecentSample;
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.cpp
+   
+   void RateViewerCanvas::setMostRecentSample(int64 sampleNum)
+   {
+      mostRecentSample = sampleNum;
+   }
+
+
+Calculating the spike rate
+--------------------------
+
+Now, we have all the required information for calculating the spike rate. To do the calculation, we first need to calculate the bin edges. The bin edges will allow us to bound the incoming spike sample numbers to specific bins, relative to the most recent sample number. We will calculate the bin edges in milliseconds to use those values as X-values for the plot, and then convert those bin edges in sample numbers so that we can count the number of spike that happened in that specific bin. We also need to make sure bin edges are updated every time the bin size changes and when the active electrode changes, so let's do the bin edge calculation insde a function called :code:`remompute()` which will be called every time we need to updated the bin edges.
+
+First, declare the bin edges arrays to store the values in milliseconds and sample numbers:
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.h
+
+   private:
+
+      /** Recomputes bin edges */
+      void recompute();
+
+      Array<double> binEdges;
+      Array<int> binEdgesInSamples;
+
+
+then do the actual calculation whenever bin edges need to be updated:
+
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.cpp
+
+   void RateViewerCanvas::recompute()
+   {
+      binEdges.clear();
+      binEdgesInSamples.clear();
+
+      if(binSize == 0 || windowSize == 0)
+         return;
+
+      double binEdge = (double) -windowSize;
+
+      while(binEdge < 0)
+      {
+         binEdges.add(binEdge);
+         binEdgesInSamples.add(binEdge * sampleRate / 1000);
+         binEdge += (double)binSize;
+      }
+
+      binEdges.add(0.0);
+      binEdgesInSamples.add(0);
+   }
+
+
+   void RateViewerCanvas::setBinSizeMs(int binSize_)
+   {
+      binSize = binSize_;
+
+      recompute(); // <--------
+   }
+
+   void RateViewerCanvas::setSampleRate(float sampleRate_)
+   {
+      sampleRate = sampleRate_;
+
+      recompute(); // <--------
+   }
+
+
+Let's do the counting now. Since we have all the required information for counting the spikes it shoudl be pretty straightforward to bin and count the spikes, like so:
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.h
+
+   private:
+
+      /** Recomputes bin edges */
+      void recompute();
+
+      Array<int> counts;
+      int maxCount;
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.cpp
+
+   void RateViewerCanvas::recount()
+   {
+      
+      const int nBins = binEdgesInSamples.size() - 1;
+      counts.clear();
+      counts.insertMultiple(0, 0, nBins);
+
+      int windowSizeInSamples = windowSize * sampleRate / 1000;
+      int lastValidIndex = -1;
+      
+      for (int i = 0; i < incomingSpikeSampleNums.size(); i++)
+      {
+         int relativeSampleNum = incomingSpikeSampleNums[i] - mostRecentSample;
+         
+         /* Check if the sample is inside the window. If not, then invalidate all the samples before it. */
+         if(relativeSampleNum > windowSizeInSamples)
+         {
+            lastValidIndex = i + 1;
+         }
+         else
+         {
+            for (int j = 0; j < nBins; j++)
+            {
                
-               if (counter == eventIntervalInSamples)
+               if (relativeSampleNum > binEdgesInSamples[j] 
+                  && relativeSampleNum < binEdgesInSamples[j+1])
                {
+                  int lastCount = counts[j];
+                  int newCount = lastCount + 1;
 
-                  state = !state;
-                  setTTLState(i, outputLine, state);
-                  counter = 0;
+                  maxCount = jmax(newCount, maxCount);
+                              
+                  counts.set(j, newCount);
 
+                  break;
                }
-
-               if (counter > eventIntervalInSamples)
-                  counter = 0;
+                  
             }
          }
       }
-      
+
+      if(lastValidIndex > -1)
+      {
+         incomingSpikeSampleNums.removeRange(0, lastValidIndex);
+      }
    }
 
-And that's it! If you compile and test your plugin, the UI elements in the editor should now change the events that appear in the LFP Viewer.
 
-.. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-06.png
-  :alt: Plugin in signal chain
+Note that we are using the :code:`maxCount` value to keep track of the maximum number if spikes counted in a bin which will then be used to se the plot range. We need to update the plot range whenever the window size is updated or the :code:`maxCount` value is updated.
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.h
+
+   private:
+
+      void updatePlotRange();
+
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.cpp
+
+   void RateViewerCanvas::updatePlotRange()
+   {
+      XYRange range;
+      range.xmin = (float)-windowSize;
+      range.xmax = 0.0f;
+      range.ymin = 0.0f;
+      range.ymax = (float)maxCount * 1000 / binSize;
+
+      plt.setRange(range);
+   }
+
+
+   void RateViewerCanvas::setWindowSizeMs(int windowSize_)
+   {
+      windowSize = windowSize_;
+
+      setBinSizeMs(processor->getBinSizeMs());
+
+      updatePlotRange(); // <--------
+   }
+
+   void RateViewerCanvas::recount()
+   {
+      ...
+
+      updatePlotRange(); // <--------
+   }
+
+
+Lastly, we need to do the actual plotting. We need to make sure the spikes are counted and plot is updated at regular intervals. To do that, we will override the canvas' :code:`refresh()` method which is called by the canvas Visualizer on a timer callback. This allows us to recount the spike and animate the plotting. First lets implement the :code:`refresh()` method, where we will use the center of the bins in milliseconds as X values and spike rate in HZ (number of spikes per bin) as Y-values.
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.cpp
+
+   void RateViewerCanvas::refresh()
+   {
+      recount();
+      
+      std::vector<float> x, y;
+
+      for(int i = 0; i < binEdges.size() - 1; i++)
+      {
+         float bin = (binEdges[i] + binEdges[i + 1]) / 2; // Get the center of th bin.
+         x.push_back(bin);
+         y.push_back(counts[i] * 1000 / binSize); // number of spikes per bin (in seconds)
+      }
+
+      plt.clear();
+      plt.plot(x, y, Colours::lightyellow, 1.0, 1.0f, PlotType::FILLED);
+   }
+
+
+We also need to make sure the refresh rate is correct otherwise the animation will look incorrect. The refresh rate needs to be set according to the bin size to see the plot moving properly. So lets re-calculate and set the refresh rate whenever the bin size is updated. Since the refresh happens on a timer, we need to stop the timer callbacks first, if acquisition is active, before modifying the refresh rate and then start the callbacks again after modifying it.
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.cpp
+
+   void RateViewerCanvas::setBinSizeMs(int binSize_)
+   {
+      binSize = binSize_;
+
+      recompute();
+
+      maxCount = 1;
+
+      if(CoreServices::getAcquisitionStatus())
+         stopCallbacks();
+
+      refreshRate = 1000/binSize;
+
+      if(CoreServices::getAcquisitionStatus())
+         startCallbacks();
+   }
+
+
+And then, update the process to notify the editor to begin animation (timer callbacks) on the canvas as soon as acquisition starts and stop animation as soon as acquisition stops.
+
+.. code-block:: c++
+   :caption: RateViewer.h
+
+   public:
+
+      /** Enables the editor */
+      bool startAcquisition() override;
+
+      /** Disables the editor*/
+      bool stopAcquisition() override;
+
+
+.. code-block:: c++
+   :caption: RateViewer.h
+
+   bool RateViewer::startAcquisition()
+   {
+      ((RateViewerEditor*)getEditor())->enable();
+      return true;
+   }
+
+   bool RateViewer::stopAcquisition()
+   {
+      ((RateViewerEditor*)getEditor())->disable();
+      return true;
+   }
+
+And that’s it! If you compile and test your plugin, the canvas should start plotting the spike rate of the selected electrode, and modifying any of the UI prameters will have its related effects.
+
 
 Next steps
-#############
+-----------
 
-There are a number of ways this plugin could be enhanced. To practice creating different kinds of UI elements, you could try implementing some of the features below, or come up with your own!
 
-- Ensure an "OFF" event is sent when the output bit is changed.
-
-- Add a button that turns the plugin's output on and off.
-
-- Add an editable label that can be used to define the time between ON/OFF events (currently the output bit flips at a 50% duty cycle).
-
-- Make all the parameters stream-specific and generate TTL events for each input stream.
 
 |
 
