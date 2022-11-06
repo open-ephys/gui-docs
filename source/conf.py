@@ -176,8 +176,9 @@ epub_exclude_files = ["search.html"]
 # documentation.
 html_theme_options = {
     "github_url": "https://github.com/open-ephys",
-    "twitter_url": "https://twitter.com/openephys",
     "navigation_with_keys": True,
+    "navbar_end": ["navbar-icon-links"],
+    "navbar_align": "content"
     # 'search_bar_position' : "navbar",
     #'canonical_url': '',
     #'analytics_id': '',
@@ -193,6 +194,8 @@ html_theme_options = {
     #'titles_only': False
 }
 
+language = 'en'
+
 html_favicon = "_static/images/favicon.png"
 
 html_context = {
@@ -200,8 +203,10 @@ html_context = {
     "github_repo": "doc-template",
     "github_version": "master",
     "doc_path": "source",
-    "css_files": ["_static/theme_overrides.css", "_static/sphinx_tabs/tabs.css"],
+    "css_files": ["_static/theme_overrides.css"]#, "_static/sphinx_tabs/tabs.css"],
 }
+
+html_show_sourcelink = False
 
 linkcheck_anchors = False
 

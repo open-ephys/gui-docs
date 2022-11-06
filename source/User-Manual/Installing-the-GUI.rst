@@ -19,7 +19,7 @@ Via installer (recommended)
 
 3. Follow the instructions within the installer.
 
-4. The GUI will be installed in :code:`C:\Program Files\Open Ephys\open-ephys.exe`.
+4. The GUI will be installed in :code:`C:\\Program Files\\Open Ephys\\open-ephys.exe`.
 
 Via .zip file
 --------------

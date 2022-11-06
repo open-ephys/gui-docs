@@ -159,7 +159,7 @@ Log files are written to :code:`/Users/<username>/Library/Application Support/op
 Windows
 ---------
 
-Log files are written to :code:`C:\ProgramData\Open Ephys\configs-api8`.
+Log files are written to :code:`C:\\ProgramData\\Open Ephys\\configs-api8`.
 
 .. _Ableton Live: https://www.ableton.com/en/live/
 
