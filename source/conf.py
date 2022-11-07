@@ -203,6 +203,7 @@ html_context = {
     "github_repo": "doc-template",
     "github_version": "master",
     "doc_path": "source",
+    "default_mode": "light",
     "css_files": ["_static/theme_overrides.css"]#, "_static/sphinx_tabs/tabs.css"],
 }
 
