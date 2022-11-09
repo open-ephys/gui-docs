@@ -407,12 +407,12 @@ Since every parameter editor must refer to a parameter with the same name thatâ€
       addIntParameter(Parameter::GLOBAL_SCOPE,
                      "window_size",
                      "Size of the window in ms",
-                     500, 10, 1000); // Default: 500, Min: 10, Max: 1000
+                     1000, 100, 5000); // Default: 1000, Min: 100, Max: 5000
       
       addIntParameter(Parameter::GLOBAL_SCOPE,
                      "bin_size",
                      "Size of the bins in ms",
-                     25, 1, 100); // Default: 25, Min: 1, Max: 100
+                     50, 25, 500); // Default: 50, Min: 25, Max: 500
    }
 
 Compile and load the plugin into the GUI to see the newly added text boxes.
@@ -450,8 +450,8 @@ Next, let's initialize the parameter variables in the :code:`TTLEventGenerator()
 
    RateViewer::RateViewer() 
       : GenericProcessor("Rate Viewer"),
-         windowSize(500),
-         binSize(25)
+         windowSize(1000),
+         binSize(50)
    {
       ...
    }
@@ -524,7 +524,7 @@ Our editor UI is ready!
 Creating the Visualizer
 ########################
 
-Now that out processor and editors are setup, we can move on to creating the Visualizer by defining the :code:`RateViewerCanvas` class. The Visualizer is going to use the GUI's built-in `InteractivePlot <https://open-ephys.github.io/gui-docs/Developer-Guide/Open-Ephys-Plugin-API/Visualizer-Plugins.html#interactive-plots>`__ class that provides all the functionalities for drawing 2D charts. The X-axis is going to be the spike offset time in milliseconds, and the Y-axis is going to be the spike rate in Hz. To create the plot, we will create a :code:`juce::Viewport`  which is used to contain a larger child component, and allows the child to be automatically scrolled around, and add the InteractivePlot object as a child of the viewport. Lets do that as follows:
+Now that out processor and editors are setup, we can move on to creating the Visualizer by defining the :code:`RateViewerCanvas` class. The Visualizer is going to use the GUI's built-in `InteractivePlot <https://open-ephys.github.io/gui-docs/Developer-Guide/Open-Ephys-Plugin-API/Visualizer-Plugins.html#interactive-plots>`__ class that provides all the functionalities for drawing 2D charts. The X-axis is going to be the spike offset time in milliseconds, and the Y-axis is going to be the spike rate in Hz. Lets create the plot as follows:
 
 
 .. code-block:: c++
@@ -534,9 +534,6 @@ Now that out processor and editors are setup, we can move on to creating the Vis
 
       /** Pointer to the processor class */
       RateViewer* processor;
-
-      /** Viewport to house the plot */
-      std::unique_ptr<Viewport> viewport;
 
       /** Class for plotting data */
       InteractivePlot plt;
@@ -548,29 +545,14 @@ Now that out processor and editors are setup, we can move on to creating the Vis
    RateViewerCanvas::RateViewerCanvas(RateViewer* processor_)
 	: processor(processor_),
    {
-      // Initialize the viewport
-      viewport = std::make_unique<Viewport>("Viewport");
-      viewport->setScrollBarsShown(true, true);
-
       // Initialize the plot
       plt.xlabel("Offset(ms)");
       plt.ylabel("Rate (Hz)");
       plt.setInteractive(InteractivePlotMode::OFF);
       plt.setBackgroundColour(Colours::darkslategrey);
-      plt.show();
-
-      // Add the plot to the viewport and make them visible
-      viewport->setViewedComponent(&plt, false);
-      addAndMakeVisible(viewport.get());
+      addAndMakeVisible(&plt);
+      plt.setBounds(50, 50, 800, 500);
    }
-
-   // called every time window is resized. Need to set bounds of each component here.
-   void RateViewerCanvas::resized()
-   {
-      viewport->setBounds(0, 50, getWidth(), getHeight()-50);
-      plt.setBounds(0, 0, getWidth() - viewport->getScrollBarThickness(), getHeight() - 100);
-   }
-
 
 Once compiled and loaded into the GUI, you can open the canvas via the editor and you should be able to see a blank 2D chart inside.
 
@@ -630,24 +612,14 @@ After that, we need to make sure all the parameters and their updates from the p
 
       ...
 
-      float sampleRate;
+      float sampleRate = 0.0f;
 
-	   int windowSize, binSize;
+	   int windowSize = 1000;
+      int binSize = 50;
 
 
 .. code-block:: c++
    :caption: RateViewerCanvas.cpp
-
-   RateViewerCanvas::RateViewerCanvas(RateViewer* processor_)
-   : processor(processor_),
-      sampleRate(0.0f),
-      binSize(0),
-      windowSize(0)
-   {
-      
-      ...
-
-   }
 
    void RateViewerCanvas::setWindowSizeMs(int windowSize_)
    {
@@ -716,52 +688,6 @@ and then update the processor to call those helper functions every time a pramet
                electrode->isActive = false;
          }
       }
-   }
-
-Whenever the canvas is created, we need to make sure the correct parameter values are loaded by the canvas. Since the processor only updates the canvas when a parameter has changed, we need to let the canvas provide a way to access the processor's parameter values as soon as the canvas is initialized. We can do that by adding helper functions inside the processor  like this:
-
-
-.. code-block:: c++
-   :caption: RateViewer.h
-
-   public:
-      ...
-      
-      int getWindowSizeMs();
-
-      int getBinSizeMs();
-
-      RateViewerCanvas* canvas;
-
-
-.. code-block:: c++
-   :caption: RateViewer.cpp
-
-   int RateViewer::getWindowSizeMs()
-   {
-      return windowSize;
-   }
-
-   int RateViewer::getBinSizeMs()
-   {
-      return binSize;
-   }
-
-and update the Canvas to initialize the window and bin size values inside its constructor:
-
-.. code-block:: c++
-   :caption: RateViewerCanvas.cpp
-
-   RateViewerCanvas::RateViewerCanvas(RateViewer* processor_)
-   : processor(processor_),
-      sampleRate(0.0f),
-      binSize(0),
-      windowSize(0)
-   {
-      ...
-
-      setWindowSizeMs(processor->getWindowSizeMs());
-
    }
 
 
@@ -841,11 +767,12 @@ and add a member variable to store the most recent sample number as a function t
 
    public:
 
+      /** Sets the sample index for the latest buffer*/
       void setMostRecentSample(int64 sampleNum);
 
    private:
 
-      int64 mostRecentSample;
+      int64 mostRecentSample = 0;
 
 .. code-block:: c++
    :caption: RateViewerCanvas.cpp
@@ -859,7 +786,7 @@ and add a member variable to store the most recent sample number as a function t
 Calculating the spike rate
 --------------------------
 
-Now, we have all the required information for calculating the spike rate. To do the calculation, we first need to calculate the bin edges. The bin edges will allow us to bound the incoming spike sample numbers to specific bins, relative to the most recent sample number. We will calculate the bin edges in milliseconds to use those values as X-values for the plot, and then convert those bin edges in sample numbers so that we can count the number of spike that happened in that specific bin. We also need to make sure bin edges are updated every time the bin size changes and when the active electrode changes, so let's do the bin edge calculation insde a function called :code:`remompute()` which will be called every time we need to updated the bin edges.
+Now, we have all the required information for calculating the spike rate. To do the calculation, we first need to calculate the bin edges. The bin edges will allow us to bound the incoming spike sample numbers to specific bins, relative to the most recent sample number. We also need to make sure bin edges are updated every time the bin size changes and when the active electrode changes, so let's do the bin edge calculation insde a function called :code:`recomputeBinEdges()` which will be called every time we need to updated the bin edges.
 
 First, declare the bin edges arrays to store the values in milliseconds and sample numbers:
 
@@ -869,10 +796,9 @@ First, declare the bin edges arrays to store the values in milliseconds and samp
    private:
 
       /** Recomputes bin edges */
-      void recompute();
+      void recomputeBinEdges();
 
       Array<double> binEdges;
-      Array<int> binEdgesInSamples;
 
 
 then do the actual calculation whenever bin edges need to be updated:
@@ -881,40 +807,47 @@ then do the actual calculation whenever bin edges need to be updated:
 .. code-block:: c++
    :caption: RateViewerCanvas.cpp
 
-   void RateViewerCanvas::recompute()
+   void RateViewerCanvas::recomputeBinEdges()
    {
-      binEdges.clear();
-      binEdgesInSamples.clear();
 
-      if(binSize == 0 || windowSize == 0)
+      binEdges.clear();
+      counts.clear();
+
+      if (binSize == 0 || windowSize == 0)
          return;
 
       double binEdge = (double) -windowSize;
 
-      while(binEdge < 0)
+      while (binEdge < 0)
       {
          binEdges.add(binEdge);
-         binEdgesInSamples.add(binEdge * sampleRate / 1000);
          binEdge += (double)binSize;
       }
 
       binEdges.add(0.0);
-      binEdgesInSamples.add(0);
+
+      counts.insertMultiple(0, 0, binEdges.size());
    }
 
+   void RateViewerCanvas::setWindowSizeMs(int windowSize_)
+   {
+      windowSize = windowSize_;
+
+      recomputeBinEdges(); // <--------
+   }
 
    void RateViewerCanvas::setBinSizeMs(int binSize_)
    {
       binSize = binSize_;
 
-      recompute(); // <--------
+      recomputeBinEdges(); // <--------
    }
 
    void RateViewerCanvas::setSampleRate(float sampleRate_)
    {
       sampleRate = sampleRate_;
 
-      recompute(); // <--------
+      recomputeBinEdges(); // <--------
    }
 
 
@@ -925,60 +858,40 @@ Let's do the counting now. Since we have all the required information for counti
 
    private:
 
-      /** Recomputes bin edges */
-      void recompute();
+      /** Recounts spikes/bin; returns true if a new bin is available */
+      bool countSpikes();
 
       Array<int> counts;
-      int maxCount;
+      int64 sampleOnLastRedraw = 0;
+	   int maxCount = 1;
 
 .. code-block:: c++
    :caption: RateViewerCanvas.cpp
 
-   void RateViewerCanvas::recount()
+   bool RateViewerCanvas::countSpikes()
    {
       
-      const int nBins = binEdgesInSamples.size() - 1;
-      counts.clear();
-      counts.insertMultiple(0, 0, nBins);
+      int elapsedSamples = mostRecentSample - sampleOnLastRedraw;
+      float elapsedTimeMs = float(elapsedSamples) / sampleRate * 1000.0f;
 
-      int windowSizeInSamples = windowSize * sampleRate / 1000;
-      int lastValidIndex = -1;
-      
-      for (int i = 0; i < incomingSpikeSampleNums.size(); i++)
-      {
-         int relativeSampleNum = incomingSpikeSampleNums[i] - mostRecentSample;
-         
-         /* Check if the sample is inside the window. If not, then invalidate all the samples before it. */
-         if(relativeSampleNum > windowSizeInSamples)
-         {
-            lastValidIndex = i + 1;
-         }
-         else
-         {
-            for (int j = 0; j < nBins; j++)
-            {
-               
-               if (relativeSampleNum > binEdgesInSamples[j] 
-                  && relativeSampleNum < binEdgesInSamples[j+1])
-               {
-                  int lastCount = counts[j];
-                  int newCount = lastCount + 1;
+      // Only count spikes when time since last count is more than bin size
+      if (elapsedTimeMs < binSize)
+         return false;
 
-                  maxCount = jmax(newCount, maxCount);
-                              
-                  counts.set(j, newCount);
+      counts.remove(0); // remove oldest count
 
-                  break;
-               }
-                  
-            }
-         }
-      }
+      int newSpikeCount = incomingSpikeSampleNums.size();
 
-      if(lastValidIndex > -1)
-      {
-         incomingSpikeSampleNums.removeRange(0, lastValidIndex);
-      }
+      if (newSpikeCount > maxCount)
+         maxCount = newSpikeCount;
+
+      counts.add(newSpikeCount); // add most recent count
+
+      incomingSpikeSampleNums.clear();
+
+      sampleOnLastRedraw = mostRecentSample;
+
+      return true;
    }
 
 
@@ -1011,16 +924,31 @@ Note that we are using the :code:`maxCount` value to keep track of the maximum n
    {
       windowSize = windowSize_;
 
-      setBinSizeMs(processor->getBinSizeMs());
+      recomputeBinEdges();
 
       updatePlotRange(); // <--------
    }
 
-   void RateViewerCanvas::recount()
+   void RateViewerCanvas::setBinSizeMs(int binSize_)
+   {
+      binSize = binSize_;
+
+      recomputeBinEdges();
+
+      maxCount = 1; // <--------
+   }
+
+   void RateViewerCanvas::countSpikes()
    {
       ...
 
+      incomingSpikeSampleNums.clear();
+
       updatePlotRange(); // <--------
+
+      sampleOnLastRedraw = mostRecentSample;
+
+	   return true;
    }
 
 
@@ -1031,46 +959,23 @@ Lastly, we need to do the actual plotting. We need to make sure the spikes are c
 
    void RateViewerCanvas::refresh()
    {
-      recount();
-      
-      std::vector<float> x, y;
-
-      for(int i = 0; i < binEdges.size() - 1; i++)
+      if (countSpikes())
       {
-         float bin = (binEdges[i] + binEdges[i + 1]) / 2; // Get the center of th bin.
-         x.push_back(bin);
-         y.push_back(counts[i] * 1000 / binSize); // number of spikes per bin (in seconds)
+         std::vector<float> x, y;
+
+         for (int i = 0; i < binEdges.size() - 1; i++)
+         {
+            x.push_back(binEdges[i]);
+            y.push_back(counts[i] * 1000 / binSize);
+         }
+
+         plt.clear();
+         plt.plot(x, y, Colours::lightyellow, 1.0, 1.0f, PlotType::FILLED);
       }
-
-      plt.clear();
-      plt.plot(x, y, Colours::lightyellow, 1.0, 1.0f, PlotType::FILLED);
    }
 
 
-We also need to make sure the refresh rate is correct otherwise the animation will look incorrect. The refresh rate needs to be set according to the bin size to see the plot moving properly. So lets re-calculate and set the refresh rate whenever the bin size is updated. Since the refresh happens on a timer, we need to stop the timer callbacks first, if acquisition is active, before modifying the refresh rate and then start the callbacks again after modifying it.
-
-.. code-block:: c++
-   :caption: RateViewerCanvas.cpp
-
-   void RateViewerCanvas::setBinSizeMs(int binSize_)
-   {
-      binSize = binSize_;
-
-      recompute();
-
-      maxCount = 1;
-
-      if(CoreServices::getAcquisitionStatus())
-         stopCallbacks();
-
-      refreshRate = 1000/binSize;
-
-      if(CoreServices::getAcquisitionStatus())
-         startCallbacks();
-   }
-
-
-And then, update the process to notify the editor to begin animation (timer callbacks) on the canvas as soon as acquisition starts and stop animation as soon as acquisition stops.
+Then, update the processor to notify the editor to begin animation (timer callbacks) on the canvas as soon as acquisition starts and stop animation as soon as acquisition stops.
 
 .. code-block:: c++
    :caption: RateViewer.h
