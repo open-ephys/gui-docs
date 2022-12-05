@@ -81,17 +81,17 @@ The editor will automatically create a probe selection interface for each basest
 Calibrating probes
 #####################
 
-Neuropixels probes require ADC and gain calibration in order to function properly. Any probes detected by the Neuropixels PXI plugin will be calibrated automatically when the plugin is loaded, provided that calibration files are stored in one of the following locations:
-
-* :code:`C:\ProgramData\Open Ephys\CalibrationInfo\<probe_serial_number>` (recommended)
-
-* :code:`<open-ephys-executable-folder>\CalibrationInfo\<probe_serial_number>` (if you used the Open Ephys installer, the executable will be located in :code:`C:\Program Files\Open Ephys`)
-
-These files can be obtained from IMEC for every probe that you've purchased. There should be two for each probe:
+Neuropixels probes require ADC and gain calibration in order to function properly. These files can be obtained from IMEC for every probe that you've purchased. There should be two cvs files in one folder (<probe_serial_number>) for each probe:
 
 * :code:`<probe_serial_number>_ADCCalibration.csv`
 
 * :code:`<probe_serial_number>_gainCalValues.csv`
+
+Any probes detected by the Neuropixels PXI plugin will be calibrated automatically when the plugin is loaded, provided that calibration folders are stored in one of the following locations:
+
+* :code:`C:\\Program Files\\Open Ephys\\CalibrationInfo\\<probe_serial_number>` (recommended)
+
+* :code:`<open-ephys-executable-folder>\\CalibrationInfo\\<probe_serial_number>` (if you used the Open Ephys installer, the executable will be located in :code:`C:\\Program Files\\Open Ephys`)
 
 If these files cannot be found, a warning message will appear. It's still possible to acquire data from uncalibrated probes, but this data should be used for testing purposes only. The calibration files must copied to the correct location prior to running any actual experiments.
 
