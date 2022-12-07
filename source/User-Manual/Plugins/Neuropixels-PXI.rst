@@ -78,20 +78,27 @@ Once your PXI system is up and running, you can drag and drop the "Neuropix-PXI"
 
 The editor will automatically create a probe selection interface for each basestation that's available. Each basestation can communicate with up to 4 probes (for Neuropixels 1.0, NHP, and Ultra) or 8 probes (for 2.0). When the probes are initially detected, they show up as orange circles. Once they are initialized, connected probes become green. After the probes turn green, the plugin is ready to begin data acquisition.
 
+Troubleshooting connections
+###########################
+
+If no probes are connected to any basestations, the plugin will display the "No basestations found" message and ask to run in simulation mode. This is because the plugin cannot function unless at least one probe is available. If a probe is attached but you are still seeing this message, the most likely explanation is that the probe is not properly seated in the headstage ZIF connector.
+
+.. note:: If a basestation is available but no probes are detected, the GUI may print a message about a "firmware version mismatch" to the console. This is an automatic output of the Neuropixels API and can be ignored. Once probes are successfully detected, it should disappear. 
+
 Calibrating probes
 #####################
 
-Neuropixels probes require ADC and gain calibration in order to function properly. Any probes detected by the Neuropixels PXI plugin will be calibrated automatically when the plugin is loaded, provided that calibration files are stored in one of the following locations:
-
-* :code:`C:\ProgramData\Open Ephys\CalibrationInfo\<probe_serial_number>` (recommended)
-
-* :code:`<open-ephys-executable-folder>\CalibrationInfo\<probe_serial_number>` (if you used the Open Ephys installer, the executable will be located in :code:`C:\Program Files\Open Ephys`)
-
-These files can be obtained from IMEC for every probe that you've purchased. There should be two for each probe:
+Neuropixels probes require ADC and gain calibration in order to function properly. These files can be obtained from IMEC for every probe that you've purchased. There should be two files for each probe:
 
 * :code:`<probe_serial_number>_ADCCalibration.csv`
 
 * :code:`<probe_serial_number>_gainCalValues.csv`
+
+Any probes detected by the Neuropixels PXI plugin will be calibrated automatically when the plugin is loaded, provided that calibration files are stored in one of the following locations:
+
+* :code:`C:\\ProgramData\\Open Ephys\\CalibrationInfo\\<probe_serial_number>` (recommended)
+
+* :code:`<open-ephys-executable-folder>\\CalibrationInfo\\<probe_serial_number>` (if you used the Open Ephys installer, the executable will be located in :code:`C:\\Program Files\\Open Ephys`)
 
 If these files cannot be found, a warning message will appear. It's still possible to acquire data from uncalibrated probes, but this data should be used for testing purposes only. The calibration files must copied to the correct location prior to running any actual experiments.
 
