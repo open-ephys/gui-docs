@@ -44,6 +44,8 @@ Next, launch Xcode and open the :code:`<plugin-name>.xcodeproj` file that now li
 
 Building the :code:`ALL_BUILD` scheme will build the plugin, while selecting :code:`INSTALL` will install the plugin in the appropriate location within the :code:`plugin-GUI` Build directory.
 
+.. important:: If you're building the plugin on a Mac with Apple Silicon, you'll need to make sure the :code:`ALL_BUILD` profile is set use "Rosetta". You will likely need to first set the build target to "Any Mac," and then select the "My Mac (Rosetta)" option that appears. It is possible to build a version of the GUI that runs natively on Apple Silicon, but there are a few extra steps involved, and it won't work with plugins downloaded via the Plugin Installer. If you're interested in this, please reach out to support@open-ephys.org for more info.
+
 The default Xcode build configuration is "Debug." To build the plugin in "Release" mode either modify the scheme settings or, instead of clicking Project/Build to build and install the plugin select **Project > Build for > Profiling**.
 
 Linux
