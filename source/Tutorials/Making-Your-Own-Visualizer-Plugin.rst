@@ -9,6 +9,8 @@ All processor plugins within the Open Ephys GUI have the option of creating a "V
 
 This tutorial will guide you through the steps involved in making a Visualizer plugin from scratch. At the end, you will have created a "Rate Viewer" plugin that displays the rate at which spikes are occurring on an upstream electrode. Along with explaining how to configure the plugin and set up the main :code:`process()` method, this tutorial will demonstrate how to create a real-time data display using the GUI's built-in Interactive Plot class. 
 
+If you get stuck, you can take a look at the finished plugin source code here to see if your version matches: https://github.com/open-ephys-plugins/rate-viewer
+
 .. important:: These instructions assume you have already compiled the main application from source. If not, you should start by following the instructions on :ref:`this page <compilingthegui>`.
 
 Creating a new plugin repository
