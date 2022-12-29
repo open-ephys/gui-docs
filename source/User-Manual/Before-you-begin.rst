@@ -5,8 +5,6 @@
 Before you begin
 =====================
 
-|
-
 If this is your first time learning about the Open Ephys GUI, welcome! This software was designed with community in mind, and we hope you will become a part of ours. We want scientists to take ownership of their tools, in order to ensure that the latest experimental techniques are available to everyone, no matter their level of funding or expertise. But this ideal won't be reached until we have buy-in from a much larger portion of neuroscientists.
 
 **Why did we build the GUI?** At a high level, we believe that progress is hindered when scientists have to choose between closed-source, mutually incompatible data acquisition platforms. As an analogy, imagine if every lab had to pick only one of ten different journals to disseminate all of their results, and they were only allowed to read articles that were published in their chosen journal. Clearly, this would lead to fragmentation across the field, with ideas spreading less freely than if new findings were available to all. This is what is currently happening with our experimental methods, where for many scientists, the latest techniques are inacessible unless a company decides it is profitable to sell them.

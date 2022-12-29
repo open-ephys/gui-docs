@@ -19,7 +19,7 @@ Via installer (recommended)
 
 3. Follow the instructions within the installer.
 
-4. The GUI will be installed in :code:`C:\Program Files\Open Ephys\open-ephys.exe`.
+4. The GUI will be installed in :code:`C:\\Program Files\\Open Ephys\\open-ephys.exe`.
 
 Via .zip file
 --------------
@@ -32,7 +32,7 @@ Via .zip file
 
 4. Double-click the **open-ephys** executable to run the application.
 
-.. note:: If the GUI won't open due to a missing DLL, you'll need to install the `Visual Studio 2015 2017 and 2019 redistributable package`_.
+.. note:: If this is your first time running the GUI on a particular machine, you will need to install the `Visual Studio 2015, 2017, 2019, and 2022 redistributable package`_ before opening the application. This only applies to the .zip download, as this package will be added automatically when using the Windows installer.
 
 Linux
 ######
@@ -119,5 +119,5 @@ Via .zip file
 |
 
 .. _this page: https://open-ephys.org/gui
-.. _Visual Studio 2015 2017 and 2019 redistributable package: https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170
+.. _Visual Studio 2015, 2017, 2019, and 2022 redistributable package: https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170
 
