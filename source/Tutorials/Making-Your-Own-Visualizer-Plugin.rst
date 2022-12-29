@@ -197,8 +197,8 @@ You should have already modified the file and class names for the plugin's edito
 .. code-block:: c++
    :caption: RateViewerEditor.h
 
-   #ifndef RateViewerEDITOR_H_DEFINED
-   #define RateViewerEDITOR_H_DEFINED
+   #ifndef RATEVIEWEREDITOR_H_DEFINED
+   #define RATEVIEWEREDITOR_H_DEFINED
 
    #include <VisualizerEditorHeaders.h>
 
@@ -259,7 +259,7 @@ We will make a small change to :code:`RateViewerEditor.cpp`, which is to change 
 Creating a Combo Box
 --------------------
 
-To allow changing the active electrode, we will create a :code:`ComboBox`` to list all the available electrodes for the currently selected stream in the editor. We will create a :code:`JUCE::ComboBox`` in the editor by making the following changes in :code:`RateViewerEditor.h`:
+To make it possible to change the active electrode, we will create a selectable list of all the available electrodes for the currently selected stream in the editor. Create a :code:`ComboBox`` in the editor by making the following changes in :code:`RateViewerEditor.h`:
 
 1. Have the :code:`RateViewerEditor` class inherit from :code:`ComboBox::Listener`, in addition to :code:`VisualizerEditor`:
 
@@ -312,7 +312,7 @@ The declaration of the :code:`RateViewer.h` class should now look like this:
 	      JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(RateViewerEditor);
    };
 
-Next, in :code:`RateViewerEditor.cpp`, delete the existing comment and add the following lines to the class constructor:
+Next, in :code:`RateViewerEditor.cpp`, delete the existing comment from the class constructor and add the following lines:
 
 .. code-block:: c++
 
@@ -321,7 +321,7 @@ Next, in :code:`RateViewerEditor.cpp`, delete the existing comment and add the f
    electrodeList->setBounds(50,40,120,20);
    addAndMakeVisible(electrodeList.get());
 
-This creates the electrode list, sets its position, and adds it to the editor.
+This creates the electrode list, sets the :code:`RateViewerEditor` as a listener, specifies its position, and adds it to the editor.
 
 Now, create an empty implementation of the :code:`comboBoxChanged()` method:
 
@@ -332,7 +332,7 @@ Now, create an empty implementation of the :code:`comboBoxChanged()` method:
       // Keep it empty for now
    }
 
-At this point, you should compile the plugin and launc the GUI. You should see the newly added ComboBox, which will be empty for now.
+At this point, you should compile the plugin and launch the GUI. You should see the newly added Combo Box, which will be empty for now.
 
 Populating the Combo Box
 ------------------------
@@ -346,7 +346,7 @@ First, lets add a public method to the processor that returns an array of electr
 
    public:
 
-      /** Returns the names of available electrodes*/
+      /** Returns the names of available electrodes */
       Array<String> getElectrodesForStream(uint16 streamId);
 
 .. code-block:: c++
@@ -411,13 +411,13 @@ Now, we can override the :code:`selectedStreamHasChanged()` method in the editor
 Once the plugin has been re-compiled and loaded into the GUI, if there any spike channels created by an upstream :ref:`spikedetector` plugin, these will be will be automatically added to the Combo Box:
 
 .. image:: ../_static/images/tutorials/makeyourownvisualizerplugin/visualizerplugin-03.png
-  :alt: Create a comboBox
+  :alt: Create a Combo Box
 
 
 Defining plugin parameters
 --------------------------------------
 
-To calculate the spike rate of an electrode, we need to define a window of interest and then count the spikes in smaller windows (or bins). We'd like to make it possible for the user to customize the window size as well as the bin size. This can be done by creating an :code:`IntParameter` for each of these inside the :code:`RateViewer` constructor, as well as Text Box parameter editors inside the :code:`RateViewerEditor` constructor:
+To calculate the spike rate of an electrode, we need to define a window of interest and then count the spikes within smaller windows (or bins). We'd like to make it possible for the user to customize the window size as well as the bin size. This can be done by creating an :code:`IntParameter` for each of these inside the :code:`RateViewer` constructor, as well as Text Box parameter editors inside the :code:`RateViewerEditor` constructor:
 
 .. code-block:: c++
    :caption: RateViewer.cpp
