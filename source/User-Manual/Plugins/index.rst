@@ -107,6 +107,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Audio-Monitor
     Bandpass-Filter
     Channel-Map
+    CNN-Ripple
     Common-Average-Reference
     Crossing-Detector
     Ephys-Socket
@@ -115,6 +116,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Falcon-Output
     File-Reader
     LFP-Viewer
+    LSL-Inlet
     MATLAB-Interface
     Merger
     Multiband-Integrator
@@ -123,18 +125,22 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Neuropixels-PXI
     NIDAQmx
     Online-PSTH
+    OSC-Events
     Phase-Calculator
     Phase-Detector
     Probe-Viewer
     Pulse-Pal
     Record-Control
     Rhythm-Plugins
+    Ripple-Detector
+    River-Output
     Spectrum-Viewer
     Spike-Detector
     Spike-Sorter
     Spike-Viewer
     Splitter
     Tracking-Plugin
+    TTL-Panels
     Virtual-Reference
     ZMQ-Interface
     
