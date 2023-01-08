@@ -39,13 +39,36 @@ The plugin editor contains three editable parameters:
 
 #. **Data Port:** Port number for the ZMQ socket.
 
-The editor also shows a list of clients connected to the plugin via the listening port (5557). If a client is successfully connected, then its name will show up in green in the list once acquisition has started. If the client disconnects while acquisition is active, its name will turn red.
+The editor also shows a list of clients connected to the plugin via the listening port (data port + 1). For example, if the data port is 5556, the listening port will be 5557. If a client is successfully connected (a heartbeat message is received), then its name will show up in green in the list once acquisition has started. If the client fails to send a heartbeat message within 5 seconds, its name will turn red.
+
+
+
+Using multiple plugins
+################################################
+
+It is possible to use multiple ZMQ Interface plugins in the same signal chain, for example to send data after different processing steps, or to send data from different streams. It's also possible to use one plugin to stream continuous data and one to stream events and/or spikes, in order to route each type of data to different clients.
+
+To prevent conflicting port numbers, each additional ZMQ Interface added to the signal chain will automatically increase its data port number by two until an available port is found. Unique port numbers can also be assigned manually.
+
+
+Heartbeat messages
+###################
+
+In order for a client to be detected, it must periodically send heartbeat messages to the plugin's listening port. Each heartbeat message is a JSON string with the following fields:
+
+.. code-block::
+  
+    "application" : application name
+    "uuid" : universally unique identifier (string)
+    "type": "heartbeat"
+
+The recommended heartbeat interval is 2 seconds. 
 
 
 Data Packets
 ################
 
-The ZMQ Interface send multi-part ZMQ messages. Each message consists of three parts:
+The ZMQ Interface sends multi-part ZMQ messages. Each message consists of three parts:
 
 Message Envelope
 -----------------
@@ -53,7 +76,7 @@ Contains the type of message being received (:code:`data`, :code:`spike`, or :co
 
 Message Header
 -----------------
-A JSON string containing information about the incoming data packet.
+A JSON string containing information about the incoming data packet:
 
 Continuous data
 ================
@@ -103,14 +126,10 @@ Message Data
 Example Code
 #############
 
-The example code for receiving continuous data is written in Python, although in principle it should be possible from any language supporting ZeroMQ. 
-
 In the **Resources/python_client** directory of the plugin repository, there is an example Python client called :code:`simple_plotter_zmq.py`` which plots the continuous data received from the Open Ephys GUI over a network port (see image below).
 
 .. image:: ../../_static/images/plugins/zmqinterface/zmqinterface-02.png
   :alt: ZMQ Client in Python
-
-In addition to receiving and processing data, each client app must use a heartbeat protocol to maintain the connection with the ZMQ Interface plugin.
 
 |
 
