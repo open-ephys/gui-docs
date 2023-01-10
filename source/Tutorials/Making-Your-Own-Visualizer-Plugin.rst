@@ -588,8 +588,8 @@ Next, let's give the processor a pointer to the canvas so it can relay the relev
 
       ...
 
-      /** Pointer to the Visualizer */
-      RateViewerCanvas* canvas;
+      /** Pointer to the Visualizer -- initialize to nullptr*/
+      RateViewerCanvas* canvas = nullptr;
 
 
 .. code-block:: c++
@@ -728,6 +728,47 @@ Next, we'll have the processor to call those helper functions every time a param
                electrode->isActive = false;
          }
       }
+   }
+
+We also need to make sure the parameter values are updated in the :code:`updateSettings()` method, if the canvas has been initialized:
+
+.. code-block:: c++
+   :caption: RateViewer.cpp
+
+   void RateViewer::updateSettings()
+   {
+      // initialize electrodes array, then...
+
+      if (canvas != nullptr)
+      {
+         parameterValueChanged(getParameter("window_size"));
+         parameterValueChanged(getParameter("bin_size"));
+      }
+      
+   }
+
+Finally, we need to make sure the settings are initialized properly when the canvas is created (since the canvas doesn't exist until it's opened in a tab or window):
+
+.. code-block:: c++
+   :caption: RateViewerEditor.cpp
+
+   Visualizer* RateViewerEditor::createNewCanvas()
+   {
+
+      RateViewer* rateViewerNode = (RateViewer*) getProcessor();
+
+      RateViewerCanvas* rateViewerCanvas = new RateViewerCanvas(rateViewerNode);
+
+      rateViewerNode->canvas = rateViewerCanvas;
+
+      // make sure the parameters get updated
+      rateViewerCanvas->setWindowSizeMs(rateViewerNode->getParameter("window_size")->getValue());
+      rateViewerCanvas->setBinSizeMs(rateViewerNode->getParameter("bin_size")->getValue());
+
+      // update list of available electrodes
+      selectedStreamHasChanged();
+
+      return rateViewerCanvas;
    }
 
 
