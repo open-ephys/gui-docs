@@ -12,14 +12,11 @@ Tracking Plugin
 .. csv-table:: Enables closed-loop stimulation based on position information streamed from Bonsai.
    :widths: 18, 80
 
-   "*Plugin Type*", "Source, Filter, and Sink"
+   "*Plugin Type*", "Filter"
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No"
    "*Key Developers*", "Alessio Buccino"
    "*Source Code*", "https://github.com/open-ephys-plugins/tracking-plugin"
-
-.. note:: The Tracking Plugin is not yet available for GUI version 0.6.X.
-
 
 
 Installing and upgrading
