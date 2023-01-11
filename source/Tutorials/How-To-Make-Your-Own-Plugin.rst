@@ -29,7 +29,9 @@ The first step in creating a plugin is to create a new code repository from a te
 .. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-01.png
   :alt: Processor Plugin Template Repository
 
-4. Name the repository **"ttl-event-generator"**, since the main purpose of this plugin is to generate TTL events.
+4. Name the repository **"ttl-event-generator"**, and optionally add a description.
+
+5. Click the "Create repository from template" button to initialize a new repository.
 
 .. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-02.png
   :alt: Create TTLEventGenerator Repository
@@ -106,7 +108,12 @@ When you're finished, the file should look like this:
 
 |
 
-Next, rename the :code:`ProcessorPlugin.cpp` & :code:`ProcessorPlugin.h` files to :code:`TTLEventGenerator.cpp` and :code:`TTLEventGenerator.h`, and find and replace the **ProcessorPlugin** class name with **TTLEventGenerator** in the .cpp and .h files. Do the same with :code:`ProcessorPluginEditor.cpp` & :code:`ProcessorPluginEditor.h`
+Next, rename the source files:
+
+* :code:`ProcessorPlugin.h` --> :code:`TTLEventGenerator.h`
+* :code:`ProcessorPlugin.cpp` --> :code:`TTLEventGenerator.cpp`
+* :code:`ProcessorPluginEditor.h` --> :code:`TTLEventGeneratorEditor.h`
+* :code:`ProcessorPluginEditor.cpp` --> :code:`TTLEventGeneratorEditor.cpp`
 
 Finally, update the include inside :code:`OpenEphysLib.cpp` from :code:`#include "ProcessorPlugin.h"` to :code:`#include "TTLEventGenerator.h"`.
 
@@ -135,7 +142,7 @@ In the plugin's :code:`.h` file, add the following lines after :code:`loadCustom
    private:
       EventChannel* ttlChannel; // local pointer to TTL output channel
 
-In the plugin's :code:`.cpp` file, add the following line to :code:`updateSettings()`:
+In the plugin's :code:`.cpp` file, add the following lines to :code:`updateSettings()`:
 
 .. code-block:: c++
    :caption: TTLEventGenerator.cpp
@@ -170,7 +177,7 @@ In :code:`TTLEventGenerator.h`, add two variables, and also override the :code:`
    
    private:
       int counter = 0; // counts the total number of incoming samples
-	   bool state = false; // holds the state of the current TTL line (on or off)
+      bool state = false; // holds the state of the current TTL line (on or off)
 
 Then, in :code:`TTLEventGenerator.cpp`, we will make sure the appropriate variables get re-set at the start of acquisition:
 
@@ -216,7 +223,8 @@ Now, we are ready to add events to inside our :code:`process()` method. First, d
                   // add on or off event at the correct offset
                   TTLEventPtr eventPtr = TTLEvent::createTTLEvent(ttlChannel,
                    startSampleForBlock + i,
-                   outputLine, state);
+                   outputLine, 
+                   state);
 
                   addEvent(eventPtr, i);
                
@@ -314,7 +322,7 @@ Now, we can add the parameter editor to :code:`TTLEventGeneratorEditor.cpp`:
       desiredWidth = 180;
 
       // event frequency slider
-	   addSliderParameterEditor("interval", 100, 25); // parameter name, x pos, y pos
+      addSliderParameterEditor("interval", 100, 25); // parameter name, x pos, y pos
 
    }
    
@@ -355,7 +363,7 @@ Next, add the associated editor:
    :caption: TTLEventGeneratorEditor.cpp
    
    // event output line
-	addComboBoxParameterEditor("ttl_line", 10, 25); // parameter name, x pos, y pos
+   addComboBoxParameterEditor("ttl_line", 10, 25); // parameter name, x pos, y pos
 
 
 Compile and load the plugin into the GUI to see the newly added ComboBox.
@@ -467,11 +475,11 @@ First, let's update the :code:`TTLEventGenerator` header file as follows:
 
    private:
       bool shouldTriggerEvent = false; // true if an event should be manually triggered
-	   bool eventWasTriggered = false; // true if an event was manually triggered
-   	int triggeredEventCounter = 0; // counter for manually triggered events
-	   
-	   float eventIntervalMs = 1000.0f; // time between events
-	   int outputLine = 0; // TTL output line
+      bool eventWasTriggered = false; // true if an event was manually triggered
+      int triggeredEventCounter = 0; // counter for manually triggered events
+
+      float eventIntervalMs = 1000.0f; // time between events
+      int outputLine = 0; // TTL output line
    
 .. important:: Always be sure to provide values for all member variables in the header file or class constructor in order to avoid unexpected behavior.
 
