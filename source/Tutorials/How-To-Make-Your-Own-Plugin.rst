@@ -24,14 +24,12 @@ The first step in creating a plugin is to create a new code repository from a te
 
 2. Browse to the `Processor Plugin Template <https://github.com/open-ephys-plugins/processor-plugin-template>`__ repository.
 
-3. Click the green "Use this template" button.
+3. Click the green "Use this template" button and select the "Create a new repository" option.
 
 .. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-01.png
   :alt: Processor Plugin Template Repository
 
 4. Name the repository **"ttl-event-generator"**, since the main purpose of this plugin is to generate TTL events.
-
-3. Click the green "Use this template" button and select the "Create a new repository" option.
 
 .. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-02.png
   :alt: Create TTLEventGenerator Repository
@@ -584,7 +582,7 @@ Finally, we need to update our process method to make use of these parameters:
       
    }
 
-And that's it! If you compile and test your plugin, the UI elements in the editor should now change the events that appear in the LFP Viewer.
+And that's it! If you compile and test your plugin, the UI elements in the editor should now change the events that appear in the LFP Viewer:
 
 .. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-06.png
   :alt: Plugin in signal chain
