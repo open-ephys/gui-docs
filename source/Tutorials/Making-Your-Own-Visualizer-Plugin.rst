@@ -13,7 +13,7 @@ If you get stuck, you can take a look at the finished plugin source code here to
 
 .. important:: These instructions assume you have already compiled the main application from source. If not, you should start by following the instructions on :ref:`this page <compilingthegui>`.
 
-.. note:: On Linux, you'll need to make a small change to the host application's source code to get the Rate Viewer plugin to work. Change line 208 of `InteractivePlot.h < https://github.com/open-ephys/plugin-GUI/blob/main/Source/Processors/Visualization/InteractivePlot.h>`__ to :code:`class PLUGIN_API DrawComponent : public Component`, then recompile the GUI. This change has been added to the **development** branch, and will be merged into the **main** branch soon.
+.. note:: On Linux, you'll need to make a small change to the host application's source code to get the Rate Viewer plugin to work. Change line 208 of `InteractivePlot.h <https://github.com/open-ephys/plugin-GUI/blob/main/Source/Processors/Visualization/InteractivePlot.h>`__ to :code:`class PLUGIN_API DrawComponent : public Component`, then recompile the GUI. This change has been added to the **development** branch, and will be merged into the **main** branch soon.
 
 Creating a new plugin repository
 #################################
