@@ -20,7 +20,7 @@ Tracking Plugin
 
 
 
-.. note:: This documentation is adapted from the `CINPLA wiki <https://github.com/CINPLA/tracking-plugin/wiki>`__). More information about the Tracking Plugin can be found in `this publication <https://iopscience.iop.org/article/10.1088/1741-2552/aacf45/meta>`__.
+.. note:: This documentation is adapted from the `CINPLA wiki <https://github.com/CINPLA/tracking-plugin/wiki>`__. More information about the Tracking Plugin can be found in `this publication <https://iopscience.iop.org/article/10.1088/1741-2552/aacf45/meta>`__.
 
 
 Installing and upgrading
@@ -38,15 +38,15 @@ Plugin Configuration
 .. image:: ../../_static/images/plugins/trackingplugin/trackingplugin-04.png
   :alt: Overview of the components needed to use the Tracking Plugin effectively.
 
-This figure shows a block diagram of the basic components needed to use the Tracking Plugin:
+This figure shows the basic components needed to use the Tracking Plugin:
 
 1. A freely moving subject outfitted with **one or more tracking LEDs**.
 
 2. A Bonsai-compatible **camera** positioned above the environment to capture the location of the LEDs on the subject's head. 
 
-3. A Bonsai workflow configured to package tracking points as OSC messages.
+3. A **Bonsai workflow** configured to package tracking points as OSC messages.
 
-4. An instance of the Open Ephys GUI with the Tracking Plugin installed (on the same machine running Bonsai).
+4. An instance of the **Open Ephys GUI with the Tracking Plugin installed** (on the same machine running Bonsai).
 
 5. A **stimulation device**, such as an Arduino or Pulse Pal, used to deliver closed-loop feedback.
 
@@ -56,9 +56,9 @@ Setting up Bonsai
 
 If you haven't already, `install Bonsai <https://bonsai-rx.org>`__. After opening Bonsai, find the package manager and install the **Vision**, **Vision Design**, **OSC**, **OSC Design**, and **Scripting** packages. If your camera isn't a USB webcam, you'll also need to install the appropriate Bonsai package to interface with it (e.g. **Spinnaker**, **Pylon**, **Vimba**).
 
-Once everything is installed, download and open the `tracking-camera.bonsai <https://github.com/open-ephys-plugins/tracking-plugin/blob/main/Resources/Bonsai/tracking-camera.bonsai>`__ workflow.
+Once everything is installed, download and open the `tracking-camera.bonsai <https://github.com/open-ephys-plugins/tracking-plugin/blob/main/Resources/Bonsai/tracking-camera.bonsai>`__ workflow. If necessary, replace the **CameraCapture** node with one that's compatible with your camera.
 
-To start the workflow, press the "Play" button within Bonsai. This will start acquiring camera frames, extracting red and green LED positions (if available), and streaming position information via OSC.
+To start the workflow, press the "Play" button within Bonsai. This will start acquiring camera frames, extracting red and green LED positions (if available), and streaming position information.
 
 The data are streamed via OSC (Open Sound Control), with each packet containing 4 float values: 
 
@@ -71,7 +71,7 @@ The data are streamed via OSC (Open Sound Control), with each packet containing 
 Tracking sources
 --------------------
 
-.. note:: These instructions apply to the Tracking Plugin for GUI version 0.6.x and higher. All of the functionality is now contained in a single Filter plugin, as opposed to the separate Source, Filter, and Sink plugins that were used previously.
+.. important:: These instructions apply to the Tracking Plugin for GUI version 0.6.x and higher. All of the functionality is now contained in a single Filter plugin, as opposed to the separate Source, Filter, and Sink plugins that were used previously.
 
 After adding the Tracking Plugin to the Open Ephys signal chain, you first need to define at least one "tracking source." You can add and delete new sources using the :code:`+` and :code:`-` buttons. The port number, OSC address, and color used to represent the incoming data can also be configured within the plugin's editor. Make sure these match the OSC settings in Bonsai (which must be running on the same computer).
 
@@ -80,7 +80,7 @@ To enable stimulation, the user must select an input tracking source as well as 
 Creating ROIs 
 --------------
 
-The Tracking Plugin visualizer allows the user to create regions of interest (ROIs) within the camera's field of view. Whenever the subject enters one of these regions, the plugin emits TTL events that can be used to trigger closed-loop feedback. There are three operation modes for the circles:
+The Tracking Plugin visualizer allows the user to create regions of interest (ROIs) within the camera's field of view. Whenever the subject enters one of these regions, the plugin emits TTL events that can be used to trigger closed-loop feedback. There are three operation modes for ROIs:
 
 * **UNIFORM**: a TTL train with a constant, user-defined frequency is generated when the position is within any ROI.
 
@@ -88,7 +88,7 @@ The Tracking Plugin visualizer allows the user to create regions of interest (RO
 
 * **SINGLE**: the plugin emits a single pulse of the specified duration immediately when the position enters an ROI.
 
-Then, circular regions of interest can manually drawn, dragged, resized, and deleted. The parameters for each circle (x_position, y_position, and radius from 0 to 1) can be entered using the popup menus accessible via the "New" and "Edit" buttons. Each circle can be inactivated or reactivated using the :code:`Enabled` toggle button, or removed using the "Delete" button:
+Circular regions of interest can manually drawn, dragged, resized, and deleted. The parameters for each circle (x_position, y_position, and radius) can be entered using the popup menus accessible via the "New" and "Edit" buttons. Each circle can be inactivated or reactivated using the :code:`Enabled` toggle button, or removed using the "Delete" button:
 
 .. image:: ../../_static/images/plugins/trackingplugin/trackingplugin-02.png
   :alt: Screenshot of the Tracking Visualizer plugin.

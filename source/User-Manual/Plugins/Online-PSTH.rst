@@ -11,7 +11,7 @@ Online PSTH
   :alt: Annotated Event Triggered Average settings interface
 
 
-.. csv-table:: Aligns spike times to incoming TTL events in order to create a peri-stimulus time histogram display.
+.. csv-table:: Aligns spike times to incoming TTL events in order to create a peri-stimulus time histogram displays for an unlimited number of conditions.
    :widths: 18, 80
 
    "*Plugin Type*", "Sink"
