@@ -13,7 +13,7 @@ If you get stuck, you can take a look at the finished plugin source code here to
 
 .. important:: These instructions assume you have already compiled the main application from source. If not, you should start by following the instructions on :ref:`this page <compilingthegui>`.
 
-.. note:: The Rate Viewer plugin is currently not loading on Linux, due to an issue with the :code:`InteractivePlot` class. We're working to figure out what the issue is, but in the mean time you'll only be able to complete this tutorial on Windows and Mac.
+.. note:: On Linux, you'll need to make a small change to the GUI's source code to get the Rate Viewer plugin to work. Change line 208 of :code:`InteractivePlot.h` to :code:`class PLUGIN_API DrawComponent : public Component`. This change has been added to the **development** branch, and will be merged into the **main** branch soon.
 
 Creating a new plugin repository
 #################################
