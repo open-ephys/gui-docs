@@ -640,10 +640,10 @@ First, let's create the relevant member variables in the :code:`RateViewerCanvas
       void setWindowSizeMs(int windowSize_);
 
       /** Set the bin size for spike rate calculation */
-	   void setBinSizeMs(int binSize_);
+      void setBinSizeMs(int binSize_);
 
       /** Set the sample rate for the active electrode */
-	   void setSampleRate(float sampleRate);
+      void setSampleRate(float sampleRate);
 
       /** Change the plot title*/
       void setPlotTitle(const String& title);
@@ -937,7 +937,7 @@ Now we can count the spikes in each bin:
       bool countSpikes();
 
       int64 sampleOnLastRedraw = 0;
-	   int maxCount = 1;
+      int maxCount = 1;
 
 .. code-block:: c++
    :caption: RateViewerCanvas.cpp
@@ -952,14 +952,14 @@ Now we can count the spikes in each bin:
       if (elapsedTimeMs < binSize)
          return false;
 
-      counts.remove(0); // remove oldest count
+      spikeCounts.remove(0); // remove oldest count
 
       int newSpikeCount = incomingSpikeSampleNums.size();
 
       if (newSpikeCount > maxCount)
          maxCount = newSpikeCount;
 
-      counts.add(newSpikeCount); // add most recent count
+      spikeCounts.add(newSpikeCount); // add most recent count
 
       incomingSpikeSampleNums.clear();
 
