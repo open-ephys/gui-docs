@@ -67,6 +67,8 @@ The data are streamed via OSC (Open Sound Control), with each packet containing 
 3. Image width (in pixels)
 4. Image height (in pixels)
 
+.. important:: The tracking points will not be recorded by the Open Ephys GUI; if you want to save these, you should do it on the Bonsai side (a **CsvWriter** node is recommended).
+
 
 Tracking sources
 --------------------
