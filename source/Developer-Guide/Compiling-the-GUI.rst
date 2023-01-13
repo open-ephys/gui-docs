@@ -28,6 +28,8 @@ Next, launch Visual Studio and open the :code:`open-ephys-GUI.sln` file that was
 
 To compile the GUI, select "Build > Build Solution" (shortcut key: F6), or press the "Debug" button to build and run. This will build the main application, the :code:`open-ephys.lib` file, and all of the plugins that are included in the main repository.
 
+.. tip:: In the "Solution Explorer," right-click on **open-ephys** and select "Set as Startup Project" to automatically launch the GUI when you start the debugger. 
+
 
 macOS
 #####
