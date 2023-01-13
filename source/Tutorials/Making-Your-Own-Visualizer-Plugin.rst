@@ -396,7 +396,7 @@ Now, we can override the :code:`selectedStreamHasChanged()` method in the editor
          return;
       }
 
-      Array<Electrode> currentElectrodes = rateViewerNode->getElectrodesForStream(selectedStream);
+      Array<String> currentElectrodes = rateViewerNode->getElectrodesForStream(selectedStream);
 
       int id = 0;
 
@@ -527,7 +527,7 @@ This calls the :code:`setActiveElectrode()` method which doesn't exist yet, so l
 .. code-block:: c++
    :caption: RateViewer.cpp
 
-   void RateViewer::setActiveElectrode(String name)
+   void RateViewer::setActiveElectrode(uint16 streamId, String name)
    {
       for (auto electrode : electrodes)
       {
@@ -766,7 +766,7 @@ Finally, we need to make sure the settings are initialized properly when the can
       rateViewerCanvas->setBinSizeMs(rateViewerNode->getParameter("bin_size")->getValue());
 
       // update list of available electrodes
-      selectedStreamHasChanged();
+      rateViewerNode->setActiveElectrode(selectedStream, electrodeList->getText());
 
       return rateViewerCanvas;
    }
