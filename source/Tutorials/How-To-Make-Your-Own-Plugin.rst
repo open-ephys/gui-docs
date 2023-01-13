@@ -220,6 +220,8 @@ Now, we are ready to add events to inside our :code:`process()` method. First, d
 
                   state = !state;
 
+                  int outputLine = 0;
+
                   // add on or off event at the correct offset
                   TTLEventPtr eventPtr = TTLEvent::createTTLEvent(ttlChannel,
                    startSampleForBlock + i,
@@ -341,10 +343,6 @@ To select which TTL line to send events on, we will use a "ComboBox" or drop-dow
 .. code-block:: c++
    :caption: TTLEventGenerator.cpp
 
-   StringArray outputs;
-   for(int i = 1; i <= 8; i++)
-      outputs.add(String(i));
-
    // Array of selectable TTL lines
    StringArray outputs;
    for(int i = 1; i <= 8; i++)
@@ -400,7 +398,7 @@ To make it possible for the user to trigger TTL events manually, we will add a b
       void resized() override;
 
    private:
-      std::unique_ptr<TextButton> triggerButton;
+      std::unique_ptr<UtilityButton> triggerButton;
    };
 
 Then, in the custom parameter editor's constructor, we'll initialize the button, add a button listener, set the bounds, and make it visible in the editor by adding the following lines of code:
@@ -435,7 +433,13 @@ To handle button clicks, implement the :code:`buttonClicked` method as indicated
    }
 
 
+
 Now, we need to initialize the custom parameter editor inside the :code:`TTLEventGeneratorEditor` constructor by getting the pointer to the parameter that we will create inside the :code:`TTLEventGenerator` processor constructor, like this:
+
+.. code-block:: c++
+   :caption: TTLEventGeneratorEditor.cpp
+
+   #include "TTLEventGenerator.h"
 
 .. code-block:: c++
    :caption: TTLEventGeneratorEditor.cpp
