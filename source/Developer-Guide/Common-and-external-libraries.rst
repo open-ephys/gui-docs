@@ -3,16 +3,16 @@
    :format: html
 
 Common and external libraries
-================================
+====================================
 
-Plugins are the primary means of extending the GUI's functionality. While, some plugins don't need any external libraries to work, other plugins need specific libraries for it to work. The libraries or dependencies are essential as they add more functionality to plugins without having to write all the code behind it.
+Not only do plugins make it easier to share new features with other users, they can also take advantage of a wide array of C++ libraries without adding new dependencies to the host application. While there are many plugins that only rely on the Open Ephys Plugin API, JUCE, and the C++ standard library, in some cases it is essential to call functions from more specialized libraries. External libraries can add powerful features with minimal extra code.
 
 Some examples of plugins that use external libaries include:
 
 * `Neuropixels PXI <https://github.com/open-ephys-plugins/neuropixels-pxi>`__ (*Neuropixels API*)
 * `ZMQ Interface <https://github.com/open-ephys-plugins/zmq-interface>`__ (*ZeroMQ*)
 
-There are also some cases where you want to create your own library that can be used by multiple plugins or you want to wrap a library with your own custom changes to provide a standard interface for multiple plugins, then you can do so by creating a common library. A common library is a Open Ephys Plugin API specific library that can be used by any plugin built using the Plugin API. 
+It's also possible to create a custom library that can be used by multiple plugins, or to wrap an existing library in a way that makes it easier to use with the Open Ephys GUI. These "Common Libraries" are Open Ephys-specific libraries that can be used by any plugin built using the Plugin API.
 
 Some examples of common libraries and plugins that use them include:
 
@@ -25,11 +25,10 @@ Some examples of common libraries and plugins that use them include:
    * `Spectrum Viewer <https://github.com/open-ephys-plugins/spectrum-viewer>`__
   
 
+This page will demonstrate how to use common libraries and external libraries in your plugins. These instructions assume you have already compiled the Open Ephys host application. If you haven't done that yet, follow the instructions on :ref:`this page <compilingthegui>`.
 
-This page will show you how to build common libraries and use external libraries. These instructions assume you have already compiled the main application. If not, follow the instructions on :ref:`this page <compilingthegui>`.
 
-
-Creating a Common Library 
+Common libraries
 ##########################
 
 The first step in creating a new common library is to create a repository from the :code:`OECommonLib` template.
@@ -38,9 +37,9 @@ The first step in creating a new common library is to create a repository from t
 
 2. Browse to the `Common Library <https://github.com/open-ephys-plugins/OECommonLib>`__ template repository.
 
-3. Click the green "Use this template" button.
+3. Click the green "Use this template" button and choose the "Create a new repository" option.
 
-4. Choose a name for your common library. It should succinctly capture the plugin's functionality.
+4. Choose a name for your common library. It should succinctly capture the library's functionality.
 
 5. Click the green "Create repository from template" button.
 
@@ -61,7 +60,7 @@ On your local machine, create an "OEPlugins" directory within the same directory
 Modifying the source code
 --------------------------
 
-The template repository already comes with the boilerplate code for the common library. You simply start writing your code after change all the class and file names to match your common library's name. 
+The template repository already comes with the boilerplate code for the common library. You can start writing your code after changing all the class and file names to match your common library's name. 
 
 .. code-block:: c++
    :caption: CommonLib.h
@@ -100,9 +99,9 @@ The template repository already comes with the boilerplate code for the common l
    }
    
 
-.. note:: For every class you want to export to use in the plugins, you need to add the `COMMON_LIB` macro to the class declaration as done above. 
+.. note:: For every class you want to export for use by plugins, you need to add the `COMMON_LIB` macro to the class declaration as demonstrated above. 
 
-Setup plugins using common libraries
+Using the common library in a plugin
 -------------------------------------
 
 For all the plugins that are going to use you common library, we first need to copy the :code:`link_open_ephys_lib.cmake` script from the :code:`OECommonLib` template repo to the plugin's base directory. This script will find and link the common library that is specified when calling it. Then modify the plugin's :code:`CMakeLists.txt` file to include and run this script as follows:
@@ -118,14 +117,12 @@ Now, when you build & install the common library and then build plugin, it will 
 External libraries
 ###################
 
-External libraries can etiher be used by the plugin directlty, of one can create a common library that wraps such a library and can be used by multiple plugins. There are two types of external libraries supported by the Open Ephys Plugin API. They are:
-
 Header-only / Class Libraries
 ------------------------------
 
-These types of libraries are either a single header file or a set of C++ files with classes and functions defined in them. They do not need to be separately compiled, packaged and installed in order to be used. All that is required is to point the compiler at the location of the headers, and then #include the header files into the application source. Another advantage is that the compiler's optimizer can do a much better job when all the library's source code is available. They also have some drawbacks, including longer compilation time, any changes to the library requires recompilation of all the plugins dependent on it.
+These types of libraries are either a single header file or a set of C++ files with classes and functions defined in them. They do not need to be separately compiled, packaged, and installed in order to be used. All that is required is to copy the library files into your plugin's source code directory (usually in a sub-folder), point the compiler to the location of the headers, and then :code:`#include` the header files in any plugin source files that need to access the associated classes. Besides being easy to add to your plugin, header-only and class libraries make it possible for the compiler to optimize the code more effectively. They do have some drawbacks, however, including duplication of code, longer compilation time, and the fact that any changes to the library requires recompilation of all the source files that depend on it.
 
-Examples of such libraries that are used by some the GUI or it's plugins include:
+Examples of such libraries that are used by some the GUI or its plugins include:
 
 * `cpp-httplib <https://github.com/yhirose/cpp-httplib>`__ (header-only)
 * `oscpack <https://code.google.com/archive/p/oscpack/>`__ (class-based)
@@ -134,9 +131,9 @@ Examples of such libraries that are used by some the GUI or it's plugins include
 Shared / dynamic Libraries
 ---------------------------
 
-Shared or dynamic libraries are files linked against at compile time by the plugin or common library to load all the references included via the library's header and then distributed with the end-user application so that the application can load the library code at run time. This means, the plugin / common library need the external library files to build, as well as during runtime to load the library symbols. 
+Shared or dynamic libraries are pre-built libraries that are linked to the plugin or common library at compile time. The plugin / common library needs access to the library's header files, plus a library linker file that's only used for compilation. The plugin / common library must ship with a separate dynamic library, which is called by the plugin / common library at runtime.
 
-These library files are platform-specific. Windows requires a :code:`.lib` file during compile-time and :code:`.dll` file run-time, while Linux needs a "shared object" or a :code:`.so` file  and MacOS needs a :code:`.dylib` file for both compile and run time. Since Windows does not have standardized paths for libraries, as Linux and MacOS do, it is necessary to pack the appropriate Windows version of the required libraries alongside the source code files. For Linux and MacOS, you can either install these dependencies to the standardized paths using the OS's package manager or manually, or you can provide the library files alongside the source code files just like Windows. To allow the plugin / common libray to find and load these library files during compile-time and run-time, you also need to modify their :code:`CMakeLists.txt` file.
+These library files are platform-specific. Windows requires a :code:`.lib` file during compile-time and :code:`.dll` file at runtime. Linux needs a "shared object" or :code:`.so` file and macOS needs a :code:`.dylib` file for both compile and run time. Since Windows does not have standardized paths for libraries, as Linux and macOS do, it is necessary to pack the appropriate Windows version of the required libraries alongside the source code files. For Linux and macOS, you can either install these dependencies to the standardized paths manually or using a package manager, or you can provide the library files alongside the source code files just like Windows. To allow the plugin / common libray to find and load these library files during compile-time and runtime, you also need to modify their :code:`CMakeLists.txt` file.
 
 The steps for modifying the :code:`CMakeLists.txt` as well as providing and installing the libraries are as follows:
 
@@ -145,7 +142,7 @@ The steps for modifying the :code:`CMakeLists.txt` as well as providing and inst
 .. code-block:: 
 
    OEPlugins
-   └─ Plugin/Common_Lib
+   └─ Plugin_or_Common_Lib
       ├─ Build
       ├─ libs
       │   ├─ linux
@@ -185,7 +182,7 @@ The steps for modifying the :code:`CMakeLists.txt` as well as providing and inst
 
 
 
-4. Then need to make sure that the plugin / common library is able to find the library files during compile time. This can be done in two different ways dependeing on the type of library. For most commonly used libraries, the :code:`find_package` option is recommended. An example would be
+4. We then need to make sure that the plugin / common library is able to find the library files during compile time. This can be done in two different ways dependeing on the type of library. For most commonly used libraries, the :code:`find_package` option is recommended. An example would be
 
 .. code-block:: cmake
 
@@ -193,7 +190,7 @@ The steps for modifying the :code:`CMakeLists.txt` as well as providing and inst
    target_link_libraries(${COMMONLIB_NAME} ${ZLIB_LIBRARIES})
    target_include_directories(${COMMONLIB_NAME} PRIVATE ${ZLIB_INCLUDE_DIRS})
 
-If there is no standard package finder for cmake, find_libraryand find_path can be used to find the library and include files respectively. The commands will search in a variety of standard locations, for example
+If there is no standard package finder for CMake, :code:`find_library`` and :code:`find_path`` can be used to find the library and include files respectively. The commands will search in a variety of standard locations, for example:
 
 .. code-block:: cmake
 
@@ -205,7 +202,7 @@ If there is no standard package finder for cmake, find_libraryand find_path can 
    target_include_directories(${COMMONLIB_NAME} PRIVATE ${ZMQ_INCLUDE_DIRS})
 
 
-5. Lastly, we need to make sure the plugin / common library is able to find the run-time at the location it expects i.e. GUI's :code:`shared` directory. To do that, we need to tell CMake to install the library's run-time files to the code:`shared` directory. This can be done by adding the following lines at the end of the :code:`CMakeLists.txt` file
+5. Lastly, we need to make sure the plugin / common library is able to find the runtime library at the location it expects, i.e. the GUI's :code:`shared` directory. To do that, we need to tell CMake to install the library's runtime files to the :code:`shared` directory. This can be done by adding the following lines at the end of the :code:`CMakeLists.txt` file
 
 .. code-block:: cmake
 
@@ -217,6 +214,6 @@ If there is no standard package finder for cmake, find_libraryand find_path can 
       install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/libs/macos/bin/ DESTINATION $ENV{HOME}/Library/Application\ Support/open-ephys/shared-api8)
    endif()
 
-6. Now, when you run CMake and build the plugin / common library, it should be able to find and load the library during compile-time and while installing the plugin, it will automatically install the run-time library at the correct location.
+6. Now, when you run CMake and build the plugin / common library, it should be able to find and load the library during compile-time. When installing the plugin, it will automatically install the runtime library at the correct location.
 
 
