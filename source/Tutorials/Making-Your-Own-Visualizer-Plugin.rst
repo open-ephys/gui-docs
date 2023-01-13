@@ -238,7 +238,7 @@ You should have already modified the file and class names for the plugin's edito
 
 
    RateViewerEditor::RateViewerEditor(GenericProcessor* p)
-      : RateViewerEditor(p, "Visualizer", 200)
+      : VisualizerEditor(p, "Visualizer", 200)
    {
       //addSelectedChannelsParameterEditor("Channels", 20, 105);
    }
@@ -254,7 +254,7 @@ We will make a small change to :code:`RateViewerEditor.cpp`, which is to change 
    :caption: RateViewerEditor constructor
 
    RateViewerEditor::RateViewerEditor(GenericProcessor* p)
-      : RateViewerEditor(p, "Spike Rate", 210)
+      : VisualizerEditor(p, "Spike Rate", 210)
    {
       //addSelectedChannelsParameterEditor("Channels", 20, 105);
    }
@@ -285,7 +285,7 @@ To make it possible to change the active electrode, we will create a selectable 
 
    std::unique_ptr<ComboBox> electrodeList;
 
-The declaration of the :code:`RateViewer.h` class should now look like this:
+The declaration of the :code:`RateViewerEditor.h` class should now look like this:
 
 
 .. code-block:: c++
@@ -617,8 +617,6 @@ This pointer will get updated by :code:`RateViewerEditor::createNewCanvas()`:
 
       rateViewerNode->canvas = rateViewerCanvas;
 
-      selectedStreamHasChanged();
-
       return rateViewerCanvas;
    }
 
@@ -656,7 +654,7 @@ First, let's create the relevant member variables in the :code:`RateViewerCanvas
 
       float sampleRate = 0.0f;
 
-	   int windowSize = 1000;
+      int windowSize = 1000;
       int binSize = 50;
 
 
