@@ -12,14 +12,15 @@ Tracking Plugin
 .. csv-table:: Enables closed-loop stimulation based on position information streamed from Bonsai.
    :widths: 18, 80
 
-   "*Plugin Type*", "Source, Filter, and Sink"
+   "*Plugin Type*", "Filter"
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No"
    "*Key Developers*", "Alessio Buccino"
    "*Source Code*", "https://github.com/open-ephys-plugins/tracking-plugin"
 
-.. note:: The Tracking Plugin is not yet available for GUI version 0.6.X.
 
+
+.. note:: This documentation is adapted from the `CINPLA wiki <https://github.com/CINPLA/tracking-plugin/wiki>`__. More information about the Tracking Plugin can be found in `this publication <https://iopscience.iop.org/article/10.1088/1741-2552/aacf45/meta>`__.
 
 
 Installing and upgrading
@@ -29,77 +30,67 @@ The Tracking Plugin is not included by default in the Open Ephys GUI. To install
 
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
 
+.. note:: Although the Tracking Plugin can be installed on all three types of operating systems, it needs to be run on the same machine as Bonsai (which is currently Windows-only).
+
 Plugin Configuration
 ######################
 
-.. note:: This documentation is adapted from the `CINPLA wiki <https://github.com/CINPLA/tracking-plugin/wiki>`__). More information about the Tracking Plugin can be found in `this publication <https://iopscience.iop.org/article/10.1088/1741-2552/aacf45/meta>`__.
-
-|
-
-.. image:: ../../_static/images/plugins/trackingplugin/system_overview.png
+.. image:: ../../_static/images/plugins/trackingplugin/trackingplugin-04.png
   :alt: Overview of the components needed to use the Tracking Plugin effectively.
 
-This figure shows a block diagram of the system needed to use the Tracking Plugin effectively. It assumes there is a subject (a freely moving animal) outfitted with **recording electrodes and two LEDs**. The electrophysiology data are acquired with the Open Ephys GUI. In this case, the Open Ephys acquisition board is used as the data interface, but any compatible recording system would also work. 
+This figure shows the basic components needed to use the Tracking Plugin:
 
-A **camera** is positioned above the environment to capture the location of the LEDs on the subject's head. The images are streamed to Bonsai, which extracts the position of the LEDs in real-time and streams this information to the Open Ephys GUI, using the OSC (Open Sound Control) protocol. A PointGrey camera is used in this example, but any camera that is compatible with Bonsai (including webcams) would also work. Synchronization between the camera and electrophysiology data is performed by recording the camera shutter events using the Open Ephys I/O board.
+1. A freely moving subject outfitted with **one or more tracking LEDs**.
 
-To deliver closed-loop feedback as a function of position, the Open Ephys GUI must be connected to a **stimulation device**, such as an Arduino (or in this example) as Pulse Pal. The outputs of the stimulation device are used to optical or electrical stimulation to the brain, and the timing of any output pulses are also recorded using the Open Ephys I/O board.
+2. A Bonsai-compatible **camera** positioned above the environment to capture the location of the LEDs on the subject's head. 
 
-Setting up the camera
-----------------------
+3. A **Bonsai workflow** configured to package tracking points as OSC messages.
 
-These instructions assume you have a FLIR `Flea3 <https://www.flir.com/products/flea3-usb3/>`__ (formerly Point Grey) camera. Configuration for other cameras may differ.
+4. An instance of the **Open Ephys GUI with the Tracking Plugin installed** (on the same machine running Bonsai).
 
-.. warning:: The Bonsai FlyCapture package has combatibility issues with the FlyCapture SDK version >2.11. Therefore, we recommend installing SDK v2.11 from this `link on the Bonsai forum <https://groups.google.com/forum/#!msg/bonsai-users/Wq2Bo1DnCD8/jb0BfvIVAgAJ>`__
+5. A **stimulation device**, such as an Arduino or Pulse Pal, used to deliver closed-loop feedback.
 
-From the FlyCapture software, you can activate GPIO triggers that can be recorded with the Open Ephys board for precise synchronization, and also change the frame rate.
 
 Setting up Bonsai
 ------------------
 
-If you haven't already, `install Bonsai <https://bonsai-rx.org/docs/articles/installation.html>`__. After opening Bonsai, find the package manager and install the **Vision**, **Vision Design**, **PointGrey**, **OSC**, **OSC Design**, and **Scripting** packages.
+If you haven't already, `install Bonsai <https://bonsai-rx.org>`__. After opening Bonsai, find the package manager and install the **Vision**, **Vision Design**, **OSC**, **OSC Design**, and **Scripting** packages. If your camera isn't a USB webcam, you'll also need to install the appropriate Bonsai package to interface with it (e.g. **Spinnaker**, **Pylon**, **Vimba**).
 
-Once everything is installed, download and unzip the files in `this directory <https://github.com/open-ephys-plugins/tracking-plugin/raw/master/Resources/tracking-plugin-bonsai.zip>`__. Then, open the :code:`tracking.bonsai` workflow file in Bonsai.
+Once everything is installed, download and open the `tracking-camera.bonsai <https://github.com/open-ephys-plugins/tracking-plugin/blob/main/Resources/Bonsai/tracking-camera.bonsai>`__ workflow. If necessary, replace the **CameraCapture** node with one that's compatible with your camera.
 
-If you don't have a PointGrey camera available, replace the :code:`FlyCapture` operator with one that's compatible with your camera.
+To start the workflow, press the "Play" button within Bonsai. This will start acquiring camera frames, extracting red and green LED positions (if available), and streaming position information.
 
-The directory contains a configuration file :code:`osc.config` that sets up two OSC ports:
+The data are streamed via OSC (Open Sound Control), with each packet containing 4 float values: 
 
-* :code:`RedPort`: port = 27020, address = :code:`/red`, ip_address = :code:`localhost`
-* :code:`GreenPort`: port = 27021, address = :code:`/green`, ip_address = :code:`localhost`
+1. Relative x position of the tracked point (as a fraction of the overall width of the image)
+2. Relative y position of the tracked point (as a fraction of the overall height of the image)
+3. Image width (in pixels)
+4. Image height (in pixels)
 
-To start the workflow, press the "Play" button within Bonsai. This will start acquiring camera frames, extracting LED positions (if available), and streaming position information via OSC.
+.. important:: The tracking points will not be recorded by the Open Ephys GUI; if you want to save these, you should do it on the Bonsai side (a **CsvWriter** node is recommended).
 
-Tracking Port
----------------
 
-On the Open Ephys GUI side, the "Tracking Port" plugin receives tracking data from Bonsai. The data are streamed from an OSC (Open Sound Control) server and each packet contains 4 floats: x and y positions, width, and height of the field. You can add and delete new sources using the :code:`+` and :code:`-` buttons. The port, address, and color used to represent the incoming data can also be configured within the plugin's editor.
-
-.. note:: The Tracking Port only support :code:`localhost` at the moment, so Bonsai must be running on the same computer as the Open Ephys GUI.
-
-Tracking Stimulator
+Tracking sources
 --------------------
 
-The "Tracking Stimulator", when placed downstream from the "Tracking Port", allows the user to create regions of interest within the camera's field of view. Whenever the subject enters one of these regions, the plugin emits TTL events that can be used to trigger closed-loop feedback.
+.. important:: These instructions apply to the Tracking Plugin for GUI version 0.6.x and higher. All of the functionality is now contained in a single Filter plugin, as opposed to the separate Source, Filter, and Sink plugins that were used previously.
 
-Regions of interest can manually drawn, dragged, resized (double click), copied (ctrl+c), pasted (ctrl+v), and deleted (del). Alternatively, the parameters for each circle (x_position, y_position, and radius from 0 to 1) can be entered using the editable labels on the right side of the visualizer. Each circle can be inactivated using the :code:`ON` toggle button.
+After adding the Tracking Plugin to the Open Ephys signal chain, you first need to define at least one "tracking source." You can add and delete new sources using the :code:`+` and :code:`-` buttons. The port number, OSC address, and color used to represent the incoming data can also be configured within the plugin's editor. Make sure these match the OSC settings in Bonsai (which must be running on the same computer).
 
-On the top right of the visualizer, the user can select an input source as well as a TTL output channel for each circle.
+To enable stimulation, the user must select an input tracking source as well as an associated TTL output channel in the plugin's visualizer. Stimulation is triggered ONLY when the toggle button in the editor is set to :code:`ON`.
 
-Stimulation is triggered ONLY when the toggle button in the editor (bottom left) is set to :code:`ON`.
+Creating ROIs 
+--------------
 
-When within the selected circles, the tracking cue becomes red and TTL events are generated on the selected Output channel. There are two operation modes controlled by the buttons:
+The Tracking Plugin visualizer allows the user to create regions of interest (ROIs) within the camera's field of view. Whenever the subject enters one of these regions, the plugin emits TTL events that can be used to trigger closed-loop feedback. There are three operation modes for ROIs:
 
-* **UNIFORM**: a TTL train with a constant frequency fmax (user-defined) is generated when the position is within selected regions. In this mode, the colors of the circles are uniformly orange/yellow.
+* **UNIFORM**: a TTL train with a constant, user-defined frequency is generated when the position is within any ROI.
 
-* **GAUSSIAN**: the frequency of the TTL train is Gaussian modulated. When the position is in the center of each circle, the frequency is fmax, when it is on the border of a circle the frequency is sd * fmax. In the case displayed in the following figure, the frequency in the center is 2 Hz and the frequency on the borders is 0.5 * 2 = 1 Hz. In this mode, the colors of the circles are graded, darker in the center and lighter on the borders.
+* **GAUSSIAN**: the frequency of the TTL train is Gaussian modulated. When the position is in the center of any ROI, the frequency is equal to fmax (the user-defined frequency), and when it is on the border of a circle the frequency is sd * fmax.
 
-Tracking Visualizer
---------------------
+* **SINGLE**: the plugin emits a single pulse of the specified duration immediately when the position enters an ROI.
 
-The "Tracking Visualizer" displays the tracking data received from the "Tracking Port" (or any other plugin sending Tracking Data binary events) in real-time. The available Tracking Data sources are shown in the Sources list box on the left and multiple selection is allowed. The "clear" button clears the path trajectories.
+Circular regions of interest can manually drawn, dragged, resized, and deleted. The parameters for each circle (x_position, y_position, and radius) can be entered using the popup menus accessible via the "New" and "Edit" buttons. Each circle can be inactivated or reactivated using the :code:`Enabled` toggle button, or removed using the "Delete" button:
 
-The figure below shows a simulated spiral-like trajectory:
-
-.. image:: ../../_static/images/plugins/trackingplugin/trackingvisualizer.png
+.. image:: ../../_static/images/plugins/trackingplugin/trackingplugin-02.png
   :alt: Screenshot of the Tracking Visualizer plugin.

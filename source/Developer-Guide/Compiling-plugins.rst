@@ -7,9 +7,36 @@ Compiling plugins
 
 Whether you're creating a new plugin or you cloned an existing plugin repository, the following steps will allow you to compile your plugin across all three platforms. Note that `CMake <https://cmake.org/>`__ is required in all cases. See the :ref:`compiling the GUI <compilingthegui>` page for recommended instructions for installing CMake if you don't have it already.
 
+Most Open Ephys GUI plugins work equally well on Windows, Linux, and Mac. However, there are some plugins that rely on platform-specific libraries, and can only be compiled for certain platforms. Be sure to check the relevant :ref:`plugin documentation<plugins>` page for platform compatibility.
+
+.. important:: These instructions assume you have already compiled the main application from source. If not, you should start by following the instructions on :ref:`this page <compilingthegui>`.
+
+
+Obtaining the source code
+--------------------------
+
 The first step for compiling a pre-existing plugin is downloading the source code. If you're planning to make your own changes to the plugin, we recommend first forking the plugin's GitHub repository to your own account, then cloning the fork via the `command line <https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository-using-the-command-linee>`__ or the `GitHub Desktop app <https://desktop.github.com/>`__. If you're not planning to make any changes to the plugin, you can clone the original repository or download the code as a **.zip** file.
 
-Most Open Ephys GUI plugins work equally well on Windows, Linux, and Mac. However, there are some plugins that rely on platform-specific libraries, and can only be compiled for certain platforms. Be sure to check the relevant :ref:`plugin documentation<plugins>` page for platform compatibility.
+All of the officially supported plugins assume that the plugin source code is contained within a separate directory *at the same level* as that of the host application (the :code:`plugin-GUI` GitHub repository). Before attempting to compile your plugin, make sure your directory structure looks something like this:
+
+.. code-block::
+
+   Code
+   ├── plugin-GUI
+   │   ├── Build
+   │   ├── Source
+   │   └── ...
+   │
+   ├── OEPlugins
+   │   └── plugin-1
+   │   │   ├── Build
+   │   │   ├── Source
+   │   │   └── ...
+   │   │
+   │   └── plugin-2
+   │       ├── Build
+   │       ├── Source
+   │       └── ...
 
 
 Windows

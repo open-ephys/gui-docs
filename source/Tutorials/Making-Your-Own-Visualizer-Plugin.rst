@@ -13,6 +13,8 @@ If you get stuck, you can take a look at the finished plugin source code here to
 
 .. important:: These instructions assume you have already compiled the main application from source. If not, you should start by following the instructions on :ref:`this page <compilingthegui>`.
 
+.. note:: On Linux, you'll need to make a small change to the host application's source code to get the Rate Viewer plugin to work. Change line 208 of `InteractivePlot.h <https://github.com/open-ephys/plugin-GUI/blob/main/Source/Processors/Visualization/InteractivePlot.h>`__ to :code:`class PLUGIN_API DrawComponent : public Component`, then recompile the GUI. This change has been added to the **development** branch, and will be merged into the **main** branch soon.
+
 Creating a new plugin repository
 #################################
 
@@ -236,7 +238,7 @@ You should have already modified the file and class names for the plugin's edito
 
 
    RateViewerEditor::RateViewerEditor(GenericProcessor* p)
-      : RateViewerEditor(p, "Visualizer", 200)
+      : VisualizerEditor(p, "Visualizer", 200)
    {
       //addSelectedChannelsParameterEditor("Channels", 20, 105);
    }
@@ -252,7 +254,7 @@ We will make a small change to :code:`RateViewerEditor.cpp`, which is to change 
    :caption: RateViewerEditor constructor
 
    RateViewerEditor::RateViewerEditor(GenericProcessor* p)
-      : RateViewerEditor(p, "Spike Rate", 210)
+      : VisualizerEditor(p, "Spike Rate", 210)
    {
       //addSelectedChannelsParameterEditor("Channels", 20, 105);
    }
@@ -283,7 +285,7 @@ To make it possible to change the active electrode, we will create a selectable 
 
    std::unique_ptr<ComboBox> electrodeList;
 
-The declaration of the :code:`RateViewer.h` class should now look like this:
+The declaration of the :code:`RateViewerEditor.h` class should now look like this:
 
 
 .. code-block:: c++
@@ -394,7 +396,7 @@ Now, we can override the :code:`selectedStreamHasChanged()` method in the editor
          return;
       }
 
-      Array<Electrode> currentElectrodes = rateViewerNode->getElectrodesForStream(selectedStream);
+      Array<String> currentElectrodes = rateViewerNode->getElectrodesForStream(selectedStream);
 
       int id = 0;
 
@@ -525,7 +527,7 @@ This calls the :code:`setActiveElectrode()` method which doesn't exist yet, so l
 .. code-block:: c++
    :caption: RateViewer.cpp
 
-   void RateViewer::setActiveElectrode(String name)
+   void RateViewer::setActiveElectrode(uint16 streamId, String name)
    {
       for (auto electrode : electrodes)
       {
@@ -588,8 +590,8 @@ Next, let's give the processor a pointer to the canvas so it can relay the relev
 
       ...
 
-      /** Pointer to the Visualizer */
-      RateViewerCanvas* canvas;
+      /** Pointer to the Visualizer -- initialize to nullptr*/
+      RateViewerCanvas* canvas = nullptr;
 
 
 .. code-block:: c++
@@ -615,8 +617,6 @@ This pointer will get updated by :code:`RateViewerEditor::createNewCanvas()`:
 
       rateViewerNode->canvas = rateViewerCanvas;
 
-      selectedStreamHasChanged();
-
       return rateViewerCanvas;
    }
 
@@ -640,10 +640,10 @@ First, let's create the relevant member variables in the :code:`RateViewerCanvas
       void setWindowSizeMs(int windowSize_);
 
       /** Set the bin size for spike rate calculation */
-	   void setBinSizeMs(int binSize_);
+      void setBinSizeMs(int binSize_);
 
       /** Set the sample rate for the active electrode */
-	   void setSampleRate(float sampleRate);
+      void setSampleRate(float sampleRate);
 
       /** Change the plot title*/
       void setPlotTitle(const String& title);
@@ -654,7 +654,7 @@ First, let's create the relevant member variables in the :code:`RateViewerCanvas
 
       float sampleRate = 0.0f;
 
-	   int windowSize = 1000;
+      int windowSize = 1000;
       int binSize = 50;
 
 
@@ -728,6 +728,47 @@ Next, we'll have the processor to call those helper functions every time a param
                electrode->isActive = false;
          }
       }
+   }
+
+We also need to make sure the parameter values are updated in the :code:`updateSettings()` method, if the canvas has been initialized:
+
+.. code-block:: c++
+   :caption: RateViewer.cpp
+
+   void RateViewer::updateSettings()
+   {
+      // initialize electrodes array, then...
+
+      if (canvas != nullptr)
+      {
+         parameterValueChanged(getParameter("window_size"));
+         parameterValueChanged(getParameter("bin_size"));
+      }
+      
+   }
+
+Finally, we need to make sure the settings are initialized properly when the canvas is created (since the canvas doesn't exist until it's opened in a tab or window):
+
+.. code-block:: c++
+   :caption: RateViewerEditor.cpp
+
+   Visualizer* RateViewerEditor::createNewCanvas()
+   {
+
+      RateViewer* rateViewerNode = (RateViewer*) getProcessor();
+
+      RateViewerCanvas* rateViewerCanvas = new RateViewerCanvas(rateViewerNode);
+
+      rateViewerNode->canvas = rateViewerCanvas;
+
+      // make sure the parameters get updated
+      rateViewerCanvas->setWindowSizeMs(rateViewerNode->getParameter("window_size")->getValue());
+      rateViewerCanvas->setBinSizeMs(rateViewerNode->getParameter("bin_size")->getValue());
+
+      // update list of available electrodes
+      rateViewerNode->setActiveElectrode(selectedStream, electrodeList->getText());
+
+      return rateViewerCanvas;
    }
 
 
@@ -896,7 +937,7 @@ Now we can count the spikes in each bin:
       bool countSpikes();
 
       int64 sampleOnLastRedraw = 0;
-	   int maxCount = 1;
+      int maxCount = 1;
 
 .. code-block:: c++
    :caption: RateViewerCanvas.cpp
@@ -911,14 +952,14 @@ Now we can count the spikes in each bin:
       if (elapsedTimeMs < binSize)
          return false;
 
-      counts.remove(0); // remove oldest count
+      spikeCounts.remove(0); // remove oldest count
 
       int newSpikeCount = incomingSpikeSampleNums.size();
 
       if (newSpikeCount > maxCount)
          maxCount = newSpikeCount;
 
-      counts.add(newSpikeCount); // add most recent count
+      spikeCounts.add(newSpikeCount); // add most recent count
 
       incomingSpikeSampleNums.clear();
 

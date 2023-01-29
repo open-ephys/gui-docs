@@ -9,7 +9,7 @@ Falcon Output
 .. image:: ../../_static/images/plugins/falconoutput/falconoutput-01.png
   :alt: Annotated Falcon Output Editor
 
-.. csv-table:: Streams all continuous channels with low latency.
+.. csv-table:: Streams continuous channels with low latency.
    :widths: 18, 80
 
    "*Plugin Type*", "Sink"
@@ -18,8 +18,6 @@ Falcon Output
    "*Key Developers*", "Marine Chaput"
    "*Source Code*", "https://github.com/open-ephys-plugins/falcon-output"
 
-.. note:: The Falcon Output plugin is not yet available for GUI version 0.6.X.
-  
 
 Installing and upgrading
 ###########################
@@ -31,7 +29,30 @@ The Plugin Installer also allows you to upgrade to the latest version of this pl
 Plugin Configuration
 ######################
 
-This plugin will stream all incoming continuous channels via a ZMQ socket. The only setting available to the user is the output port. To use a port other than the default (3335), change the text field in the plugin's editor to the desired port number, and click "Set Port."
+Each Falcon Output plugin sends continuous data and event codes for one data stream. To select the data stream (if multiple streams are available), use the drop-down menu in the plugin editor. Once a stream has been selected, the channels to send can be changed by clicking the "Channels" button. If not all continuous channels are needed by the client, then deselecting the unused channels is recommended.
+
+To use a network port other than the default (3335), change the text field in the plugin's editor to the desired port number.
+
+See the `Falcon <https://falcon-core.readthedocs.io/en/latest/>`__ documentation for information on setting up a Falcon client.
+
+Creating a custom client
+#########################
+
+The Falcon Output plugin uses ZeroMQ to stream data. Unlike the :ref:`zmqinterface` plugin, this plugin uses the `FlatBuffers <https://google.github.io/flatbuffers/>`__ serialization library to reduce latency. An example C++ client can be found in the :code:`clients` directory of the plugin repository.
+
+Falcon Input
+#############
+
+.. image:: ../../_static/images/plugins/falconoutput/falconoutput-02.png
+  :alt: Annotated Falcon Input Editor
+
+In GUI version 0.6.x, installing the Falcon Output plugin also adds a source plugin called "Falcon Input." This can be used to read data from a Falcon Output plugin that lives in a different instance of the Open Ephys GUI. For example, you could configure the GUI on one computer with a source node, a Record Node, and a Falcon Output, and then use a Falcon Input plugin as the source for visualization and/or closed-loop feedback on a different machine. 
+
+It's also possible to use Falcon Input and Output plugins within the same instance of the GUI. In the example image below, data from the Falcon Input is merged together with the original File Reader stream. The LFP Viewer shows the same data from both streams, with a slight delay on the Falcon Input stream:
+
+.. image:: ../../_static/images/plugins/falconoutput/falconoutput-03.png
+  :alt: Using Falcon Input and Output in the same signal chain
+
 
 Latency Measurements
 ######################
