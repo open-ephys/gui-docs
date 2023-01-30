@@ -9,13 +9,13 @@ LSL Inlet
 .. image:: ../../_static/images/plugins/lslinlet/lslinlet-01.png
   :alt: Annotated LSL Inlet editor
 
-.. csv-table:: Streams continuous data into the signal chain using the LabStreamingLayer protocol.
+.. csv-table:: Streams continuous data from devices that use the Lab Streaming Layer protocol. See the `Lab Streaming Layer documentation <https://labstreaminglayer.readthedocs.io/info/intro.html>`__ for more information about this library and a list of supported devices.
    :widths: 18, 80
 
    "*Plugin Type*", "Source"
-   "*Platforms*", "Windows"
+   "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No"
-   "*Key Developers*", "Florin Pop, Mark Schatza"
+   "*Key Developers*", "Florin Pop, Chadwick Boulay"
    "*Source Code*", "https://github.com/open-ephys-plugins/lab-streaming-layer-io"
 
 
@@ -29,26 +29,15 @@ The Plugin Installer also allows you to upgrade to the latest version of this pl
 Plugin Configuration
 ######################
 
-This plugin will stream all incoming continuous channels via a ZMQ socket. The only setting available to the user is the output port. To use a port other than the default (3335), change the text field in the plugin's editor to the desired port number, and click "Set Port."
+Before starting data acquisition, a data stream needs to be selected. The list of available LSL streams is updated every time the "Refresh streams" button is pressed. During data acquisition, samples can be scaled in real time by adjusting the Scale factor.
 
-Latency Measurements
-######################
+A marker stream can be optionally selected. The list of marker streams only shows streams that have an irregular rate and a single channel. When a marker is received it is broadcasted to the entire signal chain. For a marker to be shown in the LFP Viewer, a marker-to-TTL mapping is required. This is a JSON file that contains a set of Key-Value pairs of markers and corresponding TTL lines, for example:
 
-This plugin has been originally developed to stream Neuropixels data from the Open Ephys GUI to `Falcon <https://falcon-core.readthedocs.io/en/latest/>`__, a Linux-based library used for real-time processing of neural data.
+.. code::
 
-To run the latency tests, the following configuration was used:
+  {
+      "Marker_1": 1,
+      "Marker_2": 2
+  }
 
-.. image:: ../../_static/images/plugins/falconoutput/falcon_use_case.png
-  :alt: Hardware + software configuration for latency measurmements
-
-A Neuropixels probe was placed in a saline bath, with the bath connected to the positive terminal of signal generator outputting a sine wave signal. Neuropixels data was acquired on a Windows computer using a PXIe system and the Open Ephys :ref:`neuropixelspxi` plugin. A Falcon Output plugin was placed downstream in the signal chain, to stream the data over a network connection.
-
-On a separate computer running Linux, the Falcon signal chain was configured with an OpenEphysZMQ processor, a Threshold Detector processor, and a SerialOutput processor. Whenever the incoming sine wave crossed a threshold, Falcon triggered an output from an Arduino, which was acquired by the digital input of the PXIe system.
-
-The total roundtrip time of this system had the following characteristics:
-
-* **Median:**: 9.2 ms
-* **Standard deviation:** 1.3 ms
-* **Maximum:** 13 ms
-
-Therefore, when using one Neuropixels probe, this configuration is suitable for closed-loop feedback experiments that require a minimum response time of around 10 ms.
+|

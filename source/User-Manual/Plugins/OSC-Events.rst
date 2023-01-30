@@ -10,15 +10,13 @@ OSC Events
 .. image:: ../../_static/images/plugins/oscevents/oscevents-01.png
   :alt: Annotated OSC Events editor
 
-|
-
-.. csv-table:: Converts OSC messages into TTL events.
+.. csv-table:: Converts Open Sound Control (OSC) messages into TTL events. This plugin was designed to provide a simple way to send information from Bonsai to the Open Ephys GUI, but it will work with any application that can send OSC messages.
    :widths: 18, 80
 
    "*Plugin Type*", "Filter"
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No"
-   "*Key Developers*", "Gonçalo Lopes, Josh Siegle"
+   "*Key Developers*", "Gonçalo Lopes, Josh Siegle, Anjal Doshi"
    "*Source Code*", "https://github.com/open-ephys-plugins/osc-io"
 
 
@@ -35,67 +33,31 @@ Plugin configuration
 
 Since the OSC Events module sends events, and not continuous data, it cannot be placed at the beginning of a signal chain. The plugin will add events to all data streams that pass through it.
 
+The following parameters can be modified via the plugin editor:
 
-Remote control commands
-################################################
-
-TTL Events
------------
-
-The primary purpose of the Network Events module is to add TTL events to one or more of the GUI's data streams via a remote connection. This makes it straightforward to store event times and trigger outputs from external software, such as Python or Matlab scripts.
-
-:code:`TTL [Line=0-255] [State=0/1]` – Sends an **ON** (1) or **OFF** (0) TTL event on the specified TTL line. 
-
-Other commands
----------------
-
-The Network Events module can also respond to commands related to starting/stopping acquisition and recording. However, these commands are also available via the Open Ephys HTTP Server (added in GUI version 0.6.0). It's recommended to use the HTTP Server commands whenever possible, as these do not rely on a specific plugin.
-
-:code:`StartAcquisition` – Starts data aquisition
-
-:code:`StopAcquisition` – Stops data aquisition
-
-:code:`StartRecord [RecordNode=record_node_id] [CreateNewDir=1] [RecDir=recording_directory_path] [PrependText=some_text] [AppendText=some_text]` – Starts recording of data
-
-* :code:`RecordNode` – Only apply the `CreateNewDir` & `RecDir` options to the specified record node
-
-* :code:`CreateNewDir` – creates a new (sub)directory with the current date string
-
-* :code:`RecDir` – sets the recording directory
-
-* :code:`PrependText` – sets the text to be prepended to the date string
-
-* :code:`AppendText` – sets the text to be appended to the date string
-
-:code:`StopRecord` – Stops recording
-
-:code:`IsAcquiring` – Returns 1 if acquiring, 0 if not
-
-:code:`IsRecording` – Returns 1 if recording is active, 0 if not
-
-:code:`GetRecordingPath [RecordNode=record_node_id]` – Get's the main recording path or, if record node is specified, then record node specific recording path
-
-:code:`GetRecordingNumber [RecordNode=record_node_id]` – Get's the main recording number or, if record node is specified, then record node specific recording number
-
-:code:`GetExperimentNumber [RecordNode=record_node_id]` – Get's the main experiment number or, if record node is specified, then record node specific experiment number
+- **OSC address** - the OSC endpoint for communicating with this plugin (default = :code:`/ttl`). It must start with a forward slash.
+- **Port** - the network port for communicating with this plugin. 
+- **Duration** - the duration of events triggered by this plugin. If duration is set to a value greater than 0, incoming messages will trigger "on" events followed by an "off" event on the same line *duration* milliseconds later. If the duration is 0, only one event will be triggered by each message, which must also specify the event state (0 or 1).
+- **Stim** - toggles stimulation on or off. When set to "off," incoming OSC messages will no longer trigger events.
 
 
-Example Code
-##################
+Bonsai configuration
+#######################
 
-Matlab
--------
-In the GUI's `Matlab Resources`_ folder, you'll find a :code:`matlab_zeroMQ_wrapper_example.m`, which shows how to send messages. Assuming the zeroMQ mex file is in the same directory (which it should be by default), all you have to do is initialize the connection using 'StartConnectThread' and the appropriate url, then send a message using 'Send', the handle of your connection, and the string you want. 
+The Bonsai workflow must include one :code:`CreateUdpClient` operator to initialize the OSC connection. The IP address and port must match that used by the Open Ephys plugin. If Bonsai and Open Ephys GUI are running on the same machine, it's fine to use "127.0.0.1" as the IP address on the Bonsai side. The :code:`SendMessage` operator must specify the OSC endpoint, which must match the address used on the Open Ephys side.
 
-Python
---------
-An Python example can be found at in the `Python Resources`_ folder: :code:`record_control_example_client.py`
+The OSC Events plugin expects messages with or one two integer values:
 
+- **Value 1:** the TTL line to trigger (1-256)
+- **Value 2:** the state of the event (0 = off, 1 = on)
 
-.. _ZeroMQ: https://zeromq.org/
-.. _Matlab Resources: https://github.com/open-ephys-plugins/network-events/tree/main/Resources/Matlab
-.. _Python Resources: https://github.com/open-ephys-plugins/network-events/tree/main/Resources/Python
+If the OSC Events duration is set to zero, then each message must contain both values. If the duration is greater than 0, then the second value will be ignored.
 
+The following is a simple example of a workflow that could be used to trigger "on" and "off" events at regular intervals:
 
+.. image:: ../../_static/images/plugins/oscevents/osc-test.svg
+  :alt: Example Bonsai workflow
+
+|
 
 

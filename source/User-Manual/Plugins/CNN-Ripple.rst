@@ -9,7 +9,7 @@ CNN Ripple
 .. image:: ../../_static/images/plugins/cnnripple/cnnripple-01.png
   :alt: Annotated CNN Ripple editor
 
-.. csv-table:: Uses a convolutional neural network to detect hippocampal ripple events across 8 channels simultaneously.
+.. csv-table:: Uses a 1D convolutional neural network to detect hippocampal ripple events across 8 channels simultaneously. This plugin has been tested with linear arrays, high-density silicon probes, and Neuropixels, and can be used for online or offline ripple detection.
    :widths: 18, 80
 
    "*Plugin Type*", "Filter"
@@ -17,6 +17,7 @@ CNN Ripple
    "*Built in?*", "No"
    "*Key Developers*", "Rodrigo Amaducci, Andrea Navas-Olive"
    "*Source Code*", "https://github.com/open-ephys-plugins/cnn-ripple"
+   "*Publication DOI*", "`10.7554/eLife.77772 <http://dx.doi.org/10.7554/eLife.77772>`__"
 
 Installing and upgrading
 ###########################
@@ -25,52 +26,35 @@ The CNN Ripple plugin is not included by default in the Open Ephys GUI. To insta
 
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
 
-Recommended signal chain
-#########################
 
-The Crossing Detector analyzes the values on an incoming continuous channel and outputs events whenever a threshold is crossed. It is meant to be used in conjunction with plugins that output smoothly varying continuous signals, such as the :ref:`phasecalculator` and the :ref:`multibandintegrator`. 
-
-Plugin Configuration
+Plugin configuration
 ######################
 
-General settings
------------------
+The plugin editor allows the user to set the following parameters:
 
-* When the **Channel** that is selected **Rises** and/or **Falls** across the threshold level (specified in the visualizer window), an event is triggered on the `TTL_OUT` line.
+- **File:** Opens up a dialog for selecting the CNN model :code:`.pb`` file. A file optimized for detecting ripples on 8 input channels is available `here <https://github.com/open-ephys-plugins/cnn-ripple/tree/master/model>`__.
 
-* `TIMEOUT_MS` controls the minimum time between two consecutive events (i.e. for this number of milliseconds after an event fires, no more crossings can be detected).
+- **Pulse duration:** Duration (in milliseconds) of the TTL pulse sent when a ripple is detected.
 
-Additional parameters can be configured by clicking the "tab" or "window" buttons in the upper right of the plugin's editor. The settings interface can be seen here:
+- **Timeout:** Recovery time (in milliseconds) after a pulse is sent.
 
-.. image:: ../../_static/images/plugins/crossingdetector/crossingdetector-02.png
-  :alt: Crossing Detector visualizer with additional settings
+- **Calibration:** Calibration time before the experiment (in seconds). One minute is usually sufficient.
 
-Threshold level
-----------------
+- **Threshold:** Probability threshold for ripple detection (between 0 and 1).
 
-There are three different types of thresholds that can be used:
+- **Drift:** number of standard deviations above which the signal is considered to be dominated by extreme offset drift; the CNN will stop detecting ripples if this threshold is crossed.
 
-#. **Constant** (default) - the threshold is set to a constant value.
+- **Output:** TTL line to use for output pulses.
 
-#. **Random** - the plugin randomly chooses a new threshold for each event, based on a uniform distribution
 
-#. **Continuous channel** - the input channel is compared with a second continuous channel on a sample-by-sample basis, to allow the threshold to change dynamically.
+More information
+######################
 
-Event criteria
----------------
+A more detailed characterization of this plugin's performance can be found in the following publication:
 
-There are three options that can reduce the frequency of spuriously triggered events:
+Andrea Navas-Olive, Rodrigo Amaducci, Maria-Teresa Juardo-Parras, Enrique R Sebastian, and Liset M de la Prida (2022) `"Deep learning based feature extraction for prediction and interpretation of sharp-wave ripples in the rodent hippocampus" <https://elifesciences.org/articles/77772v1>`__ *eLife* **11**: e77772 
 
-#. **Jump size limit** - prevents triggers when the difference across the threshold is too large in magnitude. This is useful for filtering out wrapped phase jumps, for example.
-
-#. **Sample voting** - makes detection more robust to noise by requiring a larger span of samples before or after :code:`t0` to be on the correct side of the threshold.
-
-#. **Ignore crossings near the end of buffers**
-
-Event duration
-----------------
-
-The **event duration** specifies the delay (in ms) between the "OFF" event and the time at which an "ON" event is triggered. The default duration is 100 ms.
+If you use this plugin in your work, be sure to cite this article!
 
 |
 

@@ -31,17 +31,49 @@ The blank region usually includes widgets for changing available settings. All p
 Types of Plugins
 #################
 
-* **Sources**: bring data into the signal chain. Acquisition won't start unless every signal chain has at least one source.
+Sources
+-------
+ 
+Bring data into the signal chain. Acquisition won't start unless every signal chain has at least one source.
 
-* **Filters**: alter the data in some way, either by changing the continuous data or adding TTL events, messages, or spikes to the event buffer.
+Officially supported Source plugins: :ref:`ephyssocket`, :ref:`filereader`, :ref:`lslinlet`, :ref:`neuropixelspxi`, :ref:`NI-DAQmx`, :ref:`rhythmfpga`
 
-* **Sinks**: send data to an external source, such as a display, stimulator, etc., without altering the underlying data streams. Data should pass through Sinks unchanged.
+Filters
+---------- 
+Alter the data in some way, either by modifying the continuous data or adding TTL events, broadcast messages, or spikes to the event buffer.
 
-* **Utilities**: allow the signal chain to be split or merged, or to control the recording state by intercepting TTL events.
+Officially supported Filter plugins: :ref:`bandpassfilter`, :ref:`channelmap`, :ref:`cnnripple`, :ref:`commonaveragereference`, :ref:`crossingdetector`, :ref:`matlabinterface`, :ref:`multibandintegrator`, :ref:`networkevents`, :ref:`neuropixelscar`, :ref:`oscevents`, :ref:`phasecalculator`, :ref:`phasedetector`, :ref:`rippledetector`, :ref:`spikedetector`, :ref:`spikesorter`, :ref:`trackingplugin`, :ref:`ttlpanels`, :ref:`virtualreference`
 
-* **Record Engines**: define new data formats that can be saved by a Record Node. These plugins do not appear in the processor list, but instead show up in drop-down menus inside the global record options panel or individual Record Nodes.
+Sinks
+------
 
-* **File Sources**: define new data formats that can be read by a File Reader. These plugins do not appear in the processor list, but instead define the file extensions that the File Reader can accept (e.g., :code:`.oebin`).
+Send data to an external source, such as a display, stimulator, etc., without altering the underlying data streams. Data should pass through Sinks unchanged.
+
+Officially supported Sink plugins: :ref:`arduinooutput`, :ref:`eventbroadcaster`, :ref:`falconoutput`, :ref:`lfpviewer`, :ref:`onlinepsth`, :ref:`probeviewer`, :ref:`multibandintegrator`, :ref:`pulsepal`, :ref:`riveroutput`, :ref:`spectrumviewer`, :ref:`spikeviewer`, :ref:`zmqinterface`
+
+Utilities
+----------
+
+Perform miscellaneous functions related to the signal chain. 
+
+Officially supported Utility plugins: :ref:`audiomonitor`, :ref:`eventtranslator`, :ref:`merger`, :ref:`recordcontrol`, :ref:`splitter`
+
+
+Record Engines
+---------------
+
+Define new data formats that can be saved by a Record Node. These plugins do not appear in the processor list, but instead show up in drop-down menus inside the global record options panel or individual Record Nodes.
+
+Officially supported Record Engines: :ref:`binaryformat`, :ref:`openephysformat`, :ref:`nwbdataformat`
+
+
+File Sources
+-------------
+
+Define new data formats that can be read by a File Reader. These plugins do not appear in the processor list, but instead define the file extensions that the File Reader can accept (e.g., :code:`.oebin`).
+
+Officially supported Record Engines: :ref:`binaryformat`, :ref:`openephysformat`, :ref:`nwbdataformat`
+
 
 
 Plugin Installer
