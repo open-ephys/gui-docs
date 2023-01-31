@@ -26,29 +26,48 @@ The River Output plugin is not included by default in the Open Ephys GUI. To ins
 
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
 
-Plugin Configuration
+Background
 ######################
 
-This plugin will stream all incoming continuous channels via a ZMQ socket. The only setting available to the user is the output port. To use a port other than the default (3335), change the text field in the plugin's editor to the desired port number, and click "Set Port."
+This plugin makes it possible to stream spike and event data to an in-memory database, which can be accessed by any number of local or remote processes. The data transmission uses the `River <https://pbotros.github.io/river/docs/index.html>`__ framework, an open-source library for streaming data to and from Redis databases. Although the streaming is currently unidirectional (out of Open Ephys), we eventually plan to add the ability to stream data from other sources into the Open Ephys signal chain.
 
-Latency Measurements
+Once the data has been entered into the database, reading it out is straightforward using the River Python bindings:
+
+.. code-block:: Python
+
+  import river
+  r = river.StreamReader(river.RedisConnection("127.0.0.1", 6379))
+  r.initialize("Purple-407", 10000) # 10000 = timeout ms
+  data = r.new_buffer(1)
+  with r:
+    while True:
+      num_read = r.read(data, 100) # 100 = timeout ms
+
+
+See the `example Python script <https://github.com/open-ephys-plugins/river-io/blob/main/Resources/scripts/reading.py>`__ for more information.
+
+Plugin configuration
 ######################
 
-This plugin has been originally developed to stream Neuropixels data from the Open Ephys GUI to `Falcon <https://falcon-core.readthedocs.io/en/latest/>`__, a Linux-based library used for real-time processing of neural data.
+Database setup
+-----------------
 
-To run the latency tests, the following configuration was used:
+This plugin must be able to connect to an existing Redis database. Follow the instructions on `this page <https://redis.io/docs/getting-started/installation/>`__ to install Redis.
 
-.. image:: ../../_static/images/plugins/falconoutput/falcon_use_case.png
-  :alt: Hardware + software configuration for latency measurmements
+.. note:: Redis does not run natively on Windows, and requires Windows Subsystem for Linux (WSL). This only takes a few minutes to install, and shouldn't deter you from trying out this plugin. 
 
-A Neuropixels probe was placed in a saline bath, with the bath connected to the positive terminal of signal generator outputting a sine wave signal. Neuropixels data was acquired on a Windows computer using a PXIe system and the Open Ephys :ref:`neuropixelspxi` plugin. A Falcon Output plugin was placed downstream in the signal chain, to stream the data over a network connection.
+Creating a new table
+---------------------
 
-On a separate computer running Linux, the Falcon signal chain was configured with an OpenEphysZMQ processor, a Threshold Detector processor, and a SerialOutput processor. Whenever the incoming sine wave crossed a threshold, Falcon triggered an output from an Arduino, which was acquired by the digital input of the PXIe system.
+Once the database connection has been made, the plugin will automatically create a new table for streaming spikes. The table schema can be viewed by opening the plugin visualizer (buttons in the upper-right corner of the editor). To stream events instead of spikes, click the "Events" checkmark.
 
-The total roundtrip time of this system had the following characteristics:
+Each instance of the River Output plugin can only stream either spikes or events. To stream both simultaneously, you can drop a second plugin into the signal chain.
 
-* **Median:**: 9.2 ms
-* **Standard deviation:** 1.3 ms
-* **Maximum:** 13 ms
+Reading data out
+-----------------
 
-Therefore, when using one Neuropixels probe, this configuration is suitable for closed-loop feedback experiments that require a minimum response time of around 10 ms.
+When a consumer makes a connection to the database and requests the table entries, it will immediately receive all of the data sent up to that point. New data will be available as soon as it is streamed out of Open Ephys.
+
+|
+
+
