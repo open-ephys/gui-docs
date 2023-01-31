@@ -57,17 +57,28 @@ Compatible probes
 This plugin can stream data from the following Neuropixels probe types:
 
 .. csv-table::
-   :widths: 50, 40, 80
+   :widths: 70, 40, 40, 50
 
-   "**Probe**", "**Channels**", "**Notes**"
-   "Neuropixels 1.0", "384 AP, 384 LFP", ""
-   "Neuropixels NHP Active", "384 AP, 384 LFP", ""
-   "Neuropixels NHP Passive", "128 AP, 128 LFP", "May require :ref:`firmware update<Updating basestation firmware>`"
-   "Neuropixels Ultra - Fixed", "384 AP, 384 LFP", ""
-   "Neuropixels Ultra - Switchable", "384 AP, 384 LFP", "May require :ref:`firmware update<Updating basestation firmware>`"
-   "Neuropixels 2.0 Single Shank", "384 wideband", "May require :ref:`firmware update<Updating basestation firmware>`"
-   "Neuropixels 2.0 Four Shank", "384 wideband", "May require :ref:`firmware update<Updating basestation firmware>`"
-   "Neuropixels Opto", "384 AP, 384 LFP", "Requires an Opto basestation"
+   "**Probe**", "**Channels**", "**Plugin Version**", "**Min. PXI Firmware**"
+   "Neuropixels 1.0", "384 AP, 384 LFP", "", ""
+   "Neuropixels NHP Prototype (10 mm, 25 mm, and 45 mm)", "384 AP, 384 LFP", "≥0.2.x", ""
+   "Neuropixels NHP 128 CH Passive", "128 AP, 128 LFP", "≥0.2.x", "`BS137, BSC176`_"
+   "Neuropixels NHP Commercial (10 mm)", "384 AP, 384 LFP", "**≥0.5.x**", "`BS169, BSC176`_"
+   "Neuropixels UHD Phase 1", "384 AP, 384 LFP", "", ""
+   "Neuropixels UHD Phase 2 (switchable)", "384 AP, 384 LFP", "≥0.2.x", "`BS137, BSC176`_"
+   "Neuropixels UHD Phase 3 (ultradense)", "384 AP, 384 LFP", "**≥0.5.x**", "`BS169, BSC176`_"
+   "Neuropixels 2.0 Single Shank", "384 wideband", "≥0.2.x", "`BS137, BSC176`_"
+   "Neuropixels 2.0 Four Shank", "384 wideband", "≥0.2.x", "`BS137, BSC176`_"
+   "Neuropixels Opto", "384 AP, 384 LFP", "≥0.4.x", "Special basestation required"
+
+.. important:: Regardless of which probe type you're using, we recommend updating to the latest basestation firmware (`BS169, BSC176`_). This firmware is required for Neuropixels PXI plugin version **0.5.x** and higher, as well as the latest version of SpikeGLX. See :ref:`Updating basestation firmware` section for information on how to update your firmware.
+
+.. _BS137, BSC176: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/add-geometries/Resources/imec-firmware-for-plugin-0.4.x.zip
+.. _BS169, BSC176: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/add-geometries/Resources/imec-firmware-for-plugin-0.5.x.zip
+
+
+
+
 
 Connecting to the PXI system
 ##############################
@@ -279,11 +290,11 @@ If you have a headstage test module, you can run a suite of tests to ensure the 
 Updating basestation firmware
 ######################################
 
-This plugin is compatible with any recent basestation firmware version. However, if you're using Neuropixels 2.0, NHP Passive, or switchable Ultra probes, you'll need to upgrade to the latest firmware (available `here <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/main/Resources/Neuropixels_PXI_APIv3_Firmware.zip>`__).
+The version 0.5.x of the Neuropixels PXI plugin requires a basestation firmware update. The latest firmware (BS169, BSC176) can be downloaded `here <https://github.com/open-ephys-plugins/neuropixels-pxi/blob/add-geometries/Resources/imec-firmware-for-plugin-0.5.x.zip>`__.
 
-The currently installed firmware version will appear in the info section of the Neuropixels settings interface (upper right text block). If your basesation firmware version is "2.0137" and your basestation connect board firmware version is "3.2176", you already have the latest firmware installed.
+The currently installed firmware version will appear in the info section of the Neuropixels settings interface (upper right text block). If your basesation firmware version is "2.0169" and your basestation connect board firmware version is "3.2176", you already have the latest firmware installed.
 
-.. note:: If you've been using SpikeGLX version 3.0 or higher, your basestation already has the latest firmware.
+.. note:: If you've been using SpikeGLX 3.0 Release 20220101 or higher, your basestation already has the latest firmware.
 
 If you need to update your firmware, first click the "UPDATE FIRMWARE" button to open the firmware update interface:
 
