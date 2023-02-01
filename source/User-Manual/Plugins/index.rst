@@ -10,24 +10,6 @@ The GUI comes with a number of "built-in" plugins, which appear automatically wh
 A list of third-party plugins is available on the `Open Ephys wiki <https://open-ephys.atlassian.net/wiki/spaces/OEW/pages/47841283/Third-party+plugin+repositories>`__. We plan to migrate many of these to the centralized repository in the near future. To learn how to build your own plugin, check out :ref:`creatinganewplugin`.
 
 
-General Plugin Features
-########################
-
-Plugins interact with one another in two primary ways:
-
-#. Prior to starting data acquisition, plugins pass configuration objects through the signal chain, so downstream plugins know the number of incoming channels to expect. Plugins can generate continuous data or events (including TTL events, messages, and spikes).
-
-#. While acquisition is active, plugins can modify continuous data buffers or add to the event data buffers. The size of these buffers (in ms) is determined by the computer's audio card, and can be configured through the Audio Settings interface in the GUI's main control panel.
-
-Each plugin has a 3-digit identifier, starting at 100. Channels processed by individual plugins are grouped into **streams**, a set of channels that are sampled synchronously, and which are guaranteed to have the same number of samples in each buffer. Most source plugins generate only one stream, but some plugins (such as Neuropixels) have separate streams for different devices (e.g., individual probes) that may have slightly different sample rates.
-
-When you drop a plugin onto the signal chain, you'll see an editor for any user-configurable settings. The generic plugin settings editor interface looks like this:
-
-.. image:: ../../_static/images/plugins/genericplugin/genericplugin-01.png
-  :alt: Overview of the Generic Plugin interface
-
-The blank region usually includes widgets for changing available settings. All plugins contain a "stream selector" containing information about all streams that pass through the plugin. For many plugins, the active parameters will only be applied to the currently selected stream.
-
 Types of Plugins
 #################
 
@@ -67,6 +49,24 @@ File Sources allow the File Reader to read data in different formats. These plug
 Officially supported Record Engines: :ref:`binaryformat`, :ref:`openephysformat`, :ref:`nwbdataformat`
 
 
+General Plugin Features
+########################
+
+Processor plugins interact with one another in two primary ways:
+
+#. Prior to starting data acquisition, processor plugins pass configuration objects through the signal chain, so downstream plugins know the number of incoming channels to expect. Plugins can generate continuous data or events (including TTL events, messages, and spikes).
+
+#. While acquisition is active, processor plugins can modify continuous data buffers or add to the event data buffers. The size of these buffers (in ms) is determined by the computer's audio card, and can be configured through the Audio Settings interface in the GUI's main control panel.
+
+Each plugin has a 3-digit identifier, starting at 100. Channels processed by individual plugins are grouped into **streams**, a set of channels that are sampled synchronously, and which are guaranteed to have the same number of samples in each buffer. Most source plugins generate only one stream, but some plugins (such as Neuropixels) have separate streams for different devices (e.g., individual probes) that may have slightly different sample rates.
+
+When you drop a plugin onto the signal chain, you'll see an editor for any user-configurable settings. The generic plugin settings editor interface looks like this:
+
+.. image:: ../../_static/images/plugins/genericplugin/genericplugin-01.png
+  :alt: Overview of the Generic Plugin interface
+
+The blank region usually includes widgets for changing available settings. All plugins contain a "stream selector" containing information about all streams that pass through the plugin. For many plugins, the active parameters will only be applied to the currently selected stream.
+
 
 Plugin Installer
 #################
@@ -79,9 +79,6 @@ To open Plugin Installer, go to **File > Plugin Installer**, or press the shortc
   :alt: Overview of the Plugin Installer interface
 
 .. note:: The Plugin Installer requires a network connection in order to function. You will not be able to install plugins unless you have access to the internet.
-
-Layout
-------
 
 The top bar of the Plugin Installer allows the user to:
 
