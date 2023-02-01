@@ -30,15 +30,15 @@ Hardware requirements
 
 * One **computer** (see :ref:`hardwarerequirements` for recommended specs)
 
-* One **PXI chassis** (so far we've tested National Instruments PXIe-1071 and PXIe-1082, and ADLINK PXES-2301)
+* One **PXI chassis** (e.g. NI PXIe-1071, PXIe-1082, PXIe-1083, or ADLINK PXES-2301)
 
-* One **PXI remote control module**, housed in the PXI chassis (we've tested National Instruments PXIe-8381 and PXIe-8398) – requires `NIDAQmx driver <https://www.ni.com/en-us/support/downloads/drivers/download.ni-daqmx.html>`__
+* One **PXI remote control module**, housed in the PXI chassis – requires `NIDAQmx driver <https://www.ni.com/en-us/support/downloads/drivers/download.ni-daqmx.html>`__ (note that chassis such as PXIe-1083 have a built-in control module)
 
-* One **PCIe interface card**, housed in the computer (we've tested National Instruments PCIe-8381 and PCIe-8398)
+* One **PCIe or Thunderbolt interface card** in your workstation (whichever is compatible with your remote control module)
 
 * *(optional)* One **PXI-based analog and digital I/O module** (see the :ref:`NI-DAQmx` page for a list of hardware we've tested)
 
-* **Cables** to connect the remote control module to the PCIe card (e.g., National Instruments MXI-Express Cables, Gen 2 x8)
+* **Cables** to connect the remote control module to the PCIe card (e.g., NI MXI-Express or Thunderbolt cables)
 
 * One or more **Neuropixels basestations** (available from IMEC)
 
@@ -47,8 +47,6 @@ Hardware requirements
 * One or more **Neuropixels headstages** (available from IMEC)
 
 * One or more **Neuropixels probes** (available from IMEC)
-
-.. warning:: Some users have reported not being able detect the PXIe remote control module, despite it being properly connected to the motherboard. In general, any physical x16 PCIe slot should be fine, but there are motherboards that contain x16 slots that are actually wired as x4, which won't work. There are also motherboards that have not been able to communicate with the PXI hardware for unknown reasons. If you are unsure whether your machine has the appropriate PCIe slots, please get in touch.
 
 
 Compatible probes
@@ -71,12 +69,10 @@ This plugin can stream data from the following Neuropixels probe types:
    "Neuropixels 2.0 Four Shank", "384 wideband", "≥0.2.x", "`BS137, BSC176`_"
    "Neuropixels Opto", "384 AP, 384 LFP", "≥0.4.x", "Special basestation required"
 
-.. important:: Regardless of which probe type you're using, we recommend updating to the latest basestation firmware (`BS169, BSC176`_). This firmware is required for Neuropixels PXI plugin version **0.5.x** and higher, as well as the latest version of SpikeGLX. See :ref:`Updating basestation firmware` section for information on how to update your firmware.
+.. important:: Regardless of which probe type you're using, we recommend updating to the latest Neuropixels PXI plugin and basestation firmware (`BS169, BSC176`_). This firmware is required for plugin version **0.5.x** and higher, as well as the latest version of SpikeGLX. See :ref:`Updating basestation firmware` section for information on how to modify your firmware.
 
 .. _BS137, BSC176: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/add-geometries/Resources/imec-firmware-for-plugin-0.4.x.zip
 .. _BS169, BSC176: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/add-geometries/Resources/imec-firmware-for-plugin-0.5.x.zip
-
-
 
 
 
@@ -85,7 +81,7 @@ Connecting to the PXI system
 
 Before using this plugin, make sure you've followed all of the steps in the `Neuropixels User Manual <https://www.neuropixels.org/support>`__ to set up and configure your hardware. Prior to using your Neuropixels PXI basestation, you must install the Enclustra drivers (available for `Windows 7/8 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/main/Resources/Enclustra_Win7%268.zip>`__ and `Windows 10 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/main/Resources/Enclustra_Win10.zip>`__). See section 4.2.2 of the User Manual for installation instructions.
 
-Once your PXI system is up and running, you can drag and drop the "Neuropix-PXI" module from the Processor List onto the Editor Viewport. The GUI will automatically connect to any available basestations in your connected PXI chassis. If no PXI basestations are found, the plugin can be run in :ref:`simulation mode<Simulation mode>`.
+Once your PXI system is up and running, you can drag and drop the "Neuropix-PXI" module from the Processor List onto the Editor Viewport. The GUI will automatically connect to any available basestations in your PXI chassis with probes connected. If no probes are found, the plugin can be run in :ref:`simulation mode<Simulation mode>`.
 
 The editor will automatically create a probe selection interface for each basestation that's available. Each basestation can communicate with up to 4 probes (for Neuropixels 1.0, NHP, and Ultra) or 8 probes (for 2.0). When the probes are initially detected, they show up as orange circles. Once they are initialized, connected probes become green. After the probes turn green, the plugin is ready to begin data acquisition.
 
@@ -107,7 +103,7 @@ Neuropixels probes require ADC and gain calibration in order to function properl
 
 Any probes detected by the Neuropixels PXI plugin will be calibrated automatically when the plugin is loaded, provided that calibration files are stored in one of the following locations:
 
-* :code:`C:\\ProgramData\\Open Ephys\\CalibrationInfo\\<probe_serial_number>` (recommended)
+* :code:`C:\\ProgramData\\Open Ephys\\CalibrationInfo\\<probe_serial_number>` (recommended - note that **ProgramData** may be a hidden folder on your system, so you'll need to change the File Explorer options to show hidden files)
 
 * :code:`<open-ephys-executable-folder>\\CalibrationInfo\\<probe_serial_number>` (if you used the Open Ephys installer, the executable will be located in :code:`C:\\Program Files\\Open Ephys`)
 
@@ -285,12 +281,12 @@ If you have a headstage test module, you can run a suite of tests to ensure the 
   :alt: Headstage test board popup window
   :width: 400
 
-.. note:: The headstage test module will only work if you have *not* updated your basestation firmware. However, we have also found that the headstage tests are rarely needed to accurately diagnose a problem with data transmission. If you are unsure whether your headstage is functional, swapping it out with a different headstage is usually more informative than running the headstage tests.
+.. note:: The headstage tests have been re-enabled as of plugin version 0.5.x. However, we have also found that the headstage tests are rarely needed to accurately diagnose a problem with data transmission. If you are unsure whether your headstage is functional, swapping it out with a different headstage is usually more informative than running the headstage tests.
 
 Updating basestation firmware
 ######################################
 
-The version 0.5.x of the Neuropixels PXI plugin requires a basestation firmware update. The latest firmware (BS169, BSC176) can be downloaded `here <https://github.com/open-ephys-plugins/neuropixels-pxi/blob/add-geometries/Resources/imec-firmware-for-plugin-0.5.x.zip>`__.
+Version **0.5.x** of the Neuropixels PXI plugin requires a basestation firmware update. The latest firmware (BS169, BSC176) can be downloaded `here <https://github.com/open-ephys-plugins/neuropixels-pxi/blob/add-geometries/Resources/imec-firmware-for-plugin-0.5.x.zip>`__.
 
 The currently installed firmware version will appear in the info section of the Neuropixels settings interface (upper right text block). If your basesation firmware version is "2.0169" and your basestation connect board firmware version is "3.2176", you already have the latest firmware installed.
 
@@ -301,9 +297,9 @@ If you need to update your firmware, first click the "UPDATE FIRMWARE" button to
 .. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-08.png
   :alt: Interface for updating firmware
 
-Next, select a :code:`.bin` file for the basestation connect board (:code:`QBSC*.bin`), and click "UPLOAD". The upload process can take anywhere from 10-15 minutes, so please be patient.
+Next, select a :code:`.bin` file for the **basestation connect board** (:code:`QBSC*.bin`), and click "UPLOAD". The upload process can take anywhere from 10-15 minutes, so please be patient.
 
-Immediately after the basestation connect board firmware upload finished, use the lower drop-down menu to select a :code:`.bin` file for the basestation (:code:`BS*.bin`), and click "UPLOAD". 
+Immediately after the basestation connect board firmware upload finished, use the lower drop-down menu to select a :code:`.bin` file for the **basestation** (:code:`BS*.bin`), and click "UPLOAD". 
 
 Finally, once the basestation firmware is finished uploading, restart your computer and power cycle the PXI chassis for the changes to take effect.
 
