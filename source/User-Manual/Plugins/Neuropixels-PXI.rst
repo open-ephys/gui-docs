@@ -69,10 +69,10 @@ This plugin can stream data from the following Neuropixels probe types:
    "Neuropixels 2.0 Four Shank", "384 wideband", "≥0.2.x", "`BS137, BSC176`_"
    "Neuropixels Opto", "384 AP, 384 LFP", "≥0.4.x", "Special basestation required"
 
-.. important:: Regardless of which probe type you're using, we recommend updating to the latest Neuropixels PXI plugin and basestation firmware (`BS169, BSC176`_). This firmware is required for plugin version **0.5.x** and higher, as well as the latest version of SpikeGLX. See :ref:`Updating basestation firmware` section for information on how to modify your firmware.
+.. important:: Regardless of which probe type you're using, we recommend updating to the most recent Neuropixels PXI plugin and basestation firmware (`BS169, BSC176`_). This firmware is required for plugin version **0.5.x** and higher, as well as the latest version of SpikeGLX. See :ref:`Updating basestation firmware` section for information on how to modify your firmware.
 
-.. _BS137, BSC176: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/add-geometries/Resources/imec-firmware-for-plugin-0.4.x.zip
-.. _BS169, BSC176: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/add-geometries/Resources/imec-firmware-for-plugin-0.5.x.zip
+.. _BS137, BSC176: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.4.x.zip
+.. _BS169, BSC176: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.5.x.zip
 
 
 
@@ -286,7 +286,7 @@ If you have a headstage test module, you can run a suite of tests to ensure the 
 Updating basestation firmware
 ######################################
 
-Version **0.5.x** of the Neuropixels PXI plugin requires a basestation firmware update. The latest firmware (BS169, BSC176) can be downloaded `here <https://github.com/open-ephys-plugins/neuropixels-pxi/blob/add-geometries/Resources/imec-firmware-for-plugin-0.5.x.zip>`__.
+Version **0.5.x** of the Neuropixels PXI plugin requires a basestation firmware update. The latest firmware (BS169, BSC176) can be downloaded `here <https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.5.x.zip>`__.
 
 The currently installed firmware version will appear in the info section of the Neuropixels settings interface (upper right text block). If your basesation firmware version is "2.0169" and your basestation connect board firmware version is "3.2176", you already have the latest firmware installed.
 
