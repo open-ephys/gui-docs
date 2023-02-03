@@ -22,11 +22,11 @@ Officially supported Source plugins: :ref:`ephyssocket`, :ref:`filereader`, :ref
 
 **Filters** alter the data in some way, either by modifying the continuous data or adding TTL events, broadcast messages, or spikes to the event buffer.
 
-Officially supported Filter plugins: :ref:`bandpassfilter`, :ref:`channelmap`, :ref:`commonaveragereference`, :ref:`crossingdetector`, :ref:`matlabinterface`, :ref:`multibandintegrator`, :ref:`networkevents`, :ref:`neuropixelscar`, :ref:`oscevents`, :ref:`phasecalculator`, :ref:`phasedetector`, :ref:`rippledetector`, :ref:`spikedetector`, :ref:`spikesorter`, :ref:`trackingplugin`, :ref:`ttlpanels`, :ref:`virtualreference`
+Officially supported Filter plugins: :ref:`bandpassfilter`, :ref:`channelmap`, :ref:`cnnripple`, :ref:`commonaveragereference`, :ref:`crossingdetector`, :ref:`matlabinterface`, :ref:`multibandintegrator`, :ref:`networkevents`, :ref:`neuropixelscar`, :ref:`oscevents`, :ref:`phasecalculator`, :ref:`phasedetector`, :ref:`rippledetector`, :ref:`spikedetector`, :ref:`spikesorter`, :ref:`trackingplugin`, :ref:`ttlpanels`, :ref:`virtualreference`
 
 **Sinks** send data to an external source, such as a display, stimulator, etc., without altering the underlying data streams. Data should pass through Sinks unchanged.
 
-Officially supported Sink plugins: :ref:`arduinooutput`, :ref:`eventbroadcaster`, :ref:`falconoutput`, :ref:`lfpviewer`, :ref:`onlinepsth`, :ref:`probeviewer`, :ref:`multibandintegrator`, :ref:`pulsepal`, :ref:`spectrumviewer`, :ref:`spikeviewer`, :ref:`zmqinterface`
+Officially supported Sink plugins: :ref:`arduinooutput`, :ref:`eventbroadcaster`, :ref:`falconoutput`, :ref:`lfpviewer`, :ref:`multibandintegrator`, :ref:`onlinepsth`,  :ref:`probeviewer`,:ref:`pulsepal`, :ref:`riveroutput`, :ref:`spectrumviewer`, :ref:`spikeviewer`, :ref:`zmqinterface`
 
 **Utilities** perform miscellaneous functions related to the signal chain. 
 
@@ -129,6 +129,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Bandpass-Filter
     Channel-Map
     Common-Average-Reference
+    CNN-Ripple
     Crossing-Detector
     Ephys-Socket
     Event-Broadcaster
