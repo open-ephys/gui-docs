@@ -32,7 +32,9 @@ Plugin configuration
 
 The plugin editor allows the user to set the following parameters:
 
-- **File:** Opens up a dialog for selecting the CNN model :code:`.pb`` file. A file optimized for detecting ripples on 8 input channels is available `here <https://github.com/open-ephys-plugins/cnn-ripple/tree/master/model>`__.
+- **CNN Input:** The input channels to use for ripple detection (exactly 8 channels must be selected).
+
+- **Load Model:** Opens up a dialog for selecting the CNN model :code:`.pb`` file. A file optimized for detecting ripples on 8 input channels is available `here <https://github.com/open-ephys-plugins/cnn-ripple/tree/master/model>`__.
 
 - **Pulse duration:** Duration (in milliseconds) of the TTL pulse sent when a ripple is detected.
 
