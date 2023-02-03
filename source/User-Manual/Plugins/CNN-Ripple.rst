@@ -6,7 +6,7 @@
 CNN Ripple
 #####################
 
-.. image:: ../../_static/images/plugins/cnnripple/cnnripple-01.png
+.. image:: ../../_static/images/plugins/cnnripple/cnnripple.png
   :alt: Annotated CNN Ripple editor
 
 .. csv-table:: Uses a 1D convolutional neural network to detect hippocampal ripple events across 8 channels simultaneously. This plugin has been tested with linear arrays, high-density silicon probes, and Neuropixels, and can be used for online or offline ripple detection.
@@ -44,7 +44,7 @@ The plugin editor allows the user to set the following parameters:
 
 - **Threshold:** Probability threshold for ripple detection (between 0 and 1).
 
-- **Drift:** number of standard deviations above which the signal is considered to be dominated by extreme offset drift; the CNN will stop detecting ripples if this threshold is crossed.
+- **Drift:** Number of standard deviations above which the signal is considered to be dominated by extreme offset drift; the CNN will stop detecting ripples if this threshold is crossed.
 
 - **Output:** TTL line to use for output pulses.
 
