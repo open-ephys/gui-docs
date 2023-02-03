@@ -63,6 +63,10 @@ Once the database connection has been made, the plugin will automatically create
 
 Each instance of the River Output plugin can only stream either spikes or events. To stream both simultaneously, you can drop a second plugin into the signal chain.
 
+.. image:: ../../_static/images/plugins/riveroutput/riveroutput-02.png
+  :alt: River output visualizer
+
+
 Reading data out
 -----------------
 

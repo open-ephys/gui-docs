@@ -153,6 +153,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Record-Control
     Rhythm-Plugins
     Ripple-Detector
+    River-Output
     Spectrum-Viewer
     Spike-Detector
     Spike-Sorter
