@@ -59,7 +59,7 @@ This plugin must be able to connect to an existing Redis database. Follow the in
 Creating a new table
 ---------------------
 
-Once the database connection has been made, the plugin will automatically create a new table for streaming spikes. The table schema can be viewed by opening the plugin visualizer (buttons in the upper-right corner of the editor). To stream events instead of spikes, click the "Events" checkmark.
+Once the database connection has been made, the plugin will automatically create a new table for streaming spikes. The table schema can be viewed by opening the plugin visualizer (buttons in the upper-right corner of the editor). To stream events instead of spikes, click the "Events" checkbox.
 
 Each instance of the River Output plugin can only stream either spikes or events. To stream both simultaneously, you can drop a second plugin into the signal chain.
 
