@@ -16,7 +16,7 @@ TTL Panels
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No"
    "*Key Developers*", "Christopher Thomas"
-   "*Source Code*", "https://github.com/open-ephys-plugins/spectrum-viewer"
+   "*Source Code*", "https://github.com/open-ephys-plugins/ttl-panels"
 
 .. note:: Provides toggle and display panels for debugging TTL events.
 
