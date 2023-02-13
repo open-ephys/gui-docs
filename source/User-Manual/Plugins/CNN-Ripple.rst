@@ -13,7 +13,7 @@ CNN Ripple
    :widths: 18, 80
 
    "*Plugin Type*", "Filter"
-   "*Platforms*", "Windows, Linux, macOS"
+   "*Platforms*", "Windows, Linux"
    "*Built in?*", "No"
    "*Key Developers*", "Rodrigo Amaducci, Andrea Navas-Olive"
    "*Source Code*", "https://github.com/open-ephys-plugins/cnn-ripple"
