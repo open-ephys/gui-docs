@@ -55,7 +55,7 @@ Now, we can translate all the timestamps from *Stream B* into timestamps from *S
 
 We can check this by plugging in the value of the last sync transition time on *Stream B*: :code:`(125 - 127) * 1.02 + 12 = 111.96`. Rounded to the nearest integer, this is **112**, which is the actual time of the last sync transition on *Stream A*.
 
-Understanding how to perform this basic procedure is extremely useful, since it will allow you to synchronize any data streams, even ones that are recorded by different data acquisition systems. As long as they share one digital input line, they can be synchronized offline.
+Understanding how to perform this basic procedure is extremely useful, since it will allow you to synchronize any data streams, even ones that are recorded by separate pieces of software. As long as the recorded streams share one input line, they can be synchronized offline.
 
 The Open Ephys GUI can perform these calculations in real time, provided the hardware and software are set up correctly. However, it's still important to know what's going on under the hood, in case you need to troubleshoot your setup.
 
@@ -68,17 +68,19 @@ When using the :ref:`neuropixelspxi` and :ref:`NI-DAQmx` plugins, there are two 
 
 #. Use a separate device, such as an Arduino, to generate a sync signal that is routed to the Neuropixels PXI basestation and the NIDAQ device.
 
-In the first case, the Neuropixels’ basestation can be configured to output its own physical clock signal that can be output as an input into the NIDAQ device:
+In the first case, the Neuropixels basestation can be configured to output its own physical clock signal that can serve as an input to the NIDAQ device:
 
 #. Connect one end of an SMA cable to the SMA connector at the bottom of the Neuropixels basestation.
 
-#. Connect the other end of the SMA cable to a digital input channel of the NIDAQ device*. 
+#. Connect the other end of the SMA cable to a digital input channel of the NIDAQ device.
+
+.. note:: You will likely need an adapter to match the digital terminals.
 
 .. image:: ../_static/images/tutorials/synchronization/config_1.png
   :align: center
   :alt: NPX + NIDAQ 
 
-The advantage of this option is that it doesn't require any additional devices. However, the Neuropixels basestation can only generate pulses at regular intervals (1 Hz or 10 Hz), which can make it ambiguous which pulses were the first and last, especially if you're synchronizing data streams outside of the Open Ephys GUI.
+The advantage of this option is that it doesn't require any additional devices. However, the Neuropixels basestation can only generate pulses at regular intervals (1 Hz or 10 Hz), which can make it ambiguous which pulses were the first and last, especially if you're synchronizing data streams outside of the Open Ephys GUI (e.g., behavioral events recorded by another piece of software).
 
 In the second case, the Neuropixels’ basestation can be configured as an input accepting the digital output of an Arduino, for example:
 
@@ -92,40 +94,37 @@ In the second case, the Neuropixels’ basestation can be configured as an input
   :align: center
   :alt: NPX + NIDAQ + Arduino
 
-.. note:: * You will likely need an adapter to match the digital terminals.
 
-The Arduino can be configured to generate sync pulses at pseudo-random intervals, which makes it possible to align data streams in an unambiguous way, even if they are stopped at started at different times.
+The Arduino can be configured to generate sync pulses at pseudo-random intervals, which makes it possible to align data streams in an unambiguous way, even if they are stopped at started at different times. An example implementation is available `here <https://github.com/open-ephys/sync-barcodes>`__.
 
 For the purposes of this tutorial, either configuration will work.
 
 Software Configuration
 ######################
 
-Online synchronization only occurs within a the Open Ephys GUI's RecordNode as data is written to disk. This means that data coming into and out of a RecordNode in a signal chain is not necessarily synchronized. In order to synchronize online, the RecordNode must be configured to match the active hardware configuration: 
+Online synchronization occurs within the Open Ephys GUI's Record Node as data is written to disk. This means that data coming into and out of a Record Node in a signal chain is not necessarily synchronized. In order to synchronize online, the Record Node must be configured to match the active hardware configuration: 
 
-#. Download the Neuropixels-PXI and NIDAQmx source processors via "File > Plugin Installer".
+#. If you haven't already, download the Neuropixels-PXI and NIDAQmx source processors via "File > Plugin Installer".
 
 #. Insert a Neuropixels-PXI source processor into the signal chain.
 
 #. If using the Neuropixels-PXI to generate the sync pulses (option 1 above), change the default selection on the sync control pull-down menu from :code:`INPUT` to :code:`OUTPUT`. Use the default clock rate of 1 Hz.
 
-#. Insert a NIDAQmx source processor into the signal chain (it will automatically create a new branch).
+#. Insert a NIDAQmx source processor into the editor viewport (it will automatically start a new signal chain).
 
 #. Select the Neuropixels-PXI processor in the signal chain and insert a Merger processor directly after it.
 
 #. Right click on the title bar of the Merger and select "NIDAQmx" as the source processor to merge with.
 
-#. Insert a RecordNode after the merger.
+#. Insert a Record Node after the merger.
 
-#. Select the ||| on the left side of the RecordNode to access the stream buffer monitors. The right most buffer monitor represents the NIDAQ stream, and any remaining buffers to the left represent the Neuropixels streams (two buffers at 30 kHz and 2.5 kHz for each 1.0 probe, one buffer at 30 kHz for each 2.0 probe).
+#. Select the ||| on the left side of the Record Node to access the stream buffer monitors. The right-most buffer monitor represents the NIDAQ stream, and any remaining buffers to the left represent the Neuropixels streams (two buffers at 30 kHz and 2.5 kHz for each 1.0 probe, one buffer at 30 kHz for each 2.0 probe).
 
 #. Under each buffer monitor, click on the sync line monitor to select the digital input channel which matches the physical sync channel used in your hardware configuration. For Neuropixels there is only one channel available so it is automatically selected. For NIDAQ devices, there will likely be multiple digital channels available; select the channel used in the hardware that is connected to your sync signal.
 
-#. Designate one of the streams to be the master processor. By default this will be the 30 kHz band of the first probe detected.
+#. Designate one of the streams to be the main clock source. By default this will be the 30 kHz band of the first probe detected.
 
-#. Ensure the Binary Format is selected in the RecordNode, as this is currently the only format that supports online synchronization.
-
-#. Ensure "Record Events" is enabled in the RecordNode.
+#. Ensure "Record Events" is enabled in the Record Node.
 
 .. image:: ../_static/images/tutorials/synchronization/sync-tutorial-01.png
   :align: center
@@ -138,9 +137,9 @@ At this point, the GUI is configured to write synchronized data to disk. In orde
 
 #. Start data acquisition by pressing the Play button in the Control Panel. The sync monitors turn orange once acquisition starts and then green as each stream becomes synchronized.
 
-#. Wait until all the orange sync monitors turn green. This generally happens instantaneously, however, in some cases it may take a few seconds to stabilize.
+#. Wait until all the orange sync monitors turn green. This will happen once every stream has received at least two events on the designated sync line.
 
-#. Start recording by pressing the Record button in the Control Panel. Data streams with green sync control monitors will be written to disk with synchronized timestamps.
+#. Start recording by pressing the Record button in the Control Panel. Data streams with green sync control monitors will now be written to disk with synchronized timestamps.
 
 .. image:: ../_static/images/tutorials/synchronization/sync-tutorial-02.png
   :align: center
@@ -149,15 +148,11 @@ At this point, the GUI is configured to write synchronized data to disk. In orde
 Loading and Processing
 ######################
 
-First, read the `Binary Format Docs <https://open-ephys.github.io/gui-docs/User-Manual/Recording-data/Binary-format.html>`__.
-Synchronized data streams written to disk will contain an additional :code:`synchronized_timestamps.npy` file alongside the :code:`timestamps.npy` file. 
-The :code:`synchronized_timestamps.npy` file contains one float timestamp (in seconds) for every integer timestamp (in sample number) found in the corresponding :code:`timestamps.npy` file. The :code:`synchronized_timestamps.npy` file provides a common time base to which timestamps belonging to the corresponding stream are mapped to.  
+As of GUI v0.6.x, synchronized timestamps for the `Binary Format <https://open-ephys.github.io/gui-docs/User-Manual/Recording-data/Binary-format.html>`__ are written to :code:`timestamps.npy`, while the original sample numbers for each stream are found in :code:`sample_numbers.npy`.
 
-Events detected in a synchronized stream will only save their timestamps as sample numbers since acquisition started. For example, an event that occurred at sample number :code:`405012` will correspond to the continuous sample that occurred at timestamp :code:`405012`, which can then be mapped back to the common time base timestamp in the :code:`synchronized_timestamps.npy` file. 
+The :code:`timestamps.npy` for continuous, events, and spike data contains one float timestamp (in seconds) for every integer timestamp (in sample number) found in the corresponding :code:`sample_numbers.npy` file. The :code:`timestamps.npy` file provides a common time base to which timestamps belonging to the corresponding stream are mapped to.  
 
-For spike data, the values in :code:`spike_times.npy` represent the sample index at which the spike occurred, relative to the beginning of the :code:`continuous.dat` file. To get the actual timestamp at which the spike occurred, you must add the first timestamp from :code:`timestamps.npy` in the corresponding continuous data stream the spike was detected in. Again, that timestamp can be mapped back to the common time base timestamp in the :code:`synchronized_timestamps.npy` file. 
-
-More information regarding offline analysis can be found `here <https://github.com/open-ephys/open-ephys-python-tools/tree/main/open_ephys/analysis>`__ for Python tools and `here <https://github.com/open-ephys/open-ephys-matlab-tools/tree/master/open_ephys/analysis>`__ for Matlab tools.
+For streams that were not synchronized online, you can compute common timestamps in seconds offline using the equations described above. This procedure is implemented in `this package <https://github.com/open-ephys/open-ephys-python-tools/tree/main/open_ephys/analysis>`__ for Python and `this library <https://github.com/open-ephys/open-ephys-matlab-tools/tree/master/open_ephys/analysis>`__ for Matlab.
 
 Questions? 
 ###########
