@@ -32,21 +32,33 @@ Hardware requirements
 
 * One **PXI chassis** (e.g. NI PXIe-1071, PXIe-1082, PXIe-1083, or ADLINK PXES-2301)
 
-* One **PXI remote control module**, housed in the PXI chassis – requires `NIDAQmx driver <https://www.ni.com/en-us/support/downloads/drivers/download.ni-daqmx.html>`__ (note that chassis such as PXIe-1083 have a built-in control module)
-
-* One **PCIe or Thunderbolt interface card** in your workstation (whichever is compatible with your remote control module)
-
 * *(optional)* One **PXI-based analog and digital I/O module** (see the :ref:`NI-DAQmx` page for a list of hardware we've tested)
 
-* **Cables** to connect the remote control module to the PCIe card (e.g., NI MXI-Express or Thunderbolt cables)
+For chassis without a built-in controller (e.g. NI PXIe-1071, NI PXIe-1082, or ADLINK PXES-2301), you'll need:
 
-* One or more **Neuropixels basestations** (available from IMEC)
+* One **PXI remote control module** (we've tested NI PXIe-8381 and PXIe-8398) – requires NIDAQmx driver
 
-* One or more **Neuropixels cables** (black + yellow twisted pair, USB-C to Omnetics, available from IMEC)
+* One **PCIe interface card** (we've tested National Instruments PCIe-8381 and PCIe-8398)
 
-* One or more **Neuropixels headstages** (available from IMEC)
+* **MXI-Express Cables** to connect the remote control module to the PCIe card
 
-* One or more **Neuropixels probes** (available from IMEC)
+For chassis with a built-in Thunderbolt controller (e.g. PXIe-1083):
+
+* One **Thunderbolt interface card** that's compatible with your motherboard
+
+* One sufficiently long **Thunderbolt 3 cable** 
+
+.. important:: Thunderbolt 4 cables will not work, as the Neuropixels basestations cannot be detected with these newer cables.
+
+Ordered via `neuropixels.org <https://neuropixels.org>`__:
+
+* One or more **Neuropixels basestations** (can acquire data from 4 Neuropixels 1.0 probes per basestation)
+
+* One or more **Neuropixels cables** (black + yellow twisted pair, USB-C to Omnetics)
+
+* One or more **Neuropixels headstages** 
+
+* One or more **Neuropixels probes**
 
 
 Compatible probes
