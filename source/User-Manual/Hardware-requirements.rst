@@ -93,6 +93,4 @@ For chassis with a built-in Thunderbolt controller (e.g. PXIe-1083):
 
 * One **Thunderbolt interface card** that's compatible with your motherboard
 
-* One sufficiently long **Thunderbolt 3 cable** 
-
-.. important:: Thunderbolt 4 cables will not work, as the Neuropixels basestations cannot be detected with these newer cables.
+* One sufficiently long **Thunderbolt cable**
