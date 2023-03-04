@@ -46,15 +46,44 @@ By default, there are no conditions defined. Click the "+" button to create a ne
 
 - *Name*: can be edited by double-clicking
 - *TTL Line*: select from lines 1-16 by clicking once on the line name
-- *Type*: click on the icon to change the trigger type
+- *Type*: click on the icon to change the trigger type (see below for details)
+- *Color*: click on the colored square to modify the condition's color
 
 The Online PSTH plugin will automatically create a separate histogram for each condition + electrode combination:
 
 .. image:: ../../_static/images/plugins/onlinepsth/onlinepsth-03.png
   :alt: Example histograms
 
+.. note:: When acquisition is active, all condition parameters can be modified, but conditions cannot be added or removed.
+
+Define the window size
+------------------------------
+
+It's possible to change the the histogram bin size (default: 25 ms) and pre-event and post-event window size (default: 500 ms) at any time. Note that if the histogram display has been active for many trials without clearing the spikes, recalculating the histograms may be slow.
+
+Display options
+======================
+
+Display type
+--------------------------
+
+The visualizer can display data as histograms, spike rasters, or lines, with the option to overlay the rasters on top of the histograms or lines:
+
+.. image:: ../../_static/images/plugins/onlinepsth/onlinepsth-04.png
+  :alt: Examples of different display types
+
+Display layout
+--------------------------
+
+The following options are available for modifying the display layout:
+
+- *Row height* - The height of each row in pixels
+- *Num cols* - The number of histograms in each row
+- *Overlay condition* - If set to "ON", all of the histograms for each electrode will be overlaid on top of one another. All overlaid histograms use the same y-axis scale.
+
+
 Triggering methods
-###################
+======================
 
 The "type" of each condition defines how individual trials are triggered:
 
@@ -63,26 +92,47 @@ The "type" of each condition defines how individual trials are triggered:
 - :code:`MSG`: a new trial is triggered by broadcast messages containing the condition name. The timing of the trial start will be accurate to within one software buffer length (typically around 20 ms)
 
 
-Define the window size
-------------------------------
-
-It's possible to change the the histogram bin size (default: 25 ms) and pre-event and post-event window size (default: 500 ms) at any time. Note that if the histogram display has been active for many trials without clearing the spikes, recalculating the histograms may be slow.
-
-
-Select the display type
---------------------------
-
-The visualizer can display data as histograms, spike rasters, or lines, with the option to overlay the rasters on top of the histograms or lines.
-
-
 Plugin usage
 =============
 
-* Use the buttons in the upper-right of the editor to open the visualizer in a separate tab or window to scroll through detected electrodes.
+* Use the buttons in the upper-right of the editor to open the visualizer in a separate tab or window.
 
 * Mouse over data points to view the corresponding time window and average firing rate in a given bin.
 
 * Press the "clear" button in the top left of the window to reset the histograms.
+
+* Press the "save" button to write the data for each histogram to a JSON file.
+
+
+Remote control
+--------------------------
+
+Condition names and parameters can be updated using configuration messages sent via Open Ephys HTTP Server. Messages must be sent in JSON format with the following fields:
+
+- :code:`condition_index` (required) - 0-based index of the condition to modify
+
+- :code:`name` (optional) - new condition name
+
+- :code:`ttl_line` (optional) - new TTL trigger line (1-based indexing)
+
+- :code:`trigger_type` (optional) - new trigger type (1 = :code:`TTL`, 2 = :code:`TTL + MSG`, 3 = :code:`MSG`)
+
+For example, to change the parameters for the first condition in an Online PSTH plugin with processor ID 102, send the following command to the endpoint :code:`http://localhost:37497/api/processors/102/config`:
+
+.. code-block:: json
+  
+  {
+    "condition_index" : 0,
+    "name" : "Custom Name",
+    "ttl_line" : 2,
+    "trigger_type" : 2
+  }
+
+Working with the Spike Sorter
+-----------------------------
+
+If a :ref:`spikesorter` plugin is placed upstream of the Online PSTH, any electrodes with sorted units will have the option of displaying histograms for individual units. Spike counts for only one unit can be displayed in each histogram. To view histograms for different units side-by-side, you can create multiple versions of the same condition, and select a different unit for each histogram.
+
 
 |
 
