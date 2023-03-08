@@ -22,7 +22,7 @@ Event Translator
 Recommended signal chain
 =========================
 
-The Event Translator plugin only works if it has multiple data streams passing through it. This can happen when using a source plugin that generates multiple streams on its own (such as :ref`neuropixelspxi`), or when using a :ref:`merger` with multiple source nodes.
+The Event Translator plugin only works if it has multiple data streams passing through it. This can happen when using a source plugin that generates multiple streams on its own (such as :ref:`neuropixelspxi`), or when using a :ref:`merger` with multiple source nodes.
 
 All incoming streams *must* share a digital input, with relatively slow (~1 Hz or less) TTL events at regular or random intervals. This shared hardware input makes it possible to determine the exact offset and scaling of each source's sample clock relative to the "main" data stream.
 
@@ -31,7 +31,7 @@ Plugin configuration
 
 By default, the Event Translator will set the first stream as the main stream, and TTL line 1 (1-based indexing) as the sync line.
 
- * To change the main stream, click on one of the gray sync buttons and select "Set as main clock."
+* To change the main stream, click on one of the gray sync buttons and select "Set as main clock."
 
 * To change the sync line for individual streams, click on one of the gray sync buttons and select the line to which the shared digital input is connected.
 
