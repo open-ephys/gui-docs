@@ -1,9 +1,9 @@
-.. _OE-XDAQ:
+.. _XDAQ:
 .. role:: raw-html-m2r(raw)
    :format: html
 
 ################
-OE-XDAQ
+XDAQ-OE
 ################
 
 .. image:: ../../_static/images/plugins/oe-xdaq/OE-XDAQ-Editor-Annotated.png
@@ -27,12 +27,12 @@ Plugin configuration
 Headstages
 ############
 
-XDAQ Systems can support up to 16 headstages depending on model and configuration.
-Each row corresponds to one HDMI port on the XDAQ, and each column corresponds to one headstage on that input.
+XDAQ Systems (ONE, CORE...) can support up to 16 RHD headstage chips depending on model and configuration.
+Each row corresponds to one HDMI port on the XDAQ, and each column corresponds to one headstage chip on that port. 
 
 .. image:: ../../_static/images/plugins/oe-xdaq/HDMI-Ports.png
 
-X-Headstage is manufactured using advanced packaging technology.  Thus, one headstone may display multiple chips in the GUI.  For example, X6R128 headstone will display as two 64ch headstages in the GUI.
+X-Headstage is manufactured using advanced packaging technology.  Thus, one X-Headstage may contain multiple headstage chips and will display multiple chips in the GUI.  For example, X6R128 headstage will display as two 64ch headstages in the GUI.
 
 Each XDAQ ONE port supports up to 4 RHD chips (2 for XDAQ CORE).  Use an adapter to run multiple X-Headstages if necessary.
 
