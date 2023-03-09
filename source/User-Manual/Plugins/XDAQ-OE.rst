@@ -1,12 +1,12 @@
-.. _XDAQ:
+.. _XDAQ-OE:
 .. role:: raw-html-m2r(raw)
    :format: html
 
 ################
-XDAQ-OE
+XDAQ
 ################
 
-.. image:: ../../_static/images/plugins/oe-xdaq/OE-XDAQ-Editor-Annotated.png
+.. image:: ../../_static/images/plugins/xdaq-oe/Editor.png
   :alt: Annotated settings interface for the Acquisition Board plugin
 
 .. csv-table:: Streams data from XDAQ Systems.
@@ -16,7 +16,7 @@ XDAQ-OE
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No"
    "*Key Developers*", "Josh Siegle, Aarón Cuevas López, Stone Lin"
-   "*Source Code*", "https://github.com/open-ephys-plugins/OE-XDAQ"
+   "*Source Code*", "https://github.com/open-ephys-plugins/XDAQ-OE"
 
 
 .. tip:: For more in-depth documentation on the XDAQ, please refer to the `XDAQ help site <https://help.kontex.io/>`__.
@@ -30,7 +30,7 @@ Headstages
 XDAQ Systems (ONE, CORE...) can support up to 16 RHD headstage chips depending on model and configuration.
 Each row corresponds to one HDMI port on the XDAQ, and each column corresponds to one headstage chip on that port. 
 
-.. image:: ../../_static/images/plugins/oe-xdaq/HDMI-Ports.png
+.. image:: ../../_static/images/plugins/xdaq-oe/HDMI-Ports.png
 
 X-Headstage is manufactured using advanced packaging technology.  Thus, one X-Headstage may contain multiple headstage chips and will display multiple chips in the GUI.  For example, X6R128 headstage will display as two 64ch headstages in the GUI.
 
@@ -94,7 +94,7 @@ Impedance testing
 
 To open the impedance measurement interface, click the "window" or "tab" buttons at the top of the plugin editor. This will bring up an impedance measurement interface that looks like this:
 
-.. image:: ../../_static/images/plugins/oe-xdaq/Impedance-Test-Annotated.png
+.. image:: ../../_static/images/plugins/xdaq-oe/Impedance-Test-Annotated.png
   :alt: Annotated impedance measurement interface
 
 |
