@@ -32,7 +32,7 @@ Plugin configuration
 
 **Restart connection**: Resets the ZeroMQ data streaming backend
 
-**Port**: Modifies the port number from which this plugin will send data. 
+**Port**: Modifies the port number from which this plugin will send data.
 
 **Format**: Select the event packet format (:code:`JSON` or :code:`Raw Binary`).
 
@@ -46,7 +46,7 @@ JSON Packet Format
 Spikes
 -------
 
-.. code-block:: 
+.. code-block::
 
    {
       "event_type" : "spike",
@@ -66,7 +66,7 @@ Spikes
 TTL Events
 ----------
 
-.. code-block:: 
+.. code-block::
 
    {
       "event_type" : "ttl",
@@ -87,7 +87,7 @@ When sending packets in raw binary mode, the Event Broadcaster serializes the ev
 Receiving data in Python
 ########################
 
-See the `open-ephys-python-tools <https://github.com/open-ephys/open-ephys-python-tools/tree/main/open_ephys/streaming/>`__ repository for a more complete implementation.
+See the `open-ephys-python-tools <https://github.com/open-ephys/open-ephys-python-tools/tree/main/src/open_ephys/streaming>`__ repository for a more complete implementation.
 
 .. code-block:: python
 
@@ -95,7 +95,7 @@ See the `open-ephys-python-tools <https://github.com/open-ephys/open-ephys-pytho
    import json
 
    url = "tcp://localhost:5557"
-        
+
    context = zmq.Context()
    socket = context.socket(zmq.SUB)
    socket.connect(url)
@@ -113,5 +113,3 @@ See the `open-ephys-python-tools <https://github.com/open-ephys/open-ephys-pytho
       event_info = json.loads(parts[1].decode('utf-8'))
 
       callback(event_info)
-
-

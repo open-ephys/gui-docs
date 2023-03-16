@@ -62,15 +62,15 @@ Adding a Record Node into a signal chain brings up the following interface:
 General Configuration
 ---------------------
 
-On the top-right of the Record Node editor is the **write path selector** which opens up an explorer window to navigate to the desired write directory. Use this to set the root path of where the data files generated from this Record Node will be stored. By default, each Record Node will inherit its data directory from the one indicated in the global recording options interface. 
+On the top-right of the Record Node editor is the **write path selector** which opens up an explorer window to navigate to the desired write directory. Use this to set the root path of where the data files generated from this Record Node will be stored. By default, each Record Node will inherit its data directory from the one indicated in the global recording options interface.
 
-Directly below, the **engine selector** pull-down lists the available recording formats. By default, only the Binary format is available. The Open Ephys Format and NWB Format are available via the Plugin Installer. 
+Directly below, the **engine selector** pull-down lists the available recording formats. By default, only the Binary format is available. The Open Ephys Format and NWB Format are available via the Plugin Installer.
 
 .. note:: All Record Nodes must be removed from the signal chain before installing a new data format plugin.
 
-To the left of the engine selector is the **disk space monitor**, which indicates the amount of free space available at the path shown by the write path selector.  
+To the left of the engine selector is the **disk space monitor**, which indicates the amount of free space available at the path shown by the write path selector.
 
-Recording Continuous Channels 
+Recording Continuous Channels
 -----------------------------
 
 The continuous channel configuration interfaces accessed by clicking on the "continuous channel buffer monitors" on the left of the Record Node interface. Hovering over each monitor will display the name of its corresponding data stream (a block of channels that are sampled synchronously).
@@ -82,7 +82,7 @@ Clicking on one of the continuous channel buffer monitors opens up a **channel s
 .. image:: ../../_static/images/recordingdata/recordnode-04.png
   :alt: Channel selection options
 
-Click anywhere outside the channel selector or use the ESC key to exit. 
+Click anywhere outside the channel selector or use the ESC key to exit.
 
 Recording Events
 -----------------
@@ -92,7 +92,7 @@ Below the engine selector is the **toggle event recording** button, which determ
 Recording Spikes
 ------------------
 
-The **toggle spikes recording** button will enable/disable recording of any spike data coming into this Record Node. In order for spikes to be detected by the Record Node, you must have a spike-generating processor somewhere upstream of the Record Node in your signal chain. 
+The **toggle spikes recording** button will enable/disable recording of any spike data coming into this Record Node. In order for spikes to be detected by the Record Node, you must have a spike-generating processor somewhere upstream of the Record Node in your signal chain.
 
 Multiple Record Nodes
 ----------------------
@@ -116,7 +116,7 @@ Synchronization can be performed offline if desired, but it's also straightforwa
 
 Below each continuous channel buffer monitor is a **sync channel monitor** which provides an interface for designating an input stream as the main clock, as well as selecting a sync TTL line for each stream. All of the TTL lines used for synchronization must be connected to the same physical digital input line in order for the synchronizer to work properly. There can only be one sync channel per data source and the active sync channel is always indicated with an orange background.
 
-The main stream will be indicated by a letter ‘M' on its sync channel monitor. This stream will be used as the reference clock, to which all other streams will be synchronized. 
+The main stream will be indicated by a letter ‘M' on its sync channel monitor. This stream will be used as the reference clock, to which all other streams will be synchronized.
 
 .. image:: ../../_static/images/recordingdata/recordnode-05.png
   :alt: View of the synchronizer interface
@@ -129,7 +129,7 @@ Once the synchronizer has been configured, starting data acquisition will automa
 
 .. _NumPy: https://numpy.org/
 .. _Neurodata Without Borders: https://www.nwb.org/
-.. _pynwb: https://pynwb.readthedocs.io/en/latest/
+.. _pynwb: https://pynwb.readthedocs.io/en/stable/
 
 .. toctree::
     :hidden:
@@ -141,5 +141,3 @@ Once the synchronizer has been configured, starting data acquisition will automa
 
 .. role:: raw-html-m2r(raw)
    :format: html
-
-

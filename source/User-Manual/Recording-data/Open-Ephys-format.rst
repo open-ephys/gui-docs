@@ -15,7 +15,7 @@ Open Ephys Format
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Josh Siegle, Aarón Cuevas López"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Source/Processors/RecordNode/OpenEphysFormat"
+   "*Source Code*", "https://github.com/open-ephys-plugins/open-ephys-data-format"
 
 **Advantages**
 

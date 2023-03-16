@@ -34,7 +34,7 @@ If a Neuropixels data stream is detected, the Neuropixels probe type will be dis
 
 The **Channels** button can be used to mask out particular channels from the averaging operation, for example if there are any channels that are in the air (i.e., not in a solution that is conductive with the brain).
 
-.. note:: This plugin uses an *averaging* operation, rather than a *median* operation, because the average across channels is much faster to calculate in real time. However, because averaging is more sensitive to outliers, it is recommended to save data prior to applying the Neuropixels CAR, and to use median subtraction to remove noise *offline*, prior to spike sorting (for example using `SpikeInterface <https://spikeinterface.readthedocs.io/en/latest/modules/preprocessing/plot_1_preprocessing.html#sphx-glr-modules-preprocessing-plot-1-preprocessing-py>`__).
+.. note:: This plugin uses an *averaging* operation, rather than a *median* operation, because the average across channels is much faster to calculate in real time. However, because averaging is more sensitive to outliers, it is recommended to save data prior to applying the Neuropixels CAR, and to use median subtraction to remove noise *offline*, prior to spike sorting (for example using `SpikeInterface <https://github.com/SpikeInterface>`__).
 
 Neuropixels sampling pattern
 ##############################
@@ -47,4 +47,3 @@ Neuropixels 1.0 probes have 16 ADCs, each of which digitizes 12 channels (for a 
   :alt: Annotated Neuropixels 1.0 and 2.0 shanks
 
 |
-

@@ -7,13 +7,13 @@
 Synchronizing Data Streams
 ============================
 
-The Open Ephys GUI is able to acquire, process, and save data from multiple asynchronous data streams simultaneously. However, even if two data streams have identical sample rates, they are neither guaranteed to start acquisition simultaneously nor acquire data at exactly the advertised sample rate. Therefore, some synchronization procedure is required. 
+The Open Ephys GUI is able to acquire, process, and save data from multiple asynchronous data streams simultaneously. However, even if two data streams have identical sample rates, they are neither guaranteed to start acquisition simultaneously nor acquire data at exactly the advertised sample rate. Therefore, some synchronization procedure is required.
 
 Synchronization is typically performed offline, using the timing events on a "sync line" that is shared between each data acquisition device. But the GUI can also be configured to synchronize data from separate streams in real time, as it is being written to disk. This tutorial uses the example of Neuropixels probes and a National Instruments Data Acquisition (NIDAQ) device to demonstrate how to synchronize data streams online.
 
 General principles of synchronization
 ############################################
- 
+
 Whether synchronization is being performed online or offline, all data streams must share a common hardware sync line. Synchronization in software is accurate to within a few milliseconds, but is not precise enough for synchronizing electophysiogical signals acquired at tens of kilohertz.
 
 The following diagram demonstrates the basic logic behind hardware-level synchronization:
@@ -78,7 +78,7 @@ In the first case, the Neuropixels basestation can be configured to output its o
 
 .. image:: ../_static/images/tutorials/synchronization/config_1.png
   :align: center
-  :alt: NPX + NIDAQ 
+  :alt: NPX + NIDAQ
 
 The advantage of this option is that it doesn't require any additional devices. However, the Neuropixels basestation can only generate pulses at regular intervals (1 Hz or 10 Hz), which can make it ambiguous which pulses were the first and last, especially if you're synchronizing data streams outside of the Open Ephys GUI (e.g., behavioral events recorded by another piece of software).
 
@@ -102,7 +102,7 @@ For the purposes of this tutorial, either configuration will work.
 Software Configuration
 ######################
 
-Online synchronization occurs within the Open Ephys GUI's Record Node as data is written to disk. This means that data coming into and out of a Record Node in a signal chain is not necessarily synchronized. In order to synchronize online, the Record Node must be configured to match the active hardware configuration: 
+Online synchronization occurs within the Open Ephys GUI's Record Node as data is written to disk. This means that data coming into and out of a Record Node in a signal chain is not necessarily synchronized. In order to synchronize online, the Record Node must be configured to match the active hardware configuration:
 
 #. If you haven't already, download the Neuropixels-PXI and NIDAQmx source processors via "File > Plugin Installer".
 
@@ -150,11 +150,11 @@ Loading and Processing
 
 As of GUI v0.6.x, synchronized timestamps for the `Binary Format <https://open-ephys.github.io/gui-docs/User-Manual/Recording-data/Binary-format.html>`__ are written to :code:`timestamps.npy`, while the original sample numbers for each stream are found in :code:`sample_numbers.npy`.
 
-The :code:`timestamps.npy` for continuous, events, and spike data contains one float timestamp (in seconds) for every integer timestamp (in sample number) found in the corresponding :code:`sample_numbers.npy` file. The :code:`timestamps.npy` file provides a common time base to which timestamps belonging to the corresponding stream are mapped to.  
+The :code:`timestamps.npy` for continuous, events, and spike data contains one float timestamp (in seconds) for every integer timestamp (in sample number) found in the corresponding :code:`sample_numbers.npy` file. The :code:`timestamps.npy` file provides a common time base to which timestamps belonging to the corresponding stream are mapped to.
 
-For streams that were not synchronized online, you can compute common timestamps in seconds offline using the equations described above. This procedure is implemented in `this package <https://github.com/open-ephys/open-ephys-python-tools/tree/main/open_ephys/analysis>`__ for Python and `this library <https://github.com/open-ephys/open-ephys-matlab-tools/tree/master/open_ephys/analysis>`__ for Matlab.
+For streams that were not synchronized online, you can compute common timestamps in seconds offline using the equations described above. This procedure is implemented in `this package <https://github.com/open-ephys/open-ephys-python-tools/tree/main/src/open_ephys/analysis>`__ for Python and `this library <https://github.com/open-ephys/open-ephys-matlab-tools/tree/main/open_ephys/analysis>`__ for Matlab.
 
-Questions? 
+Questions?
 ###########
 
-If anything is still unclear after reading this tutorial, please reach out to :code:`support@open-ephys.org`, we will respond directly and update the tutorial as needed. 
+If anything is still unclear after reading this tutorial, please reach out to :code:`support@open-ephys.org`, we will respond directly and update the tutorial as needed.

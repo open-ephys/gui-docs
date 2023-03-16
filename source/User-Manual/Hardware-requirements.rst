@@ -24,7 +24,7 @@ Computer specs
 
 * **Operating system** - the acquisition board works equally well on macOS, Windows, and Linux (all distros).
 
-* **Processor** - A 4-core, 3.0+ GHz processor is fine for 32-channel recordings, but you'll want more cores and more speed as you scale up. Having a faster processor will allow you to build more complex signal chains without worrying about CPU overload. The GUI uses multithreading for data acquisition and recording, so having more cores is also helpful. 
+* **Processor** - A 4-core, 3.0+ GHz processor is fine for 32-channel recordings, but you'll want more cores and more speed as you scale up. Having a faster processor will allow you to build more complex signal chains without worrying about CPU overload. The GUI uses multithreading for data acquisition and recording, so having more cores is also helpful.
 
 * **Memory** - at least 1 GB of memory per 32 channels.
 
@@ -39,7 +39,7 @@ Other hardware
 
 These are the minimum requirements for getting up and running. You will likely need additional hardware for the full experiment (e.g. reward ports, mazes, commutators, light for optogenetic stimulation).
 
-* **Acquisition board** (available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/eux9baf6a5s8tid06hk1mw5aafjdz1>`__)
+* **Acquisition board** (available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/acquisition-board>`__)
 
 * **I/O boards** for interfacing with auxiliary analog and digital signals (available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/io-board-pcb>`__)
 
