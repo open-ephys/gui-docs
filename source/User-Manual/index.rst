@@ -11,6 +11,8 @@ The GUI was designed to process, record, and visualize multichannel extracellula
 * `Intan RHD USB Interface Board <https://intantech.com/RHD_USB_interface_board.html>`__
 * `Intan RHD Recording Controller <https://intantech.com/recording_controller.html>`__
 * `Neuropixels probes <https://www.neuropixels.org/>`__
+* `XDAQ ONE and Core <https://kontex.io/pages/xdaq>`__
+* `EEG headsets that use Lab Streaming Layer <https://labstreaminglayer.org/#/>`__
 
 This manual covers key topics, such as:
 
@@ -37,8 +39,6 @@ If there's something missing from this documentation that you think should be in
     Remote-control
     Whats-new
     Plugins/index
-    
+
 .. role:: raw-html-m2r(raw)
    :format: html
-
-

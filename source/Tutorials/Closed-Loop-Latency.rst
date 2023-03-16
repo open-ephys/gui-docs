@@ -19,10 +19,10 @@ This tutorial will guide you through the steps involved in setting up a signal c
 Required hardware
 #################
 
-* 1 `Open Ephys Acquisition Board <https://open-ephys.org/acquisition-system/eux9baf6a5s8tid06hk1mw5aafjdz1>`__ with 5V power supply and USB cable (headstages are optional)
+* 1 `Open Ephys Acquisition Board <https://open-ephys.org/acq-board`__ with 5V power supply and USB cable (headstages are optional)
 * 2 `Open Ephys I/O Boards <https://open-ephys.org/acquisition-system/io-board-pcb>`__ with HDMI cables
 * 2 Arduinos with 5V operating voltage (e.g. `Arduino Uno <https://store-usa.arduino.cc/products/arduino-uno-rev3/?selectedStore=us>`__). along with the appropriate USB cables
-* 2 BNC cables 
+* 2 BNC cables
 * 2 BNC Female-to-Binding Post Adapters (e.g., `Thorlabs T1452 <https://www.thorlabs.com/thorproduct.cfm?partnumber=T1452>`__)
 * 4 hookup wires (minimum 5" long) with bare ends
 
@@ -73,7 +73,7 @@ Once the Arduinos have been configured, connect the various devices according to
 
 * **I/O board #2** should be connected to the :code:`DIGITAL INPUT` port (4th from the left) of the acquisition board via HDMI.
 
-* **Arduino #1** should be powered via USB. Use the hookup wire to connect pin 13 to the positive (red) terminal of the BNC adapter and the ground pin to the negative (black) terminal of the BNC adapter. 
+* **Arduino #1** should be powered via USB. Use the hookup wire to connect pin 13 to the positive (red) terminal of the BNC adapter and the ground pin to the negative (black) terminal of the BNC adapter.
 
 * **Arduino #2** should be connected via USB to the same computer as the acquisition board. Use the hookup wire to connect pin 13 to the positive (red) terminal of the BNC adapter and the ground pin to the negative (black) terminal of the BNC adapter.
 
@@ -88,7 +88,7 @@ Once all of the devices are connected, launch the Open Ephys GUI. Starting with 
 
 #. **Rhythm FPGA** - It should automatically detect and connect to the acquisition board. Press the "ADC" button to add the analog input channels to the data stream.
 
-#. **Crossing Detector** - If this plugin does not appear in the signal chain, it can be added via the Plugin Installer (File > Plugin Installer). Change the "threshold" value to 3. If there are headstages connected, set the input channel ("IN") to the first ADC channel (number of headstage channels + 1). 
+#. **Crossing Detector** - If this plugin does not appear in the signal chain, it can be added via the Plugin Installer (File > Plugin Installer). Change the "threshold" value to 3. If there are headstages connected, set the input channel ("IN") to the first ADC channel (number of headstage channels + 1).
 
 #. **Arduino Output** - Select the "Device" that corresponds to Arduino #2, the "Trig" channel to 1.
 
@@ -119,20 +119,20 @@ The following code snippet shows how to load the event data using the `open-ephy
   from open_ephys.analysis import Session
 
   import matplotlib.pyplot as plt
-  
+
   session = Session('/path/to/recording')  # create a Session object
-  
+
   df = session.recordnodes[0].recordings[0].events  # load the events DataFrame
-  
+
   trigger = df[(df.channel == 1) &
                  (df.state == 1)] # select the "on" events on channel 1
-    
-  response = df[(df.channel == 2) & 
+
+  response = df[(df.channel == 2) &
                   (df.state == 1)] # select the "on" events on channel 2
-    
+
   t_response = response.timestamp.values / 30000 * 1000 # convert to ms
   t_trigger = trigger.timestamp.values / 30000 * 1000 # convert to ms
-    
+
   plt.hist(t_response - t_trigger, bins=np.arange(0,40,2))
   plt.show()
 
@@ -170,4 +170,3 @@ Next steps
 ###########
 
 Once you've gotten the above setup working, it can be helpful to try using the :ref:`filereader` plugin to trigger feedback. For example, you could use the :code:`data_stream_16ch_hippocampus` dataset that's included in the example data in combination with a :ref:`bandpassfilter` and :ref:`phasedetector` plugin to replicate the theta-phase-specific stimulation used in `Siegle et al., 2014 <https://elifesciences.org/articles/03061>`__. In this case, you won't be able to measure the true latency, but it will allow you to test out a signal chain that can be used in an actual experiment.
-

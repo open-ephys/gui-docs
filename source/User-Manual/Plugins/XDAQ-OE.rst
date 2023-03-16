@@ -6,8 +6,8 @@
 XDAQ
 ################
 
-.. image:: ../../_static/images/plugins/xdaq-oe/Editor.png
-  :alt: Annotated settings interface for the Acquisition Board plugin
+.. image:: ../../_static/images/plugins/xdaq-oe/xdaq-oe-01.png
+  :alt: Annotated settings interface for the XDAQ plugin
 
 .. csv-table:: Streams data from XDAQ Systems.
    :widths: 18, 80
@@ -15,7 +15,7 @@ XDAQ
    "*Plugin Type*", "Source"
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No"
-   "*Key Developers*", "Josh Siegle, Aarón Cuevas López, Stone Lin"
+   "*Key Developers*", "Stone Lin"
    "*Source Code*", "https://github.com/open-ephys-plugins/XDAQ-OE"
 
 
@@ -27,14 +27,13 @@ Plugin configuration
 Headstages
 ############
 
-XDAQ Systems (ONE, CORE...) can support up to 16 RHD headstage chips depending on model and configuration.
-Each row corresponds to one HDMI port on the XDAQ, and each column corresponds to one headstage chip on that port. 
+XDAQ Systems (ONE, CORE...) can support up to 16 RHD headstage chips depending on model and configuration. Each row corresponds to one HDMI port on the XDAQ, and each column corresponds to one headstage chip on that port.:
 
-.. image:: ../../_static/images/plugins/xdaq-oe/HDMI-Ports.png
+.. image:: ../../_static/images/plugins/xdaq-oe/xdaq-oe-02.png
 
-X-Headstage is manufactured using advanced packaging technology.  Thus, one X-Headstage may contain multiple headstage chips and will display multiple chips in the GUI.  For example, X6R128 headstage will display as two 64ch headstages in the GUI.
+X-Headstages are manufactured using advanced packaging technology. Thus, one X-Headstage may contain multiple headstage chips and will display multiple chips in the GUI. For example, an X6R128 headstage will display as two 64-channel headstages in the GUI.
 
-Each XDAQ ONE port supports up to 4 RHD chips (2 for XDAQ CORE).  Use an adapter to run multiple X-Headstages if necessary.
+Each XDAQ ONE port supports up to 4 RHD chips (2 for XDAQ CORE). Use an adapter to run multiple X-Headstages if necessary.
 
 The module will automatically detect headstages that are connected. However, if you add or remove headstages after the module has been loaded, you need to press the "RESCAN" button.
 
@@ -47,7 +46,7 @@ Sample rates between 1 and 30 kHz can be selected with this drop-down menu. This
 Bandwidth interface
 #####################
 
-Used to determine the settings for the analog high and low cut filters on the Intan chip. Because only certain values are possible for each, the number that appears may be different from the number you typed in; the chip will automatically select the nearest value, and that will be indicated in the GUI. 
+Used to determine the settings for the analog high and low cut filters on the Intan chip. Because only certain values are possible for each, the number that appears may be different from the number you typed in; the chip will automatically select the nearest value, and that will be indicated in the GUI.
 
 
 DSP button
@@ -94,7 +93,7 @@ Impedance testing
 
 To open the impedance measurement interface, click the "window" or "tab" buttons at the top of the plugin editor. This will bring up an impedance measurement interface that looks like this:
 
-.. image:: ../../_static/images/plugins/xdaq-oe/Impedance-Test-Annotated.png
+.. image:: ../../_static/images/plugins/xdaq-oe/xdaq-oe-03.png
   :alt: Annotated impedance measurement interface
 
 |
