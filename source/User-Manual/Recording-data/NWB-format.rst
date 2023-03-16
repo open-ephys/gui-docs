@@ -110,13 +110,9 @@ Reading data in Python
 Reading data in Matlab
 #######################
 
-For now, use Matlab's :code:`h5read` method to open datasets within an NWB file, e.g.:
+* Use the `open-ephys-matlab-tools` <https://github.com/open-ephys/open-ephys-matlab-tools>`__ library.
 
-.. code-block:: matlab
+.. note:: NWB files written by the Open Ephys GUI are not currently compatible with the :code:`MatNWB` library. We are working on a fix!
 
-   data = h5read(filename, dataset)
-
-NWB-specific loading functions are coming soon.
 
 |
-

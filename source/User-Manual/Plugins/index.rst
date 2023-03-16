@@ -164,6 +164,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Tracking-Plugin
     TTL-Panels
     Virtual-Reference
+    XDAQ-OE
     ZMQ-Interface
     
     

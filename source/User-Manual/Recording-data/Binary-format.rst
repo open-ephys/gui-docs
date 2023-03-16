@@ -8,7 +8,7 @@ Binary Format
 .. image:: ../../_static/images/recordingdata/binary/header.png
   :alt: Binary data file icons
 
-.. csv-table:: This is the default format for the Open Ephys GUI. Continuous data is stored in flat binary files, and everything else is in JSON / numpy format. Takes advantage of widely used open standards to maximize compatibility with existing and future analysis tools. 
+.. csv-table:: This is the default format for the Open Ephys GUI. Continuous data is stored in flat binary files, and everything else is in JSON / numpy format. Takes advantage of widely used open standards to maximize compatibility with existing and future analysis tools.
    :widths: 18, 80
 
    "*Platforms*", "Windows, Linux, macOS"
@@ -132,4 +132,4 @@ Reading data in Python
 Reading data in Matlab
 #######################
 
-* Use :code:`load_open_ephys_binary.m` from the `open-ephys/analysis-tools <https://github.com/open-ephys/analysis-tools/blob/master/load_open_ephys_binary.m>`__ repository.
+* Use the `open-ephys-matlab-tools` <https://github.com/open-ephys/open-ephys-matlab-tools>`__ library.

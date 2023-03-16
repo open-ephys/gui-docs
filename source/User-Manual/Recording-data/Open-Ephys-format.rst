@@ -15,7 +15,7 @@ Open Ephys Format
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Josh Siegle, Aarón Cuevas López"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Source/Processors/RecordNode/OpenEphysFormat"
+   "*Source Code*", "https://github.com/open-ephys-plugins/open-ephys-data-format"
 
 **Advantages**
 
@@ -128,4 +128,4 @@ Reading data in Python
 Reading data in Matlab
 #######################
 
-* Use :code:`load_open_ephys_data.m` from the `open-ephys/analysis-tools <https://github.com/open-ephys/analysis-tools/blob/master/load_open_ephys_data.m>`__ repository.
+* Use the `open-ephys-matlab-tools` <https://github.com/open-ephys/open-ephys-matlab-tools>`__ library.
