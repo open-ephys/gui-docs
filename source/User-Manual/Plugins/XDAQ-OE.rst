@@ -27,9 +27,11 @@ Plugin configuration
 Headstages
 ############
 
-XDAQ Systems (ONE, CORE...) can support up to 16 RHD headstage chips depending on model and configuration. Each row corresponds to one HDMI port on the XDAQ, and each column corresponds to one headstage chip on that port.:
+XDAQ Systems (ONE, CORE...) can support up to 16 RHD headstage chips depending on model and configuration. Each row corresponds to one HDMI port on the XDAQ, and each column corresponds to one headstage chip on that port:
 
 .. image:: ../../_static/images/plugins/xdaq-oe/xdaq-oe-02.png
+
+|
 
 X-Headstages are manufactured using advanced packaging technology. Thus, one X-Headstage may contain multiple headstage chips and will display multiple chips in the GUI. For example, an X6R128 headstage will display as two 64-channel headstages in the GUI.
 
