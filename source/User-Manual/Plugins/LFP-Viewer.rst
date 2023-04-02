@@ -39,6 +39,20 @@ The most commonly used options are always visible along the bottom of the LFP Vi
 .. image:: ../../_static/images/plugins/lfpviewer/lfpviewer-02.png
   :alt: LFP Viewer settings
 
+* **Timebase:** Sets the width of the display (in seconds). Additional timebases can be added by typing a custom value in the dropdown menu.
+
+* **Chan height:** Sets the amount of vertical screen space allocated for each channel (not applicable in single-channel mode). Additional channel heights (between 6 and 100 pixels) can be added by typing a custom value in the dropdown menu.
+
+* **Range:** Sets the vertical extent of individual channel displays. The y-range of the display will be equal to 100% of the selected voltage range, with boundaries at +/-50%. For the default range of 250 µV, the display will extend from -125 to +125 µV. Ranges can be set independently for different channel types (:code:`DATA`, :code:`AUX`, and :code:`ADC`). Additional ranges can be added by typing a custom value in the dropdown menu.
+
+* **Event overlay:** By default, events on TTL lines 1-8 will be overlaid as translucent vertical bars. These can be toggled on and off for individual lines by clicking the event overlay buttons.
+
+* **Pause:** The "pause" button will cause an individual display to stop updating, without affecting data acquisition or recording. As of GUI v0.6.4, it's possible to click and drag the timescale of a paused LFP Viewer to scroll backwards in time up to 3x the width of the display. When the display is paused, it's possible to change the channel height or range of the display, but not the timebase. You can also toggle single-channel mode to take a closer look at individual channels.
+
+* **Color scheme:** Changes the appearance of the display (channel color and background color).
+
+* **Color grouping:** Sets the number of adjacent channels with the same color. For example, if you're recording with tetrodes, you can group the colors for every four channels.
+
 
 Additional options
 -------------------
@@ -81,3 +95,12 @@ Triggered display
 
 * **Reset trials:** If trial averaging mode is :code:`ON`, this button will set the trial count to zero and reset the averaging process.
 
+Single-channel mode
+######################
+
+.. image:: ../../_static/images/plugins/lfpviewer/lfpviewer-04.png
+  :alt: Annotated single-channel view
+
+Double-clicking on any channel in the LFP Viewer will switch the display into single-channel mode. When single-channel mode is active, the mean and standard deviation of the current channel are shown on the left-hand side of the display. In addition, clicking anywhere within the display will update the "uV" value based on the y-position of the cursor. This feature can be used to measure the approximate amplitude of spikes by clicking on the location of the peak and trough.
+
+The full height of the display is determined by the "range" parameter in the main options bar. Horizontal lines appear at -25%, 0%, and 25% of the range value. For the default range of 250 µV, the display will stretch from -125 to +125 µV, with lines indicating -62.5, 0, and +62.5 µV.
