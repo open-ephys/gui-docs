@@ -31,18 +31,18 @@ Plugin Configuration
 
 .. note:: The Spectrum Viewer plugin may take a few seconds to initialize, so please be patient!
 
-First, make sure the correct stream is selected in the plugin editor. Then, select channels to display (up to 8). A color legend is shown next to the Power Spectrum plot which displays the colors mapped to each channel along with the channel name.
+First, make sure the correct stream is selected in the plugin editor. Then, use the "Channels" button to select up to 8 channels to display from the selected stream. A color legend is shown next to the Power Spectrum plot which displays the colors mapped to each channel along with the channel name.
 
-You can also change the display type to Spectogram display which will show the spectrogram of the first selected channel.
+Use the "Display" drop-down menu to switch between "Power Spectrum" and "Spectogram" mode. In "Spectrogram" mode, only the first selected channel will be displayed.
 
-The frequency range can be changed between 4 options: :code:`0 - 100Hz`, :code:`0 - 500Hz`, :code:`0 - 1000Hz` (default), and the last option is the maximum frequency range possible for the selected stream.
+The frequency range can be changed between 4 options: :code:`0 - 100Hz`, :code:`0 - 500Hz`, :code:`0 - 1000Hz` (default), or the maximum frequency range possible for the selected stream.
 
 You can update the selected channels, and the display type, but not the selected stream or the display frequency range, while acquisition is active.
 
 Visualization
 ##############
 
-The Spectrum Viewer analyzes the incoming data in 250 ms segments, and plots the resulting power spectra. The power is plotted on a log scale.
+The Spectrum Viewer performs an FFT on the incoming signal in chunks of 1 s, 500 ms, or 250 ms, depending on the selected frequency range. It uses a sliding window with a step size of 20 ms. The power is plotted on a log scale.
 
 Power Spectrum
 ---------------
@@ -50,7 +50,7 @@ Power Spectrum
 .. image:: ../../_static/images/plugins/spectrumviewer/spectrumviewer-02.png
   :alt: Power Spectrum display example
 
-By default, Spectrum Viewer display type is set to plot the power spectra of incoming data. The incoming data is processed and the resulting power data is sampled at the rate of 50Hz.  When plotting, the power data is first filtered using a low-pass Butterworth filter, and then an averaging filter is applied across frequencies which results in a smoother plot.
+By default, the Spectrum Viewer plots the 1D power spectra of the incoming signals, with frequency on the x-axis.  The power data is first filtered using a low-pass Butterworth filter, and then an averaging filter is applied across frequencies which results in a smoother plot.
 
 Spectrogram
 ------------
@@ -58,7 +58,7 @@ Spectrogram
 .. image:: ../../_static/images/plugins/spectrumviewer/spectrumviewer-03.png
   :alt: Power Spectrum display example
 
-Spectrum Viewer can also display the incoming data from the first selected channel as a three-dimensional spectrogram in the time (x-axis), frequency (y-axis) and power (colour) domains.
+The Spectrum Viewer can also display the incoming data from the first selected channel as a 2D spectrogram with time on the x-axis and frequency on the y-axis.
 
 
 |
