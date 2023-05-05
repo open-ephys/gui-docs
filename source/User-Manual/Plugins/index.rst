@@ -152,6 +152,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Phase-Detector
     Probe-Viewer
     Pulse-Pal
+    Python-Processor
     Record-Control
     Rhythm-Plugins
     Ripple-Detector
