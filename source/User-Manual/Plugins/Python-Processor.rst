@@ -9,7 +9,7 @@ Python Processor
 .. image:: ../../_static/images/plugins/pythonprocessor/pythonprocessor-01.png
   :alt: Annotated Python Processor editor
 
-.. csv-table:: A plugin for running custom Python scripts in the Open Ephys GUI signal chain.
+.. csv-table:: Modifies incoming continuous data using custom code written in Python.
    :widths: 18, 80
 
    "*Plugin Type*", "Filter"
@@ -22,50 +22,46 @@ Python Processor
 Installing and upgrading
 ###########################
 
-The Python Processor plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Python Processor" plugin, and click the "Install" button.
+The Python Processor is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Python Processor" plugin, and click the "Install" button.
 
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
 
+Setting up a Python environment
+####################################
 
-Plugin configuration
-######################
+This plugin must be able to find a local installation of Python version **3.10** with :code:`numpy` installed correctly.
 
-Before starting using the plugin, some pre-configuration is necessary. Although the plugin comes with a Python Interpreter built-in, a separate Python installation is required for the Interpreter to find the necessary library packages. 
+To avoid conflicts with other Python installations, we recommend using `Conda <https://docs.conda.io/projects/conda/en/stable/index.html>`__ to manage your Python environments. You can install Conda either using Miniconda or Anaconda by following the instructions `here <https://docs.conda.io/projects/conda/en/stable/user-guide/install/download.html>`__. More information on how to use Conda can be found `here <https://docs.conda.io/projects/conda/en/stable/user-guide/getting-started.html>`__.
 
-As the plugin is complied against :code:`Python 3.10`, a Python installation of the same version is required. Along with that, :code:`numpy` needs to be installed in the same environment.
+.. important:: On macOS, conda needs to be installed using the x86_64 Miniconda / Anaconda installer. 
 
-To make the process of setting up a custom Python version and to avoid conflicts with your existing & future Python installations, we recommend installing and setting up a `Conda <https://docs.conda.io/projects/conda/en/stable/index.html>`__ environment. You can install Conda either using Miniconda or Anaconda by following the instructions `here <https://docs.conda.io/projects/conda/en/stable/user-guide/install/download.html>`__. More information on how to use Conda can be found `here <https://docs.conda.io/projects/conda/en/stable/user-guide/getting-started.html>`__.
-
-.. important:: As the GUI currently only supports x86_64 architecture on macOS, Conda needs to be installed using x86_64 version of Miniconda / Anaconda installer. 
-
-Setting up the Conda environment
----------------------------------
-
-To create a new Conda environment with Python 3.10, enter the following conda command in your prompt:
+To create a new Conda environment that uses Python 3.10, enter the following :code:`conda` command in your Anaconda prompt (Windows) or Terminal (Linux and macOS):
 
 .. code-block:: bash
 
-   conda create -n ENVNAME python=3.10
+   conda create -n oe-python-plugin python=3.10
 
-This will create a new Conda environment with Python 3.10 installed. Then, activate this newly created environment. 
+This will create a new Conda environment with Python 3.10 installed. Then, activate this newly created environment like so:
 
 .. code-block:: bash
 
-   conda activate ENVNAME
+   conda activate oe-python-plugin
 
 After this, :code:`numpy` needs to be installed in the same environment as follows:
 
 **Windows**
 
-Due to some limitations, numpy needs to be installed using the :code:`pip` package manager. Using Conda's numpy package causes the script to fail to load. 
+:code:`numpy` must to be installed using the :code:`pip` package manager (not :code:`conda`) inside the :code:`oe-python-plugin` environment:
 
 .. code-block:: bash
 
    pip install numpy
 
-**Linux & macOS**
+.. important:: On Windows, if you use :code:`conda` to install :code:`numpy`, the plugin will fail to load your Python module. We are still investigating the cause of this issue.
 
-On Linux & macOS, numpy can be installed with either conda or pip. 
+**Linux and macOS**
+
+:code:`numpy` can be installed with either :code:`conda` or :code:`pip`, e.g.:
 
 .. code-block:: bash
 
@@ -75,37 +71,37 @@ On Linux & macOS, numpy can be installed with either conda or pip.
 Setting the Python Interpreter Path
 -------------------------------------
 
-Once a Conda environment is setup as mentioned above, the plugin is ready to be loaded into any desired signal chain. As soon as the plugin is dropped into the signal chain, it asks for the path to Python Home directory, which is where the Python Interpreter is located. This allows the plugin to be flexible in terms of which Python libraries to use during runtime, and not rely on the system PATH to figure out Python Home location. 
+Once a dedicated Python 3.10 Conda environment has been created, the plugin is ready to be loaded into any desired signal chain. As soon as the plugin is dropped into the signal chain, it asks for the path to Python Home directory, which is where the Python Interpreter is located. This allows the plugin to be flexible in terms of which Python libraries to use during runtime, and not rely on the system PATH to figure out the Python Home location. 
 
 When using Conda, this path is usually where the Conda environment got created. Some examples of where it may be located: 
 
-* Windows 10 with Anaconda3 and username “jsmith” - :code:`C:\\Users\\jsmith\\miniconda3`
+* Windows 10 with Anaconda3: :code:`C:\\Users\\<username>\\miniconda3`
 
-* macOS - :code:`~/miniconda3` or :code:`/Users/jsmith/miniconda3`
+* macOS - :code:`~/miniconda3` or :code:`/Users/<username>/miniconda3`
 
-* Linux - :code:`~/miniconda3` or :code:`/home/jsmith/miniconda3`
+* Linux - :code:`~/miniconda3` or :code:`/home/<username>/miniconda3`
 
-The Python image in a conda environment called “my-env” might be in a location such as :code:`${USERHOME}\\miniconda3\\envs\\my-env`
+The Python image in a Conda environment called “oe-python-plugin” might be in a location such as :code:`${USERHOME}\\miniconda3\\envs\\oe-python-plugin`
 
-If you have installed Anaconda instead of Miniconda, the folder might be named: :code:`Anaconda` or :code:`Anaconda3`
+If you have installed Anaconda instead of Miniconda, the folder might be named :code:`Anaconda` or :code:`Anaconda3`.
 
-Once, the path is selected, if everything went well, the plugin will load into the signal chain successfully. If it fails to load the Python Interpreter, then it will ask for the PATH to Python Home again. This means, either the provided PATH was incorrect, or a wrong version of Python was installed. If this happens, it is recommended to close and relaunch the GUI to reset the PATH variables. 
+Once the path is selected, the plugin should load into the signal chain successfully. If it fails to load the Python Interpreter, then it will ask for the PATH to Python Home again. This means that either the provided PATH was incorrect, or an incompatible version of Python was installed (i.e., not 3.10). If this happens, it is recommended to close and relaunch the GUI to reset the PATH variables.
 
-Creating & Loading a Python Module
------------------------------------
+Creating & loading a Python Module
+####################################
 
-Once the plugin is loaded into the signal chain, to do the actual processing of the incoming data in Python, a python module (script) needs to be loaded into the GUI. This module needs to be generated using the `processor template <https://github.com/open-ephys-plugins/python-processor/blob/main/Modules/template/processor_template.py>`__ provided in the plugin's GitHub repository. The :code:`PyProcessor` class is designed to expose the following functions to the Python module to allow interaction with the incoming data.  
+Once the plugin is loaded into the signal chain, a Python module (script) needs to be loaded into the GUI. This module should take the same form as the `processor template <https://github.com/open-ephys-plugins/python-processor/blob/main/Modules/template/processor_template.py>`__ provided in the plugin's GitHub repository. The :code:`PyProcessor` class is designed to expose the following functions to the Python module to allow interaction with the incoming data:  
 
 .. py:function:: __init__(self, num_channels, sample_rate)
 
-   A new processor is initialized when the module is imported/reloaded or plugin settings are updated
+   A new processor is initialized when the module is imported/reloaded, or the plugin's settings are updated (i.e., the number of input channels changes, or a new stream is selected).
 
    :param num_channels: number of input channels from the selected stream
-   :param sample_rate: Selected stream's sample rate
+   :param sample_rate: the selected stream's sample rate
 
 .. py:function:: process(self, data)
 
-   Process each incoming data buffer.
+   Process each incoming data buffer. Any modifications to the :code:`data` variable will be passed to downstream processors.
 
    :param data: incoming data buffer
    :type data: ndarray
@@ -116,20 +112,26 @@ Once the plugin is loaded into the signal chain, to do the actual processing of 
 
 .. py:function:: stop_acquisition(self)
 
-   Called before stopping acquisition. Allows the script to do some finalization before acquisition stops.
+   Called after stopping acquisition. Allows the script to do some finalization after acquisition stops.
 
 .. py:function:: start_recording(self, recording_dir)
 
-   Called before starting recording. Allows the script to do some setup/initialization before recording starts.
+   Called before starting recording. Informs the plugin that the GUI is now recording data, in case it needs to save any information of its own.
 
    :param recording_dir: directory where recording related files are supposed to be stored
 
 .. py:function:: stop_recording(self)
 
-   Called before stopping recording. Allows the script to do some finalization before recording stops.
+   Called before stopping recording. Informs the plugin that the GUI is no longer recording data.
 
-Using this template, any type of data processing can be done in Python in real-time and the data buffer `can` be overwritten with the new processed data which will be received by downstream processors.
+Using this template, any type of data processing can be done in Python in real-time. The data buffer should be overwritten with the new processed data, which will be received by downstream processors.
 
-.. Note:: With the processing being done in Python, there are some obvious constraints such as increased latency, especially with high-channel-count data. 
+An example script is provided in the plugin's GitHub repository in the form of a `Butterworth Bandpass filter <https://github.com/open-ephys-plugins/python-processor/blob/main/Modules/examples/bandpass_filter.py>`__. This filter is the same as the one used in the GUI's built-in Filter Node plugin.
 
-One example script is provided in the plugin's GitHub repository in the form of a `Butterworth Bandpass filter <https://github.com/open-ephys-plugins/python-processor/blob/main/Modules/examples/bandpass_filter.py>`__. This filter is the same as the one used in the Filter Node plugin.
+.. Note:: Pay careful attention to the latency introduced by processing data in Python, especially with high-channel-count data. 
+
+Limitations
+######################
+
+The Python plugin currently only handles continuous data, not events or spikes. In the future, we plan to add the ability to send events and spikes to and from the Python module.
+
