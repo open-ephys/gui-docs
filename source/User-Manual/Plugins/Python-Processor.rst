@@ -133,5 +133,8 @@ An example script is provided in the plugin's GitHub repository in the form of a
 Limitations
 ######################
 
-The Python plugin currently only handles continuous data, not events or spikes. In the future, we plan to add the ability to send events and spikes to and from the Python module.
+* The Python plugin currently only handles continuous data, not events or spikes. In the future, we plan to add the ability to send events and spikes to and from the Python module.
 
+* Only one instance of the plugin is allowed at a time in a signal chain. Having multiple instances of the plugin in the same signal chain will result in random crashes. 
+
+* Creating visualizations in real-time using Python libraries such as :code:`matplotlib` is not possible.
