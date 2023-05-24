@@ -49,23 +49,11 @@ This will create a new Conda environment with Python 3.10 installed. Then, activ
 
 After this, :code:`numpy` needs to be installed in the same environment as follows:
 
-**Windows**
-
-:code:`numpy` must to be installed using the :code:`pip` package manager (not :code:`conda`) inside the :code:`oe-python-plugin` environment:
-
-.. code-block:: bash
-
-   pip install numpy
-
-.. important:: On Windows, if you use :code:`conda` to install :code:`numpy`, the plugin will fail to load your Python module. We are still investigating the cause of this issue.
-
-**Linux and macOS**
-
-:code:`numpy` can be installed with either :code:`conda` or :code:`pip`, e.g.:
-
 .. code-block:: bash
 
    conda install numpy
+
+.. important:: On Windows, if you use :code:`pip` to install Python packages, the plugin will fail to load your Python module. We are still investigating the cause of this issue.
 
 
 Setting the Python Interpreter Path
@@ -75,7 +63,7 @@ Once a dedicated Python 3.10 Conda environment has been created, the plugin is r
 
 When using Conda, this path is usually where the Conda environment got created. Some examples of where it may be located: 
 
-* Windows 10 with Anaconda3: :code:`C:\\Users\\<username>\\miniconda3`
+* Windows: :code:`C:\\Users\\<username>\\miniconda3` or :code:`C:\\miniconda3`
 
 * macOS - :code:`~/miniconda3` or :code:`/Users/<username>/miniconda3`
 
@@ -124,16 +112,49 @@ Once the plugin is loaded into the signal chain, a Python module (script) needs 
 
    Called before stopping recording. Informs the plugin that the GUI is no longer recording data.
 
+.. py:function:: handle_ttl_event(self, source_node, channel, sample_number, line, state)
+   
+   Handle each incoming ttl event.
+
+   :param source_node: id of the processor this event was generated from
+   :param channel: name of the event channel
+   :param sample_number: sample number of the event
+   :param line: the line on which event was generated (0-255) 
+   :param state: event state True (ON) or False (OFF)
+
+.. py:function:: handle_spike(self, source_node, electrode_name, num_channels, num_samples, sample_number, sorted_id, spike_data)
+   
+   Handle each incoming spike.
+   
+   :param source_node: id of the processor this spike was generated from
+   :param electrode_name: name of the electrode
+   :param num_channels: number of channels associated with the electrode type
+   :param num_samples: total number of samples in the spike waveform 
+   :param sample_number: sample number of the spike
+   :param sorted_id: the sorted ID for this spike
+   :param spike_data: waveform as N x M numpy array, where N = num_channels & M = num_samples (read-only).
+
 Using this template, any type of data processing can be done in Python in real-time. The data buffer should be overwritten with the new processed data, which will be received by downstream processors.
 
-An example script is provided in the plugin's GitHub repository in the form of a `Butterworth Bandpass filter <https://github.com/open-ephys-plugins/python-processor/blob/main/Modules/examples/bandpass_filter.py>`__. This filter is the same as the one used in the GUI's built-in Filter Node plugin.
+.. Note:: Pay careful attention to the latency introduced by processing data in Python, especially with high-channel-count data.
 
-.. Note:: Pay careful attention to the latency introduced by processing data in Python, especially with high-channel-count data. 
+
+There is also a way to send TTL events back from Python to C++. These events will be added to the event buffer for the downstream processors to handle. It is possible using a C++ function exposed to the Python module via an embedded module called :code:`oe_pyprocessor`. To use this function, the :code:`oe_pyprocessor` module needs to be imported inside the script and then the C++ function can be invoked like this: :code:`oe_pyprocessor.add_python_event(line, state)`
+
+.. py:function:: add_python_event(line, state)
+   
+   Send TTL event from Python to C++
+   
+   :param line: (int) event line number [0-255]
+   :param electrode_name: (bool) event state True (ON) or False (OFF)
+
+
+An example script is provided in the plugin's GitHub repository in the form of a `Butterworth Bandpass filter <https://github.com/open-ephys-plugins/python-processor/blob/main/Modules/examples/bandpass_filter.py>`__. This filter is the same as the one used in the GUI's built-in Filter Node plugin.
 
 Limitations
 ######################
 
-* The Python plugin currently only handles continuous data, not events or spikes. In the future, we plan to add the ability to send events and spikes to and from the Python module.
+* Unlike continuous data and events, sending spikes back from Python is not currently possible.
 
 * Only one instance of the plugin is allowed at a time in a signal chain. Having multiple instances of the plugin in the same signal chain will result in random crashes. 
 
