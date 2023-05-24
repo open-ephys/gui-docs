@@ -9,7 +9,7 @@ Python Processor
 .. image:: ../../_static/images/plugins/pythonprocessor/pythonprocessor-01.png
   :alt: Annotated Python Processor editor
 
-.. csv-table:: Modifies incoming continuous data using custom code written in Python.
+.. csv-table:: Modifies incoming continuous data and handles events and spikes using custom code written in Python.
    :widths: 18, 80
 
    "*Plugin Type*", "Filter"
