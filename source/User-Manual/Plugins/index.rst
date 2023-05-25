@@ -146,6 +146,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Neuropixels-CAR
     Neuropixels-PXI
     NIDAQmx
+    NIDAQ-Output
     Online-PSTH
     OSC-Events
     Phase-Calculator

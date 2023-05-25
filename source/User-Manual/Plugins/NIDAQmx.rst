@@ -3,7 +3,7 @@
    :format: html
 
 NI-DAQmx
-===========
+========
 
 .. image:: ../../_static/images/plugins/nidaqmx/nidaqmx-01.png
   :alt: NI-DAQmx plugin settings interface
@@ -70,6 +70,21 @@ Each digital channel contains a channel status toggle button as well. Disabling 
 
 On the right side of the module are pull-down selection menus to select the sample rate and voltage range of all analog input channels (set individually for each channel). The module defaults to the highest sample rate as well as the largest voltage range available on the devices. Sample rate and voltage range selection are both disabled during data acquisition and recording. 
 
+Configuring the Plugin
+#########################
+
+.. image:: ../../_static/images/plugins/nidaqmx/nidaqmx-02.png
+  :alt: NI-DAQ Output plugin settings interface
+
+Clicking the **...** button will display the popup menu above allowing you to configure the plugin. The following settings are available:
+
+* **Analog Output Channels** - Select the number of analog input channels to use, the default is 8. The number of channels available depends on the NI device selected and how many analog channels are required for your experimental setup. The intention here is to not clutter the editor with channels you are not actively using. Adding/removing channels will automatically update the editor to reflect the changes.
+
+* **Digital Output Channels** - Select the number of digital output channels to use.
+
+* **Digital Write Size** - Select the size of the digital write in bits. Some devices only support 8-bit reads, while others support 16-bit or 32-bit. The plugin will attempt to automatically detect the read size based on your device. If the read size is not correctly detected, you can manually select the read size here.
+
+* **Active Port Selection** - Select which digital IO port(s) to enable as input on the selected NI device. Different ports may have different functionality regarding timing and transitions, refer to the user manual for your particular device to ensure you are using the appropraite port for your experiment. Port selection is necessary when also using the NI-DAQ Output plugin to write digital outputs using the same device. Given the plugin architecture of the GUI, the user must ensure that the same port is not used for both input and output across multiple plugins. Toggling a port will enable/disable output on that port, where green indicates the port is enabled and red indicates the port is disabled.
 
 Offline Synchronization
 #########################################
