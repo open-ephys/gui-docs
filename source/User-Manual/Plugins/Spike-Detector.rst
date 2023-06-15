@@ -20,7 +20,7 @@ Spike Detector
 
 .. note:: The Spike Detector has changed significantly in GUI version 0.6.0+. Be sure to read the documentation carefully to understand the new user interface.
 
-
+.. caution:: This plugin uses an internal buffer that is 200 samples wide. If the GUI's data processing buffer is smaller than this (e.g., 6.6 ms for 30 kHz sample rate), the Spike Detector will fail to detect some spikes.
 
 Recommended signal chain
 ########################
