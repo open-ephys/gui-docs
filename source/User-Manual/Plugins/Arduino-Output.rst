@@ -19,6 +19,24 @@ Arduino Output
    "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/main/Plugins/ArduinoOutput"
 
 
+Compatible devices
+=========================
+
+.. role:: red
+
+.. role:: green
+
+Not all Arduino-like devices will work with this plugin. Below is a list of ones we've tested. If you've tried using other devices, please let us know!
+
+.. csv-table::
+   :widths: 20, 20
+
+   "**Device**", "**Compatible?**"
+   "Arduino Uno", ":green:`Yes`"
+   "Arduino Leonardo", ":green:`Yes`"
+   "Teensy 3.2", ":red:`No`"
+
+
 Configuring your Arduino
 =========================
 
