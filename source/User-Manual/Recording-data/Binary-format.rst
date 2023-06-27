@@ -77,7 +77,7 @@ Event data is organized by stream and by "event channel" (typically :code:`TTL`)
 
 Directories for TTL event channels include the following files:
 
-* :code:`states.npy`:  numpy array of *N* 16-bit integers, indicating ON (+CH_number) and OFF (-CH_number) states
+* :code:`states.npy`:  numpy array of *N* 16-bit integers, indicating ON (+CH_number) and OFF (-CH_number) states **Note:** This file was called :code:`channel_states.npy` in GUI version 0.5.X. 
 
 * :code:`sample_numbers.npy` Contains *N* 64-bit integers indicating the sample number of each event since the start of acquisition. **Note:** This file was called :code:`timestamps.npy` in GUI version 0.5.X. To avoid ambiguity, "sample numbers" always refer to integer sample index values starting in version 0.6.0.
 
