@@ -1,19 +1,18 @@
 =========
-Template for Open Ephys Documentation
+Documentation for the Open Ephys GUI
 =========
 
 This documentation's source template was taken from the `Spinal HDL <https://github.com/SpinalHDL/SpinalDoc-RTD>`_ project.
 
 The theme is based on the `PyData Sphinx Theme <https://pydata-sphinx-theme.readthedocs.io/en/latest/>`_
 
+For more detailed usage instructions, see the `Open Ephys Doc Template <https://github.com/open-ephys/doc-template>`_
+
 How to build this documentation
 ===============================
 
 With pipenv (recommended)
 -----------
-Requirements (system)
-
-* make
 
 Requirements (Python 3):
 
@@ -58,8 +57,7 @@ Requirements (system):
 Requirements (Python 3):
 
 * sphinx
-* sphinx-rtd-theme
-* sphinxcontrib-wavedrom
+* pydata-sphinx-theme=="0.13.3"
 
 After installing the requirements you can run
 
@@ -70,13 +68,3 @@ After installing the requirements you can run
    make latexpdf # for latex (will require latexpdf installed)
    make          # list all the available output format
 
-Continuous Integration(CI)
-==========================
-
-This repo uses Travis for its CI needs.
-If you want have a gh-pages preview on your fork, you need to activate your repo on Travis admin page.
-After that you only need add ``GITHUB_TOKEN`` as Environment Variable with your Github personal token (you only need grant repo/public_repo access)
-More details here:
-
-* `Defining variables <https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings>`_
-* `Deploy to gh-pages <https://docs.travis-ci.com/user/deployment/pages/>`_
