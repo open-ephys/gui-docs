@@ -58,12 +58,81 @@
   margin-right: 10px;
 }
 
+.search-button {
+  color: white !important;
+  margin-right: 30px;
+}
+
+
 .navbar a:hover {
   color: #f9f2d5 !important;
   transition-duration: 0.4s;
 }
 
-/* left side links */
+
+/* Landing page cards */
+.card-columns {
+  column-count: 4 !important;
+}
+
+.card-title {
+  margin: 1rem;
+}
+
+.intro-card .card-text {
+  margin:20px 0px;
+  color: var(--onix-txt-color) !important;
+}
+
+.card-img-top {
+  margin-top: 2em;
+}
+
+.card {
+  border: 0;
+}
+
+.intro-card {
+  transition: transform 0.2s ease;
+  border: 0;
+}
+
+.intro-card:hover {
+  transform: scale(1.05);
+}
+
+.col-lg-6 {
+  margin-top: 2em;
+}
+
+/* Gallery cards */
+
+.gallery-card .card-header {
+  height: 100%;
+  margin-top: 0rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+} /* example of the default height for title */
+
+.bd-content {
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+.bd-page-width {
+  max-width: 100rem;
+}
+
+.bd-sidebar-primary {
+ width: 20%;
+}
+
+strong {
+ font-weight: bold;
+}
+
+/* left side links 
 .bd-links>.active a {
   color: #3c81be !important;
   transition-duration: 0.4s;
@@ -73,17 +142,17 @@
   color: #5fb5dc !important;
   transition-duration: 0.4s;
   transform: translate(2px, 0px);
-}
+}*/
 
-/* right side links */
+/* right side links 
 .toc-entry>.nav-link.active {
   font-weight: 600;
   color: #344b39;
   background-color: transparent;
   border-left: 2px solid #da714a;
-}
+}*/
 
-/* body links (external) */
+/* body links (external) 
 a.reference.external {
   color: #9a5035;
 }
@@ -91,9 +160,9 @@ a.reference.external {
 a.reference.external:hover {
   color: #da714a;
   text-decoration: none;
-}
+}*/
 
-/* body links (internal) */
+/* body links (internal) 
 a.reference.internal {
   color: #3c81be;
 }
@@ -101,7 +170,7 @@ a.reference.internal {
 a.reference.internal:hover {
   color: #5fb5dc;
   text-decoration: none;
-}
+}*/
 
 /* header links */
 a.headerlink {
@@ -279,7 +348,7 @@ h6 {
 /* logo */
 .navbar-brand {
   position: relative;
-  height: 50px;
+  height: 70px;
   width: auto;
 }
 

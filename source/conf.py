@@ -40,7 +40,8 @@ release = "0.0.0"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx.ext.todo", "sphinx.ext.githubpages"]
+extensions = ["sphinx.ext.todo", 
+              "sphinx.ext.githubpages"]
 
 
 # Add any paths that contain templates here, relative to this directory.
@@ -59,7 +60,7 @@ main_doc = "index"
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -77,14 +78,21 @@ todo_include_todos = True
 # a list of builtin themes.
 #
 html_theme = "pydata_sphinx_theme"
-html_logo = "_static/images/oe_logo_gui.svg"
+html_logo = "_static/images/oe_logo_name.svg"
 html_scaled_image_link = True
 html_title = project
+html_show_sourcelink = True
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
+
+html_sidebars = {
+    'index': ['search-field.html'],
+    "**": ["sidebar-nav-bs.html"]
+}
+
 
 html_css_files = ['theme_overrides.css']
 
@@ -177,11 +185,22 @@ epub_exclude_files = ["search.html"]
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
-    "github_url": "https://github.com/open-ephys",
+    'use_edit_page_button': True,
     "navigation_with_keys": True,
     "navbar_end": ["navbar-icon-links"],
-    "navbar_align": "content"
-    # 'search_bar_position' : "navbar",
+    "navbar_align": "content",
+    "footer_start": ["copyright"],
+    'icon_links': [
+        dict(name='GitHub',
+             url='https://github.com/open-ephys/commutator-docs',
+             icon='fab fa-github'),
+        dict(name='Twitter',
+             url='https://twitter.com/openephys',
+             icon='fab fa-twitter'),
+        dict(name='Discord',
+             url='https://discord.gg/WXAx2URNQU',
+             icon='fab fa-discord')
+    ],
     #'canonical_url': '',
     #'analytics_id': '',
     #'logo_only': False,
@@ -202,14 +221,11 @@ html_favicon = "_static/images/favicon.png"
 
 html_context = {
     "github_user": "open-ephys",
-    "github_repo": "doc-template",
-    "github_version": "master",
+    "github_repo": "gui-docs",
+    "github_version": "main",
     "doc_path": "source",
     "default_mode": "light"
 }
-
-
-html_show_sourcelink = False
 
 linkcheck_anchors = False
 
