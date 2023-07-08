@@ -192,7 +192,7 @@ html_theme_options = {
     "footer_start": ["copyright"],
     'icon_links': [
         dict(name='GitHub',
-             url='https://github.com/open-ephys/commutator-docs',
+             url='https://github.com/open-ephys/gui-docs',
              icon='fab fa-github'),
         dict(name='Twitter',
              url='https://twitter.com/openephys',
