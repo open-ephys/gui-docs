@@ -19,7 +19,7 @@ This tutorial will guide you through the steps involved in setting up a signal c
 Required hardware
 #################
 
-* 1 `Open Ephys Acquisition Board <https://open-ephys.org/acq-board`__ with 5V power supply and USB cable (headstages are optional)
+* 1 `Open Ephys Acquisition Board <https://open-ephys.org/acq-board>`__ with 5V power supply and USB cable (headstages are optional)
 * 2 `Open Ephys I/O Boards <https://open-ephys.org/acquisition-system/io-board-pcb>`__ with HDMI cables
 * 2 Arduinos with 5V operating voltage (e.g. `Arduino Uno <https://store-usa.arduino.cc/products/arduino-uno-rev3/?selectedStore=us>`__). along with the appropriate USB cables
 * 2 BNC cables
