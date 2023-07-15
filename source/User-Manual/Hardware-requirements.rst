@@ -15,7 +15,7 @@ For the Open Ephys acquisition board
 .. image:: ../_static/images/hardwarerequirements/acq-board.jpg
   :alt: Acquisition board hardware
 
-More than 800 `Open Ephys acquisition boards <https://open-ephys.org/acq-board>`__ have been produced and shipped to labs on every continent. This cost-effective, open-source device can easily scale from 16 channels to 512 channels just by adding more headstages and cables. It's a very flexible way to acquire data from a wide variety of electrodes, including tungsten wires, tetrodes, and silicon probes.
+More than 1000 `Open Ephys acquisition boards <https://open-ephys.org/acq-board>`__ have been produced and shipped to labs on every continent. This cost-effective, open-source device can easily scale from 16 channels to 512 channels just by adding more headstages and cables. It's a very flexible way to acquire data from a wide variety of electrodes, including tungsten wires, tetrodes, and silicon probes.
 
 The following hardware is recommended for experiments that use the acquisition board:
 
@@ -24,7 +24,7 @@ Computer specs
 
 * **Operating system** - the acquisition board works equally well on macOS, Windows, and Linux (all distros).
 
-* **Processor** - A 4-core, 3.0+ GHz processor is fine for 32-channel recordings, but you'll want more cores and more speed as you scale up. Having a faster processor will allow you to build more complex signal chains without worrying about CPU overload. The GUI uses multithreading for data acquisition and recording, so having more cores is also helpful.
+* **Processor** - A 4-core, 3.0+ GHz processor is fine for most recordings. In general, having a faster processor will allow you to build more complex signal chains without worrying about CPU overload. The GUI uses multithreading for data acquisition and recording, so having more cores can also help reduce CPU load.
 
 * **Memory** - at least 1 GB of memory per 32 channels.
 
@@ -57,11 +57,11 @@ For Neuropixels probes
 Computer specs
 ################
 
-* **Operating system** - Windows 7 or 10 (Linux support is coming soon)
+* **Operating system** - Windows 7 or 10
 
 * **Processor** - minimum of 6 cores, 3.5 GHz; an **Intel** processor is recommended for optimum driver compatibility, but many users have AMD processors that work without issues.
 
-* **Memory** - at least 2 GB per simultaneously recorded probe; 16 GB is recommended.
+* **Memory** - at least 2 GB per simultaneously recorded probe; a minimum of 16 GB is recommended.
 
 * **Data storage** - a solid state drive is essential (at least 500 MB/s write speed); an NVMe drive is strongly recommended.
 
