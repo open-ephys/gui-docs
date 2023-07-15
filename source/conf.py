@@ -188,6 +188,7 @@ html_theme_options = {
     'use_edit_page_button': True,
     "navigation_with_keys": True,
     "navbar_end": ["navbar-icon-links"],
+    "external_links": [{"name": "Download", "url": "https://open-ephys.org/gui"},],
     "navbar_align": "content",
     "footer_start": ["copyright"],
     'icon_links': [
