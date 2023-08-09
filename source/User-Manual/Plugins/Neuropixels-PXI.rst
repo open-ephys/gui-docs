@@ -314,3 +314,52 @@ Immediately after the basestation connect board firmware upload finished, use th
 Finally, once the basestation firmware is finished uploading, restart your computer and power cycle the PXI chassis for the changes to take effect.
 
 .. note:: If you need to update the firmware for multiple basestations in one chassis, please perform all firmware updates prior to restarting your chassis/computer. Alternatively, you can update each basestation separately if only one basestation at a time is inserted into the chassis. The Neuropixels plugin can only communicate with sets of basestations that are running the same firmware.
+
+
+Remote control
+######################
+
+A number of Neuropixels probe settings can be changed via the GUI's built-in HTTP server. Commands are sent as "config messages" to the Neuropix-PXI processor.
+
+The following commands are available:
+
+1. :code:`NP INFO` : returns a JSON string containing information about all available probes
+2. :code:`NP REFERENCE <bs> <port> <dock> <EXT/TIP>` : set the reference for a specific probe
+3. :code:`NP GAIN <bs> <port> <dock> <AP/LFP> <gainval>` : set the AP or LFP gain for a specific probe (Neuropixels 1.0 only)
+4. :code:`NP FILTER <bs> <port> <dock> <ON/OFF>` : turn the AP filter cut on or off (Neuropixels 1.0 only)
+5. :code:`NP SELECT <bs> <port> <dock> <electrode> <electrode> <electrode> ...` : select electrodes by index
+
+Note that the :code:`bs`, :code:`port`, and :code:`dock` parameters all use 1-based indexing, and the :code:`dock` parameter is always 1 for Neuropixels 1.0 probes.
+
+For example, the :code:`NP SELECT` command can be used to automatically cycle through different electrode banks. The following code shows how to do this using the :code:`open-ephys-python-tools` package (version 0.1.6 and higher):
+
+.. code-block:: python
+
+    import numpy as np
+    import time
+
+    from open_ephys.control import OpenEphysHTTPServer
+
+    gui = OpenEphysHTTPServer()
+
+    # configuration parameters
+    processor_id = 106
+    basestation = 4
+    slot = 3
+    dock = 1 # always 1 for NP 1.0
+
+    command = f'NP SELECT {basestation} {slot} {dock} '
+
+    electrodes = np.arange(1,385) # 1-based indexing
+    electrode_string = ' '.join(electrodes.astype('str'))
+
+    gui.config(processor_id, command + electrode_string)
+
+    gui.record(60) # record for 60 seconds
+
+    electrodes = np.arange(384,767) # 1-based indexing
+    electrode_string = ' '.join(electrodes.astype('str'))
+
+    gui.config(processor_id, command + electrode_string)
+
+    gui.record(60) # record for 60 seconds
