@@ -85,7 +85,7 @@ For chassis without a built-in controller (e.g. PXIe-1071, PXIe-1082), you'll ne
 
 * One **PXI remote control module** (we've tested NI PXIe-8381 and PXIe-8398) – requires NIDAQmx driver
 
-* One **PCIe interface card** (we've tested NI PCIe-8381 and PCIe-8398)
+* One **PCIe interface card** (we've tested NI PCIe-8381, PCIe-8382, and PCIe-8398)
 
 * **MXI-Express Cables** to connect the remote control module to the PCIe card
 
