@@ -50,6 +50,63 @@ Render modes
 
 3. **Spike Rate** - Color corresponds to the number of threshold crossings per unit time within each pixel window. The threshold voltage can be adjusted.
 
+
+Anatomy overlay
+#####################
+
+As of plugin version 0.3.1, the Probe Viewer can display information about the brain regions that a Neuropixels probe passes through via integration with external software. An example of this is shown in the image below:
+
+.. image:: ../../_static/images/plugins/probeviewer/probeviewer-03.png
+  :alt: Probe Viewer with anatomy overlay
+
+Using this feature requires that a :ref:`neuropix-pxi` plugin is upstream of the Probe Viewer.
+
+This information can be sent to the Probe Viewer in at least two ways:
+
+Via Pinpoint
+------------------
+
+`Pinpoint <https://virtualbrainlab.org/index.html>`__ is open-source software for planning Neuropixels insertions. In order to send anatomical information from Pinpoint to Open Ephys, you need to use the Desktop version (not the web-based version).
+
+.. image:: ../../_static/images/plugins/probeviewer/probeviewer-04.png
+  :alt: Pinpoint API settings
+
+1. Add at least one probe to the Pinpoint scene
+2. Press Escape to open the settings menu
+3. Navigate to the "API" tab
+4. Make sure the "OpenEphys API" section points to the correct endpoint. This should be :code:`http://localhost:37497` if you're running Open Ephys and Pinpoint on the same machine; otherwise, replace :code:`localhost` with the IP address of the Open Ephys machine.
+5. Click the checkbox to connect to the Open Ephys GUI
+6. If the Probe Viewer processor ID (Viewer Processor #) is not found automatically, use the drop-down menu to select the correct one.
+7. Use the interface on the right to associate probes in the Pinpoint scene to probes in the Open Ephys GUI.
+
+After that, the anatomical information in the Probe Viewer should update every time the associated probe in moved in Pinpoint.
+
+See `this tutorial <https://virtualbrainlab.org/pinpoint/tutorial.html#api>`__ for alternative instructions on how to send anatomical information from Pinpoint to Open Ephys.
+
+
+Via config messages
+--------------------
+
+The Probe Viewer accepts config messages in the following format:
+
+.. code-block::
+  <probe_name>;<start1>-<end1>,<region_ID_1>,<hex_color_1>;<start2>-<end2>,...
+
+* :code:`probe_name` : the name of a Neuropixels probe in the Neuropix-PXI plugin (with no spaces)
+* :code:`start1`: the index of the first electrode in region 1
+* :code:`end1`: the index of the last electrode in region 1
+* :code:`region_ID_1`: the abbreviated name of region 1 (e.g. "VISp")
+* :code:`hex_color_1`: the 6-character hex color ID for region 1
+
+For example, to update a probe named "Probe A" in a Probe Viewer with processor ID 105, you can send the following JSON string using the Python :code:`requests` library:
+
+.. code-block:: Python
+   r = requests.put(
+        "http://localhost:37497/api/processors/105/config",
+        json={"text" : "ProbeA;0-69,PT,FF909F;70-97,PVT,FF909F;98-161,-,000000;162-173,-,000000,174-185,SF,90CBED;..."})
+
+Note that the start and end indices refer to *electrodes*, not *channels*. The Probe Viewer will automatically display the anatomical information for the electrodes that are selected. For example, for a Neuropixels 1.0 probe, you can send region info for up to 960 electrodes, but only 384 will be displayed at a time.
+
 |
 |
 
