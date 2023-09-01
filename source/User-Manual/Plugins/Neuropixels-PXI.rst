@@ -300,8 +300,6 @@ Version **0.6.x** of the Neuropixels PXI plugin requires a basestation firmware 
 
 The currently installed firmware version will appear in the info section of the Neuropixels settings interface (upper right text block). If your basesation firmware version is "2.0169" and your basestation connect board firmware version is "3.2189", you already have the latest firmware installed.
 
-.. note:: If you've been using SpikeGLX 3.0 Release 2023XXXX or higher, your basestation already has the latest firmware.
-
 If you need to update your firmware, first click the "UPDATE FIRMWARE" button to open the firmware update interface:
 
 .. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-08.png
