@@ -59,7 +59,7 @@ As of plugin version 0.3.1, the Probe Viewer can display information about the b
 .. image:: ../../_static/images/plugins/probeviewer/probeviewer-03.png
   :alt: Probe Viewer with anatomy overlay
 
-Using this feature requires that a :ref:`neuropix-pxi` plugin is upstream of the Probe Viewer.
+Using this feature requires that a :ref:`neuropixelspxi` plugin is upstream of the Probe Viewer.
 
 This information can be sent to the Probe Viewer in at least two ways:
 
@@ -89,7 +89,8 @@ Via config messages
 
 The Probe Viewer accepts config messages in the following format:
 
-.. code-block::
+.. code-block:: 
+
   <probe_name>;<start1>-<end1>,<region_ID_1>,<hex_color_1>;<start2>-<end2>,...
 
 * :code:`probe_name` : the name of a Neuropixels probe in the Neuropix-PXI plugin (with no spaces)
@@ -98,12 +99,13 @@ The Probe Viewer accepts config messages in the following format:
 * :code:`region_ID_1`: the abbreviated name of region 1 (e.g. "VISp")
 * :code:`hex_color_1`: the 6-character hex color ID for region 1
 
-For example, to update a probe named "Probe A" in a Probe Viewer with processor ID 105, you can send the following JSON string using the Python :code:`requests` library:
+For example, to update a probe named :code:`Probe A`` in a Probe Viewer with processor ID :code:`105`, you can send the following JSON string using the Python :code:`requests` library:
 
 .. code-block:: Python
-   r = requests.put(
-        "http://localhost:37497/api/processors/105/config",
-        json={"text" : "ProbeA;0-69,PT,FF909F;70-97,PVT,FF909F;98-161,-,000000;162-173,-,000000,174-185,SF,90CBED;..."})
+
+  r = requests.put(
+      "http://localhost:37497/api/processors/105/config",
+      json={"text" : "ProbeA;0-69,PT,FF909F;70-97,PVT,FF909F;98-161,-,000000;162-173,-,000000,174-185,SF,90CBED;..."})
 
 Note that the start and end indices refer to *electrodes*, not *channels*. The Probe Viewer will automatically display the anatomical information for the electrodes that are selected. For example, for a Neuropixels 1.0 probe, you can send region info for up to 960 electrodes, but only 384 will be displayed at a time.
 

@@ -76,7 +76,7 @@ This plugin can stream data from the following Neuropixels probe types:
    "Neuropixels UHD Phase 2 (switchable)", "384 AP, 384 LFP", "≥0.2.x", "`BS137, BSC176`_"
    "Neuropixels UHD Phase 3 (ultradense)", "384 AP, 384 LFP", "≥0.5.x", "`BS169, BSC176`_"
    "Neuropixels 2.0 (beta)", "384 wideband", "≥0.2.x", "`BS137, BSC176`_"
-   "Neuropixels 2.0 (public release)", "384 wideband", **"≥0.6.x"**, "`BS137, BSC189`_"
+   "Neuropixels 2.0 (public release)", "384 wideband", "**≥0.6.x**", "`BS137, BSC189`_"
    "Neuropixels Opto", "384 AP, 384 LFP", "≥0.4.x", "Special basestation required"
 
 .. important:: Regardless of which probe type you're using, we recommend updating to the most recent Neuropixels PXI plugin and basestation firmware (`BS169, BSC189`_). This firmware is required for plugin version **0.6.x** and higher, as well as the latest version of SpikeGLX. See :ref:`Updating basestation firmware` section for information on how to modify your firmware.
