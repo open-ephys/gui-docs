@@ -46,7 +46,7 @@ The audio for each Audio Monitor can be directed to the left, right, or both spe
 
 Individual Audio Monitors can be muted by clicking the button in the upper right of the editor.
 
-The output volume is controlled by the slider in the control panel. There is also a "gate" slider, which can be used to enhance the sound of individual spikes while suppressing background noise.
+The output volume is controlled by the slider in the control panel at the top of the GUI. There is also a "gate" slider, which can be used to enhance the sound of individual spikes while suppressing background noise.
 
 .. tip:: If you can't hear any output from the Audio Monitor, check the volume slider in the control panel as well as you're computer's system volume.
 
