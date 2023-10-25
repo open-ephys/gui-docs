@@ -57,7 +57,7 @@ For Neuropixels probes
 Computer specs
 ################
 
-* **Operating system** - Windows 7 or 10
+* **Operating system** - Windows 7, 10, or 11
 
 * **Processor** - minimum of 6 cores, 3.5 GHz; an **Intel** processor is recommended for optimum driver compatibility, but many users have AMD processors that work without issues.
 
