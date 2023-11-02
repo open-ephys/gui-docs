@@ -86,14 +86,14 @@ See `this tutorial <https://virtualbrainlab.org/pinpoint/tutorial.html#api>`__ f
 Via Neuropixels Trajectory Explorer
 ------------------------------------
 
-`Neuropixels Trajectory Explorer <https://github.com/petersaj/neuropixels_trajectory_explorer/wiki>`__ insertion-planning software that can be run from within MATLAB or as a standalone application.
+`Neuropixels Trajectory Explorer <https://github.com/petersaj/neuropixels_trajectory_explorer/wiki>`__ is insertion-planning software that can be run from within MATLAB or as a standalone application.
 
 .. image:: ../../_static/images/plugins/probeviewer/probeviewer-05.png
   :alt: Connecting NTE to recording software
 
 From the "Connect" menu, select "Recording" then "OpenEphys".
 
-The Probe Viewer has a :ref:`neuropixelspxi` plugin upstream, the anatomical overlay should update every time the probe in moved in Neuropixels Trajectory explorer.
+Assuming the Probe Viewer has a :ref:`neuropixelspxi` plugin upstream, the anatomical overlay should update every time the probe in moved in Neuropixels Trajectory explorer.
 
 See `this tutorial <https://github.com/petersaj/neuropixels_trajectory_explorer/wiki/Recording-software-interfacing>`__ for additional information on how to send anatomical information from Neuropixels Trajectory Explorer to Open Ephys.
 
