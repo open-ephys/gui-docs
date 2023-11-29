@@ -9,7 +9,7 @@ Rhythm Plugins
 .. image:: ../../_static/images/plugins/rhythmfpga/rhythmfpga-01.png
   :alt: Annotated settings interface for the Acquisition Board plugin
 
-.. csv-table:: Streams data from any device running Intan's "Rhythm" firmware. It is currently compatible with both the `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__ and the `Intan RHD USB Interface Board <https://intantech.com/RHD_USB_interface_board.html>`__. Support for additional Intan hardware is coming soon.
+.. csv-table:: Streams data from any device running Intan's "Rhythm" firmware. It is currently compatible with the `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__ and the `Intan RHD USB Interface Board <https://intantech.com/RHD_USB_interface_board.html>`__ by selecting the appropriate processor (Acquisition Board and Intan RHD USB). The Open Ephys FPGA version of the Acquisition Board needs the plugin OE FGPA Acquisition Board which works in the same way.
    :widths: 18, 80
 
    "*Plugin Type*", "Source"
@@ -32,7 +32,7 @@ On the left-hand side of the module, there are slots for each of 8 headstages (A
 Sample rate selection
 #######################
 
-Sample rates between 1 and 30 kHz can be selected with this drop-down menu. This will determine the sample rate for all headstages, digital inputs, and ADCs.
+Sample rates between 1 and 30 kHz can be selected with this drop-down menu. This will determine the sample rate for all headstages, digital inputs, and ADCs. Please note that available sample rates can vary between different hardware.
 
 
 Bandwidth interface
