@@ -52,7 +52,7 @@ Next, connect the Arduino to your computer and upload the sketch in `File > Exam
 Plugin configuration
 ====================
 
-In order for the Arduino to send output pulses, you'll need a signal chain capable of generating TTL events. These can either come from a source node (such as the :ref:`rhythmfpga`, with the I/O board connected to the Digital Input port) or from a processor that generates events (such as the :ref:`phasedetector`).
+In order for the Arduino to send output pulses, you'll need a signal chain capable of generating TTL events. These can either come from a source node (such as the :ref:`acquisitionboard`, with the I/O board connected to the Digital Input port) or from a processor that generates events (such as the :ref:`phasedetector`).
 
 Before you start acquisition, select the Arduino device you want to use via the device selector drop-down menu. It will take a few seconds for the GUI to initialize communication with the board. The status of the connection will appear in the Message Center, and the plugin will turn green if the connection is successful.
 
