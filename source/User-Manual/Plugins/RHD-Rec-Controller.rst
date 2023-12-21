@@ -14,7 +14,7 @@ RHD Rec Controller
 
    "*Plugin Type*", "Source"
    "*Platforms*", "Windows, Linux, macOS"
-   "*Built in?*", "Yes"
+   "*Built in?*", "No; install via *RHD Recording Controller*"
    "*Key Developers*", "Josh Siegle, Aarón Cuevas López"
    "*Source Code*", "https://github.com/open-ephys-plugins/rhythm-plugins/tree/recording-controller"
 

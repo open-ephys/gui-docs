@@ -14,7 +14,7 @@ OE FPGA Acquisition Board
 
    "*Plugin Type*", "Source"
    "*Platforms*", "Windows, Linux, macOS"
-   "*Built in?*", "Yes"
+   "*Built in?*", "No; install via *OE FPGA Acquisition Board*"
    "*Key Developers*", "Josh Siegle, Aarón Cuevas López"
    "*Source Code*", "https://github.com/open-ephys-plugins/rhythm-oni-plugin"
 
