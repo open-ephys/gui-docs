@@ -26,9 +26,9 @@ OE FPGA Acquisition Board
 Installing and upgrading
 ==========================
 
-The OE FPGA Acquisition Board plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "OE FPGA Acquisition Board", and click the "Install" button.
+The OE FPGA Acquisition Board plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "OE FPGA Acquisition Board", and click the "Install" button. After installation, *OE FPGA Acquisition Board* will appear in the processor list on the left of the GUI.
 
-The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
+The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed. The plugin must be removed from the signal chain prior to upgrading.
 
 
 Plugin configuration

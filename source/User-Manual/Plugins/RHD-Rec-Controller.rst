@@ -22,9 +22,9 @@ RHD Rec Controller
 Installing and upgrading
 ==========================
 
-The RHD Rec Controller plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "RHD Recording Controller" plugin, and click the "Install" button.
+The RHD Rec Controller plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "RHD Recording Controller" plugin, and click the "Install" button. After installation, *RHD Rec Controller* will appear in the processor list on the left side of the GUI's main window.
 
-The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
+The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed. The plugin must be removed from the signal chain prior to upgrading.
 
 
 Plugin configuration

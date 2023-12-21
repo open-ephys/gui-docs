@@ -22,9 +22,9 @@ Intan RHD USB
 Installing and upgrading
 ==========================
 
-The Intan RHD USB plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Rhythm Plugins", and click the "Install" button.
+The Intan RHD USB plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Rhythm Plugins", and click the "Install" button. After installation, *Intan RHD USB* will appear in the processor list on the left side of the GUI's main window.
 
-The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
+The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed. The plugin must be removed from the signal chain prior to upgrading.
 
 
 Plugin configuration
