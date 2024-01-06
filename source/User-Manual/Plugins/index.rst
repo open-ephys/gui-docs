@@ -124,6 +124,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     :hidden:
     :maxdepth: 5
 
+    Acq-Board-Output
     Acquisition-Board
     Arduino-Output
     Audio-Monitor
@@ -156,7 +157,9 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Probe-Viewer
     Pulse-Pal
     Python-Processor
+    Rec-Controller-Output
     Record-Control
+    Record-Node
     RHD-Rec-Controller
     Ripple-Detector
     River-Output
