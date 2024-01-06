@@ -18,7 +18,7 @@ Processor Plugins
 
 **Sources** bring data into the signal chain. Acquisition won't start unless every signal chain has at least one source.
 
-Officially supported Source plugins: :ref:`ephyssocket`, :ref:`filereader`, :ref:`lslinlet`, :ref:`neuropixelspxi`, :ref:`NI-DAQmx`, :ref:`rhythmfpga`
+Officially supported Source plugins: :ref:`acquisitionboard`, :ref:`oefpgaacquisitionboard`, :ref:`intanrhdusb`, :ref:`rhdreccontroller`, :ref:`ephyssocket`, :ref:`filereader`, :ref:`lslinlet`, :ref:`neuropixelspxi`, :ref:`NI-DAQmx`
 
 **Filters** alter the data in some way, either by modifying the continuous data or adding TTL events, broadcast messages, or spikes to the event buffer.
 
@@ -124,6 +124,8 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     :hidden:
     :maxdepth: 5
 
+    Acq-Board-Output
+    Acquisition-Board
     Arduino-Output
     Audio-Monitor
     Bandpass-Filter
@@ -137,6 +139,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Event-Translator
     Falcon-Output
     File-Reader
+    Intan-RHD-USB
     LFP-Viewer
     LSL-Inlet
     MATLAB-Interface
@@ -146,6 +149,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Neuropixels-CAR
     Neuropixels-PXI
     NIDAQmx
+    OE-FPGA-Acquisition-Board
     Online-PSTH
     OSC-Events
     Phase-Calculator
@@ -153,8 +157,10 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Probe-Viewer
     Pulse-Pal
     Python-Processor
+    Rec-Controller-Output
     Record-Control
-    Rhythm-Plugins
+    Record-Node
+    RHD-Rec-Controller
     Ripple-Detector
     River-Output
     Spectrum-Viewer

@@ -104,3 +104,10 @@ Single-channel mode
 Double-clicking on any channel in the LFP Viewer will switch the display into single-channel mode. When single-channel mode is active, the mean and standard deviation of the current channel are shown on the left-hand side of the display. In addition, clicking anywhere within the display will update the "uV" value based on the y-position of the cursor. This feature can be used to measure the approximate amplitude of spikes by clicking on the location of the peak and trough.
 
 The full height of the display is determined by the "range" parameter in the main options bar. Horizontal lines appear at -25%, 0%, and 25% of the range value. For the default range of 250 µV, the display will stretch from -125 to +125 µV, with lines indicating -62.5, 0, and +62.5 µV.
+
+Audio monitoring
+######################
+
+If you have an :ref:`audiomonitor` plugin in your signal chain, you can select which channels to monitor by right-clicking on them in the LFP Viewer.
+
+|
