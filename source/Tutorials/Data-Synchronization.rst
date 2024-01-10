@@ -27,8 +27,8 @@ There are two data streams, *A* and *B*, which have approximately the same sampl
 In this example, there are a few sample numbers that are important to note:
 
 - The samples at which the recordings were stopped and started (**10** and **114** for *Stream A*, and **25** and **127** for *Stream B*).
-- The samples at which the first recorded low-to-high transition on the sync line occurred (**112** for *Stream A* and **27** for *Stream B*).
-- The samples at which the last recorded low-to-high transition on the sync line occurred (**27** for *Stream A* and **125** for *Stream B*).
+- The samples at which the first recorded low-to-high transition on the sync line occurred (**12** for *Stream A* and **27** for *Stream B*).
+- The samples at which the last recorded low-to-high transition on the sync line occurred (**112** for *Stream A* and **125** for *Stream B*).
 
 With this information in hand, we can translate all of the timestamps from *Stream A* into timestamps from *Stream B*, and vice versa.
 
