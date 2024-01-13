@@ -108,12 +108,17 @@ When you're finished, the file should look like this:
 
 |
 
-Next, rename the source files:
+Next, rename the source files to match the name of your plugin
 
 * :code:`ProcessorPlugin.h` --> :code:`TTLEventGenerator.h`
 * :code:`ProcessorPlugin.cpp` --> :code:`TTLEventGenerator.cpp`
 * :code:`ProcessorPluginEditor.h` --> :code:`TTLEventGeneratorEditor.h`
 * :code:`ProcessorPluginEditor.cpp` --> :code:`TTLEventGeneratorEditor.cpp`
+
+and update the class names inside each file to match the new names:
+
+* :code:`ProcessorPlugin` --> :code:`TTLEventGenerator`
+* :code:`ProcessorPluginEditor` --> :code:`TTLEventGeneratorEditor`
 
 Finally, update the include inside :code:`OpenEphysLib.cpp` from :code:`#include "ProcessorPlugin.h"` to :code:`#include "TTLEventGenerator.h"`.
 
