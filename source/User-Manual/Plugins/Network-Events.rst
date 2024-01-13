@@ -44,7 +44,7 @@ TTL Events
 
 The primary purpose of the Network Events module is to add TTL events to one or more of the GUI's data streams via a remote connection. This makes it straightforward to store event times and trigger outputs from external software, such as Python or Matlab scripts.
 
-:code:`TTL [Line=0-255] [State=0/1]` – Sends an **ON** (1) or **OFF** (0) TTL event on the specified TTL line. 
+:code:`TTL [Line=1-256] [State=0/1]` – Sends an **ON** (1) or **OFF** (0) TTL event on the specified TTL line. 
 
 Other commands
 ---------------
