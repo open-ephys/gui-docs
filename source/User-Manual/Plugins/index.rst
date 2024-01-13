@@ -26,7 +26,7 @@ Officially supported Filter plugins: :ref:`bandpassfilter`, :ref:`channelmap`, :
 
 **Sinks** send data to an external source, such as a display, stimulator, etc., without altering the underlying data streams. Data should pass through Sinks unchanged.
 
-Officially supported Sink plugins: :ref:`arduinooutput`, :ref:`datasnapshot`, :ref:`eventbroadcaster`, :ref:`falconoutput`, :ref:`lfpviewer`, :ref:`multibandintegrator`, :ref:`onlinepsth`,  :ref:`probeviewer`,:ref:`pulsepal`, :ref:`riveroutput`, :ref:`spectrumviewer`, :ref:`spikeviewer`, :ref:`zmqinterface`
+Officially supported Sink plugins: :ref:`arduinooutput`, :ref:`datasnapshot`, :ref:`eventbroadcaster`, :ref:`falconoutput`, :ref:`latencyhistogram`, :ref:`lfpviewer`, :ref:`multibandintegrator`, :ref:`onlinepsth`, :ref:`probeviewer`, :ref:`pulsepal`, :ref:`riveroutput`, :ref:`spectrumviewer`, :ref:`spikeviewer`, :ref:`zmqinterface`
 
 **Utilities** perform miscellaneous functions related to the signal chain. 
 
@@ -140,6 +140,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Falcon-Output
     File-Reader
     Intan-RHD-USB
+    Latency-Histogram
     LFP-Viewer
     LSL-Inlet
     MATLAB-Interface
