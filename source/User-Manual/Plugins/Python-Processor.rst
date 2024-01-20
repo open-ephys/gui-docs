@@ -80,74 +80,75 @@ Creating & loading a Python Module
 
 Once the plugin is loaded into the signal chain, a Python module (script) needs to be loaded into the GUI. This module should take the same form as the `processor template <https://github.com/open-ephys-plugins/python-processor/blob/main/Modules/template/processor_template.py>`__ provided in the plugin's GitHub repository. The :code:`PyProcessor` class is designed to expose the following functions to the Python module to allow interaction with the incoming data:  
 
-.. py:function:: __init__(self, num_channels, sample_rate)
+.. py:method:: __init__(processor, num_channels, sample_rate)
 
    A new processor is initialized when the module is imported/reloaded, or the plugin's settings are updated (i.e., the number of input channels changes, or a new stream is selected).
+   
+   :param object processor: Python Processor class object used for adding events from python.
+   :param int num_channels: number of input channels from the selected stream
+   :param float sample_rate: the selected stream's sample rate
 
-   :param num_channels: number of input channels from the selected stream
-   :param sample_rate: the selected stream's sample rate
-
-.. py:function:: process(self, data)
+.. py:method:: process(data)
 
    Process each incoming data buffer. Any modifications to the :code:`data` variable will be passed to downstream processors.
 
-   :param data: incoming data buffer
-   :type data: ndarray
+   :param ndarrary data: N x M numpy array, where N = num_channles, M = num of samples in the buffer.
 
-.. py:function:: start_acquisition(self)
+.. py:method:: start_acquisition()
 
    Called before starting acquisition. Allows the script to do some setup/initialization before acquisition starts.
 
-.. py:function:: stop_acquisition(self)
+.. py:method:: stop_acquisition()
 
    Called after stopping acquisition. Allows the script to do some finalization after acquisition stops.
 
-.. py:function:: start_recording(self, recording_dir)
+.. py:method:: start_recording(recording_dir)
 
    Called before starting recording. Informs the plugin that the GUI is now recording data, in case it needs to save any information of its own.
 
-   :param recording_dir: directory where recording related files are supposed to be stored
+   :param str recording_dir: directory where recording related files are supposed to be stored
 
-.. py:function:: stop_recording(self)
+.. py:method:: stop_recording()
 
    Called before stopping recording. Informs the plugin that the GUI is no longer recording data.
 
-.. py:function:: handle_ttl_event(self, source_node, channel, sample_number, line, state)
+.. py:method:: handle_ttl_event(source_node, channel, sample_number, line, state)
    
    Handle each incoming ttl event.
 
-   :param source_node: id of the processor this event was generated from
-   :param channel: name of the event channel
-   :param sample_number: sample number of the event
-   :param line: the line on which event was generated (0-255) 
-   :param state: event state True (ON) or False (OFF)
+   :param int source_node: id of the processor this event was generated from
+   :param str channel: name of the event channel
+   :param int sample_number: sample number of the event
+   :param int line: the line on which event was generated (0-255) 
+   :param bool state: event state True (ON) or False (OFF)
 
-.. py:function:: handle_spike(self, source_node, electrode_name, num_channels, num_samples, sample_number, sorted_id, spike_data)
+.. py:method:: handle_spike(source_node, electrode_name, num_channels, num_samples, sample_number, sorted_id, spike_data)
    
    Handle each incoming spike.
    
-   :param source_node: id of the processor this spike was generated from
-   :param electrode_name: name of the electrode
-   :param num_channels: number of channels associated with the electrode type
-   :param num_samples: total number of samples in the spike waveform 
-   :param sample_number: sample number of the spike
-   :param sorted_id: the sorted ID for this spike
-   :param spike_data: waveform as N x M numpy array, where N = num_channels & M = num_samples (read-only).
+   :param int source_node: id of the processor this spike was generated from
+   :param str electrode_name: name of the electrode
+   :param int num_channels: number of channels associated with the electrode type
+   :param int num_samples: total number of samples in the spike waveform 
+   :param int sample_number: sample number of the spike
+   :param int sorted_id: the sorted ID for this spike
+   :param ndarrary spike_data: waveform as N x M numpy array, where N = num_channels & M = num_samples (read-only).
 
 Using this template, any type of data processing can be done in Python in real-time. The data buffer should be overwritten with the new processed data, which will be received by downstream processors.
 
 .. Note:: Pay careful attention to the latency introduced by processing data in Python, especially with high-channel-count data.
 
 
-There is also a way to send TTL events back from Python to C++. These events will be added to the event buffer for the downstream processors to handle. It is possible using a C++ function exposed to the Python module via an embedded module called :code:`oe_pyprocessor`. To use this function, the :code:`oe_pyprocessor` module needs to be imported inside the script and then the C++ function can be invoked like this: :code:`oe_pyprocessor.add_python_event(line, state)`
+There is also a way to send TTL events back from Python to C++. These events will be added to the event buffer for the downstream processors to handle. It is possible using a C++ function exposed to the Python module via an embedded module called :code:`oe_pyprocessor`.
 
-.. py:function:: add_python_event(line, state)
+.. py:method:: add_python_event(line, state)
    
    Send TTL event from Python to C++
    
-   :param line: (int) event line number [0-255]
-   :param electrode_name: (bool) event state True (ON) or False (OFF)
+   :param int line: event line number [0-255]
+   :param bool state: event state True (ON) or False (OFF)
 
+To use this function, the :code:`oe_pyprocessor` module needs to be imported inside the script and then the C++ function can be invoked by using the processor object provided in the :py:meth:`__init__` method, like this: :code:`self.processor.add_python_event(line, state)`
 
 An example script is provided in the plugin's GitHub repository in the form of a `Butterworth Bandpass filter <https://github.com/open-ephys-plugins/python-processor/blob/main/Modules/examples/bandpass_filter.py>`__. This filter is the same as the one used in the GUI's built-in Filter Node plugin.
 
