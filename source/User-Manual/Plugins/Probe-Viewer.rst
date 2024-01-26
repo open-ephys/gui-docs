@@ -50,6 +50,10 @@ Render modes
 
 3. **Spike Rate** - Color corresponds to the number of threshold crossings per unit time within each pixel window. The threshold voltage can be adjusted.
 
+Channel ordering
+----------------
+
+The Probe Viewer will automatically sort channels by depth, if this information is available. Currently, the :ref:`neuropixelspxi` plugin is the only upstream plugin that tags channels with depth information. Therefore, if you are using Neuropixels probes, the Probe Viewer will first sort channels by shank, and then by depth within each shank. Note that since channels not mapped to contiguous electrodes on Neuropixels 2.0 probes, this will result in the channels appearing "out of order" in the Probe Viewer display.
 
 Anatomy overlay
 #####################

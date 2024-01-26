@@ -73,7 +73,7 @@ Channels
 
 * **Reverse order:** Displays the channels in opposite numerical order (highest-numbered channels at the top of the screen).
 
-* **Sort by depth:** Displays the channels by depth, if this information is available. Currently, there are no source nodes that include this information, although this will change soon.
+* **Sort by depth:** Displays the channels by depth, if this information is available. Currently, only the :ref:`neuropixelspxi` plugin includes information about channel depth.
 
 * **Skip:** Sets the display to show every Nth channel. This is useful if you're using a probe with many densely space contacts, and don't need to visualize every one simultaneously.
 
