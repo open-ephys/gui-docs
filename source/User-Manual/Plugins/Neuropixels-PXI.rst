@@ -343,10 +343,10 @@ For example, the :code:`NP SELECT` command can be used to automatically cycle th
     # configuration parameters
     processor_id = 106
     basestation = 4
-    slot = 3
+    port = 3
     dock = 1 # always 1 for NP 1.0
 
-    command = f'NP SELECT {basestation} {slot} {dock} '
+    command = f'NP SELECT {basestation} {port} {dock} '
 
     electrodes = np.arange(1,385) # 1-based indexing
     electrode_string = ' '.join(electrodes.astype('str'))
