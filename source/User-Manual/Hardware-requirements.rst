@@ -54,6 +54,10 @@ For Neuropixels probes
 .. image:: ../_static/images/hardwarerequirements/neuropixels.png
   :alt: Neuropixels hardware
 
+Neuropixels are quickly become a new standard for electrophysiology, given their ability to record from hundreds to thousands of neurons across many brain regions in parallel. Neuropixels probes must be ordered from IMEC via `neuropixels.org <https://www.neuropixels.org>`__. All probe types (including 1.0, 2.0, and NHP) are compatible with the Open Ephys GUI through the :ref:`neuropixelspxi` plugin. General questions about Neuropixels can be directed to the Neuropixels Group Slack (sign up `here <https://join.slack.com/t/neuropixelsgroup/shared_invite/zt-2c8u0k21u-CC4wSkb8~U_Fkrf3HHf_kw>`__).
+
+The following hardware is recommended for experiments with Neuropixels:
+
 Computer specs
 ################
 
