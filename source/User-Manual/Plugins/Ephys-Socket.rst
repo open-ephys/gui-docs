@@ -9,7 +9,7 @@ Ephys Socket
 .. image:: ../../_static/images/plugins/ephyssocket/ephyssocket-01.png
   :alt: Annotated Ephys Socket Editor
 
-.. csv-table:: Receives continuous data from the OpenCVMatTCPClient in Bonsai. This is intended to be a quick way to stream ephys data from Bonsai, for example if you're performing closed-loop feedback in Bonsai, but want to visualize your data in the Open Ephys GUI.
+.. csv-table:: Receives continuous data from the SendTcpData node in Bonsai. This is intended to be a quick way to stream ephys data from Bonsai, for example if you're performing closed-loop feedback in Bonsai, but want to visualize your data in the Open Ephys GUI.
    :widths: 18, 80
 
    "*Plugin Type*", "Source"
