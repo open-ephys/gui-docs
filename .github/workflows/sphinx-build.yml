@@ -43,7 +43,7 @@ jobs:
       # 2. Add and commit HTML files to gh-pages branch
       - name: Commit documentation changes
         run: |
-          git clone https://github.com/open-ephys/gui-docs.git --branch gh-pages --single-branch gh-pages
+          git clone https://github.com/${{ github.repository_owner }}/gui-docs.git --branch gh-pages --single-branch gh-pages
           cd gh-pages
           rm -rf *
           cp -r ../docs/html/* .
