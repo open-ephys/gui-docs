@@ -9,13 +9,13 @@ Ephys Socket
 .. image:: ../../_static/images/plugins/ephyssocket/ephyssocket-01.png
   :alt: Annotated Ephys Socket Editor
 
-.. csv-table:: Receives continuous data from the SendMatOverSocket node in Bonsai. This is intended to be a quick way to stream ephys data from Bonsai, for example if you're performing closed-loop feedback in Bonsai, but want to visualize your data in the Open Ephys GUI.
+.. csv-table:: Receives formatted data from a TCP socket that implements a particular :ref:`header format <Header Format for Custom Data Streams>`. A common use case is to receive data streamed from :ref:`Bonsai <In Bonsai>`. This is intended to be a quick way to stream ephys data from a third-party application and visualize in the Open Ephys GUI. Below is a way to setup streaming between Bonsai and the Open Ephys GUI, which can be extended to other software and/or hardware that carry the same header format.
    :widths: 18, 80
 
    "*Plugin Type*", "Source"
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No"
-   "*Key Developers*", "Jon Newman"
+   "*Key Developers*", "Jon Newman, Brandon Parks"
    "*Source Code*", "https://github.com/open-ephys-plugins/ephys-socket"
 
 Installing and upgrading
@@ -31,27 +31,27 @@ Plugin Configuration
 In Bonsai
 -----------
 
-#. Make sure you have the "**Bonsai.Ephys**" and "**OpenEphys.Sockets.Bonsai**" packages installed. For the latter, you'll have to set the package source to "Community Packages".
+#. Make sure you have the **Bonsai.Ephys** and **OpenEphys.Sockets.Bonsai** packages installed. For the latter, you'll have to set the package source to "Community Packages".
 
 #. Create a signal chain that includes (at least):
 
-   * A source that generates an OpenCV.Net.Mat output (e.g., Rhd2000EvalBoard, which is compatible with the Open Ephys acquisition board)
+   * A source that generates an `OpenCV.Net.Mat` output (e.g., :code:`Rhd2000EvalBoard`, which is compatible with the Open Ephys acquisition board)
 
-   * A member selector that isolates the OpenCV.Net.Mat output
+   * A member selector that isolates the `OpenCV.Net.Mat` output
 
-   * The TcpServer and SendMatOverSocket nodes from OpenEphys.Sockets.Bonsai.
+   * The :code:`TcpServer` and :code:`SendMatOverSocket` nodes from **OpenEphys.Sockets.Bonsai**.
 
-#. Click on the TcpServer, and edit the fields there:
+#. Click on the :code:`TcpServer`, and edit the fields there:
 
    * Set the address (for communication within the same computer, put "localhost" without quotes)
 
-   * Add a name to use for the connection channel. This can be an arbitrary name, but must match the same name used in the SendMatOverSocket node
+   * Add a name to use for the connection channel. This can be an arbitrary name, but must match the same name used in the :code:`SendMatOverSocket` node
 
    * Change the port number to :code:`9001`
 
-#. (Optional) Add a "Select Channels" operator before SendMatOverSocket, to select a subset of channels for streaming.
+#. (Optional) Add a "Select Channels" operator before :code:`SendMatOverSocket`, to select a subset of channels for streaming.
 
-#. Click on the SendMatOverSocket node, and choose the connection created previously from the drop-down menu
+#. Click on the :code:`SendMatOverSocket` node, and choose the connection created previously from the drop-down menu
 
 #. Start the workflow to initiate the data stream.
 
@@ -61,7 +61,7 @@ The workflow should look something like the one pictured below (:code:`.bonsai` 
   :alt: A compatible Bonsai workflow using hardware
 
 
-A second workflow is included in the same `Resources folder <https://github.com/open-ephys-plugins/ephys-socket/tree/main/Resources>`__ which uses a function generator (imported from Bonsai.Dsp). This workflow is useful for testing socket connections without requiring hardware to be connected:
+A second workflow is included in the same `Resources folder <https://github.com/open-ephys-plugins/ephys-socket/tree/main/Resources>`__ which uses a function generator (imported from **Bonsai.Dsp**). This workflow is useful for testing socket connections without requiring hardware to be connected:
 
 .. image:: ../../_static/images/plugins/ephyssocket/ephyssocket-03.png
   :alt: A compatible Bonsai workflow using a function generator
@@ -72,29 +72,35 @@ In Open Ephys
 
 #. Drag and drop the Ephys Socket plugin onto the signal chain.
 
-#. Add downstream plugins (e.g., LFP Viewer).
+#. Add downstream filters or sinks (i.e., :code:`LFP Viewer`, :code:`Record Node`, etc.).
 
-#. Click on the port number, and make sure it matches the same number used in Bonsai.
+#. Ensure the **port** matches the same number used in Bonsai.
 
-#. Ensure the "frequency" parameter matches the sample rate of the Bonsai data stream. By default the Open Ephys acquisition board acquires data at 30000 Hz.
+#. Ensure the **frequency** parameter matches the sample rate of the Bonsai data stream. By default the Open Ephys acquisition board acquires data at 30000 Hz.
 
-#. You shouldn't have to change the "offset", or "scale" parameters unless you are interfacing with a custom data stream.
+#. Change the **offset** and **scale** values as needed, but it is important to know that the Open Ephys GUI works in microvolts represented as floating points. These values may be required to transform your data into microvolts; for example, the Open Ephys Acquisition Board requires a scale of 0.195 and an offset of 32768 to correctly convert data from `uint16` to `float` values. 
 
-#. Click the "Connect" button to establish the connection with Bonsai. If it's not connecting, make sure the Bonsai workflow is running, and the port numbers match. All input parameters will be grayed out, and cannot be changed while the connection is active.
+   * If values are sent as microvolts, then **scale** and **offset** can be set to 1 and 0, respectively. Note that this will require more bandwidth.
+
+#. Click the "Connect" button to establish the connection with Bonsai. If it's not connecting, make sure the Bonsai workflow is running, and the **port** numbers match. Once the connection is made, all input parameters will be grayed out, and cannot be changed until the socket is disconnected.
 
    * If no data is being sent from Bonsai yet (e.g., the acquisition board is still initializing), the socket will not connect. Wait until the hardware is actively sending data before attempting to connect the socket.
 
 #. Start acquisition in Open Ephys. If all is working, you should see the data stream in the LFP Viewer.
 
-#. If any of the settings need to be changed (i.e., offset / scale), stop acquiring data and press "Disconnect" to enable input parameters to be changed.
+#. If the header format is changed in any way, such as by modifying the number of channels or changing the data type, the Open Ephys GUI will automatically detect these changes and stop acquiring data.
 
-.. warning:: This plugin doesn't currently guarantee that samples won't be lost in transit, so it's essential to save your data stream on the Bonsai end. We are working on implementing a buffering system on the Open Ephys side, to ensure that all samples are being received. If you suspect samples are being dropped (e.g., if the LFP Viewer is not updating at the expected speed), sending fewer channels at a time should fix the problem.
+   * If the GUI was not actively acquiring data, it is necessary to disconnect the socket and connect again to read the updated header values.
+   
+   * Note that attempting to start acquisition after changing these values will automatically disconnect the socket anyway, forcing a new connection to be made.
+
+.. warning:: This plugin does not guarantee that samples will not be lost in transit, so it's essential to save your data stream on the Bonsai end. There are at least two ways data loss can occur: 1) When a data stream is first connected, there is no guarantee that the data will be saved, since data is not acquired immediately after connecting the socket. 2) If too much data is being sent and the Open Ephys GUI cannot process the data quickly enough, some packets may be lost due to the TCP buffer filling up. If you suspect samples are being dropped (e.g., if the LFP Viewer is not updating at the expected speed), sending a lower bandwidth might fix the problem.
 
 
 Header Format for Custom Data Streams
 ######################################
 
-If something other than the SendMatOverSocket node (found in OpenEphys.Sockets.Bonsai, see :ref:`In Bonsai` for details) is used to stream data (e.g., a Python script that sends data over the TCP socket), a header must be prepended to the data stream for Ephys Socket to interpret the data.
+While the :code:`SendMatOverSocket` node (found in **OpenEphys.Sockets.Bonsai**, see :ref:`In Bonsai` for details) is a common use case for sending `OpenCV.Net.Mat` data over the TCP socket, it is not the only way to stream data. As long as whatever is used to stream data (e.g., a Python script that sends data over the TCP socket) correctly prepends a header to the data stream, Ephys Socket can correctly interpret the data.
 
 An example Python script is included in the `Resources <https://github.com/open-ephys-plugins/ephys-socket/tree/main/Resources>`__ folder of the plugin repository, which implements the format described here. Each variable is 4 bytes long (with the exception of the Bit Depth, which is 2 bytes long), and must be sent in the order listed below. The total header length is 22 bytes.
 
@@ -109,3 +115,6 @@ An example Python script is included in the `Resources <https://github.com/open-
     "Number of Channels", "`int32`", "Number of channels per packet."
     "Number of Samples", "`int32`", "Number of samples sent per channel per packet."
 
+.. note::
+
+    Pay attention to the order of data samples in the example script. Samples are not interleaved, but rather in each packet the samples for channel 1 are sent, followed by the samples for channel 2, and so on.
