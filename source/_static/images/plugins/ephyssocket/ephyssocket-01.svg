@@ -4,9 +4,9 @@
 <svg
    version="1.1"
    id="svg1"
-   width="1080"
-   height="264"
-   viewBox="0 0 1080 264"
+   width="931.29645"
+   height="255.31659"
+   viewBox="0 0 931.29645 255.31659"
    sodipodi:docname="ephyssocket-01.svg"
    inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
    xml:space="preserve"
@@ -141,12 +141,12 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="1.8425926"
-     inkscape:cx="482.20101"
-     inkscape:cy="61.055277"
+     inkscape:zoom="0.9212963"
+     inkscape:cx="301.74874"
+     inkscape:cy="36.904522"
      inkscape:window-width="2560"
      inkscape:window-height="1494"
-     inkscape:window-x="-11"
+     inkscape:window-x="2869"
      inkscape:window-y="-11"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer-MC0"
@@ -155,16 +155,17 @@
        y="0"
        inkscape:label="1"
        id="page1"
-       width="1080"
-       height="264"
-       margin="8.9127598 10.604 30.666666 129.61333"
+       width="931.29645"
+       height="255.31659"
+       margin="8.9127598 6.2622914 0.2747063 6.9600616"
        bleed="0"
        inkscape:export-filename="ephyssocket-01.png"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300" /></sodipodi:namedview><g
      id="layer-MC0"
      inkscape:groupmode="layer"
-     inkscape:label="Layer 1"><g
+     inkscape:label="Layer 1"
+     transform="translate(-123.73869)"><g
        id="g1"><g
          opacity="0.5"
          id="g4"
@@ -263,4 +264,4 @@
            id="tspan11"
            x="685.79242"
            y="173.37717"
-           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:'Source Sans 3';-inkscape-font-specification:'Source Sans 3 Semi-Bold'">Output = (sample - offset) * scale</tspan></text></g></g></svg>
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:'Source Sans 3';-inkscape-font-specification:'Source Sans 3 Semi-Bold'">Output = (sampleValue - offset) * scale</tspan></text></g></g></svg>
