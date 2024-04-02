@@ -110,7 +110,7 @@ An example Python script is included in the `Resources <https://github.com/open-
     "**Variable**", "**Data Type**", "**Description**"
     "Offset", "`int32`", "Integer defining the offset in the data stream. For TCP sockets, value must always be set to **0**."
     "Number of Bytes", "`int32`", "Total number of bytes sent in each packet. Calculated as :code:`num_bytes = num_channels * num_samples * element_size`. This does **not** include the header bytes."
-    "Bit Depth", "int16", "Depth defines the OpenCV.Mat `Depth <https://github.com/horizongir/opencv.net/blob/main/src/OpenCV.Net/CoreTypes.cs#L93>`__, an enumeration defined as :code:`[U8, S8, U16, S16, S32, F32, F64]`, where U is 'unsigned', S is 'signed', F is 'float', and the number indicates the number of bits. For example, :code:`U16` means 'unsigned integer with 16 bits'. Note that the enumeration is zero-indexed, where :code:`U8 = 0`, and :code:`F64 = 6`"
+    "Bit Depth", "`int16`", "Depth defines the OpenCV.Mat `Depth <https://github.com/horizongir/opencv.net/blob/main/src/OpenCV.Net/CoreTypes.cs#L93>`__, an enumeration defined as :code:`[U8, S8, U16, S16, S32, F32, F64]`, where U is 'unsigned', S is 'signed', F is 'float', and the number indicates the number of bits. For example, :code:`U16` means 'unsigned integer with 16 bits'. Note that the enumeration is zero-indexed, where :code:`U8 = 0`, and :code:`F64 = 6`"
     "Element Size", "`int32`", "Number of bytes needed for each sample. For :code:`U16`, :code:`element_size = 2`, while for :code:`F64`, :code:`element_size = 8`."
     "Number of Channels", "`int32`", "Number of channels per packet."
     "Number of Samples", "`int32`", "Number of samples sent per channel per packet."
@@ -118,3 +118,20 @@ An example Python script is included in the `Resources <https://github.com/open-
 .. note::
 
     Pay attention to the order of data samples in the example script. Samples are not interleaved, but rather in each packet the samples for channel 1 are sent, followed by the samples for channel 2, and so on.
+
+Remote Control
+#################
+
+Some Ephys Socket settings can be modified via the GUI's built-in HTTP server. Commands are sent as "config messages" to the Ephys Socket node.
+
+.. note::
+
+    Parameters cannot be modified while acquisition is running, nor can they be modified if the port is connected. To change any settings remotely, the port must be disconnected in the GUI
+
+The following commands are available:
+
+1. :code:`ES INFO` : returns a JSON string containing information about all available variables (i.e., scale, offset, port, and frequency)
+2. :code:`ES SCALE <data_scale>` : set the data scale
+3. :code:`ES OFFSET <data_offset>` : set the data offset
+4. :code:`ES PORT <port>` : set the port number
+5. :code:`ES FREQUENCY <sample_rate>` : set the sampling frequency
