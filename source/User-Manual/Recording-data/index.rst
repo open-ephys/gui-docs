@@ -126,6 +126,14 @@ Once the synchronizer has been configured, starting data acquisition will automa
 .. image:: ../../_static/images/recordingdata/recordnode-06.png
   :alt: View of the record node when synchronized
 
+Aligning continuous and event data
+####################################
+
+Within a given data stream, events and/or spikes can be aligned to samples in the continuous data by finding the index at which the sample numbers match. For example, if the continuous data sample numbers range from 100 to 1000, a TTL event that occurred at sample number 500, would be aligned with the 400th sample in the continuous data. The same principle applies to spikes. The matching index can also be found by subtracting the first continuous data sample number from the event's sample number. Using the stream start sample numbers found in :code:`sync_messages.txt` is no longer recommended for this, as it is less accurate.
+
+In order to align events and continuous data from different streams, these streams must be synchronized first. If data streams have been synchronized online, the timestamps can be used without modification, as these represent global times in seconds. Since different streams are likely sampled at slightly different times, a method such as :code:`numpy.searchsorted` should be used to find the continuous data timestamp that most closely matches that of the event. 
+
+If the streams were not synchronized online, they can be synchronized offline assuming all streams share at least one event line in common. See the :ref:`datasynchronization` tutorial for more information about synchronizing data streams.
 
 .. _NumPy: https://numpy.org/
 .. _Neurodata Without Borders: https://www.nwb.org/
