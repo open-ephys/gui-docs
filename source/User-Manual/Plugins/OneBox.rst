@@ -65,7 +65,7 @@ OneBox Quickstart Guide
 Driver installation
 -------------------- 
 
-The OneBox requires the latest FTDI D3XX drivers to be installed on your computer (version 1.3.0.10). These drivers can be downloaded from the `FTDI website <https://www.ftdichip.com/Drivers/D3XX.htm>`__. Driver installation instructions can be found `here <https://ftdichip.com/wp-content/uploads/2022/05/AN_396-FTDI-Drivers-Installation-Guide-for-Windows-10_11.pdf>`__.
+The OneBox requires the latest FTDI D3XX drivers to be installed on your computer (version 1.3.0.10). These drivers can be downloaded from the `FTDI website <https://www.ftdichip.com/Drivers/D3XX.htm>`__. It's recommended to run the Setup Executable and follow the instructions provided by the installer.
 
 Once the drivers are installed, verify whether the OneBox is correctly recognized:
 
@@ -74,7 +74,7 @@ Once the drivers are installed, verify whether the OneBox is correctly recognize
 3. Conect the OneBox to your computer using the included USB 3.0 cable
 4. Open Device Manager and confirm that the OneBox appears as a "FT601 USB 3.0 Bridge Device"
 
-.. image:: ../../_static/images/plugins/onebox/onebox-01.png
+.. image:: ../../_static/images/plugins/onebox/onebox-02.png
   :alt: OneBox in the Device Manager
 
 OneBox status light
@@ -82,17 +82,17 @@ OneBox status light
 
 The status light on the front of the OneBox can take the following states:
 
-- Off: system is powered off
+- **Off:** system is powered off
 
-- Soft-blinking green: OneBox is powered on and plugged into a USB port
+- **Soft-blinking green:** OneBox is powered on and plugged into a USB port
 
-- Soft-blinking red: OneBox is on but not plugged in to a PC, or OneBox is plugged in but no software connection is made within 5 seconds.
+- **Soft-blinking red:** OneBox is on but not plugged in to a PC, or OneBox is plugged in but no software connection is made within 5 seconds.
 
-- Green: OneBox has successfully connected to the control software 
+- **Green:** OneBox has successfully connected to the control software 
 
-- Red: OneBox has become unplugged from the PC
+- **Red:** OneBox has become unplugged from the PC
 
-- Blue: OneBox is trasmitting data to the PC 
+- **Blue:** OneBox is trasmitting data to the PC 
 
 
 Loading the OneBox plugin
@@ -103,6 +103,8 @@ Drag and drop the "OneBox" plugin from the Processor List onto the Editor Viewpo
 - If multiple OneBoxes are connected, you can use multiple OneBox plugins in parallel.
 - If no OneBoxes are found, the plugin can be run in simulation mode. 
 - If no probes are connected to the OneBox, data can be acquired from the 12 OneBox ADCs.
+
+The first connected OneBox plugin will be automatically assigned to slot 16, followed by 17, etc. This is so the slot number does not interfere with any PXI basestations that are being used in parallel.
 
 The editor will automatically create a probe selection interface for the OneBox. Each OneBox can communicate with up to 2 probes (Neuropixels 1.0, NHP, and Ultra) or 4 probes (Neuropixels 2.0 with dual dock headstages). When the probes are initially detected, they show up as orange circles. Once they are initialized, connected probes become green. After the probes turn green, the plugin is ready to begin data acquisition.
 
@@ -135,7 +137,7 @@ Configuring probe settings
 
 To open the probe settings interface, press the "window" or "tab" button in the upper-right corner of the editor:
 
-.. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-04.png
+.. image:: ../../_static/images/plugins/onebox/onebox-04.png
   :alt: How to open the Neuropixels settings interface
 
 Each probe has its own interface for updating settings, which is customized for each probe type. Selecting the green button corresponding to the probe's basestation and port in the plugin editor allows you to access the parameters for a particular probe. The button that is highlighted in light green indicates the probe whose settings are currently being viewed.
@@ -181,9 +183,6 @@ Neuropixels 2.0 probes have an additional reference option:
 
 * **Ground** - same as External, but with the ground and reference connected internally, so no wire bridge is needed.
 
-.. note:: As of GUI version 0.6.0, it's no longer possible to select the "Internal" reference channels of a Neuropixels probe. These channels are not suitable to use as a reference due to their high impedance.
-
-.. caution:: When using multiple PXI basestations in the same chassis, some users have reported problems with the External reference. This manifests as randomly occurring saturating events on the LFP channels, combined with a sudden drop in gain on the AP channels. Such events are not seen when using the Tip reference.
 
 Activity view
 ###########################
@@ -225,11 +224,10 @@ If you're performing offline analysis with `SpikeInterface <https://github.com/s
 OneBox ADC settings
 ######################################
 
-The OneBox ADCs can be configured as follows:
+The OneBox ADCs can be configured as follows (details coming soon):
 
-
-.. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-07.png
-  :alt: Four different stream naming interfaces
+.. image:: ../../_static/images/plugins/onebox/onebox-03.png
+  :alt: OneBox ADC/DAC configuration interface
 
 Plugin data streams
 ######################################
@@ -257,7 +255,7 @@ As of GUI version 0.6.0, stream in downstream plugins are configured independent
 Customizing stream names
 --------------------------
 
-Clicking on the slot number for a given basestation will open up an interface for customizing the names of the data streams generated by the Neuropixels PXI plugin. By default, each probe is assigned a name based on the order that it's detected: :code:`ProbeA`, :code:`ProbeB`, :code:`ProbeC`, etc. While this is fine for most use cases, there are some situations where other behavior is desirable. Therefore, the plugin includes four different schemes for naming data streams, which can be applied independently for each basestation:
+Clicking on the slot number for a given basestation will open up an interface for customizing the names of the data streams generated by the OneBox. By default, each probe is assigned a name based on the order that it's detected: :code:`ProbeA`, :code:`ProbeB`, :code:`ProbeC`, etc. While this is fine for most use cases, there are some situations where other behavior is desirable. Therefore, the plugin includes four different schemes for naming data streams:
 
 .. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-07.png
   :alt: Four different stream naming interfaces
@@ -275,7 +273,7 @@ Clicking on the slot number for a given basestation will open up an interface fo
 Synchronization settings
 ######################################
 
-Properly configuring your synchronization signals is critical for Neuropixels recordings. Each probe will have a slightly different sample rate between 29999.9 and 30000.1 Hz, so you cannot simply count samples to figure out how much time has elapsed for a given data stream. Therefore, every data source (including individual basestations, NI hardware, etc.) must share a hardware sync line in order for samples to be accurately aligned offline.
+Properly configuring your synchronization signals is critical for Neuropixels recordings. Each probe will have a slightly different sample rate between 29999.9 and 30000.1 Hz, so you cannot simply count samples to figure out how much time has elapsed for a given data stream. Therefore, every data source must share a hardware sync line in order for samples to be accurately aligned offline.
 
 Each OneBox contains an SMA connector for sync input (labeled SMA1). The behavior of this connector is configured using the synchronization interface within the plugin editor:
 

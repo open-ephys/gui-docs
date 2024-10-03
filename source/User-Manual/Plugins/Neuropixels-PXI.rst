@@ -83,6 +83,8 @@ This plugin can stream data from the following Neuropixels probe types:
 
 .. important:: Regardless of which probe type you're using, we recommend updating to the most recent Neuropixels PXI plugin and basestation firmware (`BS169, BSC191`_). This firmware is required for plugin version **0.7.x** and higher, as well as the latest version of SpikeGLX. See :ref:`Updating basestation firmware` section for information on how to modify your firmware.
 
+.. warning:: In version 0.6.x of this plugin, commercial Neuropixels 2.0 (multishank) probes did not have the correct scaling applied to account for the lower bit depth of the ADC compared to the beta probes (12 vs. 14 bits). To correct this, any data acquired with from these probes with this plugin should be multiplied by 4. This issue is fixed in version 0.7.x.
+
 .. _BS137, BSC176: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.4.x.zip
 .. _BS169, BSC176: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.5.x.zip
 .. _BS169, BSC189: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.6.x.zip
