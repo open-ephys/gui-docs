@@ -80,6 +80,19 @@ Once the drivers are installed, verify whether the OneBox is correctly recognize
 OneBox status light
 ---------------------------
 
+The status light on the front of the OneBox can take the following states:
+
+- Off: system is powered off
+
+- Soft-blinking green: OneBox is powered on and plugged into a USB port
+
+- Soft-blinking red: OneBox is on but not plugged in to a PC, or OneBox is plugged in but no software connection is made within 5 seconds.
+
+- Green: OneBox has successfully connected to the control software 
+
+- Red: OneBox has become unplugged from the PC
+
+- Blue: OneBox is trasmitting data to the PC 
 
 
 Loading the OneBox plugin
@@ -92,6 +105,8 @@ Drag and drop the "OneBox" plugin from the Processor List onto the Editor Viewpo
 - If no probes are connected to the OneBox, data can be acquired from the 12 OneBox ADCs.
 
 The editor will automatically create a probe selection interface for the OneBox. Each OneBox can communicate with up to 2 probes (Neuropixels 1.0, NHP, and Ultra) or 4 probes (Neuropixels 2.0 with dual dock headstages). When the probes are initially detected, they show up as orange circles. Once they are initialized, connected probes become green. After the probes turn green, the plugin is ready to begin data acquisition.
+
+.. tip:: If the probe icons do not turn green, the OneBox needs to be power cycled. Close the Open Ephys GUI, turn the OneBox off and on, and then re-open the GUI. The probe icons should be green after relaunch.
 
 
 Calibrating probes
@@ -207,17 +222,19 @@ ProbeInterface JSON files
 
 If you're performing offline analysis with `SpikeInterface <https://github.com/spikeinterface/spikeinterface>`__, it may be helpful to have information about your probe's channel configuration stored in a JSON file that conforms to the `ProbeInterface <https://github.com/spikeinterface/probeinterface>`__ specification. To export a ProbeInterface JSON file, simply press the "SAVE TO JSON" button.
 
-Rescanning basestations
+OneBox ADC settings
 ######################################
 
-Pressing the "rescan" button in the upper right corner of the plugin editor will initiate a basestation rescan. If probes have been added, moved, or removed, they will be detected automatically. Prior settings will be transferred based on probe serial number.
+The OneBox ADCs can be configured as follows:
 
-.. caution:: After plugging or unplugging probes, do not try to start acquisition without triggering a re-scan or re-launching the GUI.
+
+.. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-07.png
+  :alt: Four different stream naming interfaces
 
 Plugin data streams
 ######################################
 
-The Neuropixels PXI plugin sends data from all connected probes through the GUI's signal chain unless they have been disabled. To disable data transmission, you can press the "ENABLE" button underneath the probe name. The probe's icon will turn red, and its data will not be available to downstream plugins.
+OneBox plugin sends data from all connected probes through the GUI's signal chain unless they have been disabled. To disable data transmission, you can press the "ENABLE" button underneath the probe name. The probe's icon will turn red, and its data will not be available to downstream plugins.
 
 Neuropixels 1.0, NHP, or Ultra probes have two data streams: 
 
@@ -232,6 +249,8 @@ Neuropixels 2.0 single-shank and quad-shank probes have only one data stream:
 Neuropixels 2.0 quad base probes have four data streams (one for each shank):
 
 * 384 x 4 channels of wide-band data, sampled at 30 kHz.
+
+In addition, the OneBox will transmit an ADC data stream with 12 channels.
 
 As of GUI version 0.6.0, stream in downstream plugins are configured independently. This makes it much easier to apply different parameters to different streams, for example unique :ref:`bandpassfilter` settings for the AP band and LFP band. However, users should be aware that settings for one stream are not automatically applied to other streams. If you are recording from many probes simultaneously, be sure to use the Stream Selector interface in downstream plugins to confirm that the appropriate settings have taken effect for all incoming data streams.
 
