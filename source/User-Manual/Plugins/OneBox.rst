@@ -6,7 +6,7 @@
 OneBox
 ################
 
-.. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-01.png
+.. image:: ../../_static/images/plugins/onebox/onebox-01.png
   :alt: Annotated OneBox editor
 
 .. csv-table:: Streams Neuropixels data from imec's OneBox.
@@ -21,7 +21,7 @@ OneBox
 Installing and upgrading
 ############################
 
-The OneBox is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Neuropixels PXI" plugin, and click the "Install" button. This will install both the :ref:`neuropixelspxi` and OneBox plugins.
+The OneBox plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Neuropixels PXI" plugin, and click the "Install" button. This will install both the :ref:`neuropixelspxi` and OneBox plugins.
 
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
 
@@ -31,6 +31,8 @@ Hardware requirements
 Ordered via `neuropixels.org <https://neuropixels.org>`__:
 
 * One **OneBox** (with included power supply and USB 3.0 cable)
+
+* One **breakout board** and SDR cable (for auxiliary I/O)
 
 * One or more **Neuropixels cables** (black + yellow twisted pair, USB-C to Omnetics)
 
@@ -52,11 +54,8 @@ This plugin can stream data from any of the following Neuropixels probes:
    "Neuropixels NHP Prototype (10 mm, 25 mm, and 45 mm)", "384 AP, 384 LFP"
    "Neuropixels NHP 128 CH Passive", "128 AP, 128 LFP"
    "Neuropixels NHP Commercial (10 mm)", "384 AP, 384 LFP"
-   "Neuropixels UHD Phase 1", "384 AP, 384 LFP"
-   "Neuropixels UHD Phase 2 (switchable)", "384 AP, 384 LFP"
-   "Neuropixels UHD Phase 3 (ultradense)", "384 AP, 384 LFP"
-   "Neuropixels 2.0 (beta)", "384 wideband"
-   "Neuropixels 2.0 (public release)", "384 wideband"
+   "Neuropixels UHD", "384 AP, 384 LFP"
+   "Neuropixels 2.0", "384 wideband"
    "Neuropixels Quad Base", "1536 wideband"
 
 
@@ -66,33 +65,49 @@ OneBox Quickstart Guide
 Driver installation
 -------------------- 
 
-The OneBox requires the latest FTDI D3XX drivers to be installed on your computer. These drivers can be downloaded from the `FTDI website <https://www.ftdichip.com/Drivers/D3XX.htm>`__. 
+The OneBox requires the latest FTDI D3XX drivers to be installed on your computer (version 1.3.0.10). These drivers can be downloaded from the `FTDI website <https://www.ftdichip.com/Drivers/D3XX.htm>`__. Driver installation instructions can be found `here <https://ftdichip.com/wp-content/uploads/2022/05/AN_396-FTDI-Drivers-Installation-Guide-for-Windows-10_11.pdf>`__.
 
-Once the drivers are updated, make sure to power cycle your OneBox before continuing.
+Once the drivers are installed, verify whether the OneBox is correctly recognized:
+
+1. Plug in the OneBox power supply
+2. Switch on the OneBox using the power button
+3. Conect the OneBox to your computer using the included USB 3.0 cable
+4. Open Device Manager and confirm that the OneBox appears as a "FT601 USB 3.0 Bridge Device"
+
+.. image:: ../../_static/images/plugins/onebox/onebox-01.png
+  :alt: OneBox in the Device Manager
+
+OneBox status light
+---------------------------
+
+
 
 Loading the OneBox plugin
 ---------------------------
 
 Drag and drop the "OneBox" plugin from the Processor List onto the Editor Viewport. The GUI will automatically connect to the first available OneBox connected to your computer. 
 
-
-- If multiple OneBoxes are connected, you can use multiple OneBox plugins in parallel. 
+- If multiple OneBoxes are connected, you can use multiple OneBox plugins in parallel.
 - If no OneBoxes are found, the plugin can be run in simulation mode. 
 - If no probes are connected to the OneBox, data can be acquired from the 12 OneBox ADCs.
 
-The editor will automatically create a probe selection interface for the OneBox. Each OneBox can communicate with up to 2 probes (Neuropixels 1.0, NHP, and Ultra) or 8 probes (for Neuropixels 2.0). When the probes are initially detected, they show up as orange circles. Once they are initialized, connected probes become green. After the probes turn green, the plugin is ready to begin data acquisition.
+The editor will automatically create a probe selection interface for the OneBox. Each OneBox can communicate with up to 2 probes (Neuropixels 1.0, NHP, and Ultra) or 4 probes (Neuropixels 2.0 with dual dock headstages). When the probes are initially detected, they show up as orange circles. Once they are initialized, connected probes become green. After the probes turn green, the plugin is ready to begin data acquisition.
 
 
 Calibrating probes
 #####################
 
-Neuropixels probes require ADC and gain calibration in order to function properly. These files can be obtained from IMEC for every probe that you've purchased. There should be two files for each probe:
+Neuropixels probes require calibration in order to function properly. These files can be obtained from IMEC for every probe that you've purchased. There should be two files for each 1.0 probe:
 
 * :code:`<probe_serial_number>_ADCCalibration.csv`
 
 * :code:`<probe_serial_number>_gainCalValues.csv`
 
-Any probes detected by the OneBox plugin will be calibrated automatically when the plugin is loaded, provided that calibration files are stored in one of the following locations:
+and one file for each 2.0 probe:
+
+* :code:`<probe_serial_number>_gainCalValues.csv`
+
+Any probes detected by the Neuropixels PXI plugin will be calibrated automatically when the plugin is loaded, provided that calibration files are stored in one of the following locations:
 
 * :code:`C:\\ProgramData\\Open Ephys\\CalibrationInfo\\<probe_serial_number>` (recommended - note that **ProgramData** may be a hidden folder on your system, so you'll need to change the File Explorer options to show hidden files)
 
@@ -120,9 +135,17 @@ And for a Neuropixels 2.0 (4-shank) probe:
 .. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-03.png
   :alt: Overview of the Neuropixels 2.0 settings interface
 
+Electrode selection
+---------------------
+
 The interface on the left allows you to select/deselect electrodes from different banks. Use the mini probe overview visualization to scroll to the electrodes you want to activate, click or drag to select them in the zoomed visualization, and then click the "ENABLE" button. Selecting electrodes on one bank will automatically deactivate the electrodes on all other banks that are connected to the same set of channels.
 
-In addition, for 1.0, NHP, and Ultra probes, you can change the following settings:
+You can also select pre-defined electrode configurations from the "Electrode Preset" drop-down menu. This is a much faster way to switch between commonly used electrode layouts.
+
+Gain and filter settings
+--------------------------
+
+For 1.0, NHP, and Ultra probes, you can change the following settings:
 
 * **AP Gain** (amplifier gain for AP channels, 50x-3000x; default = 500x)
 
@@ -131,17 +154,19 @@ In addition, for 1.0, NHP, and Ultra probes, you can change the following settin
 * **AP Filter Cut** (ON = 300 Hz high-pass filter active, OFF = filter inactive; default = ON)
 
 Reference selection
-###########################
+--------------------
 
 All probe types include a **Reference** drop-down menu that can be used to select one of the following reference types:
 
-* **External** (default) - references signals to the dedicated reference pad on the probe/flex cable. This pad can be connected to a wire immersed in saline above the brain (for acute recordings) or a screw embedded in the skull (for chronic recordings). It's common to connect the reference pad to the ground pad, to avoid the need for additional wires.
+* **External** (default) - references signals to the dedicated reference pad on the probe/flex cable. This pad can be connected to a wire immersed in saline above the brain (for acute recordings) or a screw embedded in the skull (for chronic recordings). It's common to use a wire to bridge the reference pad to the ground pad, to avoid the need for a separate reference wire.
 
 * **Tip** - references signals to the large pad at the tip of the probe (or the tip of a particular shank, in the case of the 4-shank Neuropixels 2.0). The tip reference will likely reduce your overall noise levels, but it will also lead to leakage of low-frequency signals across all channels. If you want to do any analysis of the local field potential, you need to be sure to keep at least a few channels outside the brain, in order to subtract their signals offline.
 
-.. note:: As of GUI version 0.6.0, it's no longer possible to select the "Internal" reference channels of a Neuropixels probe. These channels are not suitable to use as a reference due to their high impedance.
+Neuropixels 2.0 probes have an additional reference option:
 
-In the Open Ephys GUI, reference settings are applied globally to all channels (i.e., you can't have a different gain for a subset of channels).
+* **Ground** - same as External, but with the ground and reference connected internally, so no wire bridge is needed.
+
+.. note:: As of GUI version 0.6.0, it's no longer possible to select the "Internal" reference channels of a Neuropixels probe. These channels are not suitable to use as a reference due to their high impedance.
 
 .. caution:: When using multiple PXI basestations in the same chassis, some users have reported problems with the External reference. This manifests as randomly occurring saturating events on the LFP channels, combined with a sudden drop in gain on the AP channels. Such events are not seen when using the Tip reference.
 
@@ -182,22 +207,33 @@ ProbeInterface JSON files
 
 If you're performing offline analysis with `SpikeInterface <https://github.com/spikeinterface/spikeinterface>`__, it may be helpful to have information about your probe's channel configuration stored in a JSON file that conforms to the `ProbeInterface <https://github.com/spikeinterface/probeinterface>`__ specification. To export a ProbeInterface JSON file, simply press the "SAVE TO JSON" button.
 
+Rescanning basestations
+######################################
+
+Pressing the "rescan" button in the upper right corner of the plugin editor will initiate a basestation rescan. If probes have been added, moved, or removed, they will be detected automatically. Prior settings will be transferred based on probe serial number.
+
+.. caution:: After plugging or unplugging probes, do not try to start acquisition without triggering a re-scan or re-launching the GUI.
+
 Plugin data streams
 ######################################
 
-The Neuropixels PXI plugin sends data from all connected probes through the GUI's signal chain. To disable data transmission, a probe needs to be physically disconnected from the basestation. The plugin should be deleted and re-loaded any time a probe is connected or disconnected.
+The Neuropixels PXI plugin sends data from all connected probes through the GUI's signal chain unless they have been disabled. To disable data transmission, you can press the "ENABLE" button underneath the probe name. The probe's icon will turn red, and its data will not be available to downstream plugins.
 
-If you're using Neuropixels 1.0, NHP, or Ultra probes, each probe will have two data streams: 
+Neuropixels 1.0, NHP, or Ultra probes have two data streams: 
 
-* 384 channels of AP band data, sampled at 30 kHz
+* 384 channels of AP band data, sampled at 30 kHz (e.g. "ProbeA-AP")
 
-* 384 channels of LFP band data, sampled at 2.5 kHz. 
+* 384 channels of LFP band data, sampled at 2.5 kHz (e.g. "ProbeA-LFP")
 
-If you're using Neuropixels 2.0 probes, each probe will have only one data stream:
+Neuropixels 2.0 single-shank and quad-shank probes have only one data stream:
 
 * 384 channels of wide-band data, sampled at 30 kHz.
 
-As of GUI version 0.6.0, settings for each stream are configured independently for each stream. This makes it much easier to apply different parameters to different streams, for example unique filter settings for the AP band and LFP band. However, users should be aware that settings for one stream are not automatically applied to other streams. If you are recording from many probes simultaneously, be sure to use the Stream Selector interface in downstream plugins to confirm that the appropriate settings have taken effect for all incoming data streams.
+Neuropixels 2.0 quad base probes have four data streams (one for each shank):
+
+* 384 x 4 channels of wide-band data, sampled at 30 kHz.
+
+As of GUI version 0.6.0, stream in downstream plugins are configured independently. This makes it much easier to apply different parameters to different streams, for example unique :ref:`bandpassfilter` settings for the AP band and LFP band. However, users should be aware that settings for one stream are not automatically applied to other streams. If you are recording from many probes simultaneously, be sure to use the Stream Selector interface in downstream plugins to confirm that the appropriate settings have taken effect for all incoming data streams.
 
 Customizing stream names
 --------------------------
@@ -222,21 +258,20 @@ Synchronization settings
 
 Properly configuring your synchronization signals is critical for Neuropixels recordings. Each probe will have a slightly different sample rate between 29999.9 and 30000.1 Hz, so you cannot simply count samples to figure out how much time has elapsed for a given data stream. Therefore, every data source (including individual basestations, NI hardware, etc.) must share a hardware sync line in order for samples to be accurately aligned offline.
 
-Each Neuropixels basestation contains one SMA connector for sync input. The behavior of these connectors is configured using the synchronization interface within the plugin editor:
+Each OneBox contains an SMA connector for sync input (labeled SMA1). The behavior of this connector is configured using the synchronization interface within the plugin editor:
 
 .. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-06.png
   :alt: Updating sync settings
 
-* The top drop-down menu allows you to select one basestation's SMA connector to serve as the "main" sync. The signal on this line will be automatically copied to the sync inputs of all other basestations.
+* The drop-down menu allows you to configure the main sync SMA as **INPUT** or **OUTPUT**. In **INPUT** mode, an external digital input must be connected to the SMA. In **OUTPUT** mode, the OneBox will generate its own sync signal at 1 Hz, which can be used to synchronize other devices (e.g. a PXI basestation or Open Ephys Acquisition Board).
 
 * The "+" button allows you to toggle whether or not the sync line is appended to all data streams as a continuous channel. When this button is orange, each stream will include a 385th channel containing the state of the sync line. This will make the :ref:`binaryformat` data files saved by the Record Node compatible with a variety of SpikeGLX-associated offline processing tools, such as CatGT. This button should be enabled *only* if you plan to use these tools. Regardless of whether or not this option is enabled, the sync rising and falling edges will be transmitted as events to downstream processors.
 
-* The second drop-down menu allows you to configure the main sync SMA as **INPUT** or **OUTPUT**. In **INPUT** mode, an external digital input must be connected to the SMA. In **OUTPUT** mode, the master basestation will generate its own sync signal at 1 Hz or 10 Hz. 
 
 Simulation mode
 ##############################
 
-When running the plugin in simulation mode, you'll have the option of selecting up to four different probes to acquire data from. This is useful for familiarizing yourself with the settings interfaces for different probe types, or testing your signal chain in the absence of any Neuropixels hardware.
+When running the plugin in simulation mode, you'll have the option of selecting up two different probes to acquire data from. This is useful for familiarizing yourself with the settings interfaces for different probe types, or testing your signal chain in the absence of any Neuropixels hardware.
 
 The simulated AP band data was designed to make the probe activity view look interesting; the simulated LFP band data is sine waves with amplitudes that vary across channels.
 
@@ -266,7 +301,7 @@ To run each test, select one from the drop-down menu, and click the "RUN" button
 Headstage tests
 #################
 
-If you have a headstage test module, you can run a suite of tests to ensure the headstage is functioning properly. When the Neuropix plugin is dropped into the signal chain and at least one headstage test module is connected to the PXI system, the GUI will automatically run all headstage tests and output the results in a popup window:
+If you have a headstage test module, you can run a suite of tests to ensure the headstage is functioning properly. When the Neuropix plugin is dropped into the signal chain and at least one headstage test module is connected to the OneBox, the GUI will automatically run all headstage tests and output the results in a popup window:
 
 .. image:: ../../_static/images/plugins/neuropix-pxi/HST.png
   :alt: Headstage test board popup window
@@ -278,7 +313,7 @@ If you have a headstage test module, you can run a suite of tests to ensure the 
 Remote control
 ######################
 
-A number of Neuropixels probe settings can be changed via the GUI's built-in HTTP server. Commands are sent as "config messages" to the OneBox processor.
+A number of Neuropixels probe settings can be changed via the GUI's built-in HTTP server. Commands are sent as "config messages" to the Neuropix-PXI processor.
 
 The following commands are available:
 
@@ -288,7 +323,7 @@ The following commands are available:
 4. :code:`NP FILTER <bs> <port> <dock> <ON/OFF>` : turn the AP filter cut on or off (Neuropixels 1.0 only)
 5. :code:`NP SELECT <bs> <port> <dock> <electrode> <electrode> <electrode> ...` : select electrodes by index
 
-Note that the :code:`bs`, :code:`port`, and :code:`dock` parameters all use 1-based indexing, and the :code:`dock` parameter is always 1 for Neuropixels 1.0 probes. For the OneBox, the default basestation number is 16.
+Note that the :code:`bs`, :code:`port`, and :code:`dock` parameters all use 1-based indexing. The default :code:`bs` value is 16 for the OneBox and the :code:`dock` parameter is always 1 for Neuropixels 1.0 probes.
 
 For example, the :code:`NP SELECT` command can be used to automatically cycle through different electrode banks. The following code shows how to do this using the :code:`open-ephys-python-tools` package (version 0.1.6 and higher):
 

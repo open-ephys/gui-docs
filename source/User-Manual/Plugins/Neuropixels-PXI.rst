@@ -21,7 +21,7 @@ Neuropixels PXI
 Installing and upgrading
 ############################
 
-The Neuropixels PXI plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Neuropixels PXI" plugin, and click the "Install" button. Alternatively, you can select the "Neuropixels" default configuration the first time the GUI is launched, and the plugin will be downloaded and installed automatically.
+The Neuropixels PXI plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Neuropixels PXI" plugin, and click the "Install" button. This will also install the :ref:`onebox` plugin. Alternatively, you can select the "Neuropixels" default configuration the first time the GUI is launched, and the plugin will be downloaded and installed automatically.
 
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
 
@@ -76,14 +76,17 @@ This plugin can stream data from the following Neuropixels probe types:
    "Neuropixels UHD Phase 2 (switchable)", "384 AP, 384 LFP", "≥0.2.x", "`BS137, BSC176`_"
    "Neuropixels UHD Phase 3 (ultradense)", "384 AP, 384 LFP", "≥0.5.x", "`BS169, BSC176`_"
    "Neuropixels 2.0 (beta)", "384 wideband", "≥0.2.x", "`BS137, BSC176`_"
-   "Neuropixels 2.0 (public release)", "384 wideband", "**≥0.6.x**", "`BS169, BSC189`_"
+   "Neuropixels 2.0 (multishank)", "384 wideband", "≥0.6.x", "`BS169, BSC189`_"
+   "Neuropixels 2.0 (single shank)", "384 wideband", "**≥0.7.x**", "`BS169, BSC191`_"
+   "Neuropixels 2.0 (quad base)", "1536 wideband", "**≥0.7.x**", "`BS169, BSC191`_"
    "Neuropixels Opto", "384 AP, 384 LFP", "≥0.4.x", "Special basestation required"
 
-.. important:: Regardless of which probe type you're using, we recommend updating to the most recent Neuropixels PXI plugin and basestation firmware (`BS169, BSC189`_). This firmware is required for plugin version **0.6.x** and higher, as well as the latest version of SpikeGLX. See :ref:`Updating basestation firmware` section for information on how to modify your firmware.
+.. important:: Regardless of which probe type you're using, we recommend updating to the most recent Neuropixels PXI plugin and basestation firmware (`BS169, BSC191`_). This firmware is required for plugin version **0.7.x** and higher, as well as the latest version of SpikeGLX. See :ref:`Updating basestation firmware` section for information on how to modify your firmware.
 
 .. _BS137, BSC176: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.4.x.zip
 .. _BS169, BSC176: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.5.x.zip
 .. _BS169, BSC189: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.6.x.zip
+.. _BS169, BSC191: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.7.x.zip
 
 
 Connecting to the PXI system
@@ -105,9 +108,13 @@ If no basestations are detected, the plugin will display the "No basestations fo
 Calibrating probes
 #####################
 
-Neuropixels probes require ADC and gain calibration in order to function properly. These files can be obtained from IMEC for every probe that you've purchased. There should be two files for each probe:
+Neuropixels probes require calibration in order to function properly. These files can be obtained from IMEC for every probe that you've purchased. There should be two files for each 1.0 probe:
 
 * :code:`<probe_serial_number>_ADCCalibration.csv`
+
+* :code:`<probe_serial_number>_gainCalValues.csv`
+
+and one file for each 2.0 probe:
 
 * :code:`<probe_serial_number>_gainCalValues.csv`
 
@@ -139,9 +146,17 @@ And for a Neuropixels 2.0 (4-shank) probe:
 .. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-03.png
   :alt: Overview of the Neuropixels 2.0 settings interface
 
+Electrode selection
+---------------------
+
 The interface on the left allows you to select/deselect electrodes from different banks. Use the mini probe overview visualization to scroll to the electrodes you want to activate, click or drag to select them in the zoomed visualization, and then click the "ENABLE" button. Selecting electrodes on one bank will automatically deactivate the electrodes on all other banks that are connected to the same set of channels.
 
-In addition, for 1.0, NHP, and Ultra probes, you can change the following settings:
+You can also select pre-defined electrode configurations from the "Electrode Preset" drop-down menu. This is a much faster way to switch between commonly used electrode layouts.
+
+Gain and filter settings
+--------------------------
+
+For 1.0, NHP, and Ultra probes, you can change the following settings:
 
 * **AP Gain** (amplifier gain for AP channels, 50x-3000x; default = 500x)
 
@@ -150,17 +165,19 @@ In addition, for 1.0, NHP, and Ultra probes, you can change the following settin
 * **AP Filter Cut** (ON = 300 Hz high-pass filter active, OFF = filter inactive; default = ON)
 
 Reference selection
-###########################
+--------------------
 
 All probe types include a **Reference** drop-down menu that can be used to select one of the following reference types:
 
-* **External** (default) - references signals to the dedicated reference pad on the probe/flex cable. This pad can be connected to a wire immersed in saline above the brain (for acute recordings) or a screw embedded in the skull (for chronic recordings). It's common to connect the reference pad to the ground pad, to avoid the need for additional wires.
+* **External** (default) - references signals to the dedicated reference pad on the probe/flex cable. This pad can be connected to a wire immersed in saline above the brain (for acute recordings) or a screw embedded in the skull (for chronic recordings). It's common to use a wire to bridge the reference pad to the ground pad, to avoid the need for a separate reference wire.
 
 * **Tip** - references signals to the large pad at the tip of the probe (or the tip of a particular shank, in the case of the 4-shank Neuropixels 2.0). The tip reference will likely reduce your overall noise levels, but it will also lead to leakage of low-frequency signals across all channels. If you want to do any analysis of the local field potential, you need to be sure to keep at least a few channels outside the brain, in order to subtract their signals offline.
 
-.. note:: As of GUI version 0.6.0, it's no longer possible to select the "Internal" reference channels of a Neuropixels probe. These channels are not suitable to use as a reference due to their high impedance.
+Neuropixels 2.0 probes have an additional reference option:
 
-In the Open Ephys GUI, reference settings are applied globally to all channels (i.e., you can't have a different gain for a subset of channels).
+* **Ground** - same as External, but with the ground and reference connected internally, so no wire bridge is needed.
+
+.. note:: As of GUI version 0.6.0, it's no longer possible to select the "Internal" reference channels of a Neuropixels probe. These channels are not suitable to use as a reference due to their high impedance.
 
 .. caution:: When using multiple PXI basestations in the same chassis, some users have reported problems with the External reference. This manifests as randomly occurring saturating events on the LFP channels, combined with a sudden drop in gain on the AP channels. Such events are not seen when using the Tip reference.
 
@@ -201,22 +218,33 @@ ProbeInterface JSON files
 
 If you're performing offline analysis with `SpikeInterface <https://github.com/spikeinterface/spikeinterface>`__, it may be helpful to have information about your probe's channel configuration stored in a JSON file that conforms to the `ProbeInterface <https://github.com/spikeinterface/probeinterface>`__ specification. To export a ProbeInterface JSON file, simply press the "SAVE TO JSON" button.
 
+Rescanning basestations
+######################################
+
+Pressing the "rescan" button in the upper right corner of the plugin editor will initiate a basestation rescan. If probes have been added, moved, or removed, they will be detected automatically. Prior settings will be transferred based on probe serial number.
+
+.. caution:: After plugging or unplugging probes, do not try to start acquisition without triggering a re-scan or re-launching the GUI.
+
 Plugin data streams
 ######################################
 
-The Neuropixels PXI plugin sends data from all connected probes through the GUI's signal chain. To disable data transmission, a probe needs to be physically disconnected from the basestation. The plugin should be deleted and re-loaded any time a probe is connected or disconnected.
+The Neuropixels PXI plugin sends data from all connected probes through the GUI's signal chain unless they have been disabled. To disable data transmission, you can press the "ENABLE" button underneath the probe name. The probe's icon will turn red, and its data will not be available to downstream plugins.
 
-If you're using Neuropixels 1.0, NHP, or Ultra probes, each probe will have two data streams: 
+Neuropixels 1.0, NHP, or Ultra probes have two data streams: 
 
-* 384 channels of AP band data, sampled at 30 kHz
+* 384 channels of AP band data, sampled at 30 kHz (e.g. "ProbeA-AP")
 
-* 384 channels of LFP band data, sampled at 2.5 kHz. 
+* 384 channels of LFP band data, sampled at 2.5 kHz (e.g. "ProbeA-LFP")
 
-If you're using Neuropixels 2.0 probes, each probe will have only one data stream:
+Neuropixels 2.0 single-shank and quad-shank probes have only one data stream:
 
 * 384 channels of wide-band data, sampled at 30 kHz.
 
-As of GUI version 0.6.0, settings for each stream are configured independently for each stream. This makes it much easier to apply different parameters to different streams, for example unique filter settings for the AP band and LFP band. However, users should be aware that settings for one stream are not automatically applied to other streams. If you are recording from many probes simultaneously, be sure to use the Stream Selector interface in downstream plugins to confirm that the appropriate settings have taken effect for all incoming data streams.
+Neuropixels 2.0 quad base probes have four data streams (one for each shank):
+
+* 384 x 4 channels of wide-band data, sampled at 30 kHz.
+
+As of GUI version 0.6.0, stream in downstream plugins are configured independently. This makes it much easier to apply different parameters to different streams, for example unique :ref:`bandpassfilter` settings for the AP band and LFP band. However, users should be aware that settings for one stream are not automatically applied to other streams. If you are recording from many probes simultaneously, be sure to use the Stream Selector interface in downstream plugins to confirm that the appropriate settings have taken effect for all incoming data streams.
 
 Customizing stream names
 --------------------------
@@ -250,7 +278,7 @@ Each Neuropixels basestation contains one SMA connector for sync input. The beha
 
 * The "+" button allows you to toggle whether or not the sync line is appended to all data streams as a continuous channel. When this button is orange, each stream will include a 385th channel containing the state of the sync line. This will make the :ref:`binaryformat` data files saved by the Record Node compatible with a variety of SpikeGLX-associated offline processing tools, such as CatGT. This button should be enabled *only* if you plan to use these tools. Regardless of whether or not this option is enabled, the sync rising and falling edges will be transmitted as events to downstream processors.
 
-* The second drop-down menu allows you to configure the main sync SMA as **INPUT** or **OUTPUT**. In **INPUT** mode, an external digital input must be connected to the SMA. In **OUTPUT** mode, the master basestation will generate its own sync signal at 1 Hz or 10 Hz. 
+* The second drop-down menu allows you to configure the main sync SMA as **INPUT** or **OUTPUT**. In **INPUT** mode, an external digital input must be connected to the SMA. In **OUTPUT** mode, the main basestation will generate its own sync signal at 1 Hz.
 
 Simulation mode
 ##############################
@@ -296,16 +324,16 @@ If you have a headstage test module, you can run a suite of tests to ensure the 
 Updating basestation firmware
 ######################################
 
-Version **0.6.x** of the Neuropixels PXI plugin requires a basestation firmware update. The latest firmware (BS169, BSC189) can be downloaded `here <https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.6.x.zip>`__.
+Version **0.7.x** of the Neuropixels PXI plugin requires a basestation firmware update. The latest firmware (BS169, BSC189) can be downloaded `here <https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.7.x.zip>`__.
 
-The currently installed firmware version will appear in the info section of the Neuropixels settings interface (upper right text block). If your basesation firmware version is "2.0169" and your basestation connect board firmware version is "3.2189", you already have the latest firmware installed.
+The currently installed firmware version will appear in the info section of the Neuropixels settings interface (upper right text block). If your basesation firmware version is "2.0169" and your basestation connect board firmware version is "3.2191", you already have the latest firmware installed.
 
 If you need to update your firmware, first click the "UPDATE FIRMWARE" button to open the firmware update interface:
 
 .. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-08.png
   :alt: Interface for updating firmware
 
-Next, select the :code:`.bin` file for the **basestation connect board** (:code:`QBSC*.bin`), and click "UPLOAD". The upload process can take anywhere from 10-15 minutes, so please be patient.
+Next, select the :code:`.bin` file for the **basestation connect board** (:code:`QBSC*.bin`), and click "UPLOAD".
 
 Immediately after the basestation connect board firmware upload finished, use the lower drop-down menu to select a :code:`.bin` file for the **basestation** (:code:`BS*.bin`), and click "UPLOAD". 
 
