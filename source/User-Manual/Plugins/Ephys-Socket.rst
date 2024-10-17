@@ -67,8 +67,8 @@ A second workflow is included in the same `Resources folder <https://github.com/
   :alt: A compatible Bonsai workflow using a function generator
 
 
-In Open Ephys
---------------
+In the Open Ephys GUI
+-----------------------
 
 #. Drag and drop the Ephys Socket plugin onto the signal chain.
 
