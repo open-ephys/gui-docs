@@ -63,7 +63,7 @@ Computer specs
 
 * **Operating system** - Windows 7, 10, or 11
 
-* **Processor** - minimum of 6 cores, 3.5 GHz; an **Intel** processor is recommended for optimum driver compatibility, but many users have AMD processors that work without issues.
+* **Processor** - minimum of 6 cores, 3.5 GHz
 
 * **Memory** - at least 2 GB per simultaneously recorded probe; a minimum of 16 GB is recommended.
 
@@ -77,9 +77,19 @@ Computer specs
 Other hardware
 ###############
 
-The following summarizes the additional hardware you'll need to buy to run Neuropixels experiments. Full details can be found on the :ref:`neuropixelspxi` plugin page.
+The following summarizes the additional hardware you'll need to buy to run Neuropixels experiments. OneBoxes, PXI basestations, headstages, and probes can be ordered from `neuropixels.org <https://neuropixels.org>`__. Other PXI components are available from NI.
 
-* From IMEC: Neuropixels basestations, cables, headstages, and probes
+OneBox
+-------
+
+* **OneBox** with included power supply and USB 3.0 cable
+
+* One **breakout board** with SDR cable (for auxiliary I/O)
+
+See the :ref:`onebox` plugin page for more details.
+
+PXI system
+----------
 
 * One **PXI chassis** (so far we've tested National Instruments PXIe-1071, PXIe-1082, and PXIe-1083 and ADLINK PXES-2301)
 
@@ -87,7 +97,7 @@ The following summarizes the additional hardware you'll need to buy to run Neuro
 
 For chassis without a built-in controller (e.g. PXIe-1071, PXIe-1082), you'll need:
 
-* One **PXI remote control module** (we've tested NI PXIe-8381 and PXIe-8398) – requires NIDAQmx driver
+* One **PXI remote control module** (we've tested NI PXIe-8381 and PXIe-8398)
 
 * One **PCIe interface card** (we've tested NI PCIe-8381, PCIe-8382, and PCIe-8398)
 
@@ -98,3 +108,5 @@ For chassis with a built-in Thunderbolt controller (e.g. PXIe-1083):
 * One **Thunderbolt interface card** that's compatible with your motherboard
 
 * One sufficiently long **Thunderbolt cable**
+
+See the :ref:`neuropixelspxi` plugin page for more details.

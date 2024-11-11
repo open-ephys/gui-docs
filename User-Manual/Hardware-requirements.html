@@ -403,6 +403,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="Plugins/Neuropixels-PXI.html">Neuropixels PXI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Plugins/NIDAQmx.html">NI-DAQmx</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Plugins/OE-FPGA-Acquisition-Board.html">OE FPGA Acquisition Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/OneBox.html">OneBox</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Plugins/Online-PSTH.html">Online PSTH</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Plugins/OSC-Events.html">OSC Events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Plugins/Phase-Calculator.html">Phase Calculator</a></li>
@@ -528,7 +529,7 @@ document.write(`
 <h3>Computer specs<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Operating system</strong> - Windows 7, 10, or 11</p></li>
-<li><p><strong>Processor</strong> - minimum of 6 cores, 3.5 GHz; an <strong>Intel</strong> processor is recommended for optimum driver compatibility, but many users have AMD processors that work without issues.</p></li>
+<li><p><strong>Processor</strong> - minimum of 6 cores, 3.5 GHz</p></li>
 <li><p><strong>Memory</strong> - at least 2 GB per simultaneously recorded probe; a minimum of 16 GB is recommended.</p></li>
 <li><p><strong>Data storage</strong> - a solid state drive is essential (at least 500 MB/s write speed); an NVMe drive is strongly recommended.</p></li>
 <li><p><strong>Graphics card</strong> - the GUI doesn’t rely on the GPU for processing, but GPUs are essential for offline analysis. An NVIDIA GPU is likely required (for CUDA compatibility); we recommend buying a GTX 1660 or better.</p></li>
@@ -537,15 +538,26 @@ document.write(`
 </section>
 <section id="id2">
 <h3>Other hardware<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
-<p>The following summarizes the additional hardware you’ll need to buy to run Neuropixels experiments. Full details can be found on the <a class="reference internal" href="Plugins/Neuropixels-PXI.html#neuropixelspxi"><span class="std std-ref">Neuropixels PXI</span></a> plugin page.</p>
+<p>The following summarizes the additional hardware you’ll need to buy to run Neuropixels experiments. OneBoxes, PXI basestations, headstages, and probes can be ordered from <a class="reference external" href="https://neuropixels.org">neuropixels.org</a>. Other PXI components are available from NI.</p>
+</section>
+</section>
+<section id="onebox">
+<h2>OneBox<a class="headerlink" href="#onebox" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>From IMEC: Neuropixels basestations, cables, headstages, and probes</p></li>
+<li><p><strong>OneBox</strong> with included power supply and USB 3.0 cable</p></li>
+<li><p>One <strong>breakout board</strong> with SDR cable (for auxiliary I/O)</p></li>
+</ul>
+<p>See the <a class="reference internal" href="Plugins/OneBox.html#onebox"><span class="std std-ref">OneBox</span></a> plugin page for more details.</p>
+</section>
+<section id="pxi-system">
+<h2>PXI system<a class="headerlink" href="#pxi-system" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
 <li><p>One <strong>PXI chassis</strong> (so far we’ve tested National Instruments PXIe-1071, PXIe-1082, and PXIe-1083 and ADLINK PXES-2301)</p></li>
 <li><p><em>(optional)</em> One <strong>PXI-based analog and digital I/O module</strong> (see the <a class="reference internal" href="Plugins/NIDAQmx.html#ni-daqmx"><span class="std std-ref">NI-DAQmx</span></a> page for a list of hardware we’ve tested)</p></li>
 </ul>
 <p>For chassis without a built-in controller (e.g. PXIe-1071, PXIe-1082), you’ll need:</p>
 <ul class="simple">
-<li><p>One <strong>PXI remote control module</strong> (we’ve tested NI PXIe-8381 and PXIe-8398) – requires NIDAQmx driver</p></li>
+<li><p>One <strong>PXI remote control module</strong> (we’ve tested NI PXIe-8381 and PXIe-8398)</p></li>
 <li><p>One <strong>PCIe interface card</strong> (we’ve tested NI PCIe-8381, PCIe-8382, and PCIe-8398)</p></li>
 <li><p><strong>MXI-Express Cables</strong> to connect the remote control module to the PCIe card</p></li>
 </ul>
@@ -554,7 +566,7 @@ document.write(`
 <li><p>One <strong>Thunderbolt interface card</strong> that’s compatible with your motherboard</p></li>
 <li><p>One sufficiently long <strong>Thunderbolt cable</strong></p></li>
 </ul>
-</section>
+<p>See the <a class="reference internal" href="Plugins/Neuropixels-PXI.html#neuropixelspxi"><span class="std std-ref">Neuropixels PXI</span></a> plugin page for more details.</p>
 </section>
 </section>
 
@@ -615,6 +627,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Other hardware</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#onebox">OneBox</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pxi-system">PXI system</a></li>
 </ul>
   </nav></div>
 

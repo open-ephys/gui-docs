@@ -1,0 +1,985 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>OneBox &#8212; Open Ephys GUI Docs</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Online PSTH" href="Online-PSTH.html" />
+    <link rel="prev" title="OE FPGA Acquisition Board" href="OE-FPGA-Acquisition-Board.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/oe_logo_name.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/oe_logo_name.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        User Manual
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../Developer-Guide/index.html">
+                        Developer Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../Tutorials/index.html">
+                        Tutorials
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../FAQ/index.html">
+                        FAQs
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://open-ephys.org/gui">
+                    Download
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/open-ephys/plugin-GUI" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/openephys" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/WXAx2URNQU" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-discord"></i></span>
+            <label class="sr-only">Discord</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        User Manual
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../Developer-Guide/index.html">
+                        Developer Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../Tutorials/index.html">
+                        Tutorials
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../FAQ/index.html">
+                        FAQs
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://open-ephys.org/gui">
+                    Download
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/open-ephys/plugin-GUI" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/openephys" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/WXAx2URNQU" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-discord"></i></span>
+            <label class="sr-only">Discord</label></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Before-you-begin.html">Before you begin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Hardware-requirements.html">Hardware requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installing-the-GUI.html">Installing the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Exploring-the-user-interface.html">Exploring the user interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Building-a-signal-chain.html">Building a signal chain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Recording-data/index.html">Recording data</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Recording-data/Binary-format.html">Binary Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Recording-data/Open-Ephys-format.html">Open Ephys Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Recording-data/NWB-format.html">NWB Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Remote-control.html">Remote control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Whats-new.html">What’s new in version 0.6.x</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Plugins</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Acq-Board-Output.html">Acq Board Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Acquisition-Board.html">Acquisition Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Arduino-Output.html">Arduino Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Audio-Monitor.html">Audio Monitor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bandpass-Filter.html">Bandpass Filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Channel-Map.html">Channel Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Common-Average-Reference.html">Common Average Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CNN-Ripple.html">CNN Ripple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Crossing-Detector.html">Crossing Detector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Data-Snapshot.html">Data Snapshot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Ephys-Socket.html">Ephys Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Event-Broadcaster.html">Event Broadcaster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Event-Translator.html">Event Translator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Falcon-Output.html">Falcon Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="File-Reader.html">File Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Intan-RHD-USB.html">Intan RHD USB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Latency-Histogram.html">Latency Histogram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LFP-Viewer.html">LFP Viewer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LSL-Inlet.html">LSL Inlet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MATLAB-Interface.html">MATLAB Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mean-Spike-Rate.html">Mean Spike Rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Merger.html">Merger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Multiband-Integrator.html">Multi-Band Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Network-Events.html">Network Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Neuropixels-CAR.html">Neuropixels CAR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Neuropixels-PXI.html">Neuropixels PXI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NIDAQmx.html">NI-DAQmx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OE-FPGA-Acquisition-Board.html">OE FPGA Acquisition Board</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">OneBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Online-PSTH.html">Online PSTH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OSC-Events.html">OSC Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Phase-Calculator.html">Phase Calculator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Phase-Detector.html">Phase Detector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Probe-Viewer.html">Probe Viewer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Pulse-Pal.html">Pulse Pal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Python-Processor.html">Python Processor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Rec-Controller-Output.html">Rec Controller Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Record-Control.html">Record Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Record-Node.html">Record Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RHD-Rec-Controller.html">RHD Rec Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Ripple-Detector.html">Ripple Detector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="River-Output.html">River Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Spectrum-Viewer.html">Spectrum Viewer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Spike-Detector.html">Spike Detector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Spike-Sorter.html">Spike Sorter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Spike-Viewer.html">Spike Viewer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Splitter.html">Splitter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tracking-Plugin.html">Tracking Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TTL-Panels.html">TTL Panels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Virtual-Reference.html">Virtual Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="XDAQ-OE.html">XDAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ZMQ-Interface.html">ZMQ Interface</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">User Manual</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Plugins</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">OneBox</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="onebox">
+<span id="id1"></span><h1>OneBox<a class="headerlink" href="#onebox" title="Permalink to this heading">#</a></h1>
+<img alt="Annotated OneBox editor" src="../../_images/onebox-01.png" />
+<table class="table" id="id2">
+<caption><span class="caption-text">Streams Neuropixels data from imec’s OneBox.</span><a class="headerlink" href="#id2" title="Permalink to this table">#</a></caption>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><em>Plugin Type</em></p></td>
+<td><p>Source</p></td>
+</tr>
+<tr class="row-even"><td><p><em>Platforms</em></p></td>
+<td><p>Windows only</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>Built in?</em></p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p><em>Key Developers</em></p></td>
+<td><p>Josh Siegle, Pavel Kulik, Anjal Doshi</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>Source Code</em></p></td>
+<td><p><a class="github reference external" href="https://github.com/open-ephys-plugins/neuropixels-pxi">open-ephys-plugins/neuropixels-pxi</a></p></td>
+</tr>
+</tbody>
+</table>
+<section id="installing-and-upgrading">
+<h2>Installing and upgrading<a class="headerlink" href="#installing-and-upgrading" title="Permalink to this heading">#</a></h2>
+<p>The OneBox plugin is not included by default in the Open Ephys GUI. To install, use <strong>ctrl-P</strong> or <strong>⌘P</strong> to open the Plugin Installer, browse to the “Neuropixels PXI” plugin, and click the “Install” button. This will install both the <a class="reference internal" href="Neuropixels-PXI.html#neuropixelspxi"><span class="std std-ref">Neuropixels PXI</span></a> and OneBox plugins.</p>
+<p>The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it’s already installed.</p>
+</section>
+<section id="hardware-requirements">
+<h2>Hardware requirements<a class="headerlink" href="#hardware-requirements" title="Permalink to this heading">#</a></h2>
+<p>Ordered via <a class="reference external" href="https://neuropixels.org">neuropixels.org</a>:</p>
+<ul class="simple">
+<li><p>One <strong>OneBox</strong> (with included power supply and USB 3.0 cable)</p></li>
+<li><p>One <strong>breakout board</strong> and SDR cable (for auxiliary I/O)</p></li>
+<li><p>One or more <strong>Neuropixels cables</strong> (black + yellow twisted pair, USB-C to Omnetics)</p></li>
+<li><p>One or more <strong>Neuropixels headstages</strong></p></li>
+<li><p>One or more <strong>Neuropixels probes</strong></p></li>
+</ul>
+</section>
+<section id="compatible-probes">
+<h2>Compatible probes<a class="headerlink" href="#compatible-probes" title="Permalink to this heading">#</a></h2>
+<p>This plugin can stream data from any of the following Neuropixels probes:</p>
+</section>
+<section id="onebox-quickstart-guide">
+<h2>OneBox Quickstart Guide<a class="headerlink" href="#onebox-quickstart-guide" title="Permalink to this heading">#</a></h2>
+<section id="driver-installation">
+<h3>Driver installation<a class="headerlink" href="#driver-installation" title="Permalink to this heading">#</a></h3>
+<p>The OneBox requires the latest FTDI D3XX drivers to be installed on your computer (version 1.3.0.10). These drivers can be downloaded from the <a class="reference external" href="https://www.ftdichip.com/Drivers/D3XX.htm">FTDI website</a>. It’s recommended to run the Setup Executable and follow the instructions provided by the installer.</p>
+<p>Once the drivers are installed, verify whether the OneBox is correctly recognized:</p>
+<ol class="arabic simple">
+<li><p>Plug in the OneBox power supply</p></li>
+<li><p>Switch on the OneBox using the power button</p></li>
+<li><p>Conect the OneBox to your computer using the included USB 3.0 cable</p></li>
+<li><p>Open Device Manager and confirm that the OneBox appears as a “FT601 USB 3.0 Bridge Device”</p></li>
+</ol>
+<img alt="OneBox in the Device Manager" src="../../_images/onebox-02.png" />
+</section>
+<section id="onebox-status-light">
+<h3>OneBox status light<a class="headerlink" href="#onebox-status-light" title="Permalink to this heading">#</a></h3>
+<p>The status light on the front of the OneBox can take the following states:</p>
+<ul class="simple">
+<li><p><strong>Off:</strong> system is powered off</p></li>
+<li><p><strong>Soft-blinking green:</strong> OneBox is powered on and plugged into a USB port</p></li>
+<li><p><strong>Soft-blinking red:</strong> OneBox is on but not plugged in to a PC, or OneBox is plugged in but no software connection is made within 5 seconds.</p></li>
+<li><p><strong>Green:</strong> OneBox has successfully connected to the control software</p></li>
+<li><p><strong>Red:</strong> OneBox has become unplugged from the PC</p></li>
+<li><p><strong>Blue:</strong> OneBox is trasmitting data to the PC</p></li>
+</ul>
+</section>
+<section id="loading-the-onebox-plugin">
+<h3>Loading the OneBox plugin<a class="headerlink" href="#loading-the-onebox-plugin" title="Permalink to this heading">#</a></h3>
+<p>Drag and drop the “OneBox” plugin from the Processor List onto the Editor Viewport. The GUI will automatically connect to the first available OneBox connected to your computer.</p>
+<ul class="simple">
+<li><p>If multiple OneBoxes are connected, you can use multiple OneBox plugins in parallel.</p></li>
+<li><p>If no OneBoxes are found, the plugin can be run in simulation mode.</p></li>
+<li><p>If no probes are connected to the OneBox, data can be acquired from the 12 OneBox ADCs.</p></li>
+</ul>
+<p>The first connected OneBox plugin will be automatically assigned to slot 16, followed by 17, etc. This is so the slot number does not interfere with any PXI basestations that are being used in parallel.</p>
+<p>The editor will automatically create a probe selection interface for the OneBox. Each OneBox can communicate with up to 2 probes (Neuropixels 1.0, NHP, and Ultra) or 4 probes (Neuropixels 2.0 with dual dock headstages). When the probes are initially detected, they show up as orange circles. Once they are initialized, connected probes become green. After the probes turn green, the plugin is ready to begin data acquisition.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If the probe icons do not turn green, the OneBox needs to be power cycled. Close the Open Ephys GUI, turn the OneBox off and on, and then re-open the GUI. The probe icons should be green after relaunch.</p>
+</div>
+</section>
+</section>
+<section id="calibrating-probes">
+<h2>Calibrating probes<a class="headerlink" href="#calibrating-probes" title="Permalink to this heading">#</a></h2>
+<p>Neuropixels probes require calibration in order to function properly. These files can be obtained from IMEC for every probe that you’ve purchased. There should be two files for each 1.0 probe:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">&lt;probe_serial_number&gt;_ADCCalibration.csv</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">&lt;probe_serial_number&gt;_gainCalValues.csv</span></code></p></li>
+</ul>
+<p>and one file for each 2.0 probe:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">&lt;probe_serial_number&gt;_gainCalValues.csv</span></code></p></li>
+</ul>
+<p>Any probes detected by the Neuropixels PXI plugin will be calibrated automatically when the plugin is loaded, provided that calibration files are stored in one of the following locations:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">C:\ProgramData\Open</span> <span class="pre">Ephys\CalibrationInfo\&lt;probe_serial_number&gt;</span></code> (recommended - note that <strong>ProgramData</strong> may be a hidden folder on your system, so you’ll need to change the File Explorer options to show hidden files)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">&lt;open-ephys-executable-folder&gt;\CalibrationInfo\&lt;probe_serial_number&gt;</span></code> (if you used the Open Ephys installer, the executable will be located in <code class="code docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files\Open</span> <span class="pre">Ephys</span></code>)</p></li>
+</ul>
+<p>If these files cannot be found, a warning message will appear. It’s still possible to acquire data from uncalibrated probes, but this data should be used for testing purposes only. The calibration files must copied to the correct location prior to running any actual experiments.</p>
+</section>
+<section id="configuring-probe-settings">
+<h2>Configuring probe settings<a class="headerlink" href="#configuring-probe-settings" title="Permalink to this heading">#</a></h2>
+<p>To open the probe settings interface, press the “window” or “tab” button in the upper-right corner of the editor:</p>
+<img alt="How to open the Neuropixels settings interface" src="../../_images/onebox-04.png" />
+<p>Each probe has its own interface for updating settings, which is customized for each probe type. Selecting the green button corresponding to the probe’s basestation and port in the plugin editor allows you to access the parameters for a particular probe. The button that is highlighted in light green indicates the probe whose settings are currently being viewed.</p>
+<p>Here is an example of the settings interface for a Neuropixels 1.0 probe:</p>
+<img alt="Overview of the Neuropixels 1.0 settings interface" src="../../_images/neuropix-pxi-02.png" />
+<p>And for a Neuropixels 2.0 (4-shank) probe:</p>
+<img alt="Overview of the Neuropixels 2.0 settings interface" src="../../_images/neuropix-pxi-03.png" />
+<section id="electrode-selection">
+<h3>Electrode selection<a class="headerlink" href="#electrode-selection" title="Permalink to this heading">#</a></h3>
+<p>The interface on the left allows you to select/deselect electrodes from different banks. Use the mini probe overview visualization to scroll to the electrodes you want to activate, click or drag to select them in the zoomed visualization, and then click the “ENABLE” button. Selecting electrodes on one bank will automatically deactivate the electrodes on all other banks that are connected to the same set of channels.</p>
+<p>You can also select pre-defined electrode configurations from the “Electrode Preset” drop-down menu. This is a much faster way to switch between commonly used electrode layouts.</p>
+</section>
+<section id="gain-and-filter-settings">
+<h3>Gain and filter settings<a class="headerlink" href="#gain-and-filter-settings" title="Permalink to this heading">#</a></h3>
+<p>For 1.0, NHP, and Ultra probes, you can change the following settings:</p>
+<ul class="simple">
+<li><p><strong>AP Gain</strong> (amplifier gain for AP channels, 50x-3000x; default = 500x)</p></li>
+<li><p><strong>LFP Gain</strong> (amplifier gain for LFP channels, 50x-3000x; default = 250x)</p></li>
+<li><p><strong>AP Filter Cut</strong> (ON = 300 Hz high-pass filter active, OFF = filter inactive; default = ON)</p></li>
+</ul>
+</section>
+<section id="reference-selection">
+<h3>Reference selection<a class="headerlink" href="#reference-selection" title="Permalink to this heading">#</a></h3>
+<p>All probe types include a <strong>Reference</strong> drop-down menu that can be used to select one of the following reference types:</p>
+<ul class="simple">
+<li><p><strong>External</strong> (default) - references signals to the dedicated reference pad on the probe/flex cable. This pad can be connected to a wire immersed in saline above the brain (for acute recordings) or a screw embedded in the skull (for chronic recordings). It’s common to use a wire to bridge the reference pad to the ground pad, to avoid the need for a separate reference wire.</p></li>
+<li><p><strong>Tip</strong> - references signals to the large pad at the tip of the probe (or the tip of a particular shank, in the case of the 4-shank Neuropixels 2.0). The tip reference will likely reduce your overall noise levels, but it will also lead to leakage of low-frequency signals across all channels. If you want to do any analysis of the local field potential, you need to be sure to keep at least a few channels outside the brain, in order to subtract their signals offline.</p></li>
+</ul>
+<p>Neuropixels 2.0 probes have an additional reference option:</p>
+<ul class="simple">
+<li><p><strong>Ground</strong> - same as External, but with the ground and reference connected internally, so no wire bridge is needed.</p></li>
+</ul>
+</section>
+</section>
+<section id="activity-view">
+<h2>Activity view<a class="headerlink" href="#activity-view" title="Permalink to this heading">#</a></h2>
+<p>Pressing the “VIEW” button in the “Probe Signal” area will toggle a live display of the amplitude range of each channel whenever acquisition is active. For Neuropixels 1.0 probes, activity can be viewed for the AP band or LFP band.</p>
+</section>
+<section id="saving-loading-and-copying-settings">
+<h2>Saving, loading, and copying settings<a class="headerlink" href="#saving-loading-and-copying-settings" title="Permalink to this heading">#</a></h2>
+<section id="default-loading-and-saving">
+<h3>Default loading and saving<a class="headerlink" href="#default-loading-and-saving" title="Permalink to this heading">#</a></h3>
+<p>Any changes made to the probe settings will be automatically re-applied when you re-start the GUI, provided you have checked <strong>Reload on startup</strong> from the “File” menu. Settings will first be transferred by probe serial number. If no matching serial number is found, settings will be inherited from a probe of the same type. Settings cannot be transferred between probes of different types (e.g. Neuropixels 1.0 to Neuropixels 2.0).</p>
+</section>
+<section id="copying-settings-between-probes">
+<h3>Copying settings between probes<a class="headerlink" href="#copying-settings-between-probes" title="Permalink to this heading">#</a></h3>
+<p>Settings can be transferred between probes using the “COPY”, “PASTE”, and “APPLY TO ALL” buttons:</p>
+<img alt="Probe settings buttons" src="../../_images/neuropix-pxi-05.png" />
+<p>Settings can only be applied to probes of matching types (e.g. 1.0, NHP, Ultra, 2.0).</p>
+</section>
+<section id="imro-files">
+<h3>IMRO files<a class="headerlink" href="#imro-files" title="Permalink to this heading">#</a></h3>
+<p>Settings for individual probes can also be loaded using SpikeGLX “IMec Read Out” (IMRO) tables, using the “LOAD FROM IMRO” button.</p>
+<p>The IMRO format is specified <a class="reference external" href="https://billkarsh.github.io/SpikeGLX/help/imroTables/">here</a>. If you’ve saved a probe configuration using SpikeGLX or some other software, you can apply that configuration to a probe in the Open Ephys GUI by reading in an IMRO file. The only caveat is that Open Ephys does not allow individual channels to have different gain or reference settings, so those will be inherited from the last channel in the file.</p>
+<p>You can save the configuration for a particular probe into IMRO format using the “SAVE TO IMRO” button. These files can be used in SpikeGLX or any other software that can read the IMRO format.</p>
+<p>Any IMRO files that have been loaded previously will appear in the drop-down menu below the “LOAD FROM IMRO” button, so they can be accessed more easily.</p>
+</section>
+<section id="probeinterface-json-files">
+<h3>ProbeInterface JSON files<a class="headerlink" href="#probeinterface-json-files" title="Permalink to this heading">#</a></h3>
+<p>If you’re performing offline analysis with <a class="reference external" href="https://github.com/spikeinterface/spikeinterface">SpikeInterface</a>, it may be helpful to have information about your probe’s channel configuration stored in a JSON file that conforms to the <a class="reference external" href="https://github.com/spikeinterface/probeinterface">ProbeInterface</a> specification. To export a ProbeInterface JSON file, simply press the “SAVE TO JSON” button.</p>
+</section>
+</section>
+<section id="onebox-adc-settings">
+<h2>OneBox ADC settings<a class="headerlink" href="#onebox-adc-settings" title="Permalink to this heading">#</a></h2>
+<p>The OneBox ADCs can be configured as follows (details coming soon):</p>
+<img alt="OneBox ADC/DAC configuration interface" src="../../_images/onebox-03.png" />
+</section>
+<section id="plugin-data-streams">
+<h2>Plugin data streams<a class="headerlink" href="#plugin-data-streams" title="Permalink to this heading">#</a></h2>
+<p>OneBox plugin sends data from all connected probes through the GUI’s signal chain unless they have been disabled. To disable data transmission, you can press the “ENABLE” button underneath the probe name. The probe’s icon will turn red, and its data will not be available to downstream plugins.</p>
+<p>Neuropixels 1.0, NHP, or Ultra probes have two data streams:</p>
+<ul class="simple">
+<li><p>384 channels of AP band data, sampled at 30 kHz (e.g. “ProbeA-AP”)</p></li>
+<li><p>384 channels of LFP band data, sampled at 2.5 kHz (e.g. “ProbeA-LFP”)</p></li>
+</ul>
+<p>Neuropixels 2.0 single-shank and quad-shank probes have only one data stream:</p>
+<ul class="simple">
+<li><p>384 channels of wide-band data, sampled at 30 kHz.</p></li>
+</ul>
+<p>Neuropixels 2.0 quad base probes have four data streams (one for each shank):</p>
+<ul class="simple">
+<li><p>384 x 4 channels of wide-band data, sampled at 30 kHz.</p></li>
+</ul>
+<p>In addition, the OneBox will transmit an ADC data stream with 12 channels.</p>
+<p>As of GUI version 0.6.0, stream in downstream plugins are configured independently. This makes it much easier to apply different parameters to different streams, for example unique <a class="reference internal" href="Bandpass-Filter.html#bandpassfilter"><span class="std std-ref">Bandpass Filter</span></a> settings for the AP band and LFP band. However, users should be aware that settings for one stream are not automatically applied to other streams. If you are recording from many probes simultaneously, be sure to use the Stream Selector interface in downstream plugins to confirm that the appropriate settings have taken effect for all incoming data streams.</p>
+<section id="customizing-stream-names">
+<h3>Customizing stream names<a class="headerlink" href="#customizing-stream-names" title="Permalink to this heading">#</a></h3>
+<p>Clicking on the slot number for a given basestation will open up an interface for customizing the names of the data streams generated by the OneBox. By default, each probe is assigned a name based on the order that it’s detected: <code class="code docutils literal notranslate"><span class="pre">ProbeA</span></code>, <code class="code docutils literal notranslate"><span class="pre">ProbeB</span></code>, <code class="code docutils literal notranslate"><span class="pre">ProbeC</span></code>, etc. While this is fine for most use cases, there are some situations where other behavior is desirable. Therefore, the plugin includes four different schemes for naming data streams:</p>
+<img alt="Four different stream naming interfaces" src="../../_images/neuropix-pxi-07.png" />
+<ol class="arabic simple">
+<li><p><strong>Automatic naming:</strong> Probes names are assigned automatically, based on the order in which they are detected. Any 1.0 probes will have “-AP” and “-LFP” appended to their respective streams. The naming interface displays the names that will be applied when using this scheme, but they cannot be edited.</p></li>
+<li><p><strong>Automatic numbering:</strong> Numeric stream names are assigned automatically, based on the order in which they are detected. This scheme will produce file names that look like those from GUI version 0.5.X and earlier, which did not have the ability to apply custom names to individual streams. The naming interface displays the names that will be applied when using this scheme, but they cannot be edited.</p></li>
+<li><p><strong>Custom port names:</strong> Probe names are assigned by port/dock. This is useful if you have probes placed in a particular physical configuration, and always want a probe in a certain position to have the same name, regardless of which other probes are connected.</p></li>
+<li><p><strong>Custom probe names:</strong> Porbe names are assigned by serial number. This is useful if you have probes chronically implanted and would like to associate the subject ID with a particular probe.</p></li>
+</ol>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>All stream names <em>must</em> be unique for a given plugin. Currently, it’s possible to inadvertently assign the same name to multiple probes, either by using the same port-specific or probe-specific names across basestations. Name conflicts must be checked manually in order to prevent crashes when starting recording.</p>
+</div>
+</section>
+</section>
+<section id="synchronization-settings">
+<h2>Synchronization settings<a class="headerlink" href="#synchronization-settings" title="Permalink to this heading">#</a></h2>
+<p>Properly configuring your synchronization signals is critical for Neuropixels recordings. Each probe will have a slightly different sample rate between 29999.9 and 30000.1 Hz, so you cannot simply count samples to figure out how much time has elapsed for a given data stream. Therefore, every data source must share a hardware sync line in order for samples to be accurately aligned offline.</p>
+<p>Each OneBox contains an SMA connector for sync input (labeled SMA1). The behavior of this connector is configured using the synchronization interface within the plugin editor:</p>
+<img alt="Updating sync settings" src="../../_images/neuropix-pxi-06.png" />
+<ul class="simple">
+<li><p>The drop-down menu allows you to configure the main sync SMA as <strong>INPUT</strong> or <strong>OUTPUT</strong>. In <strong>INPUT</strong> mode, an external digital input must be connected to the SMA. In <strong>OUTPUT</strong> mode, the OneBox will generate its own sync signal at 1 Hz, which can be used to synchronize other devices (e.g. a PXI basestation or Open Ephys Acquisition Board).</p></li>
+<li><p>The “+” button allows you to toggle whether or not the sync line is appended to all data streams as a continuous channel. When this button is orange, each stream will include a 385th channel containing the state of the sync line. This will make the <a class="reference internal" href="../Recording-data/Binary-format.html#binaryformat"><span class="std std-ref">Binary Format</span></a> data files saved by the Record Node compatible with a variety of SpikeGLX-associated offline processing tools, such as CatGT. This button should be enabled <em>only</em> if you plan to use these tools. Regardless of whether or not this option is enabled, the sync rising and falling edges will be transmitted as events to downstream processors.</p></li>
+</ul>
+</section>
+<section id="simulation-mode">
+<h2>Simulation mode<a class="headerlink" href="#simulation-mode" title="Permalink to this heading">#</a></h2>
+<p>When running the plugin in simulation mode, you’ll have the option of selecting up two different probes to acquire data from. This is useful for familiarizing yourself with the settings interfaces for different probe types, or testing your signal chain in the absence of any Neuropixels hardware.</p>
+<p>The simulated AP band data was designed to make the probe activity view look interesting; the simulated LFP band data is sine waves with amplitudes that vary across channels.</p>
+</section>
+<section id="built-in-self-tests">
+<h2>Built-in self tests<a class="headerlink" href="#built-in-self-tests" title="Permalink to this heading">#</a></h2>
+<p>If you have a probe that’s not working properly, these tests can be used to help pinpoint where the problem lies. It’s not recommended to run the tests prior to every recording; the tests are only necessary to diagnose an issue with a probe that is not transmitting data.</p>
+<p>To run each test, select one from the drop-down menu, and click the “RUN” button. After the test completes, the name of the test will be updated to indicated whether it passed or failed.</p>
+<table class="table" id="id3">
+<caption><span class="caption-text">Built-in self tests</span><a class="headerlink" href="#id3" title="Permalink to this table">#</a></caption>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 64%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Duration</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Test probe signal</p></td>
+<td><p>30 s</p></td>
+<td><p>Analyzes if the probe performance falls within a specified tolerance range, based on a signal generated by the headstage. Probes that are fully functional can still fail this test, so it’s not a definitive indicator of probe health.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Test probe noise</p></td>
+<td><p>30 s</p></td>
+<td><p>Calculates probe noise levels when electrode inputs are shorted to ground. Similar to the probe signal test, this test is not a definitive indicator of probe health, so failures can be safely ignored.</p></td>
+</tr>
+<tr class="row-even"><td><p>Test PSB bus</p></td>
+<td><p>&lt;1 s</p></td>
+<td><p>Verifies whether signals are transmitted accurately to the headstage via the parallel serial bus. If this test fails, it usually indicates that the probe is not properly seated in the headstage.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Test shift registers</p></td>
+<td><p>1 s</p></td>
+<td><p>Verifies the functionality of the shank and base shift registers. If this test fails, it means the probe electronics have become critically damaged. Even if data is being transmitted, there’s a possibility that it may be corrupted.</p></td>
+</tr>
+<tr class="row-even"><td><p>Test EEPROM</p></td>
+<td><p>1 s</p></td>
+<td><p>Tests the EEPROM memory storage on the flex, headstage, and BSC.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Test I2C</p></td>
+<td><p>&lt;1 s</p></td>
+<td><p>Verifies the functionality of the probe’s I2C interface. This interface must be intact for proper functioning of the probe.</p></td>
+</tr>
+<tr class="row-even"><td><p>Test Serdes</p></td>
+<td><p>&lt;1 s</p></td>
+<td><p>Tests the integrity of the serial communication over the probe cable.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Test Heartbeat</p></td>
+<td><p>3 s</p></td>
+<td><p>Checks for a 1 Hz heartbeat signal between the headstage and BSC. This test indicates whether basic communication between the headstage and basestation is working.</p></td>
+</tr>
+<tr class="row-even"><td><p>Test Basestation</p></td>
+<td><p>&lt;1 s</p></td>
+<td><p>Tests the connectivity between the computer and the basestation FPGA board via the PXIe interface.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the “probe signal” and “probe noise” tests fail, it does not necessarily indicate that the probe is broken. If your probe is successfully transmitting data, the outcome of all of these tests (except the shift register test) can be safely ignored.</p>
+</div>
+</section>
+<section id="headstage-tests">
+<h2>Headstage tests<a class="headerlink" href="#headstage-tests" title="Permalink to this heading">#</a></h2>
+<p>If you have a headstage test module, you can run a suite of tests to ensure the headstage is functioning properly. When the Neuropix plugin is dropped into the signal chain and at least one headstage test module is connected to the OneBox, the GUI will automatically run all headstage tests and output the results in a popup window:</p>
+<a class="reference internal image-reference" href="../../_images/HST.png"><img alt="Headstage test board popup window" src="../../_images/HST.png" style="width: 400px;" /></a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The headstage tests have been re-enabled as of plugin version 0.5.x. However, we have also found that the headstage tests are rarely needed to accurately diagnose a problem with data transmission. If you are unsure whether your headstage is functional, swapping it out with a different headstage is usually more informative than running the headstage tests.</p>
+</div>
+</section>
+<section id="remote-control">
+<h2>Remote control<a class="headerlink" href="#remote-control" title="Permalink to this heading">#</a></h2>
+<p>A number of Neuropixels probe settings can be changed via the GUI’s built-in HTTP server. Commands are sent as “config messages” to the Neuropix-PXI processor.</p>
+<p>The following commands are available:</p>
+<ol class="arabic simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">NP</span> <span class="pre">INFO</span></code> : returns a JSON string containing information about all available probes</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">NP</span> <span class="pre">REFERENCE</span> <span class="pre">&lt;bs&gt;</span> <span class="pre">&lt;port&gt;</span> <span class="pre">&lt;dock&gt;</span> <span class="pre">&lt;EXT/TIP&gt;</span></code> : set the reference for a specific probe</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">NP</span> <span class="pre">GAIN</span> <span class="pre">&lt;bs&gt;</span> <span class="pre">&lt;port&gt;</span> <span class="pre">&lt;dock&gt;</span> <span class="pre">&lt;AP/LFP&gt;</span> <span class="pre">&lt;gainval&gt;</span></code> : set the AP or LFP gain for a specific probe (Neuropixels 1.0 only)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">NP</span> <span class="pre">FILTER</span> <span class="pre">&lt;bs&gt;</span> <span class="pre">&lt;port&gt;</span> <span class="pre">&lt;dock&gt;</span> <span class="pre">&lt;ON/OFF&gt;</span></code> : turn the AP filter cut on or off (Neuropixels 1.0 only)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">NP</span> <span class="pre">SELECT</span> <span class="pre">&lt;bs&gt;</span> <span class="pre">&lt;port&gt;</span> <span class="pre">&lt;dock&gt;</span> <span class="pre">&lt;electrode&gt;</span> <span class="pre">&lt;electrode&gt;</span> <span class="pre">&lt;electrode&gt;</span> <span class="pre">...</span></code> : select electrodes by index</p></li>
+</ol>
+<p>Note that the <code class="code docutils literal notranslate"><span class="pre">bs</span></code>, <code class="code docutils literal notranslate"><span class="pre">port</span></code>, and <code class="code docutils literal notranslate"><span class="pre">dock</span></code> parameters all use 1-based indexing. The default <code class="code docutils literal notranslate"><span class="pre">bs</span></code> value is 16 for the OneBox and the <code class="code docutils literal notranslate"><span class="pre">dock</span></code> parameter is always 1 for Neuropixels 1.0 probes.</p>
+<p>For example, the <code class="code docutils literal notranslate"><span class="pre">NP</span> <span class="pre">SELECT</span></code> command can be used to automatically cycle through different electrode banks. The following code shows how to do this using the <code class="code docutils literal notranslate"><span class="pre">open-ephys-python-tools</span></code> package (version 0.1.6 and higher):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">from</span> <span class="nn">open_ephys.control</span> <span class="kn">import</span> <span class="n">OpenEphysHTTPServer</span>
+
+<span class="n">gui</span> <span class="o">=</span> <span class="n">OpenEphysHTTPServer</span><span class="p">()</span>
+
+<span class="c1"># configuration parameters</span>
+<span class="n">processor_id</span> <span class="o">=</span> <span class="mi">106</span>
+<span class="n">basestation</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">port</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">dock</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># always 1 for NP 1.0</span>
+
+<span class="n">command</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;NP SELECT </span><span class="si">{</span><span class="n">basestation</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">dock</span><span class="si">}</span><span class="s1"> &#39;</span>
+
+<span class="n">electrodes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">385</span><span class="p">)</span> <span class="c1"># 1-based indexing</span>
+<span class="n">electrode_string</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">electrodes</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;str&#39;</span><span class="p">))</span>
+
+<span class="n">gui</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">processor_id</span><span class="p">,</span> <span class="n">command</span> <span class="o">+</span> <span class="n">electrode_string</span><span class="p">)</span>
+
+<span class="n">gui</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span> <span class="c1"># record for 60 seconds</span>
+
+<span class="n">electrodes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">384</span><span class="p">,</span><span class="mi">767</span><span class="p">)</span> <span class="c1"># 1-based indexing</span>
+<span class="n">electrode_string</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">electrodes</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;str&#39;</span><span class="p">))</span>
+
+<span class="n">gui</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">processor_id</span><span class="p">,</span> <span class="n">command</span> <span class="o">+</span> <span class="n">electrode_string</span><span class="p">)</span>
+
+<span class="n">gui</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span> <span class="c1"># record for 60 seconds</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="OE-FPGA-Acquisition-Board.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">OE FPGA Acquisition Board</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Online-PSTH.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Online PSTH</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-and-upgrading">Installing and upgrading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hardware-requirements">Hardware requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compatible-probes">Compatible probes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#onebox-quickstart-guide">OneBox Quickstart Guide</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#driver-installation">Driver installation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#onebox-status-light">OneBox status light</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-onebox-plugin">Loading the OneBox plugin</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrating-probes">Calibrating probes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-probe-settings">Configuring probe settings</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#electrode-selection">Electrode selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gain-and-filter-settings">Gain and filter settings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-selection">Reference selection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#activity-view">Activity view</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-loading-and-copying-settings">Saving, loading, and copying settings</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-loading-and-saving">Default loading and saving</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copying-settings-between-probes">Copying settings between probes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imro-files">IMRO files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probeinterface-json-files">ProbeInterface JSON files</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#onebox-adc-settings">OneBox ADC settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plugin-data-streams">Plugin data streams</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-stream-names">Customizing stream names</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synchronization-settings">Synchronization settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-mode">Simulation mode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#built-in-self-tests">Built-in self tests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#headstage-tests">Headstage tests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#remote-control">Remote control</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/open-ephys/gui-docs/edit/main/source/User-Manual/Plugins/OneBox.rst">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/User-Manual/Plugins/OneBox.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2010-2024, Open Ephys &amp; Contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
