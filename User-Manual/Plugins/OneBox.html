@@ -589,7 +589,7 @@ document.write(`
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">&lt;probe_serial_number&gt;_gainCalValues.csv</span></code></p></li>
 </ul>
-<p>Any probes detected by the Neuropixels PXI plugin will be calibrated automatically when the plugin is loaded, provided that calibration files are stored in one of the following locations:</p>
+<p>Any probes detected by the OneBox plugin will be calibrated automatically when the plugin is loaded, provided that calibration files are stored in one of the following locations:</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">C:\ProgramData\Open</span> <span class="pre">Ephys\CalibrationInfo\&lt;probe_serial_number&gt;</span></code> (recommended - note that <strong>ProgramData</strong> may be a hidden folder on your system, so you’ll need to change the File Explorer options to show hidden files)</p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">&lt;open-ephys-executable-folder&gt;\CalibrationInfo\&lt;probe_serial_number&gt;</span></code> (if you used the Open Ephys installer, the executable will be located in <code class="code docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files\Open</span> <span class="pre">Ephys</span></code>)</p></li>
@@ -660,10 +660,13 @@ document.write(`
 <p>If you’re performing offline analysis with <a class="reference external" href="https://github.com/spikeinterface/spikeinterface">SpikeInterface</a>, it may be helpful to have information about your probe’s channel configuration stored in a JSON file that conforms to the <a class="reference external" href="https://github.com/spikeinterface/probeinterface">ProbeInterface</a> specification. To export a ProbeInterface JSON file, simply press the “SAVE TO JSON” button.</p>
 </section>
 </section>
-<section id="onebox-adc-settings">
-<h2>OneBox ADC settings<a class="headerlink" href="#onebox-adc-settings" title="Permalink to this heading">#</a></h2>
-<p>The OneBox ADCs can be configured as follows (details coming soon):</p>
+<section id="onebox-adcs">
+<h2>OneBox ADCs<a class="headerlink" href="#onebox-adcs" title="Permalink to this heading">#</a></h2>
+<p>The OneBox ADCs use 0-based indexing. ADC 0 can be accessed via the “ADC” SMA connector on the OneBox, while ADCs 1-11 require the BNC breakout board to be attached via the SDR connector.</p>
+<p>The OneBox ADC settings can be accessed by clicking on the purple circle in the OneBox plugin editor, or by browsing to the “ADC” tab in the OneBox settings interface.</p>
 <img alt="OneBox ADC/DAC configuration interface" src="../../_images/onebox-03.png" />
+<p>There is one global input range setting for all ADCs, which can be set to either ±2.5, ±5V (default), or ±10V. This determines the voltage range of the signals the ADCs can accept. Smaller input range will provide higher resolution for lower amplitude signals, but may clip larger signals.</p>
+<p><strong>Each ADC can optionally be used as a digital input.</strong> If the digital input option is set to “ON,” the ADC will interpret any input voltage below 0.5 V as a logic low, and any input voltage above 1 V as a logic high. Each threshold crossing will generate an event that propagates through the Open Ephys signal chain. The analog data from the ADC will still be available, even if the digital input option is set to “ON.”</p>
 </section>
 <section id="plugin-data-streams">
 <h2>Plugin data streams<a class="headerlink" href="#plugin-data-streams" title="Permalink to this heading">#</a></h2>
@@ -691,7 +694,7 @@ document.write(`
 <li><p><strong>Automatic naming:</strong> Probes names are assigned automatically, based on the order in which they are detected. Any 1.0 probes will have “-AP” and “-LFP” appended to their respective streams. The naming interface displays the names that will be applied when using this scheme, but they cannot be edited.</p></li>
 <li><p><strong>Automatic numbering:</strong> Numeric stream names are assigned automatically, based on the order in which they are detected. This scheme will produce file names that look like those from GUI version 0.5.X and earlier, which did not have the ability to apply custom names to individual streams. The naming interface displays the names that will be applied when using this scheme, but they cannot be edited.</p></li>
 <li><p><strong>Custom port names:</strong> Probe names are assigned by port/dock. This is useful if you have probes placed in a particular physical configuration, and always want a probe in a certain position to have the same name, regardless of which other probes are connected.</p></li>
-<li><p><strong>Custom probe names:</strong> Porbe names are assigned by serial number. This is useful if you have probes chronically implanted and would like to associate the subject ID with a particular probe.</p></li>
+<li><p><strong>Custom probe names:</strong> Probe names are assigned by serial number. This is useful if you have probes chronically implanted and would like to associate the subject ID with a particular probe.</p></li>
 </ol>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -766,7 +769,7 @@ document.write(`
 </tr>
 <tr class="row-even"><td><p>Test Basestation</p></td>
 <td><p>&lt;1 s</p></td>
-<td><p>Tests the connectivity between the computer and the basestation FPGA board via the PXIe interface.</p></td>
+<td><p>Tests the connectivity between the computer and the OneBox over USB.</p></td>
 </tr>
 </tbody>
 </table>
@@ -786,7 +789,7 @@ document.write(`
 </section>
 <section id="remote-control">
 <h2>Remote control<a class="headerlink" href="#remote-control" title="Permalink to this heading">#</a></h2>
-<p>A number of Neuropixels probe settings can be changed via the GUI’s built-in HTTP server. Commands are sent as “config messages” to the Neuropix-PXI processor.</p>
+<p>A number of Neuropixels probe settings can be changed via the GUI’s built-in HTTP server. Commands are sent as “config messages” to the OneBox processor.</p>
 <p>The following commands are available:</p>
 <ol class="arabic simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">NP</span> <span class="pre">INFO</span></code> : returns a JSON string containing information about all available probes</p></li>
@@ -901,7 +904,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probeinterface-json-files">ProbeInterface JSON files</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#onebox-adc-settings">OneBox ADC settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#onebox-adcs">OneBox ADCs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plugin-data-streams">Plugin data streams</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-stream-names">Customizing stream names</a></li>
 </ul>

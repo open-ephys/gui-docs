@@ -124,7 +124,7 @@ and one file for each 2.0 probe:
 
 * :code:`<probe_serial_number>_gainCalValues.csv`
 
-Any probes detected by the Neuropixels PXI plugin will be calibrated automatically when the plugin is loaded, provided that calibration files are stored in one of the following locations:
+Any probes detected by the OneBox plugin will be calibrated automatically when the plugin is loaded, provided that calibration files are stored in one of the following locations:
 
 * :code:`C:\\ProgramData\\Open Ephys\\CalibrationInfo\\<probe_serial_number>` (recommended - note that **ProgramData** may be a hidden folder on your system, so you'll need to change the File Explorer options to show hidden files)
 
@@ -221,13 +221,20 @@ ProbeInterface JSON files
 
 If you're performing offline analysis with `SpikeInterface <https://github.com/spikeinterface/spikeinterface>`__, it may be helpful to have information about your probe's channel configuration stored in a JSON file that conforms to the `ProbeInterface <https://github.com/spikeinterface/probeinterface>`__ specification. To export a ProbeInterface JSON file, simply press the "SAVE TO JSON" button.
 
-OneBox ADC settings
+OneBox ADCs
 ######################################
 
-The OneBox ADCs can be configured as follows (details coming soon):
+The OneBox ADCs use 0-based indexing. ADC 0 can be accessed via the "ADC" SMA connector on the OneBox, while ADCs 1-11 require the BNC breakout board to be attached via the SDR connector.
+
+The OneBox ADC settings can be accessed by clicking on the purple circle in the OneBox plugin editor, or by browsing to the "ADC" tab in the OneBox settings interface.
 
 .. image:: ../../_static/images/plugins/onebox/onebox-03.png
   :alt: OneBox ADC/DAC configuration interface
+
+There is one global input range setting for all ADCs, which can be set to either ±2.5, ±5V (default), or ±10V. This determines the voltage range of the signals the ADCs can accept. Smaller input range will provide higher resolution for lower amplitude signals, but may clip larger signals.
+
+**Each ADC can optionally be used as a digital input.** If the digital input option is set to "ON," the ADC will interpret any input voltage below 0.5 V as a logic low, and any input voltage above 1 V as a logic high. Each threshold crossing will generate an event that propagates through the Open Ephys signal chain. The analog data from the ADC will still be available, even if the digital input option is set to "ON."
+
 
 Plugin data streams
 ######################################
@@ -266,7 +273,7 @@ Clicking on the slot number for a given basestation will open up an interface fo
 
 #. **Custom port names:** Probe names are assigned by port/dock. This is useful if you have probes placed in a particular physical configuration, and always want a probe in a certain position to have the same name, regardless of which other probes are connected.
 
-#. **Custom probe names:** Porbe names are assigned by serial number. This is useful if you have probes chronically implanted and would like to associate the subject ID with a particular probe.
+#. **Custom probe names:** Probe names are assigned by serial number. This is useful if you have probes chronically implanted and would like to associate the subject ID with a particular probe.
 
 .. caution:: All stream names *must* be unique for a given plugin. Currently, it's possible to inadvertently assign the same name to multiple probes, either by using the same port-specific or probe-specific names across basestations. Name conflicts must be checked manually in order to prevent crashes when starting recording.
 
@@ -311,7 +318,7 @@ To run each test, select one from the drop-down menu, and click the "RUN" button
    "Test I2C", "<1 s", "Verifies the functionality of the probe's I2C interface. This interface must be intact for proper functioning of the probe."
    "Test Serdes", "<1 s", "Tests the integrity of the serial communication over the probe cable."
    "Test Heartbeat", "3 s", "Checks for a 1 Hz heartbeat signal between the headstage and BSC. This test indicates whether basic communication between the headstage and basestation is working."
-   "Test Basestation", "<1 s", "Tests the connectivity between the computer and the basestation FPGA board via the PXIe interface."
+   "Test Basestation", "<1 s", "Tests the connectivity between the computer and the OneBox over USB."
 
 .. note:: If the "probe signal" and "probe noise" tests fail, it does not necessarily indicate that the probe is broken. If your probe is successfully transmitting data, the outcome of all of these tests (except the shift register test) can be safely ignored.
 
@@ -330,7 +337,7 @@ If you have a headstage test module, you can run a suite of tests to ensure the 
 Remote control
 ######################
 
-A number of Neuropixels probe settings can be changed via the GUI's built-in HTTP server. Commands are sent as "config messages" to the Neuropix-PXI processor.
+A number of Neuropixels probe settings can be changed via the GUI's built-in HTTP server. Commands are sent as "config messages" to the OneBox processor.
 
 The following commands are available:
 
