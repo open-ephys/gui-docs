@@ -454,7 +454,7 @@ document.write(`
 <h2>Code organization<a class="headerlink" href="#code-organization" title="Permalink to this heading">#</a></h2>
 <p>The top-level directory of the <a class="reference external" href="https://github.com/open-ephys/plugin-GUI">plugin-GUI repository</a> contains the following folders:</p>
 <ul class="simple">
-<li><p><strong>.github</strong> - GitHub Actions scripts for building the GUI on Linux, macOS, and Windows. Whenever the code is updated in the <strong>testing</strong> or <strong>master</strong> branches, these scripts will automatically regenerate the GUI’s binaries and upload them to <a class="reference external" href="https://openephysgui.jfrog.io/ui/packages">Artifactory</a>.</p></li>
+<li><p><strong>.github</strong> - GitHub Actions scripts for building the GUI on Linux, macOS, and Windows. Whenever the code is updated in the <strong>testing</strong> or <strong>master</strong> branches, these scripts will automatically regenerate the GUI’s binaries and upload them to <a class="reference external" href="https://openephys.jfrog.io/ui/native/GUI-binaries/">Artifactory</a>.</p></li>
 <li><p><strong>Build</strong> - empty directory where platform-specific build files will be located. Any files that end up in this directory will not be included in your git commits.</p></li>
 <li><p><strong>JuceLibraryCode</strong> - a customized version of the source code for the <a class="reference external" href="https://juce.com/">Juce Library</a>. The Open Ephys GUI uses this library for a wide variety of functions, including drawing the user interface, real-time data processing, threading, and file I/O.</p></li>
 <li><p><strong>Plugins</strong> - source code for plugins that are included by default with the host application.</p></li>
