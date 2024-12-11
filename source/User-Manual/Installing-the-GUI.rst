@@ -24,7 +24,7 @@ Via installer (recommended)
 Via .zip file
 --------------
 
-1. Download a **.zip** file for any previous release via this link: https://openephysgui.jfrog.io/artifactory/Release/windows/
+1. Download a **.zip** file for any previous release via this link: https://openephys.jfrog.io/ui/native/GUI-binaries/Release/windows/
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 
@@ -76,7 +76,7 @@ The GUI is available at the gentoo science overlay.
 Via .zip file (all distros)
 ----------------------------
 
-1. Download a **.zip** file for any previous release via this link: https://openephysgui.jfrog.io/artifactory/Release/linux/
+1. Download a **.zip** file for any previous release via this link: https://openephys.jfrog.io/ui/native/GUI-binaries/Release/linux/
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 
@@ -108,7 +108,7 @@ Via DMG (recommended)
 Via .zip file
 --------------
 
-1. Download a **.zip** file for any previous release via this link: https://openephysgui.jfrog.io/artifactory/Release/mac/
+1. Download a **.zip** file for any previous release via this link: https://openephys.jfrog.io/ui/native/GUI-binaries/Release/mac/
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 
