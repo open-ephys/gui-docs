@@ -20,7 +20,7 @@ Multi-Band Integrator
 
 The output of the Multi-Band Integrated can be thought of as a real-time power signal for waveforms with complex but well-specified frequency components. It can be paired with the :ref:`crossingdetector` plugin to trigger events when the output power reaches a threshold.
 
-It was originally developed by Michelle Fogerson in the Huguenard Lab at Stanford to detect absence-like seizures in mice based on their spectral properties (see `Sorokin et al., 2016 <https://www.cell.com/neuron/comments/S0896-6273(16)30864-9>`__ for more details). The default parameters are set for detecting these oscillations:
+It was originally developed by Michelle Fogerson in the Huguenard Lab at Stanford to detect absence-like seizures in mice based on their spectral properties (see `Sorokin et al., 2016 <https://www.sciencedirect.com/science/article/pii/S0896627316308649>`__ for more details). The default parameters are set for detecting these oscillations:
 
 * **Band 1:** 6-9 Hz, gain = 4
 
