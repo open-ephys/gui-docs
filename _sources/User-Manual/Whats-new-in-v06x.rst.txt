@@ -1,4 +1,4 @@
-.. _whatsnew:
+.. _whatsnewinv06x:
 .. role:: raw-html-m2r(raw)
    :format: html
 
@@ -6,7 +6,7 @@
 What's new in version 0.6.x
 ############################
 
-Version 0.6.x (released in July 2022) is the biggest update in the GUI's history, with a number of changes designed to make the GUI more efficient and easier to use. This page explains some of the major updates in this release, to help you get up and running faster.
+Version 0.6.x (released in July 2022) included a number of changes designed to make the GUI more efficient and easier to use. This page explains some of the major updates in this release, to help users familiar with older versions of the GUI to get up and running faster.
 
 Stream-based processing
 ========================

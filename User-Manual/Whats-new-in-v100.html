@@ -1,0 +1,716 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>What’s new in version 1.0 &#8212; Open Ephys GUI Docs</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Plugins" href="Plugins/index.html" />
+    <link rel="prev" title="What’s new in version 0.6.x" href="Whats-new-in-v06x.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/oe_logo_name.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/oe_logo_name.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="index.html">
+                        User Manual
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../Developer-Guide/index.html">
+                        Developer Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../Tutorials/index.html">
+                        Tutorials
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../FAQ/index.html">
+                        FAQs
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://open-ephys.org/gui">
+                    Download
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/open-ephys/plugin-GUI" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/openephys" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/WXAx2URNQU" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-discord"></i></span>
+            <label class="sr-only">Discord</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="index.html">
+                        User Manual
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../Developer-Guide/index.html">
+                        Developer Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../Tutorials/index.html">
+                        Tutorials
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../FAQ/index.html">
+                        FAQs
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://open-ephys.org/gui">
+                    Download
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/open-ephys/plugin-GUI" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/openephys" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-twitter"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://discord.gg/WXAx2URNQU" title="Discord" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-discord"></i></span>
+            <label class="sr-only">Discord</label></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Before-you-begin.html">Before you begin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hardware-requirements.html">Hardware requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installing-the-GUI.html">Installing the GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Exploring-the-user-interface.html">Exploring the user interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Building-a-signal-chain.html">Building a signal chain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Recording-data/index.html">Recording data</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="Recording-data/Binary-format.html">Binary Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Recording-data/Open-Ephys-format.html">Open Ephys Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Recording-data/NWB-format.html">NWB Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Remote-control.html">Remote control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Whats-new-in-v06x.html">What’s new in version 0.6.x</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">What’s new in version 1.0</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Plugins/index.html">Plugins</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Acq-Board-Output.html">Acq Board Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Acquisition-Board.html">Acquisition Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Arduino-Output.html">Arduino Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Audio-Monitor.html">Audio Monitor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Bandpass-Filter.html">Bandpass Filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Channel-Map.html">Channel Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Common-Average-Reference.html">Common Average Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/CNN-Ripple.html">CNN Ripple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Crossing-Detector.html">Crossing Detector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Data-Snapshot.html">Data Snapshot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Ephys-Socket.html">Ephys Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Event-Broadcaster.html">Event Broadcaster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Event-Translator.html">Event Translator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Falcon-Output.html">Falcon Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/File-Reader.html">File Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Intan-RHD-USB.html">Intan RHD USB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Latency-Histogram.html">Latency Histogram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/LFP-Viewer.html">LFP Viewer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/LSL-Inlet.html">LSL Inlet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/MATLAB-Interface.html">MATLAB Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Mean-Spike-Rate.html">Mean Spike Rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Merger.html">Merger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Multiband-Integrator.html">Multi-Band Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Network-Events.html">Network Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Neuropixels-CAR.html">Neuropixels CAR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Neuropixels-PXI.html">Neuropixels PXI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/NIDAQmx.html">NI-DAQmx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/OE-FPGA-Acquisition-Board.html">OE FPGA Acquisition Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/OneBox.html">OneBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Online-PSTH.html">Online PSTH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/OSC-Events.html">OSC Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Phase-Calculator.html">Phase Calculator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Phase-Detector.html">Phase Detector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Probe-Viewer.html">Probe Viewer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Pulse-Pal.html">Pulse Pal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Python-Processor.html">Python Processor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Rec-Controller-Output.html">Rec Controller Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Record-Control.html">Record Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Record-Node.html">Record Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/RHD-Rec-Controller.html">RHD Rec Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Ripple-Detector.html">Ripple Detector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/River-Output.html">River Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Spectrum-Viewer.html">Spectrum Viewer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Spike-Detector.html">Spike Detector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Spike-Sorter.html">Spike Sorter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Spike-Viewer.html">Spike Viewer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Splitter.html">Splitter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Tracking-Plugin.html">Tracking Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/TTL-Panels.html">TTL Panels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/Virtual-Reference.html">Virtual Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/XDAQ-OE.html">XDAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/ZMQ-Interface.html">ZMQ Interface</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">User Manual</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">What’s new in version 1.0</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="what-s-new-in-version-1-0">
+<span id="whatsnewinv100"></span><h1>What’s new in version 1.0<a class="headerlink" href="#what-s-new-in-version-1-0" title="Permalink to this heading">#</a></h1>
+<p>The Open Ephys GUI has been under continuous development for more than a decade, and it has been used to collect high-quality electrophysiology data for hundreds of publications (see <a class="reference external" href="http://open-ephys.org/publications">open-ephys.org/publications</a> for some examples). Nevertheless, the developers did not feel ready to call a release “version 1.0” until now. This release (which will be widely available in early 2025) is the result of many years of polishing, streamlining, and testing. It should feel familiar to any long-time users of the software, while also being more approachable for anyone trying it out for the first time.</p>
+<p>This page documents the major changes that will be available in this release. Importantly, there are many things that we did not change, such as the data format, HTTP server commands, and <code class="code docutils literal notranslate"><span class="pre">settings.xml</span></code> files. So configurations from v0.6.x can be loaded in version 1.0, and any code written to interface with the GUI or its output files will continue to work as expected, with a few minor exceptions.</p>
+<section id="user-interface-enhancements">
+<h2>User interface enhancements<a class="headerlink" href="#user-interface-enhancements" title="Permalink to this heading">#</a></h2>
+<p>While the overall layout of the GUI has not changed in version 1.0, many graphical elements have been updated to improve clarity and consistency of the user interface. New fonts, icons, and labels should make it easier to navigate the software. For example, the 3-digit processor ID is now shown in every plugin editor, and all buttons for opening and closing panels have the same look and feel.</p>
+<p>In addition, key UI elements have been added or significantly transformed:</p>
+<section id="graph-viewer">
+<h3>Graph Viewer<a class="headerlink" href="#graph-viewer" title="Permalink to this heading">#</a></h3>
+<img alt="Screenshot of updated Graph Viewer" src="../_images/whatsnewinv100-01.png" />
+<p>The Graph Viewer provides an overview of the connections between all of the plugins that are currently processing data, making it easier to navigate signal chains with multiple source nodes or branch points. In version 1.0, the Graph Viewer connections flow from left to right (rather than top to bottom), mirroring the layout of plugins in the editor viewport at the bottom of the window. In addition, plugin parameters are now accessible via the Graph Viewer, and all parameters are linked to the widgets in the plugin editor. For example, the low and high cutoffs of the Bandpass Filter can be changed <em>either</em> via the Graph Viewer or the plugin editor. This makes it easier to check the state of parameters across multiple data streams, and even makes it possible to conduct all interactions with the signal chain via the Graph Viewer alone.</p>
+</section>
+<section id="data-viewport">
+<h3>Data Viewport<a class="headerlink" href="#data-viewport" title="Permalink to this heading">#</a></h3>
+<img alt="Screenshot of updated Data Viewport" src="../_images/whatsnewinv100-02.png" />
+<p>The Data Viewport, which holds the Graph Viewer as well as plugin visualizers, can now be split vertically, allowing multiple visualizers to appear side by side. To add a second column of tabs, simply click the “new tab” button in the lower right of the viewport. Any new tabs that are created will appear in the right column, and tabs can be dragged and dropped between columns. Tabs can also be reordered and renamed. If the “Info” or “Graph” tabs are closed, they can be reopened via the “View” menu or by pressing shift-I or shift-G.</p>
+</section>
+<section id="built-in-console">
+<h3>Built-in console<a class="headerlink" href="#built-in-console" title="Permalink to this heading">#</a></h3>
+<img alt="Screenshot of new embedded console" src="../_images/whatsnewinv100-03.png" />
+<p>The Open Ephys console is now embedded in the main GUI window. Previously, the console would automatically launch in a separate window on Windows, but would not appear on Mac or Linux unless the GUI was run via a terminal. The new embedded console can be activated via the “View” menu, or by pressing shift-C. The console output is automatically written to a log file wherever the GUI’s configuration files are stored. Console messages can be copied by pressing the “Copy All” button or selected a subset of text in the console window.</p>
+</section>
+<section id="message-window">
+<h3>Message Window<a class="headerlink" href="#message-window" title="Permalink to this heading">#</a></h3>
+<img alt="Screenshot of message window" src="../_images/whatsnewinv100-04.png" />
+<p>Custom text annotations can now be saved via a pop-up window. Assuming recording is active, these annotations will be timestamped and written automatically by all Record Nodes. One advantage of using the message window (as opposed to the message bar at the bottom of the GUI’s main window) is that the message will be tagged with the time the window was opened, rather than the time the “send” button is pressed. Thus, the window can be launched when an interesting event occurs, and the user can take as much time as needed to enter custom text describing the event.</p>
+</section>
+<section id="more-extensive-undo-redo-support">
+<h3>More extensive undo/redo support<a class="headerlink" href="#more-extensive-undo-redo-support" title="Permalink to this heading">#</a></h3>
+<p>The GUI’s undo manager now keeps track of parameter changes as well as modifications to the signal chain. This includes changing input files, selecting channels, and adding/removing electrodes from the Spike Detector. Whenever an undoable action is executed, a message will appear in the bottom left of the main window, so it’s obvious that something has changed. When acquisition is active, select parameter changes can be undone, but most undoable actions will be blocked until acquisition is paused.</p>
+</section>
+<section id="empty-processors">
+<h3>Empty processors<a class="headerlink" href="#empty-processors" title="Permalink to this heading">#</a></h3>
+<img alt="Screenshot of empty processor" src="../_images/whatsnewinv100-05.png" />
+<p>When a signal chain is missing a source node, an empty processor labeled “No source” will appear. This should make it more obvious how to fix a signal chain when acquisition is blocked due to a missing source.</p>
+</section>
+<section id="color-themes">
+<h3>Color themes<a class="headerlink" href="#color-themes" title="Permalink to this heading">#</a></h3>
+<img alt="Color theme examples" src="../_images/whatsnewinv100-06.png" />
+<p>The GUI now includes dark, medium, and light color themes. These can be changed via the “View &gt; Theme” menu.</p>
+</section>
+</section>
+<section id="performance-improvements">
+<h2>Performance improvements<a class="headerlink" href="#performance-improvements" title="Permalink to this heading">#</a></h2>
+<p>There are at least three areas where performance has improved in version 1.0:</p>
+<ul class="simple">
+<li><p><strong>Faster rendering, especially on Windows.</strong> Thanks to upgrades to the JUCE library that the GUI is built upon, all visualizers now update more smoothly. This is especially noticeable when scrolling through hundreds of channels in the <a class="reference internal" href="Plugins/LFP-Viewer.html#lfpviewer"><span class="std std-ref">LFP Viewer</span></a>.</p></li>
+<li><p><strong>More efficient data transfer from source plugins.</strong> The time spent copying data into the overall signal chain has been reduced, allowing source plugins such as <a class="reference internal" href="Plugins/Neuropixels-PXI.html#neuropixelspxi"><span class="std std-ref">Neuropixels PXI</span></a> and <a class="reference internal" href="Plugins/Acquisition-Board.html#acquisitionboard"><span class="std std-ref">Acquisition Board</span></a> to use less CPU cycles during acquisition.</p></li>
+<li><p><strong>Multithreaded filtering.</strong> The <a class="reference internal" href="Plugins/Bandpass-Filter.html#bandpassfilter"><span class="std std-ref">Bandpass Filter</span></a> now uses 4 threads by default, and this number can be increased to 64. Filtering is typically the biggest contributor to processing latency. In version 1.0, the impact of filter nodes on the CPU meter will be greatly reduced.</p></li>
+</ul>
+</section>
+<section id="online-synchronization">
+<h2>Online synchronization<a class="headerlink" href="#online-synchronization" title="Permalink to this heading">#</a></h2>
+<img alt="Synchronization" src="../_images/whatsnewinv100-07.png" />
+<p>The GUI’s <a class="reference internal" href="Plugins/Record-Node.html#recordnode"><span class="std std-ref">Record Node</span></a> in version 1.0 uses a new real-time synchronization algorithm that is more accurate and robust. Previously, synchronization pulses less than 50 ms in duration could confuse the algorithm, making it necessary to revert to offline synchronization to align multiple data streams. Now, pulses as short as 1 ms can be detected, meaning “barcode”-like signals can now be reliably used for online synchronization. The new algorithm may take a bit longer to synchronize, but it will be far less likely to become desychronized over time.</p>
+<p>In addition, the following synchronization statistics for each stream can now be viewed in the Record Node’s stream selector: relative start time, elapsed time since latest sync pulse was received, and the overall “sync tolerance” (maximum difference between the estimated and measured time of each sync pulse).</p>
+</section>
+<section id="macos-application-signing">
+<h2>macOS application signing<a class="headerlink" href="#macos-application-signing" title="Permalink to this heading">#</a></h2>
+<p>The Open Ephys GUI application on macOS is now signed with an Apple Developer ID, so it will no longer need to be explicitly enabled via your system’s Privacy and Security settings. As a consequence of this change, any plugins used on macOS must be added via the GUI’s built-in plugin installer. To use custom plugins on this platform, you’ll need to compile the GUI from scratch using Xcode.</p>
+</section>
+<section id="new-testing-infrastructure">
+<h2>New testing infrastructure<a class="headerlink" href="#new-testing-infrastructure" title="Permalink to this heading">#</a></h2>
+<p>To facilitate automated testing on cloud servers, the GUI now can run in “headless mode.” This also works on your local machine by launching the GUI from the command line with the <code class="code docutils literal notranslate"><span class="pre">--headless</span></code> option. Interacting with the GUI in headless mode requires use of the built-in HTTP server.</p>
+<p>The GUI now includes unit tests for key classes via the Google Test package, which are run before each new release. This will ensure critical functionality remains intact as new contributors are onboarded.</p>
+<p>The <a class="reference external" href="https://github.com/medengineer/open-ephys-test-suite">open-ephys-test-suite</a> package makes it easy to configure and run integration tests via Python. This package is used to confirm that different combinations of plugins work together reliably.</p>
+</section>
+<section id="plugins">
+<h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this heading">#</a></h2>
+<p>All officially supported <a class="reference internal" href="#plugins"><span class="std std-ref">Plugins</span></a> have been updated to work with version 1.0 of the GUI. Plugins included in any loaded signal chains will be automatically installed; additional plugins can be added via the Plugin Installer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Open Ephys plugin API has been updated for version 1.0, which means that plugins compiled for version 0.6.x won’t work out of the box. Feel free to reach out to <a class="reference external" href="mailto:support&#37;&#52;&#48;open-ephys&#46;org">support<span>&#64;</span>open-ephys<span>&#46;</span>org</a> for help migrating any custom plugins to the latest API.</p>
+</div>
+<section id="renamed-plugins">
+<h3>Renamed plugins<a class="headerlink" href="#renamed-plugins" title="Permalink to this heading">#</a></h3>
+<p>All versions of the Open Ephys acquisition board are now supported by one plugin, called “Acquisition Board.” The “OE FPGA Acquisition Board” plugin is no longer needed. The “Intan RHD USB” plugin, which was previously included as one of the “Rhythm Plugins,” due to its use of Intan’s Rhythm API, must now be installed separately.</p>
+</section>
+<section id="deprecated-plugins">
+<h3>Deprecated plugins<a class="headerlink" href="#deprecated-plugins" title="Permalink to this heading">#</a></h3>
+<p>The <a class="reference internal" href="Plugins/River-Output.html#riveroutput"><span class="std std-ref">River Output</span></a> plugin has been removed from the plugin installer, as this was rarely used.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Whats-new-in-v06x.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">What’s new in version 0.6.x</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Plugins/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Plugins</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-interface-enhancements">User interface enhancements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-viewer">Graph Viewer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-viewport">Data Viewport</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#built-in-console">Built-in console</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#message-window">Message Window</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#more-extensive-undo-redo-support">More extensive undo/redo support</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empty-processors">Empty processors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#color-themes">Color themes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-improvements">Performance improvements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#online-synchronization">Online synchronization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#macos-application-signing">macOS application signing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-testing-infrastructure">New testing infrastructure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plugins">Plugins</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#renamed-plugins">Renamed plugins</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deprecated-plugins">Deprecated plugins</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/open-ephys/gui-docs/edit/main/source/User-Manual/Whats-new-in-v100.rst">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../_sources/User-Manual/Whats-new-in-v100.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2010-2024, Open Ephys &amp; Contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
