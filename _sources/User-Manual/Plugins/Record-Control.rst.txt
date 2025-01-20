@@ -34,6 +34,7 @@ Trigger modes
 
 * **Edge toggle**: Starts recording when the selected edge (rising or falling) is detected, and stops recording when the next edge of the same type is detected. Use this mode to toggle recording state using incoming events on a particular TTL line.
 
-|
+.. image:: ../../_static/images/plugins/recordcontrol/recordcontrol-02.png
+  :alt: Record Control trigger modes diagram
 
 
