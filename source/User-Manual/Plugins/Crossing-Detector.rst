@@ -36,19 +36,20 @@ Plugin Configuration
 General settings
 -----------------
 
-* When the **Channel** that is selected **Rises** and/or **Falls** across the threshold level (specified in the visualizer window), an event is triggered on the `TTL_OUT` line.
+* When the **Channel** that is selected **Rises** and/or **Falls** across the threshold level (specified in the Theshold popup), an event is triggered on the **TTL Out** line.
 
-* `TIMEOUT_MS` controls the minimum time between two consecutive events (i.e. for this number of milliseconds after an event fires, no more crossings can be detected).
+* **Timeout** controls the minimum time between two consecutive events (i.e. for this number of milliseconds after an event fires, no more crossings can be detected).
 
-Additional parameters can be configured by clicking the "tab" or "window" buttons in the upper right of the plugin's editor. The settings interface can be seen here:
+* **Duration** specifies the delay (in ms) between the "OFF" event and the time at which an "ON" event is triggered. The default duration is 100 ms.
 
-.. image:: ../../_static/images/plugins/crossingdetector/crossingdetector-02.png
-  :alt: Crossing Detector visualizer with additional settings
 
 Threshold level
 ----------------
 
-There are three different types of thresholds that can be used:
+There are three different types of thresholds that can be used. These can be selected by clicking the "Threshold" button in the plugin's editor.
+
+.. image:: ../../_static/images/plugins/crossingdetector/crossingdetector-03.png
+  :alt: Crossing Detector threshold settings
 
 #. **Constant** (default) - the threshold is set to a constant value.
 
@@ -59,6 +60,11 @@ There are three different types of thresholds that can be used:
 Event criteria
 ---------------
 
+Additional parameters can be configured by clicking the "tab" or "window" buttons in the upper right of the plugin's editor. The settings interface can be seen here:
+
+.. image:: ../../_static/images/plugins/crossingdetector/crossingdetector-02.png
+  :alt: Crossing Detector visualizer with additional settings
+
 There are three options that can reduce the frequency of spuriously triggered events:
 
 #. **Jump size limit** - prevents triggers when the difference across the threshold is too large in magnitude. This is useful for filtering out wrapped phase jumps, for example.
@@ -66,11 +72,6 @@ There are three options that can reduce the frequency of spuriously triggered ev
 #. **Sample voting** - makes detection more robust to noise by requiring a larger span of samples before or after :code:`t0` to be on the correct side of the threshold.
 
 #. **Ignore crossings near the end of buffers**
-
-Event duration
-----------------
-
-The **event duration** specifies the delay (in ms) between the "OFF" event and the time at which an "ON" event is triggered. The default duration is 100 ms.
 
 |
 
