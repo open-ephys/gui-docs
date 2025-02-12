@@ -9,7 +9,7 @@ Acq Board Output
 .. image:: ../../_static/images/plugins/acquisitionboard/acquisitionboard-03.png
   :alt: Annotated settings interface for the Acq Board Output plugin
 
-.. csv-table:: Triggers digital outputs of an `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__ with an Opal Kelly FPGA.
+.. csv-table:: Triggers digital outputs of an `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__ .
    :widths: 18, 80
 
    "*Plugin Type*", "Sink"
@@ -21,7 +21,6 @@ Acq Board Output
 
 .. tip:: For more in-depth documentation on the Open Ephys Acquisition Board, please refer to the `Acquisition Board docs site <https://open-ephys.github.io/acq-board-docs/>`__.
 
-.. important:: If your acquisition board was purchased after October 2022, it likely has a custom FPGA designed by Open Ephys. This requires a different plugin, called :ref:`oefpgaacquisitionboard`, which doesn't currently have an associated output plugin.
 
 Installing and upgrading
 ==========================
