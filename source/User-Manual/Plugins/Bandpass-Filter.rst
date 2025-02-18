@@ -24,7 +24,7 @@ Plugin configuration
 Filter parameters
 ------------------
 
-The bandpass filter has two parameters, :code:`LOW_CUT` and :code:`HIGH_CUT`. These parameters define the upper and lower cutoff frequencies of the filter, respectively. To change these values, simply type a different number into either text box. 
+The bandpass filter has two parameters, **Low cut** and **High cut**. These parameters define the upper and lower cutoff frequencies of the filter, respectively. To change these values, simply type a different number into either text box. 
 
 **Acceptable parameter range:** The minimum value for both parameters is 0.1 Hz, and the maximum value is 15,000 Hz. The low cut cannot be set to a value that's higher than the high cut, and the high cut cannot be set to a value that's lower than the low cut.
 
@@ -33,11 +33,15 @@ The bandpass filter has two parameters, :code:`LOW_CUT` and :code:`HIGH_CUT`. Th
 Selecting channels
 -------------------
 
-The filtering operation can be restricted to a subset of channels, if desired. For example, if a data stream includes ADC channels, these can be deactivated in the "Channels" interface. In the following example, the filter will be applied to channels 1-11, and channels 12-16 will be ignored.
+The filtering operation can be restricted to a subset of channels, if desired. For example, if a data stream includes ADC channels, these can be deactivated in the "Channels" interface. In the following example, the filter will be applied to channels 1-12, and channels 13-16 will be ignored.
 
 .. image:: ../../_static/images/plugins/bandpassfilter/bandpassfilter-03.png
   :alt: Annotated Bandpass Filter channel selector
 
+Using multiple threads
+-----------------------
+
+The Bandpass Filter plugin can be run on multiple threads to improve performance. This is particularly useful when filtering high-channel count data streams, such as those from Neuropixels probes. To enable multi-threading, select the desired number of threads from the drop-down menu in the "Threads" parameter. The number of threads to use should be chosen by experimenting with different values to find the best performance for your system.
 
 Filter details
 ###################################
@@ -69,7 +73,7 @@ Working with multiple data streams
 
 If the Bandpass Filter plugin receives data from multiple incoming streams, a subset of these streams can be bypassed to conserve CPU cycles. For example, this can be helpful for Neuropixels probes if you only want to filter the LFP band channels, and not the AP band channels. Bypassing a stream is more efficient than deselecting all of its channels, as the plugin only needs to perform one check for the whole stream, rather than checking every channel.
 
-To bypass a stream in the Bandpass Filter, click the vertical lines on the right-hand side of the plugin to bring up the Stream Selector, browse to the appropriate stream, and make sure the "Bypass" button is checked.
+To bypass a stream in the Bandpass Filter, click the vertical lines on the right-hand side of the plugin to bring up the Stream Selector, browse to the appropriate stream, and right-click on the row to select "Disable stream". The bypassed stream will be red in color, as shown in the following image:
 
 .. image:: ../../_static/images/plugins/bandpassfilter/bandpassfilter-02.png
   :alt: Annotated Bandpass Filter bypass operation
