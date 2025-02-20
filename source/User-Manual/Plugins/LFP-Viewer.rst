@@ -28,7 +28,7 @@ The LFP Viewer can display up to three segments of data, depending on the layout
 
 This example shows three displays in "stacked" mode, one showing the continuous traces, one viewing the data in spike raster mode, and one set to display a single channel (toggled by double-clicking on a channel in the LFP Viewer).
 
-.. image:: ../../_static/images/plugins/lfpviewer/lfpviewer-03.png
+.. image:: ../../_static/images/plugins/lfpviewer/lfpviewer-04.png
   :alt: LFP Viewer screenshot
 
 Main options
@@ -58,6 +58,9 @@ Additional options
 -------------------
 
 The interfaces for additional settings can be exposed by clicking on the triangle in the lower right of the LFP Viewer.
+
+.. image:: ../../_static/images/plugins/lfpviewer/lfpviewer-03.png
+  :alt: LFP Viewer additional settings
 
 Thresholds
 ===========
@@ -98,10 +101,10 @@ Triggered display
 Single-channel mode
 ######################
 
-.. image:: ../../_static/images/plugins/lfpviewer/lfpviewer-04.png
+.. image:: ../../_static/images/plugins/lfpviewer/lfpviewer-05.png
   :alt: Annotated single-channel view
 
-Double-clicking on any channel in the LFP Viewer will switch the display into single-channel mode. When single-channel mode is active, the mean and standard deviation of the current channel are shown on the left-hand side of the display. In addition, clicking anywhere within the display will update the "uV" value based on the y-position of the cursor. This feature can be used to measure the approximate amplitude of spikes by clicking on the location of the peak and trough.
+Double-clicking on any channel in the LFP Viewer will switch the display into single-channel mode. When single-channel mode is active, the mean and root mean square of the current channel are shown on the left-hand side of the display. In addition, clicking anywhere within the display will update the "µV" value based on the y-position of the cursor. This feature can be used to measure the approximate amplitude of spikes by clicking on the location of the peak and trough.
 
 The full height of the display is determined by the "range" parameter in the main options bar. Horizontal lines appear at -25%, 0%, and 25% of the range value. For the default range of 250 µV, the display will stretch from -125 to +125 µV, with lines indicating -62.5, 0, and +62.5 µV.
 
