@@ -35,12 +35,12 @@ Plugin configuration
 The following parameters can be modified in the plugin editor:
 
 - **Input stream** - Select one incoming stream to use.
-- **Window size** - The width of the image in milliseconds (default = 100 ms, max = 200 ms).
 - **Channels** - The channels to use to create the image (by default, all channels are included).
 
 The following parameters can be modified in the plugin visualizer.
 
 - **Voltage range** - Limits of the color map applied to the image (in microvolts)
+- **Window size** - The width of the image in milliseconds (default = 100 ms, max = 200 ms).
 - **Color map** - Image color map (Greys, Cividis, Viridis, RdGy, or RdBu)
 
 All parameters take effect the next time the "snap" button is pressed.
