@@ -27,6 +27,7 @@ The TTL Panels plugin is not included by default in the Open Ephys GUI. To insta
 
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
 
+.. _undertanding-ttl-events:
 Understanding TTL events
 ###########################
 

@@ -46,6 +46,8 @@ The primary purpose of the Network Events module is to add TTL events to one or 
 
 :code:`TTL [Line=1-256] [State=0/1]` – Sends an **ON** (1) or **OFF** (0) TTL event on the specified TTL line. 
 
+:code:`TTL [Word=unsigned_int64_value]` – Sends TTL event with the states of the first 64 lines combined to form the TTL word. Each line represents a different bit in the given unsigned 64-bit integer. For more information on how TTL words work, refer to :ref:`undertanding-ttl-events`.
+
 Other commands
 ---------------
 
@@ -89,7 +91,11 @@ In the GUI's `Matlab Resources`_ folder, you'll find a :code:`matlab_zeroMQ_wrap
 
 Python
 --------
-An Python example can be found at in the `Python Resources`_ folder: :code:`record_control_example_client.py`
+Python examples can be found at in the `Python Resources`_ folder. This folder contains three example Python scripts that illustrate the functionality of the Network Events plugins.
+
+* :code:`record_control_example_client.py`: Remote controls data acquisition in Open Ephys.
+* :code:`network_events_console.py`: Manually send commands to Open Ephys via ZeroMQ.
+* :code:`test_ttl_events.py`: Starts a recording and sends many TTL Line and TTL Word commands.
 
 
 .. _ZeroMQ: https://zeromq.org/
