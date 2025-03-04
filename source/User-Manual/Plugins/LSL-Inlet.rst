@@ -6,7 +6,7 @@
 LSL Inlet
 #####################
 
-.. image:: ../../_static/images/plugins/lslinlet/lslinlet-01.png
+.. image:: ../../_static/images/plugins/lslinlet/lslinlet.png
   :alt: Annotated LSL Inlet editor
 
 .. csv-table:: Streams continuous data from devices that use the Lab Streaming Layer protocol. See the `Lab Streaming Layer documentation <https://labstreaminglayer.readthedocs.io/info/intro.html>`__ for more information about this library and a list of supported devices.
@@ -29,7 +29,7 @@ The Plugin Installer also allows you to upgrade to the latest version of this pl
 Plugin Configuration
 ######################
 
-Before starting data acquisition, a data stream needs to be selected. The list of available LSL streams is updated every time the "Refresh streams" button is pressed. During data acquisition, samples can be scaled in real time by adjusting the Scale factor.
+Before starting data acquisition, a data stream needs to be selected. The list of available LSL streams is updated every time the "Discover available LSL streams" button is pressed. During data acquisition, samples can be scaled in real time by adjusting the Scale factor.
 
 A marker stream can be optionally selected. The list of marker streams only shows streams that have an irregular rate and a single channel. When a marker is received it is broadcasted to the entire signal chain. For a marker to be shown in the LFP Viewer, a marker-to-TTL mapping is required. This is a JSON file that contains a set of Key-Value pairs of markers and corresponding TTL lines, for example:
 
