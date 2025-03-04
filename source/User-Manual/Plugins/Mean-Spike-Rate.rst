@@ -33,8 +33,8 @@ The plugin editor allows the user to set the following parameters:
 
 - **Active Spike Channels:** The spike channels to include in the mean spike rate calculation.
 
-- **Inactive Spike Channels:** The spike channels to exclude from the mean spike rate calculation.
+- **Spike Channel Scroll Bar:** Scrolls through the list of incoming spike channels for the active input stream.
 
-- **Output:** The continuous channel to output the mean spike rate onto. The mean spike rate will overwrite the contents of this channel.
+- **Output Channel:** The continuous channel to output the mean spike rate onto. The mean spike rate will overwrite the contents of this channel.
 
 - **Time Constant** (ms): The time constant of the exponentially weighted moving average used to estimate the mean spike rate.
