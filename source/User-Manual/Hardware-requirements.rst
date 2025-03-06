@@ -91,9 +91,9 @@ ONIX is our next-gen acquisition ecosystem for a ever-increasing variety of tech
 
 * One **torque-free coaxial commutator** for automatic compensation of tether twists (available from the `Open Ephys Store <https://open-ephys.org/commutators/coaxial-commutator>`__)
 
-Besides using the GUI for visualization, you currently need to use Bonsai as the acquisition software. A plugin to acquire in the Open Ephys GUI directly is coming soon.
+You can use the GUI visualizers for continuous signals such as Neuropixels, even if ONIX currently only uses Bonsai for controlling data acquisition. A plugin to acquire in the Open Ephys GUI directly is coming soon.
 
-See the `user guides <https://open-ephys.github.io/bonsai-onix1-docs/articles/hardware/index.html>`__ on how to set up Neuropixels acquisition in `Bonsai <https://open-ephys.github.io/bonsai-onix1-docs/index.html#why-bonsai>`__ and the `tutorial <https://open-ephys.github.io/bonsai-onix1-docs/articles/tutorials/ephys-socket.html>`__ on how to stream data to the GUI for visualization.
+See the `user guides <https://open-ephys.github.io/bonsai-onix1-docs/articles/hardware/index.html>`__ on how to set up Neuropixels acquisition in Bonsai and this `tutorial <https://open-ephys.github.io/bonsai-onix1-docs/articles/tutorials/ephys-socket.html>`__ on how to stream data to the GUI for visualization.
 
 OneBox
 **************
