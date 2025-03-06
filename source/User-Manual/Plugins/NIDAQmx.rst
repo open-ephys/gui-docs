@@ -60,9 +60,17 @@ If you're using the NI-DAQmx plugin alongside the :ref:`neuropixelspxi` module, 
 Connecting to your NIDAQ hardware
 ##################################
 
-When inserting the NI-DAQmx plugin from the Processor List into the Editor Viewport, the plugin automatically checks for all connected NI devices. If multiple devices are found, a 'Device Swap' button will appear in the top right corner of the plugin editor that acts as a toggle switch to cycle through all available devices. The plugin only searches for devices when initially is inserted into the EditorViewport. If a new device is connected after the plugin is inserted, you will need to drop a new NI-DAQmx plugin to detect the new device.
+When inserting the NI-DAQmx plugin from the Processor List into the Editor Viewport, the plugin automatically checks for all connected NI devices. If multiple devices are found, all detected devices will be listed in the Device pull-down menu. The plugin only searches for devices when initially is inserted into the EditorViewport. If a new device is connected after the plugin is inserted, you will need to remove and drop a new NI-DAQmx plugin to select the new device.
 
-The editor will automatically generate control buttons for each analog and digital input available on the selected NI device. Each analog channel contains a channel status toggle button as well as a terminal configuration toggle button. The channel status toggle button is set to on (green) by default for all channels and is intended to enable/disable channels on the fly. Toggling an enabled channel to off (gray) will simply 'zero-out' the data coming in on that channel. 
+The editor will automatically generate control buttons for each analog and digital input available on the selected NI device. Each analog channel contains a channel status toggle button as well as a terminal configuration toggle button. The channel status toggle button is set to on (green) by default for all channels and is intended to enable/disable channels on the fly. Toggling an enabled channel to off (gray) will simply 'zero-out' the data coming in on that channel.
+
+The editor defaults to 8 analog and 8 digital channels which is common across most NI devices. If your device supports more channels, you can change the number of channels included in the plugin by using the Device configuration button directly above the Device pull-down menu. This will open the popover menu shown below:
+
+.. image:: ../../_static/images/plugins/nidaqmx/NIDAQ-device-config.png
+  :alt: NI-DAQmx plugin device configuration popover
+  :align: center
+
+In the above menu, in addition to setting the number of analog and digital channels, you can configure the digital read size to be 8, 16, or 32 bits, depending on what is supported by your NI device. Additionally you can configure which digital ports to be enabled as input. This is useful if you have a NI device with more than 8 digital channels, but you may want to use other ports for output. A NIDAQ Output plugin will be available soon!
 
 Each analog channel also contains a terminal configuration toggle specific to the device connected. Possible terminal device configurations are RSE (Referenced Single-Ended), NRSE (Non-Referenced Single-Ended), DIFF (Differential), and PDIF (Pseudo-Differential). The terminal configuration toggle setting in the plugin should match the configuration in your experimental setup. Since most NI devices cannot infer the terminal configuration electronically, it is up to the user to ensure the module configuration matches the experimental setup prior to acquiring and recording data. An inconsistent terminal configuration can affect the amplitude and voltage offset of the incoming data.
 
@@ -94,18 +102,18 @@ The "aligned_timestamps" will now be aligned to the master clock, and are ready 
 Online Synchronization
 #########################################
 
-An Open Ephys Record Node can automatically synchronize data sources that share the same physical sync signal. Since each device acquires data asynchronously, a shared clock signal between two different devices will have different timestamps for corresponding TTL events. A Record Node can designate one of these channels as the main ‘synchronization channel’ and scale the timestamps coming auxiliary devices to be in alignment with the main device. 
+An Open Ephys Record Node can automatically synchronize data sources that share the same physical sync signal. Since each device acquires data asynchronously, a shared clock signal between two different devices will have different sample numbers for corresponding TTL events. A Record Node can designate one of these channels as the main 'synchronization channel' and scale the timestamps coming auxiliary devices to be in alignment with the main device. 
 
 For Neuropixels probes, you can use the Neuropixels PXI as the main synchronization device by physically connecting the SMA output of the Neuropixels basestation to any digital input channel on the NIDAQ device. 
 
-In Open Ephys, place a :ref:`merger` before the Record Node and connect both the :ref:`neuropixelspxi` plugin and the NI-DAQmx plugin. The Record Node will show either one or two subprocessors per Neuropixels probe (depending if the 2.5kHz LFP band is included by the probe model) and one subprocessor for the NIDAQ device. Each subprocessor’s sync channel monitor will turn green if the digital line on that subprocessor is synchronized with any of the other subprocessors coming into that Record Node. 
+In Open Ephys, place a :ref:`merger` before the Record Node and connect both the :ref:`neuropixelspxi` plugin and the NI-DAQmx plugin. The Record Node will show either one or two streams per Neuropixels probe (depending if the 2.5kHz LFP band is included by the probe model) and one stream for the NIDAQ device. Each streams's sync channel monitor will turn green if the digital line on that stream is synchronized with any of the other streams coming into that Record Node. 
 
-.. image:: ../../_static/images/plugins/nidaqmx/NIDAQ_NPXMerged.png
+.. image:: ../../_static/images/plugins/nidaqmx/nidaq-syncing.png
   :alt: NI-DAQmx plugin syncing
 
-Upon starting acquisition, the first and third sync channel monitors in the Record Node turn green first, as these contain the 30 kHz AP band of the probes and the source of the synchronization signal. Shortly after, the fifth sync channel monitor turns green, which contains the sync signal coming into the NIDAQ device from the Neuropixels probe's basestation. 
+Upon starting acquisition, the main sync channel monitor in the Record Node will turn green first. The remaining sync channel monitors will turn green as streams are synchronized with the main sync channel. It can take up to 10 seconds for the synchronizer to detect the synchronization signal across all streams to be synchronized.
 
-.. image:: ../../_static/images/plugins/nidaqmx/NPX_NIDAQSynchronized.png
+.. image:: ../../_static/images/plugins/nidaqmx/nidaq-synced.png
   :alt: NI-DAQmx plugin synced
 
 .. tip:: For more information about recording and synchronization in Open Ephys, please see the :ref:`recordingdata` page.
@@ -136,7 +144,7 @@ Furthermore, the analog input channels on the 6133 are well-isolated and there i
 
 PXIe-6341
 ----------
-The PXIe-6341 performs almost as well as the 6133, however, there is cross-talk across unused channels when applying the same test signal as above. That is, if a signal is physically connected to only the first analog input channel, a ‘ghost’ of the signal will appear across all of the open analog input channels as shown below:
+The PXIe-6341 performs almost as well as the 6133, however, there is cross-talk across unused channels when applying the same test signal as above. That is, if a signal is physically connected to only the first analog input channel, a 'ghost' of the signal will appear across all of the open analog input channels as shown below:
 
 .. image:: ../../_static/images/plugins/nidaqmx/6341_SyncedPulse.png
   :alt: NI-DAQmx plugin PXIE-6341 syned input signal
