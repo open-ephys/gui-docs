@@ -9,8 +9,8 @@ You can demo the Open Ephys GUI on any computer using the :ref:`filereader` to r
 
 .. tip:: The most important thing you can do to improve performance is use a solid-state drive (ideally NVMe) for writing data. And if you need to record ≥128 channels simultaneously, an SSD is required.
 
-For the Open Ephys acquisition board
--------------------------------------
+For multichannel electrophysiology with passive electrodes
+-------------------------------------------------------------
 
 .. image:: ../_static/images/hardwarerequirements/acq-board.jpg
   :alt: Acquisition board hardware
@@ -34,8 +34,8 @@ Computer specs
 
 * **Connections** - At least one USB 3.0 port
 
-Other hardware
-################
+Acquisition hardware
+#####################
 
 These are the minimum requirements for getting up and running. You will likely need additional hardware for the full experiment (e.g. reward ports, mazes, commutators, light for optogenetic stimulation).
 
@@ -48,8 +48,8 @@ These are the minimum requirements for getting up and running. You will likely n
 * **Electrodes** - there is lots of flexibility here, as long as you have some way to interface between your electrodes and a compatible headstage. For tetrodes, we recommend the `shuttleDrive <https://open-ephys.org/drive-implant>`__.
 
 
-For Neuropixels probes
-------------------------
+For high-density, active Neuropixels probes
+------------------------------------------------------
 
 .. image:: ../_static/images/hardwarerequirements/neuropixels.png
   :alt: Neuropixels hardware
@@ -74,8 +74,8 @@ Computer specs
 * **Connections** - the motherboard should have at least one x8- or x16-compatible PCIe slot, in addition to the one used by the GPU.
 
 
-Other hardware
-###############
+Acquisition hardware
+#####################
 
 The following summarizes the additional hardware you'll need to buy to run Neuropixels experiments. OneBoxes, PXI basestations, headstages, and probes can be ordered from `neuropixels.org <https://neuropixels.org>`__. Other PXI components are available from NI.
 
