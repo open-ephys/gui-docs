@@ -80,6 +80,21 @@ Acquisition hardware
 
 The following summarizes the additional hardware you'll need to get to run Neuropixels experiments.
 
+ONIX
+**************
+ONIX is our next-gen acquisition ecosystem for a ever-increasing variety of technologies. Besides Neuropixels, ONIX can acquire from passive electrodes and miniscopes, and perform on-board electrical and optogenetic stimulation. It also seamlessly integrates into complex behavioral setups.  
+
+
+* One **PCIe Acquisition System** which includes a **PCIe Interface Card** and a **Breakout Board** (available from the `Open Ephys Store <https://open-ephys.org/onix/oeps-9006>`__)
+
+* One **ONIX NeuropixelsV1.0e Headstage** or **ONIX NeuropixelsV2.0e Headstage** (includes one 0.3mm diameter micro-coax tether, available from the `Open Ephys Store <https://open-ephys.org/onix/oeps-7745>`__)
+
+* One **torque-free coaxial commutator** for automatic compensation of tether twists (available from the `Open Ephys Store <https://open-ephys.org/commutators/coaxial-commutator>`__)
+
+Besides using the GUI for visualization, you currently need to use Bonsai as the acquisition software. A plugin to acquire in the Open Ephys GUI directly is coming soon.
+
+See the `user guides <https://open-ephys.github.io/bonsai-onix1-docs/articles/hardware/index.html>`__ on how to set up Neuropixels acquisition in `Bonsai <https://open-ephys.github.io/bonsai-onix1-docs/index.html#why-bonsai>`__ and the `tutorial <https://open-ephys.github.io/bonsai-onix1-docs/articles/tutorials/ephys-socket.html>`__ on how to stream data to the GUI for visualization.
+
 OneBox
 **************
 
