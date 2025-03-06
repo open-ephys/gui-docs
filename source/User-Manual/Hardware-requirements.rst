@@ -12,12 +12,7 @@ You can demo the Open Ephys GUI on any computer using the :ref:`filereader` to r
 For multichannel electrophysiology with passive electrodes
 -------------------------------------------------------------
 
-.. image:: ../_static/images/hardwarerequirements/acq-board.jpg
-  :alt: Acquisition board hardware
-
-More than 1000 `Open Ephys acquisition boards <https://open-ephys.org/acq-board>`__ have been produced and shipped to labs on every continent. This cost-effective, open-source device can easily scale from 16 channels to 512 channels just by adding more headstages and cables. It's a very flexible way to acquire data from a wide variety of electrodes, including tungsten wires, tetrodes, and silicon probes.
-
-The following hardware is recommended for experiments that use the acquisition board:
+The following computer specs are recommended for multichannel electrophysiology experiments with a wide variety of passive electrodes, including tungsten wires, tetrodes, and silicon probes:
 
 Computer specs
 #####################
@@ -42,6 +37,12 @@ These are the minimum requirements for getting up and running. You will likely n
 Open Ephys Acquisition Board
 ********************************
 
+.. image:: ../_static/images/hardwarerequirements/acq-board.jpg
+  :alt: Acquisition board hardware
+
+More than 1000 `Open Ephys acquisition boards <https://open-ephys.org/acq-board>`__ have been produced and shipped to labs on every continent. This cost-effective, open-source device can easily scale from 16 channels to 512 channels just by adding more headstages and cables.
+
+
 * **Acquisition board** (available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/acquisition-board>`__)
 
 * **I/O boards** for interfacing with auxiliary analog and digital signals (available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/io-board-pcb>`__)
@@ -54,10 +55,7 @@ Open Ephys Acquisition Board
 For high-density, active Neuropixels probes
 ------------------------------------------------------
 
-.. image:: ../_static/images/hardwarerequirements/neuropixels.png
-  :alt: Neuropixels hardware
-
-Neuropixels are quickly become a new standard for electrophysiology, given their ability to record from hundreds to thousands of neurons across many brain regions in parallel. Neuropixels probes must be ordered from IMEC via `neuropixels.org <https://www.neuropixels.org>`__. All probe types (including 1.0, 2.0, and NHP) are compatible with the Open Ephys GUI through the :ref:`neuropixelspxi` plugin. General questions about Neuropixels can be directed to the Neuropixels Group Slack (sign up `here <https://neuropixelsgroup.slack.com/join/shared_invite/zt-2zbcrd3dw-nr_Z6iYA8nSEERpLRqAwTA#/shared-invite/email>`__).
+Neuropixels are quickly become a new standard for electrophysiology, given their ability to record from hundreds to thousands of neurons across many brain regions in parallel. Neuropixels probes must be ordered from IMEC via `neuropixels.org <https://www.neuropixels.org>`__. All probe types (including 1.0, 2.0, and NHP) are compatible with the Open Ephys GUI. General questions about Neuropixels can be directed to the Neuropixels Group Slack (sign up `here <https://neuropixelsgroup.slack.com/join/shared_invite/zt-2zbcrd3dw-nr_Z6iYA8nSEERpLRqAwTA#/shared-invite/email>`__).
 
 The following hardware is recommended for experiments with Neuropixels:
 
@@ -80,21 +78,24 @@ Computer specs
 Acquisition hardware
 #####################
 
-The following summarizes the additional hardware you'll need to buy to run Neuropixels experiments. OneBoxes, PXI basestations, headstages, and probes can be ordered from `neuropixels.org <https://neuropixels.org>`__. Other PXI components are available from NI.
+The following summarizes the additional hardware you'll need to get to run Neuropixels experiments.
 
 OneBox
 **************
 
-* **OneBox** with included power supply and USB 3.0 cable
+* **OneBox** with included power supply and USB 3.0 cable (available from `neuropixels.org <https://neuropixels.org>`__)
 
-* One **breakout board** with SDR cable (for auxiliary I/O)
+* One **breakout board** with SDR cable for auxiliary I/O (available from `neuropixels.org <https://neuropixels.org>`__)
 
 See the :ref:`onebox` plugin page for more details.
 
 PXI system
 **************
 
-* One **PXI chassis** (so far we've tested National Instruments PXIe-1071, PXIe-1082, and PXIe-1083 and ADLINK PXES-2301)
+.. image:: ../_static/images/hardwarerequirements/neuropixels.png
+  :alt: Neuropixels NI hardware
+
+* One **PXI chassis** (available from `NI <https://www.ni.com/en.html>`__, so far we've tested National Instruments PXIe-1071, PXIe-1082, and PXIe-1083 and ADLINK PXES-2301)
 
 * *(optional)* One **PXI-based analog and digital I/O module** (see the :ref:`NI-DAQmx` page for a list of hardware we've tested)
 
