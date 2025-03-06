@@ -82,6 +82,10 @@ The following summarizes the additional hardware you'll need to get to run Neuro
 
 ONIX
 **************
+
+.. image:: ../_static/images/hardwarerequirements/onix.png
+  :alt: ONIX ecosystem
+
 ONIX is our next-gen acquisition ecosystem for a ever-increasing variety of technologies. Besides Neuropixels, ONIX can acquire from passive electrodes and miniscopes, and perform on-board electrical and optogenetic stimulation. It also seamlessly integrates into complex behavioral setups.  
 
 
