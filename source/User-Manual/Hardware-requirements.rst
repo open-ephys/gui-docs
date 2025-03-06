@@ -80,7 +80,7 @@ Other hardware
 The following summarizes the additional hardware you'll need to buy to run Neuropixels experiments. OneBoxes, PXI basestations, headstages, and probes can be ordered from `neuropixels.org <https://neuropixels.org>`__. Other PXI components are available from NI.
 
 OneBox
--------
+**************
 
 * **OneBox** with included power supply and USB 3.0 cable
 
@@ -89,7 +89,7 @@ OneBox
 See the :ref:`onebox` plugin page for more details.
 
 PXI system
-----------
+**************
 
 * One **PXI chassis** (so far we've tested National Instruments PXIe-1071, PXIe-1082, and PXIe-1083 and ADLINK PXES-2301)
 
