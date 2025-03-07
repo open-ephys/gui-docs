@@ -23,7 +23,7 @@ OSC Events
 Installing and upgrading
 ###########################
 
-The OSC Events plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "OSC Events" plugin, and click the "Install" button.
+The OSC Events plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "OSC IO" plugin, and click the "Install" button.
 
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
 
@@ -55,7 +55,7 @@ If the OSC Events duration is set to zero, then each message must contain both v
 
 The following is a simple example of a workflow that could be used to trigger "on" and "off" events at regular intervals:
 
-.. image:: ../../_static/images/plugins/oscevents/osc-test.svg
+.. image:: ../../_static/images/plugins/oscevents/oscevents-02.png
   :alt: Example Bonsai workflow
 
 |
