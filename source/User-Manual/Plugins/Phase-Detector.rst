@@ -32,13 +32,14 @@ Plugin configuration
 
 There are four parameters for each Phase Detector:
 
-* :code:`TTL_OUT`: The TTL output line to use. When the Phase Detector detects a peak, trough, or zero-crossing, it will emit events on this line. If you're using the output of this plugin to trigger closed-loop feedback, be sure that this line does not overlap with those used by incoming events from your data source or other plugins.
+* **Selected phase**: One the left side of the editor, there's an interface for choosing the phase on which events will be triggered. By default, the peak is selected, but it's also possible to choose falling zero-crossings, the trough, or rising zero-crossings.
 
-* :code:`GATE_LINE`: The TTL input line used to gate the output of this plugin. If this is set to 0, then the gate is disable and all relevant events will be emitted. If this is set to line 1-16, then the Phase Detector will only generate outputs when the selected line is "high."
+* **Channel**: The continuous channel that will be analyzed. It's possible to select any incoming channel within the currently active stream (see below for details about how this plugin handles multiple incoming streams).
 
-* :code:`Channel`: The continuous channel that will be analyzed. It's possible to select any incoming channel within the currently active stream (see below for details about how this plugin handles multiple incoming streams).
+* **TTL out**: The TTL output line to use. When the Phase Detector detects a peak, trough, or zero-crossing, it will emit events on this line. If you're using the output of this plugin to trigger closed-loop feedback, be sure that this line does not overlap with those used by incoming events from your data source or other plugins.
 
-* :code:`Selected phase`: In the upper right of the editor, there's an interface for choosing the phase on which events will be triggered. By default, the peak is selected, but it's also possible to choose falling zero-crossings, the trough, or rising zero-crossings.
+* **Gate line**: The TTL input line used to gate the output of this plugin. If this is set to 0, then the gate is disable and all relevant events will be emitted. If this is set to line 1-16, then the Phase Detector will only generate outputs when the selected line is "high."
+
 
 Working with multiple data streams
 ###################################
@@ -48,4 +49,4 @@ The Phase Detector can only process one continuous channel from one data stream 
 .. image:: ../../_static/images/plugins/phasedetector/phasedetector-02.png
   :alt: Phase detector stream selection interface
 
-To trigger outputs on several continuous channels, or at different phases, you can place multiple Phase Detectors in succession.''
+To trigger outputs on several continuous channels, or at different phases, you can place multiple Phase Detectors in succession.
