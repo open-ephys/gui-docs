@@ -41,10 +41,6 @@ The bottom timeline spans the length of the recording. The colored vertical bars
 
 The top timeline spans the currently selected interval of 30 seconds by the Full Timeline. The Zoom Timeline also contains a slider, however this slider can span anywhere from 1 to 30 seconds. The default value is 10 seconds. Moving the right slider handle adjusts the length of the selected interval. Moving the left slider handle moves the entire interval back and forth along the timeline. Clicking and dragging anywhere inside the interval also moves the entire interval along the timeline. Playback will automatically stop when it reaches the end of the current interval.
 
-**Playback Button**
-
-The playback button's state indicates whether or not to playback the currently selected interval while acquisition is active. If the 'pause state' is showing, this means playback will be active during acquisition. If the 'play state' is showing, then playback will NOT be active during acquisition. Toggle the button to change to the desired state as needed.  
-
 Sample Data
 ######################
 
@@ -64,5 +60,3 @@ Other input data
 ######################
 
 The File Reader should be able to read any datasets that have been previously saved by the GUI (v0.6.0+). If you make a recording that is not compatible with the File Reader for some reason, please send a message to :code:`support@open-ephys.org`.
-
-|
