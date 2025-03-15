@@ -36,7 +36,11 @@ Each electrode has a **Waveform View** and (for stereotrodes and tetrodes) a **P
 
 In the **Waveform View**, you can change the range of the display in microvolts by clicking the numeric button in the lower left (default = 250). You can also drag the horizontal red line to change the *display threshold* for a given channel. The *detection threshold* appears in orange and is based on the threshold that was used to detect the original spike. The display threshold only affects what appears in the Spike Viewer; by lowering the display threshold to more negative values, you can limit the number of spikes that are shown without affecting what is detected or recorded.
 
-There are three buttons along the bottom that control the global settings:
+There are five controls along the bottom that control the global settings:
+
+* **Range**: Changes the range of the display in microvolts.
+
+* **Spike History**: Sets the number of most recent spikes to display.
 
 * **Clear Plots**: Clears the spike waveforms and peaks currently being displayed.
 
@@ -47,12 +51,9 @@ There are three buttons along the bottom that control the global settings:
 Audio Monitor
 --------------
 
-Each electrode display has a button in the upper right labeled "MON." If there is an :ref:`audiomonitor` in the signal chain, clicking this button will select the first channel of this electrode to be monitored.
+Each electrode display has a headphone button in the upper right. If there is an :ref:`audiomonitor` in the signal chain, clicking this button will select the first channel of this electrode to be monitored.
 
 Changing electrode display size
 --------------------------------
 
 The Spike Viewer editor only has one parameter interface, which controls the size of the individual spike displays. Clicking the **+** and **-** buttons will increase or decrease the size of the displays, respectively. Because the displays are auto-scaled to fit the width of the Spike Viewer, sometimes clicking these buttons will have no effect.
-
-|
-
