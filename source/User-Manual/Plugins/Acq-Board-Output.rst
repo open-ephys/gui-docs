@@ -9,24 +9,22 @@ Acq Board Output
 .. image:: ../../_static/images/plugins/acquisitionboard/acquisitionboard-03.png
   :alt: Annotated settings interface for the Acq Board Output plugin
 
-.. csv-table:: Triggers digital outputs of an `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__ with an Opal Kelly FPGA.
+.. csv-table:: Triggers digital outputs of an `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__.
    :widths: 18, 80
 
    "*Plugin Type*", "Sink"
    "*Platforms*", "Windows, Linux, macOS"
-   "*Built in?*", "No; install via *Rhythm Plugins*"
+   "*Built in?*", "No; install via *Acquisition Board*"
    "*Key Developers*", "Josh Siegle, Aarón Cuevas López"
-   "*Source Code*", "https://github.com/open-ephys-plugins/rhythm-plugins"
+   "*Source Code*", "https://github.com/open-ephys-plugins/acquisition-board"
 
 
 .. tip:: For more in-depth documentation on the Open Ephys Acquisition Board, please refer to the `Acquisition Board docs site <https://open-ephys.github.io/acq-board-docs/>`__.
 
-.. important:: If your acquisition board was purchased after October 2022, it likely has a custom FPGA designed by Open Ephys. This requires a different plugin, called :ref:`oefpgaacquisitionboard`, which doesn't currently have an associated output plugin.
-
 Installing and upgrading
 ==========================
 
-The Acq Board Output plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Rhythm Plugins", and click the "Install" button. After installation, *Acq Board Output* will appear in the processor list on the left side of the GUI's main window.
+The Acq Board Output plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Acquisition Board", and click the "Install" button. After installation, *Acq Board Output* will appear in the processor list on the left side of the GUI's main window.
 
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed. The plugin must be removed from the signal chain prior to upgrading.
 
