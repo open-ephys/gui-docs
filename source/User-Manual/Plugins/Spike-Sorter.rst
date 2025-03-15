@@ -31,7 +31,7 @@ The Plugin Installer also allows you to upgrade to the latest version of this pl
 Plugin configuration
 #####################
 
-In order to use the Spike Sorter, you must have at least upstream plugin that generates spikes. Currently, the only plugin capable of generating spikes is the :ref:`spikedetector`. Please refer to that plugin's documentation page to understand how to create and configure electrodes.
+In order to use the Spike Sorter, you must have at least one upstream plugin that generates spikes. Currently, the only plugin capable of generating spikes is the :ref:`spikedetector`. Please refer to that plugin's documentation page to understand how to create and configure electrodes.
 
 Downstream plugins will be able to access the :code:`sortedId` for all spikes that pass through the Spike Sorter. Note that these IDs will only be written to disk by Record Nodes that are placed to the *right* of the Spike Sorter.
 
