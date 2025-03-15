@@ -166,6 +166,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     RHD-Rec-Controller
     Ripple-Detector
     River-Output
+    Source-Sim
     Spectrum-Viewer
     Spike-Detector
     Spike-Sorter
