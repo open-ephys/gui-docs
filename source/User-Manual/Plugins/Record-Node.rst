@@ -71,18 +71,18 @@ Remote control
 
 Certain settings for each Record Node can be updated via HTTP Server commands. See the :ref:`remotecontrol` documentation for information about how to send :code:`PUT` requests in Python and Matlab. In all examples, :code:`<id>` represents the Record Node ID (visible in the Graph Viewer).
 
-To set the recording directory for a given Record Node, send the following message to :code:`/api/recording/<id>`: 
+Data format
+####################
+
+To set the data format for a given Record Node, send the **index** of the recording format you want to use as it appears in the dropdown menu in the Record Node editor. For example if Binary and OpenEphys formats appear first and second in the dropdown menu, respectively, to use the :ref:`binaryformat`, send the following message to :code:`/api/recording/<id>`:
 
 .. code-block:: console
 
-    { 'parent_directory' : '/path/to/directory' }
+    { 'record_engine' : '0' }
 
-To set the data format for a given Record Node, send the following message to :code:`/api/recording/<id>`:
 
-.. code-block:: console
-
-    { 'record_engine' : 'BINARY' (or 'NWB2' or 'OPENEPHYS')}
-
+Selecting channels to record
+####################
 
 To change the recorded channels for a given stream, send the following message to :code:`/api/processors/<id>/config`:
 
@@ -95,5 +95,3 @@ To change the recorded channels for a given stream, send the following message t
 - :code:`ALL` - select all channels in the specified stream
 - :code:`NONE` - deselect all channels in the specified stream
 - :code:`1 2 3 4 5` - list of 1-based indices of the desired channels to select. Any channels not in the list will be deselected.
-
-|
