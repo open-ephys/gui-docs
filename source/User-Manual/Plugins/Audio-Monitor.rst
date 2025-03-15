@@ -25,19 +25,17 @@ Overview
 
 The Audio Monitor can be used to listen to any continuous signals processed by the GUI's signal chain. It automatically upsamples the data to match the sampling rate of the computer's audio card, and includes a built-in bandpass filter to enhance the sound of spikes.
 
-**IMPORTANT:** The Audio Monitor only works if it is placed in the middle of a signal chain (not at the end). Ideally it should be located downstream of any Spike Detectors, but upstream of at least one visualizer (e.g. :ref:`spikeviewer` or :ref:`lfpviewer`).
-
 Plugin configuration
 ====================
 
 Channel selection
 ------------------
 
-The "Channels" button allows the user to select up to 4 continuous channels to monitor at a time. 
+The "Channels" button allows the user to select any number of continuous channels to monitor at a time. 
 
 Alternatively, if there is a :ref:`spikedetector` to the left of the Audio Monitor, the continuous channels for each electrode can be selected by choosing an electrode from the drop-down menu at the bottom of the editor.
 
-.. tip:: You can select channels to monitor directly from the Spike Viewer (by clicking one of the "MON" buttons) or the LFP Viewer (by right-clicking on any channel to display a pop-up menu).
+.. tip:: You can select channels to monitor directly from the Spike Viewer (by clicking one of the "headphone" buttons) or the LFP Viewer (by right-clicking on any channel to display a pop-up menu).
 
 Output options
 ------------------
@@ -53,7 +51,7 @@ The output volume is controlled by the slider in the control panel at the top of
 Working with multiple data streams
 ===================================
 
-Each Audio Monitor can only be used to listen to channels from one data stream at a time. The active stream corresponds to whichever stream is currently visible in the stream selector interface (accessed by clicking the vertical bars on the right-hand side of the editor). To listen to data from multiple streams simultaneously, you can place several Audio Monitors in succession.
+Each Audio Monitor can only be used to listen to channels from one data stream at a time. The active stream corresponds to whichever stream is currently selected in the stream selector interface (accessed by clicking the vertical bars on the right-hand side of the editor). To listen to data from multiple streams simultaneously, you can place several Audio Monitors in succession.
 
 |
 
