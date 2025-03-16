@@ -16,7 +16,7 @@ Bandpass Filter
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Josh Siegle"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/main/Plugins/FilterNode"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/main/Plugins/BandpassFilter"
 
 Plugin configuration
 ###################################
