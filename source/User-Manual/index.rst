@@ -37,6 +37,7 @@ If there's something missing from this documentation that you think should be in
     Building-a-signal-chain
     Recording-data/index
     Remote-control
+    Benchmarking
     Whats-new-in-v06x
     Whats-new-in-v100
     Plugins/index
