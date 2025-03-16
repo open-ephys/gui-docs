@@ -16,7 +16,7 @@ LFP Viewer
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Josh Siegle, Jakob Voigts, K. Michael Fox, Anjal Doshi, Daniel Wagenaar"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/main/Plugins/LfpDisplayNode"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/main/Plugins/LfpViewer"
 
 Plugin configuration
 ######################

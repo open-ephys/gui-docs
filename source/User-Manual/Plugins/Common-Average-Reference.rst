@@ -16,7 +16,7 @@ Common Average Reference
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Ryan Maloney, Josh Siegle, Kirill Abramov"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/main/Plugins/CommonAverageRef"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/main/Plugins/CommonAvgRef"
 
 
 .. tip:: If you're using Neuropixels probes, the :ref:`neuropixelscar` plugin will be more effective at removing noise.
