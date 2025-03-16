@@ -115,6 +115,8 @@ Edit
 
 * **Clear signal chain**: Remove all processors from the signal chain.
 
+* **Lock signal chain**: Disable any updates to the signal chain (such as adding, moving, or deleting processors).
+
 View
 -----
 
@@ -124,56 +126,54 @@ View
 
 * **File Info**: Show/hide the Record Options interface.
 
-* **Reset window bounds**: Restore the GUI window to the default size and location (helpful if the window gets lost offscreen).
+* **Info Tab**: Add or remove the Info Tab from the Data Viewport.
+
+* **Graph Viewer**: Add or remove the Graph Viewer from the Data Viewport.
+
+* **Console**: Add or remove the Console from the Data Viewport.
+
+* **Message Window**: Show the Message Window popup (used to add annotations during a recording).
+
+* **Clock display mode**: Select "M min S s" or "HH:MM:SS" clock format.
+
+* **Clock reference time**: Select clock reference time (cumulative or relative to most recent acquisition start).
+
+* **Theme**: Select the GUI's display theme (light/medium/dark).
+
+* **Reset window bounds**: Restore the GUI window to the default size and location (helpful if the window gets lost off-screen).
 
 Help
 -----
 
-* **Online documentation...**: Open the GUI's documentation site in a browser window (requires access to the interent).
+* **Online documentation...**: Open the GUI's documentation site in a browser window (requires access to the internet).
+
+* **Check for updates...**: Check whether a more recent version of the GUI is available.
 
 
 Debug console
 ###############
 
-The GUI is able to send debug messages to a console. In many cases, the information displayed there can help locate and solve an issue. The way to access the debug console varies depending on the operating system.
-
-Linux
--------
-
-To display the debug console on Linux, just run the :code:`open-ephys` application in a console terminal, and the output will be displayed there.
-
-macOS
--------
-
-To display the debug console on macOS, open a terminal, navigate to the directory where the GUI application is located and run it inside the console.
-
-Due to the structure of macOS app bundles, the whole command to run the GUI would be :code:`./open-ephys.app/Contents/MacOS/open-ephys`. Run this command from the directory which contains the App bundle. Do not access the internal App directories and run :code:`./open-ephys` from there, as some features will not be available that way.
-
-Windows
----------
-
-Debug console is automatically displayed on Windows when you run the :code:`open-ephys` application.
-
+During normal operation, the GUI logs messages to a console, which can be helpful for identifying problems. As of version 1.0, the cnsole is included as a tab in the GUI's Data Viewport. If you don't see the console tab, press "shift+C" to add it to the Data Viewport. The console can also be opened as a separate window by right-clicking on the tab name.
 
 
 Log files
 ###############
 
-Every action taken by the user is logged to a file, along with additional information that can be useful for spotting issues when things go wrong. If the GUI exits sucessfully, the latest log file will be overwritten the next time the GUI is launched. If the GUI crashes, then the name of the latest log file will be appended with a unique date string.
+Every action taken by the user is logged to a file, along with additional information that can be useful for spotting issues when things go wrong. If the GUI exits successfully, the latest log file will be overwritten the next time the GUI is launched. If the GUI crashes, then the name of the latest log file will be appended with a unique date string.
 
 Linux
 -------
 
-Log files are written to :code:`/home/<username>/open-ephys/configs-api8`
+Log files are written to :code:`/home/<username>/open-ephys/configs-api9`
 
 macOS
 -------
 
-Log files are written to :code:`/Users/<username>/Library/Application Support/open-ephys/configs-api8`.
+Log files are written to :code:`/Users/<username>/Library/Application Support/open-ephys/configs-api9`.
 
 Windows
 ---------
 
-Log files are written to :code:`C:\\ProgramData\\Open Ephys\\configs-api8`.
+Log files are written to :code:`C:\\Users\\<username>\\AppData\\Local\\OpenEphys\\configs-api9`.
 
 .. _Ableton Live: https://www.ableton.com/en/live/
