@@ -69,7 +69,7 @@ All types of plugins can access the :code:`CoreServices` class, which includes t
 
 .. function:: File CoreServices::getSavedStateDirectory()
 
-    :returns: A Juce :code:`File` object that specifies the location where the GUI's configuration files are stored. This is useful if a plugin needs to save a custom settings file (although it's recommended to use the GUI's built-in XML settings file whenever possible).
+    :returns: A Juce :code:`File` object that specifies the location where the GUI's configuration files are stored. This is useful if a plugin needs to save a custom settings file (although it's recommended to use the GUI's built-in XML settings file for this whenever possible).
 
 
 .. function:: void CoreServices::saveRecoveryConfig()
@@ -82,6 +82,13 @@ All types of plugins can access the :code:`CoreServices` class, which includes t
     Updates all processors downstream of the specified :code:`GenericEditor`. This should be called whenever a plugin adds or remove continuous, spike, or event channels, or changes the properties of these channels (such as their name or other metadata).
 
     :param editor: A pointer to the editor of the processor that has been modified.
+
+
+.. function:: void CoreServices::updateSignalChain(GenericProcessor* editor)
+
+    Updates all processors downstream of the specified :code:`GenericProcessor`. This should be called whenever a plugin adds or remove continuous, spike, or event channels, or changes the properties of these channels (such as their name or other metadata).
+
+    :param editor: A pointer to the processor that has been modified.
 
 
 .. function:: void CoreServices::highlightEditor(GenericEditor* editor)
@@ -129,14 +136,19 @@ All types of plugins can access the :code:`CoreServices` class, which includes t
     :param text: The message to display.
 
 
-.. function:: int64 CoreServices::getSoftwareTimestamp()
+.. function:: int64 CoreServices::getSystemTime()
 
     :returns: The current software timestamp (milliseconds since midnight Jan 1st 1970 UTC).
 
 
-.. function:: float CoreServices::getSoftwareSampleRate();
+.. function:: float CoreServices::getRecordingTime();
 
-    :returns: The ticker frequency of the software timestamp clock (1000 Hz).
+    :returns: The number of milliseconds since the GUI's recording clock started.
+
+
+.. function:: UndoManager CoreServices::getUndoManager()
+
+    :returns: A pointer to the GUI's undo manager. This can be used to add undo/redo actions to the GUI.
 
 
 .. function:: File CoreServices::getRecordingParentDirectory()
@@ -151,18 +163,16 @@ All types of plugins can access the :code:`CoreServices` class, which includes t
     :param dir: Absolute path of the new recording directory.
 
 
-.. function:: void CoreServices::RecordNode::setRecordingDirectory(String dir, int nodeId, bool applyToAll = false)
+.. function:: std::vector<RecordEngineManager*> CoreServices::getAvailableRecordEngines()
+
+    :returns: A vector of pointers to the managers for all available Record Engines (a.k.a. data formats).
+
+
+.. function:: bool CoreServices::setDefaultRecordEngine (String id)
     
-    Sets a new recording directory for one or all existing Record Nodes.
+    Sets the default record engine based on its identifier string. This will only be applied to new Record Nodes, and will not affect existing Record Nodes in the signal chain. To set the record engine for existing Record Nodes, use :code:`CoreServices::RecordNode::setRecordingEngine()` (see below).
 
-    :param dir: The absolute path of the new recording directory.
-    :param nodeId: The ID of the Record Node (if only one is being updated).
-    :param applyToAll: Set to :code:`true` to apply the new directory to all Record Nodes.
-
-
-.. function:: Array<int> CoreServices::getAvailableRecordNodeIds()
-
-    :returns: An array of IDs for Record Nodes currently in the signal chain.
+    :returns: :code:`true` if the record engine was found and set as default, :code:`false` otherwise.
 
 
 .. function:: void CoreServices::setRecordingDirectoryBasename(String dir)
@@ -210,3 +220,74 @@ All types of plugins can access the :code:`CoreServices` class, which includes t
 
     :returns: :code:`true` if all Record Nodes are in a "synchronized" state. A Record Node is synchronized if it only has one data stream as input, or if all of its incoming streams share a hardware sync line that has received at least two events.
 
+
+.. function:: Array<int> CoreServices::getAvailableRecordNodeIds()
+
+    :returns: An array of integer IDs for Record Nodes currently in the signal chain.
+
+
+.. function:: void CoreServices::RecordNode::setRecordingDirectory(String dir, int nodeId, bool applyToAll = false)
+    
+    Sets a new recording directory for one or all existing Record Nodes.
+
+    :param dir: The absolute path of the new recording directory.
+    :param nodeId: The ID of the Record Node (if only one is being updated).
+    :param applyToAll: Set to :code:`true` to apply the new directory to all Record Nodes.
+
+
+.. function:: File CoreServices::RecordNode::getRecordingDirectory(int nodeId)
+    
+    :param nodeId: The ID of the Record Node.
+
+    :returns: A Juce :code:`File` object for the location of the recording directory for the specified Record Node.
+
+
+.. function:: float CoreServices::RecordNode::getFreeSpaceAvailable(int nodeId)
+    
+    :param nodeId: The integer ID of the Record Node.
+
+    :returns: The free space available (in kB) for a Record Node's current directory.
+
+
+.. function:: void CoreServices::RecordNode::setRecordEngine(String engineId, int nodeId, bool applyToAll = false)
+    
+    Sets a new record engine for one or all existing Record Nodes.
+
+    :param engineId: The identifier for the record engine (call :code:`getAvailableRecordEngines` to discover these).
+    :param nodeId: The integer ID of the Record Node (if only one is being updated).
+    :param applyToAll: Set to :code:`true` to apply the engine to all Record Nodes.
+
+
+.. function:: String CoreServices::RecordNode::getRecordEngineId(int nodeId)
+    
+    :param nodeId: The integer ID of the Record Node.
+
+    :returns: The active record engine (data format) for a specific Record Node
+
+
+.. function:: String CoreServices::RecordNode::getRecordingNumber(int nodeId)
+    
+    :param nodeId: The integer ID of the Record Node.
+
+    :returns: The recording number for a specific Record Node (number of times recording was stopped and re-started)
+
+
+.. function:: String CoreServices::RecordNode::getExperimentNumber(int nodeId)
+    
+    :param nodeId: The integer ID of the Record Node.
+
+    :returns: The experiment number for a specific Record Node (number of times acquisition was stopped and re-started).
+
+
+.. function:: void CoreServices::RecordNode::createNewRecordingDirectory(int nodeId)
+    
+    Instructs a specific Record Node to creates new directory the next time recording is started.
+
+    :param nodeId: The integer ID of the Record Node.
+
+
+.. function:: bool CoreServices::RecordNode::isSynchronized(int nodeId)
+    
+    :param nodeId: The integer ID of the Record Node.
+
+    :returns: :code:`true` if all incoming streams for a Record Node are synchronized (see :code:`allRecordNodesAreSynchronized()` above).
