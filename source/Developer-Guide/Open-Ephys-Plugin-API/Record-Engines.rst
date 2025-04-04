@@ -5,7 +5,7 @@
 Record Engines
 =====================
 
-.. csv-table:: Record Engines define how continuous data, events, and spikes are written to disk.
+.. csv-table:: Record Engines define custom formats for saving continuous data, events, and spikes.
    :widths: 18, 80
 
    "*Type*", ":code:`Plugin::Type::RECORD_ENGINE`"
@@ -76,13 +76,13 @@ To create a new Record Engine, start with the `Record Engine Template <https://g
 NPY Files
 ############
 
-All Record Engines have access to a :code:`NpyFile` class that can be used to write data in `NPY format <https://numpy.org/devdocs/reference/generated/numpy.lib.format.html>`__. NPY is a simple format intended for storing array data, and which is straightforward to read with both Python and Matlab.
+All Record Engines have access to a :code:`NpyFile` class that can be used to write data in `numpy (.npy) format <https://numpy.org/devdocs/reference/generated/numpy.lib.format.html>`__. numpy is a simple format intended for storing array data, and which is straightforward to read with both Python and Matlab.
 
-To create a new NPY file, a Record Engine should use the following methods:
+To create a new numpy (.npy) file, a Record Engine should use the following methods:
 
 .. function:: NpyFile(String path, NpyType type)
 
-   Constructor for a 1-dimensional NPY file with a specified type. 
+   Constructor for a 1-dimensional numpy file with a specified type. 
 
    :param path: Absolute path to the file.
    :param type: The data type for this file. The available types are defined in `Metadata.h <https://github.com/open-ephys/plugin-GUI/blob/main/Source/Processors/Settings/Metadata.h>`__.
@@ -99,7 +99,7 @@ Once the file has been opened, data can be written using the following methods:
 
 .. function:: void writeData(const void* data, size_t nSamples)
 
-   Writes a block of data to an NPY file.
+   Writes a block of data to a numpy file.
 
    :param data: An array of values to write; the data type must match the data type that was specified when opening the file.
 
@@ -116,7 +116,7 @@ Once the file has been opened, data can be written using the following methods:
 Sequential Block Files
 ########################
 
-All Record Engines also have access to a :code:`SequentialBlockFile` class that can be used to write data to compact binary files that are often have a ".bin" or ".dat" extension. This is how continuous data is stored in the Open Ephys :ref:`binaryformat`, and it is common to see these files in other neuroscience-specific formats as well.
+All Record Engines also have access to a :code:`SequentialBlockFile` class that can be used to write data to compact binary files that commonly have a ".bin" or ".dat" extension. This is how continuous data is stored in the Open Ephys :ref:`binaryformat`, and it is common to see these files in other neuroscience-specific formats as well.
 
 To write data to a Sequential Block File, only three methods are needed:
 
