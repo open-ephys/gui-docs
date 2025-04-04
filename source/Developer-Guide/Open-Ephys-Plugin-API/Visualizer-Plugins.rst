@@ -50,12 +50,13 @@ The following methods are needed to start and stop Visualizer animation callback
    Calls Visualizer's :code:`endAnimation()` method, which stops the animation timer.
 
 
+
 Visualizer methods
 #########################
 
 A Visualizer is simply a Juce :code:`Component` that includes an animation timer. Anything that can be done inside a :code:`Component` can be done inside a Visualizer.
 
-All Visualizers must implement three pure virtual methods:
+All Visualizers must implement two pure virtual methods:
 
 .. function:: void refresh()
 
@@ -64,12 +65,14 @@ All Visualizers must implement three pure virtual methods:
 
 .. function:: void refreshState()
 
-   Called once when the Visualizer's tab becomes visible.
+   Called once when the Visualizer's tab becomes visible after being hidden.
 
 
-.. function:: void update()
+The Visualizer should override the following method to define how it responds to changes in the signal chain:
 
-   Called when the signal chain is modified, to allow the Visualizer to update its internal settings. Note that Visualizer settings will not be propagated to downstream plugins.
+.. function:: void updateSettings()
+
+   Called when the signal chain is modified, to allow the Visualizer to update its internal settings. Note that unlike processor settings, Visualizer settings will not be propagated to downstream plugins.
 
 
 In addition, a Visualizer should override the following Juce :code:`Component` methods to specify its background and layout:
