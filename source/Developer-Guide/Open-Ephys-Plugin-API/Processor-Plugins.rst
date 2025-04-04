@@ -115,15 +115,25 @@ Plugins that only generate events can call the following method inside :code:`up
 Starting/stopping acquisition
 ===============================
 
-If a plugin needs to update its internal state just before the start of acquisition, it should override the following method:
+If a plugin needs to block acquisition from starting, it can override the following method:
+
+.. function:: bool isReady()
+
+    Informs a plugin that acquisition is about to begin. The plugin should return :code:`true`` to confirm that acquisition can be safely started.
+
+    :return: :code:`true` if acquisition can be started, :code:`false` otherwise.
+
+Ideally this should be accompanied by a status message stating the reason why acquisition could not begin.
+
+If a plugin needs to update its internal state when acquisition starts or stops, it should override the following method:
 
 .. function:: bool startAcquisition()
 
-    Informs a plugin that acquisition is about to begin. If a plugin is not ready to handle incoming data, it can return :code:`false` to prevent acquisition from starting.
+    Informs a plugin that acquisition is about to begin. 
 
 .. function:: bool stopAcquisition()
 
-    Informs a plugin that acquisition has stopped. The return value is not currently handled.
+    Informs a plugin that acquisition has stopped.
 
 
 Processing data
@@ -131,9 +141,9 @@ Processing data
 
 The :code:`process()` method is where a Processor Plugin's core functionality is defined:
 
-.. function:: void process(AudioBuffer<float> buffer)
+.. function:: void process(AudioBuffer<float>& buffer)
 
-    Allows a plugin to modify a buffer of continuous channels, and add events or spikes that will be received by downstream plugins. This method is  called repeatedly whenever acquisition is active.
+    Allows a plugin to modify a buffer of continuous channels, and add events or spikes that will be received by downstream plugins. This method is called repeatedly whenever acquisition is active.
 
     :param buffer: A Juce :code:`AudioBuffer` containing data samples for all continuous channels processed by this plugin. The ordering of channels in this buffer matches the ordering of channels in the :code:`continuousChannels` array. Since this buffer contains samples for all incoming data streams, be sure to call :code:`getGlobalIndex()` for each continuous channel to find its position in this buffer, which may be different from its position within its data stream. In general, this buffer stores data in units of microvolts, but there are some cases (such as ADC channels) where the data is stored in volts.
 
@@ -264,7 +274,7 @@ The GUI's built-in :code:`Parameter` class provides an easy way to manage the pa
 Defining parameters
 ====================
 
-All parameters *must* be defined inside your plugin's class constructor, using the constructor methods for different types of parameters, e.g.:
+All parameters *must* be defined inside your plugin's :code:`registerParameters` method, using the constructor methods for different types of parameters, e.g.:
 
 .. function:: void addIntParameter(Parameter::ParameterScope scope, const String& name, const String& description, int defaultValue, int minValue, int maxValue)
 
