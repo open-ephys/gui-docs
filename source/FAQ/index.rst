@@ -10,7 +10,7 @@ FAQs
 
 In many cases, answers to common inquiries can be found by searching through our `forum <https://groups.google.com/g/open-ephys>`__ or `GitHub Issues page <https://github.com/open-ephys/plugin-GUI/issues>`__. If you can't find what you're looking for, we encourage you to post a question yourself.
 
-If you'd prefer to get assistance by email, simply write to :code:`support@open-ephys.org`. Support efforts are funded by sales from the `Open Ephys store <https://open-ephys.org/store>`__, as well as a `BRAIN Initiative U24 award <https://reporter.nih.gov/project-details/9645567>`__ to the Allen Institute.
+If you'd prefer to get assistance by email, simply write to :code:`gui@open-ephys.org`. Support efforts are funded by sales from the `Open Ephys store <https://open-ephys.org/store>`__, as well as a `BRAIN Initiative U01 award <https://reporter.nih.gov/project-details/10731991>`__ to the Allen Institute.
 
 |
 
@@ -44,9 +44,7 @@ For synchronizing the GUI with camera streams, you can either record the frame t
 
 **Can I use the GUI for human EEG experiments?**
 
-Currently, none of the GUI's compatible hardware interfaces are optimized for scalp EEG recording. It is possible to `adapt the Open Ephys acquisition board for use with EEG electrodes <https://iopscience.iop.org/article/10.1088/1741-2552/aa651f>`__, but this is not an officially supported approach.
-
-If you're interested in performing human EEG experiments, we recommend checking out `OpenBCI <https://openbci.com/>`__.
+EEG systems compatible with the Lab Streaming Layer protocol can be used with the GUI's :ref:`lslinlet` plugin. However, most of the plugins have been optimized for extracellular recordings from implanted electrodes, and the GUI is not designed to be used as a clinical EEG system. If you're looking for a system that can be used for human EEG experiments, we recommend checking out `OpenBCI <https://openbci.com/>`__.
 
 |
 
