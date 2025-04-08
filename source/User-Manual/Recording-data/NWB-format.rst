@@ -110,7 +110,7 @@ Reading data in Python
 Reading data in Matlab
 #######################
 
-* Use the `open-ephys-matlab-tools` <https://github.com/open-ephys/open-ephys-matlab-tools>`__ library.
+* Use the `open-ephys-matlab-tools <https://github.com/open-ephys/open-ephys-matlab-tools>`__ library.
 
 .. note:: NWB files written by the Open Ephys GUI are not currently compatible with the :code:`MatNWB` library. We are working on a fix!
 
