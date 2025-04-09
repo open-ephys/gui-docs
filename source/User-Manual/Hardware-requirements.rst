@@ -14,7 +14,7 @@ The Open Ephys GUI has expanded from its origins as the software for the Open Ep
 In this section, we detail the main hardware options currently being used for data acquisition with the GUI and what requirements are needed to set them up.
 Please refer to each system's documentation for specific information about the hardware.
 
-For the Open Ephys acquisition board
+Open Ephys Acquisition Board
 -------------------------------------
 
 .. image:: ../_static/images/hardwarerequirements/acq-board.jpg
@@ -39,8 +39,8 @@ Computer specs
 
 * **Connections** - At least one USB 3.0 port
 
-Other hardware
-################
+Additional hardware
+######################
 
 These are the minimum requirements for getting up and running. You will likely need additional hardware for the full experiment (e.g. reward ports, mazes, commutators, light for optogenetic stimulation).
 
@@ -52,9 +52,20 @@ These are the minimum requirements for getting up and running. You will likely n
 
 * **Electrodes** - there is lots of flexibility here, as long as you have some way to interface between your electrodes and a compatible headstage. For tetrodes, we recommend the `shuttleDrive <https://open-ephys.org/drive-implant>`__.
 
+Open Ephys ONIX
+-------------------------------------
 
-For Neuropixels probes
-------------------------
+.. image:: ../_static/images/hardwarerequirements/onix.png
+  :alt: ONIX ecosystem
+
+Computer specs
+#####################
+
+Additional hardware
+#######################
+
+IMEC Neuropixels PXI basestation and National Instruments PXI chassis
+-------------------------------------------------------------------------
 
 .. image:: ../_static/images/hardwarerequirements/neuropixels.png
   :alt: Neuropixels hardware
@@ -79,22 +90,11 @@ Computer specs
 * **Connections** - the motherboard should have at least one x8- or x16-compatible PCIe slot, in addition to the one used by the GPU.
 
 
-Other hardware
-###############
+Additional hardware
+######################
 
 The following summarizes the additional hardware you'll need to buy to run Neuropixels experiments. OneBoxes, PXI basestations, headstages, and probes can be ordered from `neuropixels.org <https://neuropixels.org>`__. Other PXI components are available from NI.
 
-OneBox
--------
-
-* **OneBox** with included power supply and USB 3.0 cable
-
-* One **breakout board** with SDR cable (for auxiliary I/O)
-
-See the :ref:`onebox` plugin page for more details.
-
-PXI system
-----------
 
 * One **PXI chassis** (so far we've tested National Instruments PXIe-1071, PXIe-1082, and PXIe-1083 and ADLINK PXES-2301)
 
@@ -115,3 +115,41 @@ For chassis with a built-in Thunderbolt controller (e.g. PXIe-1083):
 * One sufficiently long **Thunderbolt cable**
 
 See the :ref:`neuropixelspxi` plugin page for more details.
+
+
+IMEC Neuropixels OneBox
+------------------------------------------------------------
+
+.. image:: ../_static/images/hardwarerequirements/neuropixels.png
+  :alt: Neuropixels hardware
+
+Neuropixels are quickly become a new standard for electrophysiology, given their ability to record from hundreds to thousands of neurons across many brain regions in parallel. Neuropixels probes must be ordered from IMEC via `neuropixels.org <https://www.neuropixels.org>`__. All probe types (including 1.0, 2.0, and NHP) are compatible with the Open Ephys GUI through the :ref:`neuropixelspxi` plugin. General questions about Neuropixels can be directed to the Neuropixels Group Slack (sign up `here <https://neuropixelsgroup.slack.com/join/shared_invite/zt-2zbcrd3dw-nr_Z6iYA8nSEERpLRqAwTA#/shared-invite/email>`__).
+
+The following hardware is recommended for experiments with Neuropixels:
+
+Computer specs
+################
+
+* **Operating system** - Windows 7, 10, or 11
+
+* **Processor** - minimum of 6 cores, 3.5 GHz
+
+* **Memory** - at least 2 GB per simultaneously recorded probe; a minimum of 16 GB is recommended.
+
+* **Data storage** - a solid state drive is essential (at least 500 MB/s write speed); an NVMe drive is strongly recommended.
+
+* **Graphics card** - the GUI doesn't rely on the GPU for processing, but GPUs are essential for offline analysis. An NVIDIA GPU is likely required (for CUDA compatibility); we recommend buying a GTX 1660 or better.
+
+* **Connections** - the motherboard should have at least one x8- or x16-compatible PCIe slot, in addition to the one used by the GPU.
+
+
+Additional hardware
+#####################
+
+The following summarizes the additional hardware you'll need to buy to run Neuropixels experiments. OneBoxes, PXI basestations, headstages, and probes can be ordered from `neuropixels.org <https://neuropixels.org>`__. Other PXI components are available from NI.
+
+* **OneBox** with included power supply and USB 3.0 cable
+
+* One **breakout board** with SDR cable (for auxiliary I/O)
+
+See the :ref:`onebox` plugin page for more details.
