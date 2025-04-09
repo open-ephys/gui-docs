@@ -68,6 +68,8 @@ Some ONIX functionality can be accessed with the Open Ephys GUI. The ONIX Source
 
 All of ONIX data streams and capabilities can be accessed through the Bonsai package OpenEphys.Onix1, and you can use this in combination with the Open Ephys GUI with the Ephys Socket plugin to work with data streams in the plugins you might be used to, such as the Probe viewer for Neuropixels data. Follow this `tutorial <https://open-ephys.github.io/bonsai-onix1-docs/articles/tutorials/ephys-socket.html>`__ to set up Neuropixels acquisition in Bonsai and stream data to the Open Ephys GUI for visualization.
 
+The following hardware is recommended for experiments that use ONIX:
+
 Computer specs
 #####################
 
@@ -99,11 +101,11 @@ IMEC Neuropixels PXI basestation and National Instruments PXI chassis
 -------------------------------------------------------------------------
 
 .. image:: ../_static/images/hardwarerequirements/neuropixels.png
-  :alt: Neuropixels hardware
+  :alt: Neuropixels PXI hardware
 
-Neuropixels are quickly become a new standard for electrophysiology, given their ability to record from hundreds to thousands of neurons across many brain regions in parallel. Neuropixels probes must be ordered from IMEC via `neuropixels.org <https://www.neuropixels.org>`__. All probe types (including 1.0, 2.0, and NHP) are compatible with the Open Ephys GUI through the :ref:`neuropixelspxi` plugin. General questions about Neuropixels can be directed to the Neuropixels Group Slack (sign up `here <https://neuropixelsgroup.slack.com/join/shared_invite/zt-2zbcrd3dw-nr_Z6iYA8nSEERpLRqAwTA#/shared-invite/email>`__).
+Neuropixels have become a new standard for electrophysiology, given their ability to record from hundreds to thousands of neurons across many brain regions in parallel. Neuropixels probes must be ordered from IMEC via `neuropixels.org <https://www.neuropixels.org>`__. All probe types (including 1.0, 2.0, and NHP) are compatible with the Open Ephys GUI through the :ref:`neuropixelspxi` plugin. General questions about Neuropixels can be directed to the Neuropixels Group Slack (sign up `here <https://neuropixelsgroup.slack.com/join/shared_invite/zt-2zbcrd3dw-nr_Z6iYA8nSEERpLRqAwTA#/shared-invite/email>`__).
 
-The following hardware is recommended for experiments with Neuropixels:
+The following hardware is recommended for experiments that use a Neuropixels PXI basestation and PXI chassis:
 
 Computer specs
 ################
@@ -124,7 +126,7 @@ Computer specs
 Additional hardware
 ######################
 
-The following summarizes the additional hardware you'll need to buy to run Neuropixels experiments. OneBoxes, PXI basestations, headstages, and probes can be ordered from `neuropixels.org <https://neuropixels.org>`__. Other PXI components are available from NI.
+PXI basestations, headstages, and probes can be ordered from `neuropixels.org <https://neuropixels.org>`__. Other PXI components are available from NI.
 
 
 * One **PXI chassis** (so far we've tested National Instruments PXIe-1071, PXIe-1082, and PXIe-1083 and ADLINK PXES-2301)
@@ -152,11 +154,11 @@ IMEC Neuropixels OneBox
 ------------------------------------------------------------
 
 .. image:: ../_static/images/hardwarerequirements/onebox.webp
-  :alt: Neuropixels hardware
+  :alt: Neuropixels OneBox hardware
 
-Neuropixels are quickly become a new standard for electrophysiology, given their ability to record from hundreds to thousands of neurons across many brain regions in parallel. Neuropixels probes must be ordered from IMEC via `neuropixels.org <https://www.neuropixels.org>`__. All probe types (including 1.0, 2.0, and NHP) are compatible with the Open Ephys GUI through the :ref:`neuropixelspxi` plugin. General questions about Neuropixels can be directed to the Neuropixels Group Slack (sign up `here <https://neuropixelsgroup.slack.com/join/shared_invite/zt-2zbcrd3dw-nr_Z6iYA8nSEERpLRqAwTA#/shared-invite/email>`__).
+Neuropixels have become a new standard for electrophysiology, given their ability to record from hundreds to thousands of neurons across many brain regions in parallel. Neuropixels probes must be ordered from IMEC via `neuropixels.org <https://www.neuropixels.org>`__. All probe types (including 1.0, 2.0, and NHP) are compatible with the Open Ephys GUI through the :ref:`neuropixelspxi` plugin. General questions about Neuropixels can be directed to the Neuropixels Group Slack (sign up `here <https://neuropixelsgroup.slack.com/join/shared_invite/zt-2zbcrd3dw-nr_Z6iYA8nSEERpLRqAwTA#/shared-invite/email>`__).
 
-The following hardware is recommended for experiments with Neuropixels:
+The following hardware is recommended for experiments that use OneBox:
 
 Computer specs
 ################
@@ -177,7 +179,7 @@ Computer specs
 Additional hardware
 #####################
 
-The following summarizes the additional hardware you'll need to buy to run Neuropixels experiments. OneBoxes, PXI basestations, headstages, and probes can be ordered from `neuropixels.org <https://neuropixels.org>`__. Other PXI components are available from NI.
+OneBoxes, breakout boards, headstages, and probes can be ordered from `neuropixels.org <https://neuropixels.org>`__.
 
 * **OneBox** with included power supply and USB 3.0 cable
 
