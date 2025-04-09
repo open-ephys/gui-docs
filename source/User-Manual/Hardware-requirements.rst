@@ -58,11 +58,38 @@ Open Ephys ONIX
 .. image:: ../_static/images/hardwarerequirements/onix.png
   :alt: ONIX for neuropixels
 
+ONIX is our next-gen acquisition ecosystem for multi-modal recording technologies. ONIX can acquire from passive electrodes (tetrodes, silicon probes), active probes (neuropixels) and miniscopes, and is expansible. Headstages can perform on-board electrical and optogenetic stimulation, absolute head orientation acquisition and positional tracking. Besides acquiring from 2 headstage ports, it can simultaneously sample 12 analog inputs (100 kHz), 8 Digital Inputs and 6 user-programmable buttons. It additionally can control 12 analog outputs and 8 digital outputs, and boasts sub-ms closed-loop latencies. This makes it integrate seamlessly into complex behavioral setups, in particular those controlled through `Bonsai <https://bonsai-rx.org/>`__ using `Harp behavioral devices <https://harp-tech.org/articles/about.html>`__, since ONIX is Harp enabled.  
+
+Some ONIX functionality can be accessed with the Open Ephys GUI. The ONIX Source plugin (coming soon!) can acquire continuous data and digital and analog events from the breakout board. It is primarily focused on neuropixels acquisition and will gradually be expanded to other ONIX data streams.
+
+All of ONIX data streams and capabilities can be accessed through the Bonsai package OpenEphys.Onix1, and you can use this in combination with the Open Ephys GUI with the Ephys Socket plugin to work with data streams in the plugins you might be used to, such as the Probe viewer for Neuropixels data. Follow this `tutorial <https://open-ephys.github.io/bonsai-onix1-docs/articles/tutorials/ephys-socket.html>`__ to set up Neuropixels acquisition in Bonsai and stream data to the Open Ephys GUI for visualization.
+
 Computer specs
 #####################
 
+* **Operating system** - Windows 7, 10, or 11
+
+* **Processor** - minimum of 6 cores, 3.5 GHz
+
+* **Memory** - at least 2 GB per simultaneously recorded probe; a minimum of 16 GB is recommended.
+
+* **Data storage** - a solid state drive is essential (at least 500 MB/s write speed); an NVMe drive is strongly recommended.
+
+* **Graphics card** - the GUI doesn't rely on the GPU for processing, but GPUs are essential for offline analysis. An NVIDIA GPU is likely required (for CUDA compatibility); we recommend buying a GTX 1660 or better.
+
+* **Connections** - the motherboard should have at least one x8- or x16-compatible PCIe slot, in addition to the one used by the GPU.
+
 Additional hardware
 #######################
+
+* One **PCIe Acquisition System** which includes a **PCIe Interface Card** and a **Breakout Board** (available from the `Open Ephys Store <https://open-ephys.org/onix/oeps-9006>`__)
+
+* For Neuropixels, one **ONIX NeuropixelsV1.0e Headstage** or **ONIX NeuropixelsV2.0e Headstage** (includes one 0.3mm diameter micro-coax tether, available from the `Open Ephys Store <https://open-ephys.org/onix/oeps-7745>`__)
+
+* For passive electrodes, one **ONIX Headstage 64** (includes one 0.3mm diameter micro-coax tether, available from the `Open Ephys Store <https://open-ephys.org/onix/oeps-7741>`__)
+
+* One **torque-free coaxial commutator** for automatic compensation of tether twists (available from the `Open Ephys Store <https://open-ephys.org/commutators/coaxial-commutator>`__)
+
 
 IMEC Neuropixels PXI basestation and National Instruments PXI chassis
 -------------------------------------------------------------------------
