@@ -120,7 +120,7 @@ See the :ref:`neuropixelspxi` plugin page for more details.
 IMEC Neuropixels OneBox
 ------------------------------------------------------------
 
-.. image:: ../_static/images/hardwarerequirements/onebox.png
+.. image:: ../_static/images/hardwarerequirements/onebox.webp
   :alt: Neuropixels hardware
 
 Neuropixels are quickly become a new standard for electrophysiology, given their ability to record from hundreds to thousands of neurons across many brain regions in parallel. Neuropixels probes must be ordered from IMEC via `neuropixels.org <https://www.neuropixels.org>`__. All probe types (including 1.0, 2.0, and NHP) are compatible with the Open Ephys GUI through the :ref:`neuropixelspxi` plugin. General questions about Neuropixels can be directed to the Neuropixels Group Slack (sign up `here <https://neuropixelsgroup.slack.com/join/shared_invite/zt-2zbcrd3dw-nr_Z6iYA8nSEERpLRqAwTA#/shared-invite/email>`__).
