@@ -55,7 +55,7 @@ These are the minimum requirements for getting up and running. You will likely n
 Open Ephys ONIX
 -------------------------------------
 
-.. image:: ../_static/images/hardwarerequirements/onix.png
+.. image:: ../_static/images/hardwarerequirements/onix_neuropixels.png
   :alt: ONIX for neuropixels
 
 ONIX is our next-gen acquisition ecosystem for multi-modal recording technologies. ONIX can acquire from passive electrodes (tetrodes, silicon probes), active probes (neuropixels) and miniscopes, and is expansible. Headstages can perform on-board electrical and optogenetic stimulation, absolute head orientation acquisition and positional tracking. Besides acquiring from 2 headstage ports, it can simultaneously sample 12 analog inputs (100 kHz), 8 Digital Inputs and 6 user-programmable buttons. It additionally can control 12 analog outputs and 8 digital outputs, and boasts sub-ms closed-loop latencies. This makes it integrate seamlessly into complex behavioral setups, in particular those controlled through `Bonsai <https://bonsai-rx.org/>`__ using `Harp behavioral devices <https://harp-tech.org/articles/about.html>`__, since ONIX is Harp enabled.  
