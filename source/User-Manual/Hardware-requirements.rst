@@ -17,10 +17,10 @@ Please refer to each system's documentation for specific information about the h
 Open Ephys Acquisition Board
 -------------------------------------
 
-.. image:: ../_static/images/hardwarerequirements/acq-board.jpg
+.. image:: ../_static/images/hardwarerequirements/acq-board-3d.png
   :alt: Acquisition board hardware
 
-More than 1000 `Open Ephys acquisition boards <https://open-ephys.org/acq-board>`__ have been produced and shipped to labs on every continent. This cost-effective, open-source device can easily scale from 16 channels to 512 channels just by adding more headstages and cables. It's a very flexible way to acquire data from a wide variety of electrodes, including tungsten wires, tetrodes, and silicon probes.
+Thousands of `Open Ephys acquisition boards <https://open-ephys.org/acq-board>`__ have been produced and shipped to labs on every continent. This cost-effective, open-source device can easily scale from 16 channels to 512 channels just by adding more headstages and cables. It's a very flexible way to acquire data from a wide variety of passive electrodes, including wires, tetrodes, silicon probes, and EMG arrays.
 
 The following hardware is recommended for experiments that use the acquisition board:
 
@@ -42,15 +42,19 @@ Computer specs
 Additional hardware
 ######################
 
-These are the minimum requirements for getting up and running. You will likely need additional hardware for the full experiment (e.g. reward ports, mazes, commutators, light for optogenetic stimulation).
-
-* **Acquisition board** (available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/acquisition-board>`__)
+* **Open Ephys Acquisition Board** (available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/oeps-9029>`__). The 3rd Generation of the board can acquire absolute head orientation data, includes performance improvements and is Harp enabled.
 
 * **I/O boards** for interfacing with auxiliary analog and digital signals (available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/io-board-pcb>`__)
 
-* **Headstages and cables** (available as part of the `Open Ephys Starter Kit <https://open-ephys.org/acquisition-system/starter-kit>`__ or from `Intan Technologies <https://intantech.com/pricing.html>`__; there is also a low-profile headstage available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/low-profile-spi-headstage-64ch>`__)
+* **RHD Headstages and SPI tethers** (headstages with 3D capabilities are available individually from the `Open Ephys Store <https://open-ephys.org/acquisition-system>`__, in monopolar vertical-profile 32ch, monopolar low-profile 32ch and bipolar vertical profile 16ch variants. Low-profile headstages are recommended for reducing torque and bipolar for use with impedance-matched paired electrodes such as EMG arrays. Other compatible RHD headstages from `Intan Technologies <https://intantech.com/RHD_headstages.html>`__ work with our acquisition board even if they do not provide 3D orientation.
 
-* **Electrodes** - there is lots of flexibility here, as long as you have some way to interface between your electrodes and a compatible headstage. For tetrodes, we recommend the `shuttleDrive <https://open-ephys.org/drive-implant>`__.
+* **Electrodes** - there is lots of flexibility here, as long as you have some way to interface between your electrodes and a compatible headstage. For tetrodes, we recommend the `ShuttleDrive <https://open-ephys.org/drive-implant>`__.
+
+These are the minimum requirements for getting up and running. If you are conducting chronic recordings, we recommend leveraging the absolute orientation sensor on our 3d capable headstages to drive our commutator:
+
+* One **torque-free SPI commutator** for automatic compensation of tether twists when interfacing 3D capable headstages (available from the `Open Ephys Store <https://open-ephys.org/commutators/oeps-7761>`__)
+
+You will likely need additional hardware for a full experiment (e.g. reward ports, mazes, commutators, light for optogenetic stimulation). We have some options in our store such as pyControl and Harp behavioral devices, Cyclops for optogenetic stimulation and StimJim for electrical stimulation.
 
 Open Ephys ONIX
 -------------------------------------
