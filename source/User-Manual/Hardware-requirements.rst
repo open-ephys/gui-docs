@@ -9,6 +9,11 @@ You can demo the Open Ephys GUI on any computer using the :ref:`filereader` to r
 
 .. tip:: The most important thing you can do to improve performance is use a solid-state drive (ideally NVMe) for writing data. And if you need to record ≥128 channels simultaneously, an SSD is required.
 
+The Open Ephys GUI has expanded from its origins as the software for the Open Ephys Acquisition Board to acquiring extracellular electrophysiology data from a variety of different acquisition systems, such as Open Ephys ONIX, IMEC Neuropixels OneBox, Intan RHD USB, Intan RHD Rec Controller, National Instruments Neuropixels PXI, National Instruments NI-DAQmx, etc. For a complete list of all the devices that the GUI can use as data sources, check out the Sources in the :ref:`plugins` section. You can browse the Sinks in the :ref:`plugins` section to see what other hardware the GUI can control (e.g. Arduino boards and Sanworks PulsePal)
+
+In this section, we detail the main hardware options currently being used for data acquisition with the GUI and what requirements are needed to set them up.
+Please refer to each system's documentation for specific information about the hardware.
+
 For the Open Ephys acquisition board
 -------------------------------------
 
