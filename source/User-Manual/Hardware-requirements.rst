@@ -56,6 +56,8 @@ These are the minimum requirements for getting up and running. If you are conduc
 
 You will likely need additional hardware for a full experiment (e.g. reward ports, mazes, commutators, light for optogenetic stimulation). We have some options in our store such as pyControl and Harp behavioral devices, Cyclops for optogenetic stimulation and StimJim for electrical stimulation.
 
+See the :ref:`acquisitionboard` plugin page for more details.
+
 Open Ephys ONIX
 -------------------------------------
 
@@ -96,6 +98,7 @@ Additional hardware
 
 * One **torque-free coaxial commutator** for automatic compensation of tether twists (available from the `Open Ephys Store <https://open-ephys.org/commutators/coaxial-commutator>`__)
 
+See the ONIX Source (coming soon!) and :ref:`ephyssocket` plugin pages for more details.
 
 IMEC Neuropixels PXI basestation and National Instruments PXI chassis
 -------------------------------------------------------------------------
