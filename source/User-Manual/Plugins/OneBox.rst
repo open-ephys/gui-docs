@@ -65,7 +65,9 @@ OneBox Quickstart Guide
 Driver installation
 -------------------- 
 
-The OneBox requires the latest FTDI D3XX drivers to be installed on your computer (version 1.3.0.10). These drivers can be downloaded from the `FTDI website <https://www.ftdichip.com/Drivers/D3XX.htm>`__. It's recommended to run the Setup Executable and follow the instructions provided by the installer.
+The OneBox requires a specific version of the FTDI D3XX drivers to be installed on your computer (version 1.3.0.10). These drivers can be downloaded from the `FTDI website <https://www.ftdichip.com/Drivers/D3XX.htm>`__. It's recommended to run the Setup Executable and follow the instructions provided by the installer.
+
+.. note:: The latest FTDI D3XX driver (1.4.0.0) is not compatible with the OneBox and will lead to the device not being recognized. Be sure to downgrade to version 1.3.0.10 before attempting to use the OneBox plugin.
 
 Once the drivers are installed, verify whether the OneBox is correctly recognized:
 
