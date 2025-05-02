@@ -15,7 +15,7 @@ Most Open Ephys GUI plugins work equally well on Windows, Linux, and Mac. Howeve
 Obtaining the source code
 --------------------------
 
-The first step for compiling a pre-existing plugin is downloading the source code. If you're planning to make your own changes to the plugin, we recommend first forking the plugin's GitHub repository to your own account, then cloning the fork via the `command line <https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository-using-the-command-line>`__ or the `GitHub Desktop app <https://github.com/apps/desktop/>`__. If you're not planning to make any changes to the plugin, you can clone the original repository or download the code as a **.zip** file.
+The first step for compiling a pre-existing plugin is downloading the source code. If you're planning to make your own changes to the plugin, we recommend first forking the plugin's GitHub repository to your own account, then cloning the fork via the `command line <https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository?tool=cli>`__ or the `GitHub Desktop app <https://github.com/apps/desktop/>`__. If you're not planning to make any changes to the plugin, you can clone the original repository or download the code as a **.zip** file.
 
 All of the officially supported plugins assume that the plugin source code is contained within a separate directory *at the same level* as that of the host application (the :code:`plugin-GUI` GitHub repository). Before attempting to compile your plugin, make sure your directory structure looks something like this:
 

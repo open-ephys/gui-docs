@@ -228,16 +228,18 @@ html_context = {
     "default_mode": "light"
 }
 
-linkcheck_anchors = False
+linkcheck_anchors = True
 linkcheck_timeout = 4
 
-# NB: Ignore these sites, they throw 403 errors during linkcheck, but are accessible for end-users
 linkcheck_ignore = [
     'https://www.mathworks.com/*',
-    'https://www.sciencedirect.com/*'
+    r'https://github.com/.*#L.*',
+    'https://www.sciencedirect.com/*',
+    'https://labstreaminglayer.org/#/',
+    'https://neuropixelsgroup.slack.com/*#*',
+    'https://store-usa.arduino.cc/*'
 ]
 
-# NB: Allow these redirects
 linkcheck_allowed_redirects = {
     r"https://iopscience.iop.org/article/.*": r"https://validate.perfdrive.com/.*"
 }

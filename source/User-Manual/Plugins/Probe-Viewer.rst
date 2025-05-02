@@ -85,7 +85,7 @@ Via Pinpoint
 
 After that, the anatomical information in the Probe Viewer should update every time the associated probe in moved in Pinpoint.
 
-See `this tutorial <https://virtualbrainlab.org/pinpoint/tutorial.html#api>`__ for alternative instructions on how to send anatomical information from Pinpoint to Open Ephys.
+See `this tutorial <https://virtualbrainlab.org/pinpoint/tutorials/tutorial_api.html>`__ for alternative instructions on how to send anatomical information from Pinpoint to Open Ephys.
 
 Via Neuropixels Trajectory Explorer
 ------------------------------------
