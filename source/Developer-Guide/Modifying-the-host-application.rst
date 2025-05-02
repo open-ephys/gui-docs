@@ -14,7 +14,7 @@ If you're planning to update the host application, or any of the plugins in the 
 
 1. Fork the `GUI's GitHub repository <https://github.com/open-ephys/plugin-GUI>`__ to your own account.
 
-2. Clone the fork via the `command line <https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository-using-the-command-line>`__ or the `GitHub Desktop app <https://desktop.github.com/>`__. 
+2. Clone the fork via the `command line <https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository-using-the-command-line>`__ or the `GitHub Desktop app <https://github.com/apps/desktop/>`__. 
 
 3. Compile the GUI for your platform of choice according to the steps on :ref:`this page<compilingthegui>`.
 

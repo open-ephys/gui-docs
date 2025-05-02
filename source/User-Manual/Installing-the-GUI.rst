@@ -125,5 +125,5 @@ Via .zip file
 |
 
 .. _this page: https://open-ephys.org/gui
-.. _Visual Studio 2015, 2017, 2019, and 2022 redistributable package: https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170
+.. _Visual Studio 2015, 2017, 2019, and 2022 redistributable package: https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
 

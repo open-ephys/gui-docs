@@ -41,11 +41,11 @@ Other hardware
 
 These are the minimum requirements for getting up and running. You will likely need additional hardware for the full experiment (e.g. reward ports, mazes, commutators, light for optogenetic stimulation).
 
-* **Acquisition board** (available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/acquisition-board>`__)
+* **Acquisition board** (available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/oeps-9029>`__)
 
 * **I/O boards** for interfacing with auxiliary analog and digital signals (available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/io-board-pcb>`__)
 
-* **Headstages and cables** (available as part of the `Open Ephys Starter Kit <https://open-ephys.org/acquisition-system/starter-kit>`__ or from `Intan Technologies <https://intantech.com/pricing.html>`__; there is also a low-profile headstage available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/low-profile-spi-headstage-64ch>`__)
+* **Headstages and cables** (available as part of the `Open Ephys Starter Kit <https://open-ephys.org/acquisition-system/starter-kit>`__ or from `Intan Technologies <https://intantech.com/pricing.html>`__; there is also a low-profile headstage available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/oeps-6570-6571>`__)
 
 * **Electrodes** - there is lots of flexibility here, as long as you have some way to interface between your electrodes and a compatible headstage. For tetrodes, we recommend the `shuttleDrive <https://open-ephys.org/drive-implant>`__.
 
@@ -81,7 +81,7 @@ Computer specs
 Other hardware
 ###############
 
-The following summarizes the additional hardware you'll need to buy to run Neuropixels experiments. OneBoxes, PXI basestations, headstages, and probes can be ordered from `neuropixels.org <https://neuropixels.org>`__. Other PXI components are available from NI.
+The following summarizes the additional hardware you'll need to buy to run Neuropixels experiments. OneBoxes, PXI basestations, headstages, and probes can be ordered from `neuropixels.org <https://www.neuropixels.org>`__. Other PXI components are available from NI.
 
 .. _onebox-hardware-requirements:
 

@@ -25,7 +25,7 @@ Requirements
 
 * (optional) An NI terminal block (e.g. BNC-2090A or BNC-2110) and compatible cables
 
-* Installed NI-DAQmx drivers (available for download `here <https://www.ni.com/en-us/support/downloads/drivers/download.ni-daqmx.html#348669>`__; version 19.0+ recommended).
+* Installed NI-DAQmx drivers (available for download `here <permanently to https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html>`__; version 19.0+ recommended).
 
 * **For synchronization**: One digital input line shared between all data sources streaming data to the GUI (e.g., Open Ephys acquisition board, Neuropixels PXI basestation, other NI devices).
 

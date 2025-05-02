@@ -14,7 +14,7 @@ Binary Format
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "Yes"
    "*Key Developers*", "Aarón Cuevas López, Josh Siegle"
-   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/master/Source/Processors/RecordNode/BinaryFormat"
+   "*Source Code*", "https://github.com/open-ephys/plugin-GUI/tree/main/Source/Processors/RecordNode/BinaryFormat"
 
 
 **Advantages**

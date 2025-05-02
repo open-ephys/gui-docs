@@ -52,7 +52,7 @@ Plugin configuration
 Database setup
 -----------------
 
-This plugin must be able to connect to an existing Redis database. Follow the instructions on `this page <https://redis.io/docs/getting-started/installation/>`__ to install Redis.
+This plugin must be able to connect to an existing Redis database. Follow the instructions on `this page <https://redis.io/docs/latest/operate/oss_and_stack/install/install-stack/>`__ to install Redis.
 
 .. note:: Redis does not run natively on Windows, and requires Windows Subsystem for Linux (WSL). This only takes a few minutes to install, and shouldn't deter you from trying out this plugin. 
 

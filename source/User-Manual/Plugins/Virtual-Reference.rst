@@ -16,7 +16,7 @@ Virtual Reference
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No"
    "*Key Developers*", "Arne Meyer"
-   "*Source Code*", "https://github.com/open-ephys-plugins/VirtualReferencePlugin"
+   "*Source Code*", "https://github.com/open-ephys-plugins/virtual-reference"
 
 
 Installing and upgrading

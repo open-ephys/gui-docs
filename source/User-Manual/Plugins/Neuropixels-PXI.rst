@@ -48,7 +48,7 @@ For chassis with a built-in Thunderbolt controller (e.g. PXIe-1083):
 
 * One sufficiently long **Thunderbolt cable** 
 
-Ordered via `neuropixels.org <https://neuropixels.org>`__:
+Ordered via `neuropixels.org <https://www.neuropixels.org/>`__:
 
 * One or more **Neuropixels basestations** (can acquire data from 4 Neuropixels 1.0 probes per basestation)
 
@@ -94,7 +94,7 @@ This plugin can stream data from the following Neuropixels probe types:
 Connecting to the PXI system
 ##############################
 
-Before using this plugin, make sure you've followed all of the steps in the `Neuropixels User Manual <https://www.neuropixels.org/support>`__ to set up and configure your hardware. Prior to using your Neuropixels PXI basestation, you must install the Enclustra drivers (available for `Windows 7/8 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/main/Resources/Enclustra_Win7%268.zip>`__ and `Windows 10 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/main/Resources/Enclustra_Win10.zip>`__). See section 4.2.2 of the User Manual for installation instructions.
+Before using this plugin, make sure you've followed all of the steps in the `Neuropixels User Manual <https://www.neuropixels.org/support>`__ to set up and configure your hardware. Prior to using your Neuropixels PXI basestation, you must install the Enclustra drivers (available for `Windows 7/8 <https://raw.githubusercontent.com/open-ephys-plugins/neuropixels-pxi/main/Resources/Enclustra_Win7%268.zip>`__ and `Windows 10 <https://raw.githubusercontent.com/open-ephys-plugins/neuropixels-pxi/main/Resources/Enclustra_Win10.zip>`__). See section 4.2.2 of the User Manual for installation instructions.
 
 Once your PXI system is up and running, you can drag and drop the "Neuropix-PXI" module from the Processor List onto the Editor Viewport. The GUI will automatically connect to any available basestations in your PXI chassis with probes connected. If no basestations are found, the plugin can be run in simulation mode. If no probes are found, the plugin editor will display information about each basestation, and can be used to perform a firmware update (see :ref:`updating-basestation-firmware` below).
 

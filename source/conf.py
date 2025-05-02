@@ -229,6 +229,18 @@ html_context = {
 }
 
 linkcheck_anchors = False
+linkcheck_timeout = 4
+
+# NB: Ignore these sites, they throw 403 errors during linkcheck, but are accessible for end-users
+linkcheck_ignore = [
+    'https://www.mathworks.com/*',
+    'https://www.sciencedirect.com/*'
+]
+
+# NB: Allow these redirects
+linkcheck_allowed_redirects = {
+    r"https://iopscience.iop.org/article/.*": r"https://validate.perfdrive.com/.*"
+}
 
 extensions.append("sphinx_tabs.tabs")
 
