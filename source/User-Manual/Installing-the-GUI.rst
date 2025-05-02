@@ -21,6 +21,8 @@ Via installer (recommended)
 
 4. The GUI will be installed in :code:`C:\\Program Files\\Open Ephys\\open-ephys.exe`.
 
+.. _windows-via-zip:
+
 Via .zip file
 --------------
 
@@ -73,6 +75,8 @@ The GUI is available at the gentoo science overlay.
 .. note:: Brave users can also install the main branch version (:code:`emerge --ask --verbose =sci-biology/open-ephys-gui-9999`) or the development branch version (:code:`emerge --ask --verbose =sci-biology/open-ephys-gui-99999999`). Since installation is slotted, you can keep all versions installed simultaneously, in case you want to try them without removing the stable version.
 
 
+.. _linux-via-zip:
+
 Via .zip file (all distros)
 ----------------------------
 
@@ -103,7 +107,9 @@ Via DMG (recommended)
 
 4. Double-click on the **open-ephys** app bundle to launch the GUI.
 
-.. note:: Depending on your security settings, you may see a message announcing that "'open-ephys' cannot be opened because the developer cannot be verified." If so, go to System Prefererences > Security and Privacy > General and click "Open Anyway" to allow the GUI to launch.
+.. note:: Depending on your security settings, you may see a message announcing that "'open-ephys' cannot be opened because the developer cannot be verified." If so, go to System Preferences > Security and Privacy > General and click "Open Anyway" to allow the GUI to launch.
+
+.. _macos-via-zip:
 
 Via .zip file
 --------------

@@ -81,7 +81,7 @@ This plugin can stream data from the following Neuropixels probe types:
    "Neuropixels 2.0 (quad base)", "1536 wideband", "**≥0.7.x**", "`BS169, BSC191`_"
    "Neuropixels Opto", "384 AP, 384 LFP", "≥0.4.x", "Special basestation required"
 
-.. important:: Regardless of which probe type you're using, we recommend updating to the most recent Neuropixels PXI plugin and basestation firmware (`BS169, BSC191`_). This firmware is required for plugin version **0.7.x** and higher, as well as the latest version of SpikeGLX. See :ref:`Updating basestation firmware` section for information on how to modify your firmware.
+.. important:: Regardless of which probe type you're using, we recommend updating to the most recent Neuropixels PXI plugin and basestation firmware (`BS169, BSC191`_). This firmware is required for plugin version **0.7.x** and higher, as well as the latest version of SpikeGLX. See :ref:`updating-basestation-firmware` section for information on how to modify your firmware.
 
 .. warning:: In version 0.6.x of this plugin, commercial Neuropixels 2.0 (multishank) probes did not have the correct scaling applied to account for the lower bit depth of the ADC compared to the beta probes (12 vs. 14 bits). To correct this, any data acquired with from these probes with this plugin should be multiplied by 4. This issue is fixed in version 0.7.x.
 
@@ -96,7 +96,7 @@ Connecting to the PXI system
 
 Before using this plugin, make sure you've followed all of the steps in the `Neuropixels User Manual <https://www.neuropixels.org/support>`__ to set up and configure your hardware. Prior to using your Neuropixels PXI basestation, you must install the Enclustra drivers (available for `Windows 7/8 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/main/Resources/Enclustra_Win7%268.zip>`__ and `Windows 10 <https://github.com/open-ephys-plugins/neuropixels-pxi/raw/main/Resources/Enclustra_Win10.zip>`__). See section 4.2.2 of the User Manual for installation instructions.
 
-Once your PXI system is up and running, you can drag and drop the "Neuropix-PXI" module from the Processor List onto the Editor Viewport. The GUI will automatically connect to any available basestations in your PXI chassis with probes connected. If no basestations are found, the plugin can be run in simulation mode. If no probes are found, the plugin editor will display information about each basestation, and can be used to perform a firmware update (see :ref:`Updating basestation firmware` below).
+Once your PXI system is up and running, you can drag and drop the "Neuropix-PXI" module from the Processor List onto the Editor Viewport. The GUI will automatically connect to any available basestations in your PXI chassis with probes connected. If no basestations are found, the plugin can be run in simulation mode. If no probes are found, the plugin editor will display information about each basestation, and can be used to perform a firmware update (see :ref:`updating-basestation-firmware` below).
 
 The editor will automatically create a probe selection interface for each basestation that's available. Each basestation can communicate with up to 4 probes (for Neuropixels 1.0, NHP, and Ultra) or 8 probes (for 2.0). When the probes are initially detected, they show up as orange circles. Once they are initialized, connected probes become green. After the probes turn green, the plugin is ready to begin data acquisition.
 
@@ -323,12 +323,14 @@ If you have a headstage test module, you can run a suite of tests to ensure the 
 
 .. note:: The headstage tests have been re-enabled as of plugin version 0.5.x. However, we have also found that the headstage tests are rarely needed to accurately diagnose a problem with data transmission. If you are unsure whether your headstage is functional, swapping it out with a different headstage is usually more informative than running the headstage tests.
 
+.. _updating-basestation-firmware:
+
 Updating basestation firmware
 ######################################
 
 Version **0.7.x** of the Neuropixels PXI plugin requires a basestation firmware update. The latest firmware (BS169, BSC189) can be downloaded `here <https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.7.x.zip>`__.
 
-The currently installed firmware version will appear in the info section of the Neuropixels settings interface (upper right text block). If your basesation firmware version is "2.0169" and your basestation connect board firmware version is "3.2191", you already have the latest firmware installed.
+The currently installed firmware version will appear in the info section of the Neuropixels settings interface (upper right text block). If your basestation firmware version is "2.0169" and your basestation connect board firmware version is "3.2191", you already have the latest firmware installed.
 
 If you need to update your firmware, first click the "UPDATE FIRMWARE" button to open the firmware update interface:
 

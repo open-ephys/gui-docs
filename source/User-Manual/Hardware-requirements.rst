@@ -19,6 +19,8 @@ More than 1000 `Open Ephys acquisition boards <https://open-ephys.org/acq-board>
 
 The following hardware is recommended for experiments that use the acquisition board:
 
+.. _computer-specs-open-ephys:
+
 Computer specs
 #####################
 
@@ -58,6 +60,8 @@ Neuropixels are quickly become a new standard for electrophysiology, given their
 
 The following hardware is recommended for experiments with Neuropixels:
 
+.. _computer-specs-neuropixels:
+
 Computer specs
 ################
 
@@ -78,6 +82,8 @@ Other hardware
 ###############
 
 The following summarizes the additional hardware you'll need to buy to run Neuropixels experiments. OneBoxes, PXI basestations, headstages, and probes can be ordered from `neuropixels.org <https://neuropixels.org>`__. Other PXI components are available from NI.
+
+.. _onebox-hardware-requirements:
 
 OneBox
 -------

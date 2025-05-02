@@ -231,4 +231,7 @@ html_context = {
 linkcheck_anchors = False
 
 extensions.append("sphinx_tabs.tabs")
-extensions.append("sphinx.ext.autosectionlabel")
+
+suppress_warnings = [
+  'duplicate_declaration.cpp'
+  ]

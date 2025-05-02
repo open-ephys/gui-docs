@@ -2,6 +2,8 @@
 .. role:: raw-html-m2r(raw)
    :format: html
 
+.. _onebox-plugin:
+
 ################
 OneBox
 ################
@@ -47,7 +49,7 @@ Compatible probes
 This plugin can stream data from any of the following Neuropixels probes:
 
 .. csv-table::
-   :widths: 70, 40, 40, 50
+   :widths: 70, 40
 
    "**Probe**", "**Channels**"
    "Neuropixels 1.0", "384 AP, 384 LFP"
