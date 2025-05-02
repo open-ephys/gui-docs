@@ -229,7 +229,6 @@ html_context = {
 }
 
 linkcheck_anchors = True
-linkcheck_timeout = 4
 
 linkcheck_ignore = [
     'https://www.mathworks.com/*',
@@ -237,7 +236,8 @@ linkcheck_ignore = [
     'https://www.sciencedirect.com/*',
     'https://labstreaminglayer.org/#/',
     'https://neuropixelsgroup.slack.com/*#*',
-    'https://store-usa.arduino.cc/*'
+    'https://store-usa.arduino.cc/*',
+    'https://openbci.com/*'
 ]
 
 linkcheck_allowed_redirects = {
