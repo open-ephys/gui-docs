@@ -19,7 +19,7 @@ XDAQ
    "*Source Code*", "https://github.com/open-ephys-plugins/XDAQ-OE"
 
 
-.. tip:: For more in-depth documentation on the XDAQ, please refer to the `XDAQ help site <https://help.kontex.io/>`__.
+.. tip:: For more in-depth documentation on the XDAQ, please refer to the `XDAQ help site <https://help.kontex.io/portal/en/home>`__.
 
 Plugin configuration
 ====================

@@ -38,7 +38,7 @@ See the `Falcon <https://falcon-core.readthedocs.io/en/latest/>`__ documentation
 Creating a custom client
 #########################
 
-The Falcon Output plugin uses ZeroMQ to stream data. Unlike the :ref:`zmqinterface` plugin, this plugin uses the `FlatBuffers <https://google.github.io/flatbuffers/>`__ serialization library to reduce latency. An example C++ client can be found in the :code:`clients` directory of the plugin repository.
+The Falcon Output plugin uses ZeroMQ to stream data. Unlike the :ref:`zmqinterface` plugin, this plugin uses the `FlatBuffers <https://flatbuffers.dev/>`__ serialization library to reduce latency. An example C++ client can be found in the :code:`clients` directory of the plugin repository.
 
 Falcon Input
 #############

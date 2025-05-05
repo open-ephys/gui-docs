@@ -38,7 +38,7 @@ The first step in creating a plugin is to create a new code repository from a te
 .. image:: ../_static/images/tutorials/makeyourownvisualizerplugin/visualizerplugin-02.png
   :alt: Create rate-viewer Repository
 
-On your local machine, create an "OEPlugins" directory within the same directory that contains your :code:`plugin-GUI` repository. Then, using the `git <https://git-scm.com/>`__ command-line interface or the `GitHub Desktop <https://desktop.github.com/>`__ app, clone the newly created plugin repository into this directory. 
+On your local machine, create an "OEPlugins" directory within the same directory that contains your :code:`plugin-GUI` repository. Then, using the `git <https://git-scm.com/>`__ command-line interface or the `GitHub Desktop <https://github.com/apps/desktop/>`__ app, clone the newly created plugin repository into this directory. 
 
 Your directory structure should look something like this:
 

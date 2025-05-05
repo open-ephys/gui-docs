@@ -9,7 +9,7 @@ Ephys Socket
 .. image:: ../../_static/images/plugins/ephyssocket/ephyssocket-01.png
   :alt: Annotated Ephys Socket Editor
 
-.. csv-table:: Receives formatted data from a TCP socket that implements a particular :ref:`header format <Header Format for Custom Data Streams>`. A common use case is to receive data streamed from :ref:`Bonsai <In Bonsai>`. This is intended to be a quick way to stream ephys data from a third-party application and visualize in the Open Ephys GUI. Below is a way to setup streaming between Bonsai and the Open Ephys GUI, which can be extended to other software and/or hardware that carry the same header format.
+.. csv-table:: Receives formatted data from a TCP socket that implements a particular :ref:`header-format`. A common use case is to receive data streamed from :ref:`in-bonsai`. This is intended to be a quick way to stream ephys data from a third-party application and visualize in the Open Ephys GUI. Below is a way to setup streaming between Bonsai and the Open Ephys GUI, which can be extended to other software and/or hardware that carry the same header format.
    :widths: 18, 80
 
    "*Plugin Type*", "Source"
@@ -27,6 +27,8 @@ The Plugin Installer also allows you to upgrade to the latest version of this pl
 
 Plugin Configuration
 ######################
+
+.. _in-bonsai:
 
 In Bonsai
 -----------
@@ -96,11 +98,12 @@ In the Open Ephys GUI
 
 .. warning:: This plugin does not guarantee that samples will not be lost in transit, so it's essential to save your data stream on the Bonsai end. There are at least two ways data loss can occur: 1) When a data stream is first connected, there is no guarantee that the data will be saved, since data is not acquired immediately after connecting the socket. 2) If too much data is being sent and the Open Ephys GUI cannot process the data quickly enough, some packets may be lost due to the TCP buffer filling up. If you suspect samples are being dropped (e.g., if the LFP Viewer is not updating at the expected speed), sending a lower bandwidth might fix the problem.
 
+.. _header-format:
 
 Header Format for Custom Data Streams
 ######################################
 
-While the :code:`SendMatOverSocket` node (found in **OpenEphys.Sockets.Bonsai**, see :ref:`In Bonsai` for details) is a common use case for sending `OpenCV.Net.Mat` data over the TCP socket, it is not the only way to stream data. As long as whatever is used to stream data (e.g., a Python script that sends data over the TCP socket) correctly prepends a header to the data stream, Ephys Socket can correctly interpret the data.
+While the :code:`SendMatOverSocket` node (found in **OpenEphys.Sockets.Bonsai**, see :ref:`in-bonsai` for details) is a common use case for sending `OpenCV.Net.Mat` data over the TCP socket, it is not the only way to stream data. As long as whatever is used to stream data (e.g., a Python script that sends data over the TCP socket) correctly prepends a header to the data stream, Ephys Socket can correctly interpret the data.
 
 An example Python script is included in the `Resources <https://github.com/open-ephys-plugins/ephys-socket/tree/main/Resources>`__ folder of the plugin repository, which implements the format described here. Each variable is 4 bytes long (with the exception of the Bit Depth, which is 2 bytes long), and must be sent in the order listed below. The total header length is 22 bytes.
 
