@@ -17,7 +17,7 @@ Ripple Detector
    "*Built in?*", "No"
    "*Key Developers*", "Bruno Monteiro de Sousa"
    "*Source Code*", "https://github.com/open-ephys-plugins/ripple-detector"
-   "*Publication DOI*", "`10.1088/1741-2552/ac857b <http://dx.doi.org/10.1088/1741-2552/ac857b>`__"
+   "*Publication DOI*", "`10.1088/1741-2552/ac857b <https://iopscience.iop.org/article/10.1088/1741-2552/ac857b>`__"
 
 Installing and upgrading
 ###########################

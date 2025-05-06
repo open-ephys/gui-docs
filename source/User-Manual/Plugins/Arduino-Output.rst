@@ -9,7 +9,7 @@ Arduino Output
 .. image:: ../../_static/images/plugins/arduinooutput/arduinooutput-01.png
   :alt: Annotated Arduino Output settings interface
 
-.. csv-table:: Allows events from within the GUI to control the state of digital output pins on an Arduino running `Firmata <hhttps://docs.arduino.cc/hacking/software/FirmataLibrary>`__. Provides a quick and easy way to translate information from software to hardware.
+.. csv-table:: Allows events from within the GUI to control the state of digital output pins on an Arduino running `Firmata <https://docs.arduino.cc/retired/hacking/software/FirmataLibrary>`__. Provides a quick and easy way to translate information from software to hardware.
    :widths: 18, 80
 
    "*Plugin Type*", "Sink"
@@ -40,7 +40,7 @@ Not all Arduino-like devices will work with this plugin. Below is a list of ones
 Configuring your Arduino
 =========================
 
-This plugin works with any Arduino running the `Firmata <https://docs.arduino.cc/hacking/software/FirmataLibrary>`__ firmware. To install this on your device, first make sure you've downloaded the `Arduino IDE <https://www.arduino.cc/en/software>`__ (version 1.0 or higher) for your platform of choice.
+This plugin works with any Arduino running the `Firmata <https://docs.arduino.cc/retired/hacking/software/FirmataLibrary>`__ firmware. To install this on your device, first make sure you've downloaded the `Arduino IDE <https://www.arduino.cc/en/software>`__ (version 1.0 or higher) for your platform of choice.
 
 Next, connect the Arduino to your computer and upload the sketch in `File > Examples > Firmata > StandardFirmata`. This will allow your computer to control the state of the Arduino from software.
 

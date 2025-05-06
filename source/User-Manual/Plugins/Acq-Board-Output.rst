@@ -28,7 +28,6 @@ The Acq Board Output plugin is not included by default in the Open Ephys GUI. To
 
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed. The plugin must be removed from the signal chain prior to upgrading.
 
-
 Plugin configuration
 ====================
 

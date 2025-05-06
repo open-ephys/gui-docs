@@ -24,7 +24,7 @@ Before you :ref:`create a new plugin<creatinganewplugin>`, you'll need to have s
 Updating the host application
 ------------------------------
 
-If you'd like to make changes to the Open Ephys GUI main repository, first read through :ref:`this section<modifyingthehostapplication>` of the developer documentation. Then, take a look at our list of `active projects <https://github.com/open-ephys/plugin-GUI/projects>`__ to find out about the features we're planning to update in the near future. If you're interested in tackling one of these projects, or have other ideas for useful additions to the main application, don't hesistate to `open an issue on GitHub <https://github.com/open-ephys/plugin-GUI/issues>`__.
+If you'd like to make changes to the Open Ephys GUI main repository, first read through :ref:`this section<modifyingthehostapplication>` of the developer documentation. Then, take a look at our list of `active projects <https://github.com/open-ephys/plugin-GUI/projects?query=is%3Aopen>`__ to find out about the features we're planning to update in the near future. If you're interested in tackling one of these projects, or have other ideas for useful additions to the main application, don't hesitate to `open an issue on GitHub <https://github.com/open-ephys/plugin-GUI/issues>`__.
 
 Other projects
 ---------------

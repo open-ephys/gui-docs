@@ -6,7 +6,7 @@
 What's new in version 1.0
 ############################
 
-The Open Ephys GUI has been under continuous development for more than a decade, and it has been used to collect high-quality electrophysiology data for hundreds of publications (see `open-ephys.org/publications <http://open-ephys.org/publications>`_ for some examples). Nevertheless, the developers did not feel ready to call a release "version 1.0" until now. This release (which will be widely available in early 2025) is the result of many years of polishing, streamlining, and testing. It should feel familiar to any long-time users of the software, while also being more approachable for anyone trying it out for the first time.
+The Open Ephys GUI has been under continuous development for more than a decade, and it has been used to collect high-quality electrophysiology data for hundreds of publications (see `open-ephys.org/publications <https://open-ephys.org/publications>`_ for some examples). Nevertheless, the developers did not feel ready to call a release "version 1.0" until now. This release (which will be widely available in early 2025) is the result of many years of polishing, streamlining, and testing. It should feel familiar to any long-time users of the software, while also being more approachable for anyone trying it out for the first time.
 
 This page documents the major changes that will be available in this release. Importantly, there are many things that we did not change, such as the data format, HTTP server commands, and :code:`settings.xml` files. So configurations from v0.6.x can be loaded in version 1.0, and any code written to interface with the GUI or its output files will continue to work as expected, with a few minor exceptions. 
 
