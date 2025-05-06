@@ -126,8 +126,6 @@ All versions of the Open Ephys acquisition board are now supported by one plugin
 Deprecated plugins
 --------------------
 
-The :ref:`riveroutput` plugin has been removed from the plugin installer, as this was rarely used.
-
-
+The River Output plugin has been removed from the plugin installer, as this was rarely used.
 
 |

@@ -82,7 +82,7 @@ To set the data format for a given Record Node, send the **index** of the record
 
 
 Selecting channels to record
-####################
+#############################
 
 To change the recorded channels for a given stream, send the following message to :code:`/api/processors/<id>/config`:
 
