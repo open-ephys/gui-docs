@@ -7,7 +7,7 @@ Hardware requirements
 
 You can demo the Open Ephys GUI on any computer using the :ref:`filereader` to read in data that's already been saved. But if you are planning to run experiments, you'll need to make sure your system is capable enough to keep up with data acquisition. In general, the minimum requirements will depend on how many channels you'd like to acquire simultaneously, and whether you need low-latency closed-loop feedback. Below, we provide some guidelines for configuring your data acquisition machine.
 
-.. tip:: The most important thing you can do to improve performance is use a solid-state drive (ideally NVMe) for writing data. And if you need to record ≥128 channels simultaneously, an SSD is required.
+.. important:: The most important thing you can do to improve performance is use a solid-state drive (ideally NVMe) for writing data. And if you need to record ≥128 channels simultaneously, an SSD is required.
 
 The Open Ephys GUI has expanded from its origins as the software for the Open Ephys Acquisition Board to acquiring extracellular electrophysiology data from a variety of different acquisition systems, such as Open Ephys ONIX, IMEC Neuropixels OneBox, Intan RHD USB, Intan RHD Rec Controller, National Instruments Neuropixels PXI, National Instruments NI-DAQmx, etc. For a complete list of all the devices that the GUI can use as data sources, check out the Sources in the :ref:`plugins` section. You can browse the Sinks in the :ref:`plugins` section to see what other hardware the GUI can control (e.g. Arduino boards and Sanworks PulsePal)
 
@@ -64,7 +64,7 @@ Open Ephys ONIX
 .. image:: ../_static/images/hardwarerequirements/onix_neuropixels.png
   :alt: ONIX for neuropixels
 
-ONIX is our next-gen acquisition ecosystem for multi-modal recording technologies. ONIX can acquire from passive electrodes (tetrodes, silicon probes), active probes (neuropixels) and miniscopes, and is expansible. Headstages can perform on-board electrical and optogenetic stimulation, absolute head orientation acquisition and positional tracking. Besides acquiring from 2 headstage ports, it can simultaneously sample 12 analog inputs (100 kHz), 8 Digital Inputs and 6 user-programmable buttons. It additionally can control 12 analog outputs and 8 digital outputs, and boasts sub-ms closed-loop latencies. This makes it integrate seamlessly into complex behavioral setups, in particular those controlled through `Bonsai <https://bonsai-rx.org/>`__ using `Harp behavioral devices <https://harp-tech.org/articles/about.html>`__, since ONIX is Harp enabled.  
+ONIX is our next-gen acquisition system for multi-modal recording technologies. ONIX can acquire from passive electrodes (tetrodes, silicon probes), active probes (e.g. Neuropixels) and miniscopes, and is expandable. Headstages can perform on-board electrical and optogenetic stimulation, absolute head orientation acquisition and positional tracking. Besides acquiring from 2 headstage ports, it can simultaneously sample 12 analog inputs (100 kHz), 8 Digital Inputs and 6 user-programmable buttons. It additionally can control 12 analog outputs and 8 digital outputs, and boasts sub-ms closed-loop latencies. This makes it integrate seamlessly into complex behavioral setups, in particular those controlled through `Bonsai <https://bonsai-rx.org/>`__ using `Harp behavioral devices <https://harp-tech.org/articles/about.html>`__, since ONIX is Harp enabled.
 
 Some ONIX functionality can be accessed with the Open Ephys GUI. The ONIX Source plugin (coming soon!) can acquire continuous data and digital and analog events from the breakout board. It is primarily focused on neuropixels acquisition and will gradually be expanded to other ONIX data streams.
 
@@ -75,17 +75,17 @@ The following hardware is recommended for experiments that use ONIX:
 Computer specs
 #####################
 
-* **Operating system** - Windows 7, 10, or 11
+* **Operating system** - Windows 10, 11 or Linux
 
 * **Processor** - minimum of 6 cores, 3.5 GHz
 
-* **Memory** - at least 2 GB per simultaneously recorded probe; a minimum of 16 GB is recommended.
+* **Memory** - a minimum of 16 GB is recommended.
 
 * **Data storage** - a solid state drive is essential (at least 500 MB/s write speed); an NVMe drive is strongly recommended.
 
-* **Graphics card** - the GUI doesn't rely on the GPU for processing, but GPUs are essential for offline analysis. An NVIDIA GPU is likely required (for CUDA compatibility); we recommend buying a GTX 1660 or better.
+* **Graphics card** - the GUI doesn't rely on the GPU for processing, but GPUs are essential for offline analysis of high-channel count data. An NVIDIA GPU is likely required (for CUDA compatibility); we recommend buying a GTX 1660 or better.
 
-* **Connections** - the motherboard should have at least one x8- or x16-compatible PCIe slot, in addition to the one used by the GPU.
+* **Connections** - the motherboard should have at least one x4-, x8- or x16-PCIe slot, in addition to the one used by the GPU.
 
 Additional hardware
 #######################
