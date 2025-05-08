@@ -27,7 +27,7 @@ Looking for the pre-release of :ref:`version 1.0 <whatsnewinv100>`? You can down
 Previous versions
 ----------------------------
 
-Download a **.zip** file for any previous release via this link: https://openephys.jfrog.io/ui/native/GUI-binaries/Release/windows/
+Download a **.zip** file for any previous release via this link: https://openephys.jfrog.io/ui/native/GUI-binaries/Release/
 
 Windows installation
 ##########################
