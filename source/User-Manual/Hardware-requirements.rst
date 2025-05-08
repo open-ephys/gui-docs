@@ -188,7 +188,7 @@ Computer specs
 Additional hardware
 #####################
 
-OneBoxes, breakout boards, headstages, and probes can be ordered from `neuropixels.org <https://neuropixels.org>`__.
+OneBoxes, breakout boards, headstages, and probes can be ordered from `neuropixels.org <https://www.neuropixels.org>`__.
 
 * **OneBox** with included power supply and USB 3.0 cable
 
