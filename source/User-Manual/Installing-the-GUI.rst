@@ -7,8 +7,30 @@ Installing the GUI
 
 The Open Ephys GUI works equally well on Windows, Linux, and macOS, so which platform you choose is mostly up to you. However, there are some plugins (such as Neuropixels) that are currently only available for Windows. We recommend reading through the documentation of any :ref:`plugins` you plan to use to find out about potential limitations.
 
-Windows
-########
+Choose what version of the GUI you would like to download and follow the installation instructions for Windows, Linux or macOS below.
+
+Versions
+#########
+
+Latest stable version
+----------------------------
+
+We recommend installing the latest stable version from `this page`_.
+
+Pre-releases
+----------------------------
+
+Looking for the pre-release of :ref:`version 1.0 <whatsnewinv100>`? You can download it from: https://openephys.jfrog.io/ui/native/GUI-binaries/1.0.0-alpha/
+
+.. Note:: You need version 1.0 of the Open Ephys GUI to use the 3rd Gen Acquisition Board's 3D capabilities.
+
+Previous versions
+----------------------------
+
+Download a **.zip** file for any previous release via this link: https://openephys.jfrog.io/ui/native/GUI-binaries/Release/windows/
+
+Windows installation
+##########################
 
 Via installer (recommended)
 ----------------------------
@@ -24,7 +46,7 @@ Via installer (recommended)
 Via .zip file
 --------------
 
-1. Download a **.zip** file for any previous release via this link: https://openephys.jfrog.io/ui/native/GUI-binaries/Release/windows/
+1. Download a **.zip** file via this link: https://openephys.jfrog.io/ui/native/GUI-binaries/Release/windows/
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 
@@ -34,8 +56,8 @@ Via .zip file
 
 .. note:: If this is your first time running the GUI on a particular machine, you will need to install the `Visual Studio 2015, 2017, 2019, and 2022 redistributable package`_ before opening the application. This only applies to the .zip download, as this package will be added automatically when using the Windows installer.
 
-Linux
-######
+Linux installation
+########################
 
 Via installer (Ubuntu only)
 -----------------------------
@@ -76,7 +98,7 @@ The GUI is available at the gentoo science overlay.
 Via .zip file (all distros)
 ----------------------------
 
-1. Download a **.zip** file for any previous release via this link: https://openephys.jfrog.io/ui/native/GUI-binaries/Release/linux/
+1. Download a **.zip** file via this link: https://openephys.jfrog.io/ui/native/GUI-binaries/Release/linux/
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 
@@ -89,8 +111,8 @@ Via .zip file (all distros)
 6. Double-click the **open-ephys** executable (or enter :code:`./open-ephys` in the terminal) to run the application.
 
 
-macOS
-######
+macOS installation
+########################
 
 Via DMG (recommended)
 ----------------------
@@ -108,7 +130,7 @@ Via DMG (recommended)
 Via .zip file
 --------------
 
-1. Download a **.zip** file for any previous release via this link: https://openephys.jfrog.io/ui/native/GUI-binaries/Release/mac/
+1. Download a **.zip** file via this link: https://openephys.jfrog.io/ui/native/GUI-binaries/Release/mac/
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 
