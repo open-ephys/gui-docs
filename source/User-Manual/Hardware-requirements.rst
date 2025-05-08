@@ -48,7 +48,7 @@ Additional hardware
 
 * **I/O boards** for interfacing with auxiliary analog and digital signals (available from the `Open Ephys Store <https://open-ephys.org/acquisition-system/io-board-pcb>`__)
 
-* **RHD Headstages and SPI tethers** (headstages with 3D capabilities are available individually from the `Open Ephys Store <https://open-ephys.org/acquisition-system>`__, in monopolar vertical-profile 32ch, monopolar low-profile 32ch and bipolar vertical profile 16ch variants. Low-profile headstages are recommended for reducing torque and bipolar for use with impedance-matched paired electrodes such as EMG arrays. Other compatible RHD headstages from `Intan Technologies <https://intantech.com/RHD_headstages.html>`__ work with our acquisition board even if they do not provide 3D orientation.
+* **RHD Headstages and SPI tethers** (headstages with 3D capabilities are available individually from the `Open Ephys Store <https://open-ephys.org/acquisition-system>`__, in monopolar vertical-profile 32ch, monopolar low-profile 32ch and bipolar vertical profile 16ch variants). Low-profile headstages are recommended for reducing torque and bipolar for use with impedance-matched paired electrodes such as EMG arrays. Other compatible RHD headstages from `Intan Technologies <https://intantech.com/RHD_headstages.html>`__ work with our acquisition board even if they do not provide 3D orientation.
 
 * **Electrodes** - there is lots of flexibility here, as long as you have some way to interface between your electrodes and a compatible headstage. For tetrodes, we recommend the `ShuttleDrive <https://open-ephys.org/drive-implant>`__.
 
@@ -64,11 +64,11 @@ Open Ephys ONIX
 -------------------------------------
 
 .. image:: ../_static/images/hardwarerequirements/onix_neuropixels.png
-  :alt: ONIX for neuropixels
+  :alt: ONIX for Neuropixels
 
-ONIX is our next-gen acquisition system for multi-modal recording technologies. ONIX can acquire from passive electrodes (tetrodes, silicon probes), active probes (e.g. Neuropixels) and miniscopes, and is expandable. Headstages can perform on-board electrical and optogenetic stimulation, absolute head orientation acquisition and positional tracking. Besides acquiring from 2 headstage ports, it can simultaneously sample 12 analog inputs (100 kHz), 8 Digital Inputs and 6 user-programmable buttons. It additionally can control 12 analog outputs and 8 digital outputs, and boasts sub-ms closed-loop latencies. This makes it integrate seamlessly into complex behavioral setups, in particular those controlled through `Bonsai <https://bonsai-rx.org/>`__ using `Harp behavioral devices <https://harp-tech.org/articles/about.html>`__, since ONIX is Harp enabled.
+ONIX is our next-gen acquisition system for multi-modal recording technologies. ONIX can acquire from passive electrodes (tetrodes, silicon probes), active probes (e.g., Neuropixels) and miniscopes, and is expandable. Headstages can perform on-board electrical and optogenetic stimulation, absolute head orientation acquisition and positional tracking. Besides acquiring from 2 headstage ports, it can simultaneously sample 12 analog inputs (100 kHz), 8 Digital Inputs and 6 user-programmable buttons. It additionally can control 12 analog outputs and 8 digital outputs, and boasts sub-ms closed-loop latencies. This makes it integrate seamlessly into complex behavioral setups, in particular those controlled through `Bonsai <https://bonsai-rx.org/>`__ using `Harp behavioral devices <https://harp-tech.org/articles/about.html>`__, since ONIX is Harp enabled.
 
-Some ONIX functionality can be accessed with the Open Ephys GUI. The ONIX Source plugin (coming soon!) can acquire continuous data and digital and analog events from the breakout board. It is primarily focused on neuropixels acquisition and will gradually be expanded to other ONIX data streams.
+Some ONIX functionality can be accessed with the Open Ephys GUI. The ONIX Source plugin (coming soon!) can acquire continuous data and digital and analog events from the breakout board. It is primarily focused on Neuropixels acquisition and will gradually be expanded to other ONIX data streams.
 
 All of ONIX data streams and capabilities can be accessed through the `Bonsai package OpenEphys.Onix1 <https://open-ephys.github.io/bonsai-onix1-docs/index.html>`__, and you can use this in combination with the Open Ephys GUI with the Ephys Socket plugin to work with data streams in the plugins you might be used to, such as the Probe viewer for Neuropixels data. Follow this `tutorial <https://open-ephys.github.io/bonsai-onix1-docs/articles/tutorials/ephys-socket.html>`__ to set up Neuropixels acquisition in Bonsai and stream data to the Open Ephys GUI for visualization.
 
