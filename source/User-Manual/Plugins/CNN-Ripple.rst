@@ -17,7 +17,7 @@ CNN Ripple
    "*Built in?*", "No"
    "*Key Developers*", "Rodrigo Amaducci, Andrea Navas-Olive"
    "*Source Code*", "https://github.com/open-ephys-plugins/cnn-ripple"
-   "*Publication DOI*", "`10.7554/eLife.77772 <http://dx.doi.org/10.7554/eLife.77772>`__"
+   "*Publication DOI*", "`10.7554/eLife.77772 <https://elifesciences.org/articles/77772>`__"
 
 Installing and upgrading
 ###########################

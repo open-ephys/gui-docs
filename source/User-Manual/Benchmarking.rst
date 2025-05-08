@@ -41,7 +41,7 @@ Workstation
 ############
 
 | **Computer:** Windows 10, 32-core Intel Core i9, 128 GB RAM, 3 NVMe SSDs
-| **Signal chain:** :ref:`sourcesim` > :ref:`Record Node` > :ref:`LFP Viewer`
+| **Signal chain:** :ref:`sourcesim` > :ref:`recordnode` > :ref:`lfpviewer`
 | **Buffer duration:** 40 ms
 | **Simulated source:** Neuropixels 1.0
 
@@ -58,7 +58,7 @@ Workstation
 |
 
 | **Computer:** Windows 10, 32-core Intel Core i9, 128 GB RAM, 3 NVMe SSDs
-| **Signal chain:** :ref:`sourcesim` > :ref:`Record Node` > :ref:`LFP Viewer`
+| **Signal chain:** :ref:`sourcesim` > :ref:`recordnode` > :ref:`lfpviewer`
 | **Buffer duration:** 40 ms
 | **Simulated source:** Neuropixels 2.0
 
@@ -76,7 +76,7 @@ Workstation
 |
 
 | **Computer:** Windows 10, 32-core Intel Core i9, 128 GB RAM, 3 NVMe SSDs
-| **Signal chain:** :ref:`sourcesim` > :ref:`Record Node` > :ref:`LFP Viewer`
+| **Signal chain:** :ref:`sourcesim` > :ref:`recordnode` > :ref:`lfpviewer`
 | **Buffer duration:** 40 ms
 | **Simulated source:** Single stream (e.g. Open Ephys Acquisition Board)
 
@@ -94,7 +94,7 @@ Workstation
 |
 
 | **Computer:** Windows 10, 32-core Intel Core i9, 128 GB RAM, 3 NVMe SSDs
-| **Signal chain:** :ref:`sourcesim` > :ref:`Record Node` > :ref:`BandpassFilter` > :ref:`LFP Viewer`
+| **Signal chain:** :ref:`sourcesim` > :ref:`recordnode` > :ref:`BandpassFilter` > :ref:`lfpviewer`
 | **Buffer duration:** 40 ms
 | **Simulated source:** Single stream (e.g. Open Ephys Acquisition Board)
 
@@ -112,7 +112,7 @@ Workstation
 |
 
 | **Computer:** Windows 10, 32-core Intel Core i9, 128 GB RAM, 3 NVMe SSDs
-| **Signal chain:** :ref:`sourcesim` > :ref:`Record Node` > :ref:`BandpassFilter` > :ref:`LFP Viewer` > :ref:`spikedetector` > :ref:`spikeviewer`
+| **Signal chain:** :ref:`sourcesim` > :ref:`recordnode` > :ref:`BandpassFilter` > :ref:`lfpviewer` > :ref:`spikedetector` > :ref:`spikeviewer`
 | **Buffer duration:** 40 ms
 | **Simulated source:** Single stream (e.g. Open Ephys Acquisition Board)
 
@@ -131,7 +131,7 @@ Laptop
 ############
 
 | **Computer:** Windows 10, 16-core Intel Core i7, 32 GB RAM, SKHynix 512 GB SSD
-| **Signal chain:** :ref:`sourcesim` > :ref:`Record Node` > :ref:`LFP Viewer`
+| **Signal chain:** :ref:`sourcesim` > :ref:`recordnode` > :ref:`lfpviewer`
 | **Buffer duration:** 21 ms
 | **Simulated source:** Neuropixels 1.0
 
@@ -145,7 +145,7 @@ Laptop
 |
 
 | **Computer:** Windows 10, 16-core Intel Core i7, 32 GB RAM, SKHynix 512 GB SSD
-| **Signal chain:** :ref:`sourcesim` > :ref:`Record Node` > :ref:`LFP Viewer`
+| **Signal chain:** :ref:`sourcesim` > :ref:`recordnode` > :ref:`lfpviewer`
 | **Buffer duration:** 21 ms
 | **Simulated source:** Neuropixels 2.0
 
@@ -159,7 +159,7 @@ Laptop
 |
 
 | **Computer:** Windows 10, 16-core Intel Core i7, 32 GB RAM, SKHynix 512 GB SSD
-| **Signal chain:** :ref:`sourcesim` > :ref:`Record Node` > :ref:`LFP Viewer`
+| **Signal chain:** :ref:`sourcesim` > :ref:`recordnode` > :ref:`lfpviewer`
 | **Buffer duration:** 21 ms
 | **Simulated source:** Single stream (e.g. Open Ephys Acquisition Board)
 
@@ -176,7 +176,7 @@ Laptop
 |
 
 | **Computer:** Windows 10, 16-core Intel Core i7, 32 GB RAM, SKHynix 512 GB SSD
-| **Signal chain:** :ref:`sourcesim` > :ref:`Record Node` > :ref:`BandpassFilter` > :ref:`LFP Viewer`
+| **Signal chain:** :ref:`sourcesim` > :ref:`recordnode` > :ref:`BandpassFilter` > :ref:`lfpviewer`
 | **Buffer duration:** 21 ms
 | **Simulated source:** Single stream (e.g. Open Ephys Acquisition Board)
 
@@ -193,7 +193,7 @@ Laptop
 |
 
 | **Computer:** Windows 10, 16-core Intel Core i7, 32 GB RAM, SKHynix 512 GB SSD
-| **Signal chain:** :ref:`sourcesim` > :ref:`Record Node` > :ref:`BandpassFilter` > :ref:`LFP Viewer` > :ref:`spikedetector` > :ref:`spikeviewer`
+| **Signal chain:** :ref:`sourcesim` > :ref:`recordnode` > :ref:`BandpassFilter` > :ref:`lfpviewer` > :ref:`spikedetector` > :ref:`spikeviewer`
 | **Buffer duration:** 21 ms
 | **Simulated source:** Single stream (e.g. Open Ephys Acquisition Board)
 
