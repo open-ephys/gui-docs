@@ -136,7 +136,7 @@ In order to align events and continuous data from different streams, these strea
 If the streams were not synchronized online, they can be synchronized offline assuming all streams share at least one event line in common. See the :ref:`datasynchronization` tutorial for more information about synchronizing data streams.
 
 .. _NumPy: https://numpy.org/
-.. _Neurodata Without Borders: https://neurodatawithoutborders.github.io/
+.. _Neurodata Without Borders: http://nwb.org/
 .. _pynwb: https://pynwb.readthedocs.io/en/stable/
 
 .. toctree::
