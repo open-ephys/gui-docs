@@ -119,7 +119,15 @@ Memory Monitor
 
 ..  attention:: This only pertains to hardware Gen2/Gen3 with firmware 1.5.1+
 
-While data is waiting to be transferred from the acquisition board to the computer, it sits in the acquisition board's buffer. The memory monitor on the left provides a visualization of how much data has accumulated in this buffer as a percentage of its total capacity. The memory monitor should stay at or near zero. Accumulated data in the hardware's buffer indicates an error that is causing data to be read from the hardware too slowly. This might eventually halt the program if the buffer fills to its capacity.
+.. image:: ../../_static/images/plugins/acquisitionboard/acquisitionboard-04.png
+  :alt: Updated editor with a memory usage monitor on the left
+
+While data is waiting to be transferred from the acquisition board to the computer, it sits in the
+acquisition board's buffer. The memory monitor on the left provides a visualization of how much data
+has accumulated in this buffer as a percentage of its total capacity. The memory monitor should stay
+at or near zero. Accumulated data in the hardware's buffer indicates an error that is causing data
+to be read from the hardware too slowly. This might eventually halt the program if the buffer fills
+to its capacity.
 
 |
 
