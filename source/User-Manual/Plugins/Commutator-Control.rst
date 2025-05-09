@@ -52,7 +52,7 @@ that corresponds to your commutator. To determine which COM port corresponds to 
 Stream selector
 ###############
 
-In the bottom-left corner of the commutator process, there is a dropdown menu to select which IMU
+In the bottom-left corner of the commutator processor, there is a dropdown menu to select which IMU
 stream you would like to use to calculate commutator rotations. The options provided by the dropdown
 correspond to IMUs detected in the Acquisition Board processor.
 
