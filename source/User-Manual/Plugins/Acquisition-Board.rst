@@ -35,7 +35,9 @@ Plugin configuration
 Headstages
 ############
 
-On the left-hand side of the module, there are slots for each of 8 possible headstages (A1, A2, B1, B2, etc.). Each row corresponds to one 12-channel Omnetics connector on the input board (from left to right, there are A, B, C, and D), and each column corresponds to one headstage on that input. Up to two headstages can be connected to each input using a dual headstage adapter. The module will automatically detect headstages that are connected, as well as whether they contain a 64- or 32-channel Intan chip. However, if you add or remove headstages after the module has been loaded, you need to press the "RESCAN" button. 
+On the left-hand side of the module, there are four rows with 2 slots each. Each row represents a headstage port on the acquisition board (denoted as A, B, C, & D left-to-right on the hardware). Each port can accommodate either two headstages *without* an IMU or one headstage *with* an IMU. This corresponds to the following plugin behavior: when a headstage without an IMU is detected, it will occupy one slot in a row. When a headstage with an IMU is detected, it will occupy both slots in a row. When this processor is added to the signal chain, it automatically detects  connected headstages, as well as whether they contain a 64- or 32-channel Intan chip. If you add or remove headstages after the module has been loaded, you must press the "RESCAN" button. 
+
+..  note:: Plugging two headstage into one port requires a `dual headstage adapter <https://open-ephys.github.io/acq-board-docs/Hardware-Guide/Cables.html#dual-headstage-adapter>`__
 
 Using 16-channel headstages
 ----------------------------
@@ -111,6 +113,21 @@ To open the impedance measurement interface, click the "window" or "tab" buttons
 
 .. image:: ../../_static/images/plugins/acquisitionboard/acquisitionboard-02.png
   :alt: Annotated impedance measurement interface
+
+Memory Monitor
+###############
+
+..  note:: This pertains only to hardware Gen2/Gen3 with firmware 1.5.1+
+
+.. image:: ../../_static/images/plugins/acquisitionboard/acquisitionboard-04.png
+  :alt: Updated editor with a memory usage monitor on the left
+
+While data is waiting to be transferred from the acquisition board to the computer, it sits in the
+acquisition board's buffer. The memory monitor on the left provides a visualization of how much data
+has accumulated in this buffer as a percentage of its total capacity. The memory monitor should stay
+at or near zero. Accumulated data in the hardware's buffer indicates an error that is causing data
+to be read from the hardware too slowly. This might eventually halt the program if the buffer fills
+to its capacity.
 
 |
 
