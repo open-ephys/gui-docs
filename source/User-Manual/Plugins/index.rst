@@ -151,6 +151,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Neuropixels-CAR
     Neuropixels-PXI
     NIDAQmx
+    OE-Commutator
     OneBox
     Online-PSTH
     OSC-Events
