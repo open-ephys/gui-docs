@@ -7,7 +7,8 @@ Welcome to the Open Ephys GUI user manual! Here you will find information about 
 
 The GUI was designed to process, record, and visualize multichannel extracellular electrophysiology data. It currently includes plugins that are compatible the following data sources:
 
-* `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__
+* `Open Ephys Acquisition Board <https://open-ephys.org/acq-board>`__
+* `ONIX <https://open-ephys.github.io/onix-docs/index.html>`__
 * `Intan RHD USB Interface Board <https://intantech.com/RHD_USB_interface_board.html>`__
 * `Intan RHD Recording Controller <https://intantech.com/recording_controller.html>`__
 * `Neuropixels probes <https://www.neuropixels.org/>`__
