@@ -35,7 +35,7 @@ The first step in creating a new plugin is to create a repository from the appro
 
 5. Click the green "Create repository from template" button.
 
-On your local machine, create an "OEPlugins" directory within the same directory that contains your :code:`plugin-GUI` repository: Then, using the command line or the `GitHub Desktop <https://desktop.github.com/>`__ app, clone your the plugin repository into this new folder. Your directory structure should look something like this:
+On your local machine, create an "OEPlugins" directory within the same directory that contains your :code:`plugin-GUI` repository: Then, using the command line or the `GitHub Desktop <https://github.com/apps/desktop/>`__ app, clone your the plugin repository into this new folder. Your directory structure should look something like this:
 
 .. code-block:: 
 
@@ -58,7 +58,7 @@ Inside the "Source" folder of the plugin repository you just cloned, you'll find
 **Processor** and **Visualizer** Plugins
 -------------------------------------------
 
-Most plugins will be "processors," meaning they implement the :code:`process()` method of `GenericProcessor.h <https://github.com/open-ephys/plugin-GUI/blob/master/Source/Processors/GenericProcessor/GenericProcessor.h>`__. This method is called repeatedly during the GUI's acquisition loop, so each plugin has a chance to respond to incoming data (or generate its own). If they include a canvas for displaying data, Processor plugins can also be Visualizer plugins.
+Most plugins will be "processors," meaning they implement the :code:`process()` method of `GenericProcessor.h <https://github.com/open-ephys/plugin-GUI/blob/main/Source/Processors/GenericProcessor/GenericProcessor.h>`__. This method is called repeatedly during the GUI's acquisition loop, so each plugin has a chance to respond to incoming data (or generate its own). If they include a canvas for displaying data, Processor plugins can also be Visualizer plugins.
 
 Processor and Visualizer plugins should edit the following lines in :code:`OpenEphysLib.cpp`:
 

@@ -43,7 +43,7 @@ The first step in creating a new common library is to create a repository from t
 
 5. Click the green "Create repository from template" button.
 
-On your local machine, create an "OEPlugins" directory within the same directory that contains your :code:`plugin-GUI` repository: Then, using the command line or the `GitHub Desktop <https://desktop.github.com/>`__ app, clone your the common library repository into this new folder. Your directory structure should look something like this:
+On your local machine, create an "OEPlugins" directory within the same directory that contains your :code:`plugin-GUI` repository: Then, using the command line or the `GitHub Desktop <https://github.com/apps/desktop>`__ app, clone your the common library repository into this new folder. Your directory structure should look something like this:
 
 .. code-block:: 
 

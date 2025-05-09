@@ -228,7 +228,24 @@ html_context = {
     "default_mode": "light"
 }
 
-linkcheck_anchors = False
+linkcheck_anchors = True
+
+linkcheck_ignore = [
+    'https://www.mathworks.com/*',
+    r'https://github.com/.*#L.*',
+    'https://www.sciencedirect.com/*',
+    'https://labstreaminglayer.org/#/',
+    'https://neuropixelsgroup.slack.com/*#*',
+    'https://store-usa.arduino.cc/*',
+    'https://openbci.com/*'
+]
+
+linkcheck_allowed_redirects = {
+    r"https://iopscience.iop.org/article/.*": r"https://validate.perfdrive.com/.*"
+}
 
 extensions.append("sphinx_tabs.tabs")
-extensions.append("sphinx.ext.autosectionlabel")
+
+suppress_warnings = [
+  'duplicate_declaration.cpp'
+  ]

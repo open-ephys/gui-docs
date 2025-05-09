@@ -41,7 +41,7 @@ Neuropixels sampling pattern
 
 All Neuropixels probes have fewer ADCs (analog-to-digital converters) than channels, so data from multiple channels is temporally *multiplexed* across each ADC. Because common noise is more likely to be shared across channels that are sampled concurrently, using information about the Neuropixels ADC sampling pattern can remove noise more effectively.
 
-Neuropixels 1.0 probes have 16 ADCs, each of which digitizes 12 channels (for a total of 384). Neuropixels 2.0 probes have 12 ADCs, each of which digitizes 16 channels (for a total of 384). The following diagrams show the sampling pattern for each probe type (simultaneously sampled channels have the same color):
+Neuropixels 1.0 probes have 32 ADCs, each of which digitizes 12 channels (for a total of 384). Neuropixels 2.0 probes have 24 ADCs, each of which digitizes 16 channels (for a total of 384). The following diagrams show the sampling pattern for each probe type (simultaneously sampled channels have the same color):
 
 .. image:: ../../_static/images/plugins/neuropixels-car/neuropixels-car-02.png
   :alt: Annotated Neuropixels 1.0 and 2.0 shanks
