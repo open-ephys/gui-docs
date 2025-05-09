@@ -46,16 +46,16 @@ The primary purpose of the Network Events module is to add TTL events to one or 
 
 :code:`TTL [Line=1-256] [State=0/1]` – Sends an **ON** (1) or **OFF** (0) TTL event on the specified TTL line. 
 
-:code:`TTL [Word=unsigned_int64_value]` – Sends TTL event with the states of the first 64 lines combined to form the TTL word. Each line represents a different bit in the given unsigned 64-bit integer. For more information on how TTL words work, refer to :ref:`undertanding-ttl-events`.
+:code:`TTL [Word=unsigned_int64_value]` – Sends TTL event with the states of the first 64 lines combined to form the TTL word. Each line represents a different bit in the given unsigned 64-bit integer. For more information on how TTL words work, refer to :ref:`understanding-ttl-events`.
 
 Other commands
 ---------------
 
 The Network Events module can also respond to commands related to starting/stopping acquisition and recording. However, these commands are also available via the Open Ephys HTTP Server (added in GUI version 0.6.0). It's recommended to use the HTTP Server commands whenever possible, as these do not rely on a specific plugin.
 
-:code:`StartAcquisition` – Starts data aquisition
+:code:`StartAcquisition` – Starts data acquisition
 
-:code:`StopAcquisition` – Stops data aquisition
+:code:`StopAcquisition` – Stops data acquisition
 
 :code:`StartRecord [RecordNode=record_node_id] [CreateNewDir=1] [RecDir=recording_directory_path] [PrependText=some_text] [AppendText=some_text]` – Starts recording of data
 

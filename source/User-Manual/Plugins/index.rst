@@ -44,7 +44,7 @@ Officially supported Record Engines: :ref:`binaryformat`, :ref:`openephysformat`
 File Sources
 -------------
 
-File Sources allow the File Reader to read data in different formats. These plugins do not appear in the processor list, but instead speicfy the file extensions that the File Reader can accept (e.g., :code:`.nwb` or :code:`.oebin`).
+File Sources allow the File Reader to read data in different formats. These plugins do not appear in the processor list, but instead specify the file extensions that the File Reader can accept (e.g., :code:`.nwb` or :code:`.oebin`).
 
 Officially supported Record Engines: :ref:`binaryformat`, :ref:`openephysformat`, :ref:`nwbdataformat`
 
@@ -131,6 +131,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Bandpass-Filter
     Channel-Map
     Common-Average-Reference
+    Commutator-Control
     CNN-Ripple
     Crossing-Detector
     Data-Snapshot
