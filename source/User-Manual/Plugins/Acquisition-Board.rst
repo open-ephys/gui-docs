@@ -117,7 +117,7 @@ To open the impedance measurement interface, click the "window" or "tab" buttons
 Memory Monitor
 ###############
 
-..  attention:: This only pertains to hardware Gen2/Gen3 with firmware 1.5.1+
+..  note:: This pertains only to hardware Gen2/Gen3 with firmware 1.5.1+
 
 .. image:: ../../_static/images/plugins/acquisitionboard/acquisitionboard-04.png
   :alt: Updated editor with a memory usage monitor on the left
