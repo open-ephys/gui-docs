@@ -7,7 +7,8 @@ Welcome to the Open Ephys GUI user manual! Here you will find information about 
 
 The GUI was designed to process, record, and visualize multichannel extracellular electrophysiology data. It currently includes plugins that are compatible the following data sources:
 
-* `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__
+* `Open Ephys Acquisition Board <https://open-ephys.org/acq-board>`__
+* `ONIX <https://open-ephys.github.io/onix-docs/index.html>`__
 * `Intan RHD USB Interface Board <https://intantech.com/RHD_USB_interface_board.html>`__
 * `Intan RHD Recording Controller <https://intantech.com/recording_controller.html>`__
 * `Neuropixels probes <https://www.neuropixels.org/>`__
@@ -15,6 +16,10 @@ The GUI was designed to process, record, and visualize multichannel extracellula
 * `EEG headsets that use Lab Streaming Layer <https://labstreaminglayer.org/#/>`__
 
 This manual covers key topics, such as:
+
+* :ref:`computerrequirements`
+
+* :ref:`compatiblehardware`
 
 * :ref:`exploringtheui`
 
@@ -31,7 +36,8 @@ If there's something missing from this documentation that you think should be in
     :maxdepth: 1
 
     Before-you-begin
-    Hardware-requirements
+    Computer-requirements
+    Compatible-hardware
     Installing-the-GUI
     Exploring-the-user-interface
     Building-a-signal-chain

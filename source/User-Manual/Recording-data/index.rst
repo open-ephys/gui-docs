@@ -77,7 +77,7 @@ The continuous channel configuration interfaces accessed by clicking on the "con
 
 The continuous channel buffer monitors track the state of the recording buffer for each subprocessor. If these start to fill up, it indicates that your computer can't keep up with disk writing. When they become 90% full, recording will automatically stop to prevent data corruption. If this occurs, you can try reducing the number of channels being recorded, or split the disk writing duties across multiple record nodes (see below).
 
-Clicking on one of the continuous channel buffer monitors opens up a **channel selector interface** as shown below. By default, the interface has every channel set to record. Through the interface, you can toggle individual channels on/off, select ALL or NONE, or indicate a custom range of channels using Matlab-style slicing, as shown in these exaxmples:
+Clicking on one of the continuous channel buffer monitors opens up a **channel selector interface** as shown below. By default, the interface has every channel set to record. Through the interface, you can toggle individual channels on/off, select ALL or NONE, or indicate a custom range of channels using Matlab-style slicing, as shown in these examples:
 
 .. image:: ../../_static/images/recordingdata/recordnode-04.png
   :alt: Channel selection options
@@ -136,7 +136,7 @@ In order to align events and continuous data from different streams, these strea
 If the streams were not synchronized online, they can be synchronized offline assuming all streams share at least one event line in common. See the :ref:`datasynchronization` tutorial for more information about synchronizing data streams.
 
 .. _NumPy: https://numpy.org/
-.. _Neurodata Without Borders: http://nwb.org/
+.. _Neurodata Without Borders: https://nwb.org/
 .. _pynwb: https://pynwb.readthedocs.io/en/stable/
 
 .. toctree::
