@@ -28,7 +28,7 @@ The Plugin Installer also allows you to upgrade to the latest version of this pl
 Hardware requirements
 ######################
 
-* One **computer** (see :ref:`hardwarerequirements` for recommended specs)
+* One **computer** (see :ref:`computerrequirements` for recommended specs)
 
 * One **PXI chassis** (e.g. NI PXIe-1071, PXIe-1082, PXIe-1083, or ADLINK PXES-2301)
 
