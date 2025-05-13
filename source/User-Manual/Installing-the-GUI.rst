@@ -9,6 +9,8 @@ The Open Ephys GUI works equally well on Windows, Linux, and macOS, so which pla
 
 Choose what version of the GUI you would like to download and follow the installation instructions for Windows, Linux or macOS below.
 
+..  _versions:
+
 Versions
 #########
 
