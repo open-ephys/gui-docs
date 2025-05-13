@@ -44,9 +44,13 @@ that corresponds to your commutator. To determine which COM port corresponds to 
 
 #.  Unplug  your commutator.
 
+#.  Add the commutator processor into the signal chain.
+
 #.  Click the dropdown. Note the COM ports that are shown in the dropdown. 
 
 #.  Plug in your commutator.
+
+#.  Remove the commutator processor from the signal chain and add it back in.
 
 #.  Click the dropdown. The COM port that appears in step 4 but not in step 2 is the one that
     corresponds to your commutator.
