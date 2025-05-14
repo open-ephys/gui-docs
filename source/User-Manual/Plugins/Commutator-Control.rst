@@ -11,7 +11,7 @@ Commutator Control
 ..  image:: ../../_static/images/plugins/commutatorcontrol/oecommutator.png
     :alt: Annotated settings interface for the Commutator Control plugin
 
-..  csv-table:: Prevents twist in the tether connecting a moving animal to a stationary `Open Ephys acquisition board Gen3 <https://open-ephys.org/acq-board>`__.
+..  csv-table:: Prevents twist in the tether connecting a moving animal to a stationary `Open Ephys Acquisition Board Gen 3 <https://open-ephys.org/acq-board>`__.
     :widths: 18, 80
 
     "*Plugin Type*", "Sink" 

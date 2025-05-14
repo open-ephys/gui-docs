@@ -6,7 +6,7 @@
 OE FPGA Acquisition Board
 ##########################
 
-..  important:: If you are trying to use the gen3 acquisition board IMU and memory monitor features, refer to the :doc:`/User-Manual/Plugins/Acquisition-Board` plugin.
+..  important:: If you intend to use the Acquisition Board Gen 3 3D capabilities and memory monitor feature, refer to the :doc:`/User-Manual/Plugins/Acquisition-Board` plugin.
 
 .. image:: ../../_static/images/plugins/oefpgaacquisitionboard/oefpgaacquisitionboard-01.png
   :alt: Annotated settings interface for the Acquisition Board plugin
