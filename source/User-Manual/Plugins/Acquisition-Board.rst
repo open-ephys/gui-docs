@@ -37,9 +37,9 @@ Plugin configuration
 Headstages
 ############
 
-On the left-hand side of the module, there are four rows with 2 slots each. Each row represents a headstage port on the acquisition board (denoted as A, B, C, & D left-to-right on the hardware). Each port can accommodate either two headstages *without* an IMU or one headstage *with* an IMU. This corresponds to the following plugin behavior: when a headstage without an IMU is detected, it will occupy one slot in a row. When a headstage with an IMU is detected, it will occupy both slots in a row. When this processor is added to the signal chain, it automatically detects  connected headstages, as well as whether they contain a 64- or 32-channel Intan chip. If you add or remove headstages after the module has been loaded, you must press the "RESCAN" button. 
+On the left-hand side of the module, there are four rows with 2 slots each. Each row represents a headstage port on the acquisition board (denoted as A, B, C, & D left-to-right on the hardware). Each port can accommodate up to two headstages *without* an IMU (inertial measurement unit) or just one 3D capable headstage *with* an IMU. When this processor is added to the signal chain, it automatically detects connected headstages, as well as whether they contain a 64- or 32-channel Intan chip and whether or not they have an IMU. When a headstage without an IMU is detected, it will occupy one slot in a row. When a headstage with an IMU is detected, it will occupy both slots in a row. If you add or remove headstages after the Acquisition Board processor has been loaded, you must press the "RESCAN" button for the hardware changes to be detected.
 
-..  note:: Plugging two headstage into one port requires a `dual headstage adapter <https://open-ephys.github.io/acq-board-docs/Hardware-Guide/Cables.html#dual-headstage-adapter>`__
+..  note:: Plugging two headstages into one port requires a `dual headstage adapter <https://open-ephys.github.io/acq-board-docs/Hardware-Guide/Cables.html#dual-headstage-adapter>`__
 
 Using 16-channel headstages
 ----------------------------
@@ -81,7 +81,7 @@ Sets the threshold for the noise slicer on the hardware audio outputs (sets any 
 Clock divider
 ##############
 
-The BNC connector on the back of the board will send a digital pulse each time a new sample is acquired. The clock divided makes it possible to downsample this clock, so a pulse is sent every *N* samples. Note that *N* can only be one or an even number, even though this is not enforced via the settings interface.
+The BNC connector on the back of the board will send a digital pulse each time a new sample is acquired. The clock divider makes it possible to downsample this clock, so a pulse is sent every *N* samples. Note that *N* can only be one or an even number, even though this is not enforced via the settings interface.
 
 DSP button
 ###########
