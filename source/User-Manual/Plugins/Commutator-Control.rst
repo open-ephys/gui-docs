@@ -52,8 +52,7 @@ that corresponds to your commutator. To determine which COM port corresponds to 
 
 #.  Remove the commutator processor from the signal chain and add it back in.
 
-#.  Click the dropdown. The COM port that appears in step 4 but not in step 2 is the one that
-    corresponds to your commutator.
+#.  Click the dropdown. The COM port that appears in this step but not in step 3 is the one that corresponds to your commutator.
 
 Stream selector
 ###############
