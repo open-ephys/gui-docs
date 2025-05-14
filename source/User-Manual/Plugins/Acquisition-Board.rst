@@ -11,7 +11,7 @@ Acquisition Board
 .. image:: ../../_static/images/plugins/acquisitionboard/acquisitionboard-01.png
   :alt: Annotated settings interface for the Acquisition Board plugin
 
-.. csv-table:: Streams data from any version of the `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__.
+.. csv-table:: Streams data from any generation of the `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__.
    :widths: 18, 80
 
    "*Plugin Type*", "Source"
