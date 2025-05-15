@@ -39,9 +39,9 @@ Headstages
 
 On the left-hand side of the module, there are four rows with 2 slots each. Each row represents a headstage port on the acquisition board (denoted as A, B, C, & D left-to-right on the hardware). Each headstage port can accommodate up to two headstages*. When this processor is added to the signal chain, it automatically detects connected headstages, as well as whether they contain a 64- or 32-channel Intan chip, and whether or not they have an IMU (inertial measurement unit). Each slot in the row corresponding to the headstage port in use will be populated as follows:
 
-- For each headstage detected *without* an IMU, the channel count of the Intan chip (32 or 64) will be displayed in a slot.
-- For a single 3D capable headstage *with* an IMU, the channel count of the Intan chip (32 or 64) will be displayed in the first slot, and "IMU" will be displayed on the second slot. 
-- For two 3D capable headstages *with* an IMU, the channel count of each Intan chip (32 or 64) will be displayed in each slot. The 3D capabilities won't work.
+- When a single headstage *without* an IMU is connected a port, the channel count of the Intan chip (32 or 64) will be displayed in a slot.
+- When a single 3D capable headstage *with* an IMU is connected to a port, the channel count of the Intan chip (32 or 64) will be displayed in the first slot, and "IMU" will be displayed on the second slot. 
+- When two headstages share a port, the channel count of each Intan chip (32 or 64) will be displayed in each slot. In this case, even if either or both headstages are 3D capable, no "IMU" will be displayed, and 3D capabilities won't be available.
 
 ..  note:: Plugging two headstages into one port requires a `dual headstage adapter <https://open-ephys.github.io/acq-board-docs/Hardware-Guide/Cables.html#dual-headstage-adapter>`__. The SPI connector labelled 1 corresponds to the headstage that appears in the first slot of the row, and the the connector labelled 2, to the second slot.
 
