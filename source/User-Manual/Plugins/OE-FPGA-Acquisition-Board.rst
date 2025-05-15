@@ -6,10 +6,12 @@
 OE FPGA Acquisition Board
 ##########################
 
+..  important:: If you intend to use the 3D capabilities and memory monitor features of the Acquisition Board Gen 3, refer to the :doc:`/User-Manual/Plugins/Acquisition-Board` plugin.
+
 .. image:: ../../_static/images/plugins/oefpgaacquisitionboard/oefpgaacquisitionboard-01.png
   :alt: Annotated settings interface for the Acquisition Board plugin
 
-.. csv-table:: Streams data from an `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__ with a custom FPGA designed by Open Ephys.
+.. csv-table:: Streams data from an `Open Ephys Acquisition Board Gen 2 and above <https://open-ephys.org/acq-board>`__ with a custom FPGA module designed by Open Ephys.
    :widths: 18, 80
 
    "*Plugin Type*", "Source"

@@ -6,27 +6,27 @@
 Acquisition Board
 #################
 
+..  attention:: This page documents the new acquisition-board plugin using :ref:`Open Ephys GUI 1.0.0-alpha.4 <versions>` or later. 
+
 .. image:: ../../_static/images/plugins/acquisitionboard/acquisitionboard-01.png
   :alt: Annotated settings interface for the Acquisition Board plugin
 
-.. csv-table:: Streams data from an `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__ with an Opal Kelly FPGA.
+.. csv-table:: Streams data from any generation of the `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__.
    :widths: 18, 80
 
    "*Plugin Type*", "Source"
    "*Platforms*", "Windows, Linux, macOS"
-   "*Built in?*", "No; install via *Rhythm Plugins*"
+   "*Built in?*", "No; install via *Acquisition Board*"
    "*Key Developers*", "Josh Siegle, Aarón Cuevas López"
-   "*Source Code*", "https://github.com/open-ephys-plugins/rhythm-plugins"
+   "*Source Code*", "https://github.com/open-ephys-plugins/acquisition-board"
 
 
 .. tip:: For more in-depth documentation on the Open Ephys Acquisition Board, please refer to the `Acquisition Board docs site <https://open-ephys.github.io/acq-board-docs/>`__.
 
-.. important:: If your acquisition board was purchased after October 2022, it likely has a custom FPGA designed by Open Ephys. This requires a different plugin, called :ref:`oefpgaacquisitionboard`.
-
 Installing and upgrading
 ==========================
 
-The Acquisition Board plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Rhythm Plugins", and click the "Install" button. After installation, *Acquisition Board* will appear in the processor list on the left side of the GUI's main window.
+The Acquisition Board plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Acquisition Board", and click the "Install" button. After installation, *Acquisition Board* will appear in the processor list on the left side of the GUI's main window.
 
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed. The plugin must be removed from the signal chain prior to upgrading.
 
@@ -37,12 +37,22 @@ Plugin configuration
 Headstages
 ############
 
-On the left-hand side of the module, there are slots for each of 8 possible headstages (A1, A2, B1, B2, etc.). Each row corresponds to one 12-channel Omnetics connector on the input board (from left to right, there are A, B, C, and D), and each column corresponds to one headstage on that input. Up to two headstages can be connected to each input using a dual headstage adapter. The module will automatically detect headstages that are connected, as well as whether they contain a 64- or 32-channel Intan chip. However, if you add or remove headstages after the module has been loaded, you need to press the "RESCAN" button. 
+On the left-hand side of the module, there are four rows with 2 slots each. Each row represents a headstage port on the acquisition board (denoted as A, B, C, & D left-to-right on the hardware). Each headstage port can accommodate up to two headstages*. When this processor is added to the signal chain, it automatically detects connected headstages, as well as whether they contain a 64- or 32-channel Intan chip, and whether or not they have an IMU (inertial measurement unit). Each slot in the row corresponding to the headstage port in use will be populated as follows:
+
+- When a single headstage *without* an IMU is connected a port, the channel count of the Intan chip (32 or 64) will be displayed in a slot.
+- When a single 3D capable headstage *with* an IMU is connected to a port, the channel count of the Intan chip (32 or 64) will be displayed in the first slot, and "IMU" will be displayed on the second slot. 
+- When two headstages share a port, the channel count of each Intan chip (32 or 64) will be displayed in each slot. In this case, even if either or both headstages are 3D capable, no "IMU" will be displayed, and 3D capabilities won't be available.
+
+..  note:: Plugging two headstages into one port requires a `dual headstage adapter <https://open-ephys.github.io/acq-board-docs/Hardware-Guide/Cables.html#dual-headstage-adapter>`__. The SPI connector labelled 1 corresponds to the headstage that appears in the first slot of the row, and the the connector labelled 2, to the second slot.
+
+If you add or remove headstages after the Acquisition Board processor has been loaded, you must press the "RESCAN" button for the hardware changes to be detected.
+
+*Actually, each headstage port can accommodate up to two 64-channel Intan chips that can be on the same headstage, but having more than one chip per headstage is rare, so this is described per headstage.*
 
 Using 16-channel headstages
 ----------------------------
 
-Clicking on the button for one of the detected headstages will toggle it between 32-channel and 16-channel mode. This is necessary because the difference between 16-channel and 32-channel headstages cannot detected in software, and has to be selected manually.
+Clicking on the slot of one of the detected headstages will toggle it between 32-channel and 16-channel mode. This is necessary because the difference between 16-channel and 32-channel headstages cannot detected in software, and has to be selected manually.
 
 Sample rate selection
 #######################
@@ -79,7 +89,7 @@ Sets the threshold for the noise slicer on the hardware audio outputs (sets any 
 Clock divider
 ##############
 
-The BNC connector on the back of the board will send a digital pulse each time a new sample is acquired. The clock divided makes it possible to downsample this clock, so a pulse is sent every *N* samples. Note that *N* can only be one or an even number, even though this is not enforced via the settings interface.
+The BNC connector on the back of the board will send a digital pulse each time a new sample is acquired. The clock divider makes it possible to downsample this clock, so a pulse is sent every *N* samples. Note that *N* can only be one or an even number, even though this is not enforced via the settings interface.
 
 DSP button
 ###########
@@ -114,13 +124,28 @@ To open the impedance measurement interface, click the "window" or "tab" buttons
 .. image:: ../../_static/images/plugins/acquisitionboard/acquisitionboard-02.png
   :alt: Annotated impedance measurement interface
 
+Memory Monitor
+###############
+
+..  note:: This pertains only to Acquisition Board Gen 2 and Gen 3 with firmware 1.5.1+
+
+.. image:: ../../_static/images/plugins/acquisitionboard/acquisitionboard-04.png
+  :alt: Updated editor with a memory usage monitor on the left
+
+While data is waiting to be transferred from the acquisition board to the computer, it sits in the
+acquisition board's buffer. The memory monitor on the left provides a visualization of how much data
+has accumulated in this buffer as a percentage of its total capacity. The memory monitor should stay
+at or near zero. Accumulated data in the hardware's buffer indicates an error that is causing data
+to be read from the hardware too slowly. This might eventually halt the program if the buffer fills
+to its capacity.
+
 |
 
 Closed-loop feedback
 ====================
 
 
-Installing the "Rhythm Plugins" will also install the "Acq Board Output" plugin, which can be used to trigger the digital outputs of the acquisition board.
+Installing the "Acquisition Board" will also install the "Acq Board Output" plugin, which can be used to trigger the digital outputs of the acquisition board.
 
 .. image:: ../../_static/images/plugins/acquisitionboard/acquisitionboard-03.png
   :alt: Annotated Acq Board Output plugin

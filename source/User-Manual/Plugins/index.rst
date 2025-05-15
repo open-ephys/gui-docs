@@ -131,6 +131,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Bandpass-Filter
     Channel-Map
     Common-Average-Reference
+    Commutator-Control
     CNN-Ripple
     Crossing-Detector
     Data-Snapshot
