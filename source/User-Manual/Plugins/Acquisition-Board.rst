@@ -21,7 +21,7 @@ Acquisition Board
    "*Source Code*", "https://github.com/open-ephys-plugins/acquisition-board"
 
 
-.. tip:: For more in-depth documentation on the Open Ephys Acquisition Board, please refer to the `Acquisition Board docs site <https://open-ephys.github.io/acq-board-docs/User-Manual/Generations-differences.html>`__.
+.. tip:: For more in-depth documentation on the Open Ephys Acquisition Board, please refer to the `Acquisition Board docs site <https://open-ephys.github.io/acq-board-docs/>`__.
 
 Installing and upgrading
 ==========================
