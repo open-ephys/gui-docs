@@ -87,6 +87,8 @@ Menu items
 
 Below you'll find documentation for all of the commands available from the GUI's menu:
 
+.. _file:
+
 File
 -----
 * **Open**: Browse for a previously saved signal chain XML file, and load it into the GUI.

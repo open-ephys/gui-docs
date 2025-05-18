@@ -18,6 +18,7 @@ The following tutorials are available for the Open Ephys GUI:
 
     Closed-Loop-Latency
     Data-Synchronization
+    Commutator
     How-To-Make-Your-Own-Plugin
     Making-Your-Own-Visualizer-Plugin
 
