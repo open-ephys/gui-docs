@@ -9,7 +9,7 @@ Acquisition Board
 .. image:: ../../_static/images/plugins/acquisitionboard/acquisitionboard-01.png
   :alt: Annotated settings interface for the Acquisition Board plugin
 
-.. csv-table:: Streams data from any version of the `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__.
+.. csv-table:: Streams data from any generation of the `Open Ephys acquisition board <https://open-ephys.org/acq-board>`__.
    :widths: 18, 80
 
    "*Plugin Type*", "Source"
@@ -35,14 +35,22 @@ Plugin configuration
 Headstages
 ############
 
-On the left-hand side of the module, there are four rows with 2 slots each. Each row represents a headstage port on the acquisition board (denoted as A, B, C, & D left-to-right on the hardware). Each port can accommodate either two headstages *without* an IMU or one headstage *with* an IMU. This corresponds to the following plugin behavior: when a headstage without an IMU is detected, it will occupy one slot in a row. When a headstage with an IMU is detected, it will occupy both slots in a row. When this processor is added to the signal chain, it automatically detects  connected headstages, as well as whether they contain a 64- or 32-channel Intan chip. If you add or remove headstages after the module has been loaded, you must press the "RESCAN" button. 
+On the left-hand side of the module, there are four rows with 2 slots each. Each row represents a headstage port on the acquisition board (denoted as A, B, C, & D left-to-right on the hardware). Each headstage port can accommodate up to two headstages*. When this processor is added to the signal chain, it automatically detects connected headstages, as well as whether they contain a 64- or 32-channel Intan chip, and whether or not they have an IMU (inertial measurement unit). Each slot in the row corresponding to the headstage port in use will be populated as follows:
 
-..  note:: Plugging two headstage into one port requires a `dual headstage adapter <https://open-ephys.github.io/acq-board-docs/Hardware-Guide/Cables.html#dual-headstage-adapter>`__
+- When a single headstage *without* an IMU is connected a port, the channel count of the Intan chip (32 or 64) will be displayed in a slot.
+- When a single 3D capable headstage *with* an IMU is connected to a port, the channel count of the Intan chip (32 or 64) will be displayed in the first slot, and "IMU" will be displayed on the second slot. 
+- When two headstages share a port, the channel count of each Intan chip (32 or 64) will be displayed in each slot. In this case, even if either or both headstages are 3D capable, no "IMU" will be displayed, and 3D capabilities won't be available.
+
+..  note:: Plugging two headstages into one port requires a `dual headstage adapter <https://open-ephys.github.io/acq-board-docs/Hardware-Guide/Cables.html#dual-headstage-adapter>`__. The SPI connector labelled 1 corresponds to the headstage that appears in the first slot of the row, and the the connector labelled 2, to the second slot.
+
+If you add or remove headstages after the Acquisition Board processor has been loaded, you must press the "RESCAN" button for the hardware changes to be detected.
+
+*Actually, each headstage port can accommodate up to two 64-channel Intan chips that can be on the same headstage, but having more than one chip per headstage is rare, so this is described per headstage.*
 
 Using 16-channel headstages
 ----------------------------
 
-Clicking on the button for one of the detected headstages will toggle it between 32-channel and 16-channel mode. This is necessary because the difference between 16-channel and 32-channel headstages cannot detected in software, and has to be selected manually.
+Clicking on the slot of one of the detected headstages will toggle it between 32-channel and 16-channel mode. This is necessary because the difference between 16-channel and 32-channel headstages cannot detected in software, and has to be selected manually.
 
 Sample rate selection
 #######################
@@ -79,7 +87,7 @@ Sets the threshold for the noise slicer on the hardware audio outputs (sets any 
 Clock divider
 ##############
 
-The BNC connector on the back of the board will send a digital pulse each time a new sample is acquired. The clock divided makes it possible to downsample this clock, so a pulse is sent every *N* samples. Note that *N* can only be one or an even number, even though this is not enforced via the settings interface.
+The BNC connector on the back of the board will send a digital pulse each time a new sample is acquired. The clock divider makes it possible to downsample this clock, so a pulse is sent every *N* samples. Note that *N* can only be one or an even number, even though this is not enforced via the settings interface.
 
 DSP button
 ###########
@@ -117,7 +125,7 @@ To open the impedance measurement interface, click the "window" or "tab" buttons
 Memory Monitor
 ###############
 
-..  note:: This pertains only to hardware Gen2/Gen3 with firmware 1.5.1+
+..  note:: This pertains only to Acquisition Board Gen 2 and Gen 3 with firmware 1.5.1+
 
 .. image:: ../../_static/images/plugins/acquisitionboard/acquisitionboard-04.png
   :alt: Updated editor with a memory usage monitor on the left
@@ -143,5 +151,3 @@ Installing the "Acquisition Board" will also install the "Acq Board Output" plug
 If this plugin is placed downstream of the Acquisition Board plugin, as well as a plugin that generates TTL events (e.g., :ref:`crossingdetector` or :ref:`rippledetector`), the digital output channel specified by the :code:`TTL_OUT` parameter will be temporarily set to high each time a TTL event is received on the :code:`TRIGGER_LINE`. The approximate duration of this event (in milliseconds) is set by the :code:`EVENT_DURATION` parameter. 
 
 This configuration can be used to perform closed-loop feedback experiments in which some feature of the neural data (such as phase of an oscillation, or the presence of a ripple event), is used to trigger stimulation.
-
-|
