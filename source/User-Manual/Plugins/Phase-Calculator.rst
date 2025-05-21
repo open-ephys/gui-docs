@@ -34,7 +34,7 @@ The input to the Phase Calculator should be a wideband, *unfiltered* signal. The
 
 Because the Phase Calculator overwrites incoming channels with the estimated phase, there should be a :ref:`splitter` in the signal chain if the original signals are needed for further downstream processing.
 
-This image shows the output of the Phase Calculator with two channels (1 and 5) being analyzed.
+This image shows the output of the Phase Calculator with two channels (1 and 4) being analyzed.
 
 .. image:: ../../_static/images/plugins/phasecalculator/phase_calculator_demo.png
   :alt: Phase Calculator demo
