@@ -11,7 +11,12 @@ Version 0.6.x (released in July 2022) included a number of changes designed to m
 Stream-based processing
 ========================
 
-The most important change in version 0.6.x is that channels are now organized by "streams," which represent a group of continuous channels that are sampled synchronously. Previously, synchronously sampled channels were grouped together into "subprocessors," but there was minimal information available about subprocessors, and settings were still applied on a channel-by-channel basis. Now, each plugin includes a "stream selector" interface that replaces the old "channel selector" interface:
+The most important change in version 0.6.x is that channels are now organized by "streams," which
+represent a group of continuous channels that are sampled synchronously. Previously, synchronously
+sampled channels were grouped together into "subprocessors", but there was minimal information
+available about subprocessors, and settings were still applied on a channel-by-channel basis. Now,
+each plugin includes a "stream selector" interface that replaces the old "channel selector"
+interface:
 
 .. image:: ../_static/images/whatsnew/whatsnew-01.png
   :alt: Channel selector vs stream selector
@@ -33,7 +38,11 @@ The first time the GUI is launched (or after selecting "Load a default config" f
 Fewer built-in plugins
 ========================
 
-In version 0.6.x, a number of plugins that were previously included by default have been moved to separate repositories. This includes the "Rhythm FPGA" plugin (now split in two and renamed "Acqusition Board" and "Intan RHD USB"), the :ref:`spikesorter`, and the :ref:`pulsepal`. Moving these plugins to their own repositories makes it possible to upgrade them via the Plugin Installer, instead of having to update the entire host application.
+In version 0.6.x, a number of plugins that were previously included by default have been moved to
+separate repositories. This includes the "Rhythm FPGA" plugin (now split in two and renamed
+"Acquisition Board" and "Intan RHD USB"), the :ref:`spikesorter`, and the :ref:`pulsepal`. Moving
+these plugins to their own repositories makes it possible to upgrade them via the Plugin Installer,
+instead of having to update the entire host application.
 
 
 Audio Monitor plugin
@@ -87,10 +96,10 @@ The API is "RESTful", such that the resource URLs are:
 
 - :code:`PUT /api/processors/<processor_id>/config` : sends a configuration message to one processor, e.g.: :code:`{"text" : "Message content"}`.
  
-- :code:`GET /api/recording`` : returns a JSON string with information about recording parameters, including the IDs of the available Record Nodes.
+- :code:`GET /api/recording` : returns a JSON string with information about recording parameters, including the IDs of the available Record Nodes.
 
 - :code:`PUT /api/recording` : used to set the default recording options.
  
-- :code:`PUT /api/recording/<processor_id>`` : used to set the options for a given Record Node.
+- :code:`PUT /api/recording/<processor_id>` : used to set the options for a given Record Node.
 
 |

@@ -126,14 +126,9 @@ Message Data
 Example Code
 #############
 
-In the **Resources/python_client** directory of the plugin repository, there is an example Python client called :code:`simple_plotter_zmq.py`` which plots the continuous data received from the Open Ephys GUI over a network port (see image below).
+In the **Resources/python_client** directory of the plugin repository, there is an example Python client called :code:`simple_plotter_zmq.py` which plots the continuous data received from the Open Ephys GUI over a network port (see image below).
 
 .. image:: ../../_static/images/plugins/zmqinterface/zmqinterface-02.png
   :alt: ZMQ Client in Python
 
 |
-
-
-
-
-

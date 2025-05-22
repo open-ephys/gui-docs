@@ -7,7 +7,7 @@ Common and external libraries
 
 Not only do plugins make it easier to share new features with other users, they can also take advantage of a wide array of C++ libraries without adding new dependencies to the host application. While there are many plugins that only rely on the Open Ephys Plugin API, JUCE, and the C++ standard library, in some cases it is essential to call functions from more specialized libraries. External libraries can add powerful features with minimal extra code.
 
-Some examples of plugins that use external libaries include:
+Some examples of plugins that use external libraries include:
 
 * `Neuropixels PXI <https://github.com/open-ephys-plugins/neuropixels-pxi>`__ (*Neuropixels API*)
 * `ZMQ Interface <https://github.com/open-ephys-plugins/zmq-interface>`__ (*ZeroMQ*)
@@ -133,7 +133,7 @@ Shared / dynamic Libraries
 
 Shared or dynamic libraries are pre-built libraries that are linked to the plugin or common library at compile time. The plugin / common library needs access to the library's header files, plus a library linker file that's only used for compilation. The plugin / common library must ship with a separate dynamic library, which is called by the plugin / common library at runtime.
 
-These library files are platform-specific. Windows requires a :code:`.lib` file during compile-time and :code:`.dll` file at runtime. Linux needs a "shared object" or :code:`.so` file and macOS needs a :code:`.dylib` file for both compile and run time. Since Windows does not have standardized paths for libraries, as Linux and macOS do, it is necessary to pack the appropriate Windows version of the required libraries alongside the source code files. For Linux and macOS, you can either install these dependencies to the standardized paths manually or using a package manager, or you can provide the library files alongside the source code files just like Windows. To allow the plugin / common libray to find and load these library files during compile-time and runtime, you also need to modify their :code:`CMakeLists.txt` file.
+These library files are platform-specific. Windows requires a :code:`.lib` file during compile-time and :code:`.dll` file at runtime. Linux needs a "shared object" or :code:`.so` file and macOS needs a :code:`.dylib` file for both compile and run time. Since Windows does not have standardized paths for libraries, as Linux and macOS do, it is necessary to pack the appropriate Windows version of the required libraries alongside the source code files. For Linux and macOS, you can either install these dependencies to the standardized paths manually or using a package manager, or you can provide the library files alongside the source code files just like Windows. To allow the plugin / common library to find and load these library files during compile-time and runtime, you also need to modify their :code:`CMakeLists.txt` file.
 
 The steps for modifying the :code:`CMakeLists.txt` as well as providing and installing the libraries are as follows:
 
@@ -182,7 +182,7 @@ The steps for modifying the :code:`CMakeLists.txt` as well as providing and inst
 
 
 
-4. We then need to make sure that the plugin / common library is able to find the library files during compile time. This can be done in two different ways dependeing on the type of library. For most commonly used libraries, the :code:`find_package` option is recommended. An example would be
+4. We then need to make sure that the plugin / common library is able to find the library files during compile time. This can be done in two different ways depending on the type of library. For most commonly used libraries, the :code:`find_package` option is recommended. An example would be
 
 .. code-block:: cmake
 
@@ -190,7 +190,7 @@ The steps for modifying the :code:`CMakeLists.txt` as well as providing and inst
    target_link_libraries(${COMMONLIB_NAME} ${ZLIB_LIBRARIES})
    target_include_directories(${COMMONLIB_NAME} PRIVATE ${ZLIB_INCLUDE_DIRS})
 
-If there is no standard package finder for CMake, :code:`find_library`` and :code:`find_path`` can be used to find the library and include files respectively. The commands will search in a variety of standard locations, for example:
+If there is no standard package finder for CMake, :code:`find_library` and :code:`find_path` can be used to find the library and include files respectively. The commands will search in a variety of standard locations, for example:
 
 .. code-block:: cmake
 

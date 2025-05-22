@@ -13,7 +13,10 @@ Record Engines
    "*Template*", "https://github.com/open-ephys-plugins/record-engine-template"
 
 
-In the Open Ephys GUI, data formats are defined within plugins, making it straightforward to add compatibility with alternate formats. By default, the GUI contains Record Engines for the :ref:`binaryformat`, while the :ref:`openephysformat` and :ref:`nwbdataformat` can be added via the Plugin Installer.
+In the Open Ephys GUI, data formats are defined within plugins, making it straightforward to add
+compatibility with alternate formats. By default, the GUI contains a Record Engine for the
+:ref:`binaryformat`, while the :ref:`openephysformat` and :ref:`nwbdataformat` can be added via the
+Plugin Installer.
 
 To create a new Record Engine, start with the `Record Engine Template <https://github.com/open-ephys-plugins/record-engine-template>`__ and add code that implements the following methods:
 
@@ -43,7 +46,7 @@ To create a new Record Engine, start with the `Record Engine Template <https://g
    :param writeChannel: The index of the continuous channel relative to all actively recorded channels.
    :param realChannel: The index of the continuous channel relative to all channels processed by the Record Node.
    :param dataBuffer: A read-only buffer of continuous data samples.
-   :param timestampABuffer: A real-only buffer of timestamps for each sample, in seconds relative to the start of recording.
+   :param timestampBuffer: A read-only buffer of timestamps for each sample, in seconds relative to the start of recording.
    :param size: The total number of valid samples.
 
 

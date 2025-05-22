@@ -53,7 +53,7 @@ On your local machine, create an "OEPlugins" directory within the same directory
 Editing :code:`OpenEphysLib.cpp`
 #####################################
 
-Inside the "Source" folder of the plugin repository you just cloned, you'll find the :code:`OpenEphysLib.cpp` file that contains critical information about your plugin. Open it in your preferred text editor and make the following changes, depending on the type of plugin you're creating:
+Inside the "Source" folder of the plugin repository you just cloned, you'll find the :code:`OpenEphysLib.cpp` file that contains critical information about your plugin. Open it in your preferred text editor and make the following changes, depending on the type of plugin you're creating.
 
 **Processor** and **Visualizer** Plugins
 -------------------------------------------

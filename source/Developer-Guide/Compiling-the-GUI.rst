@@ -84,7 +84,7 @@ If you want the GUI to be able to communicate with the Open Ephys acquisition bo
    $ sudo cp Resources/Scripts/40-open-ephys.rules /etc/udev/rules.d
    $ sudo service udev restart
 
-.. note:: On Fedora/CentOS distros, substitute :code:`sudo udevadm conrol --reload-rules` for the last command
+.. note:: On Fedora/CentOS distros, substitute :code:`sudo udevadm control --reload-rules` for the last command
 
 Now, generate the Linux makefiles by entering:
 

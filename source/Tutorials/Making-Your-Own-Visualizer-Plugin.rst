@@ -263,7 +263,9 @@ We will make a small change to :code:`RateViewerEditor.cpp`, which is to change 
 Creating a Combo Box
 --------------------
 
-To make it possible to change the active electrode, we will create a selectable list of all the available electrodes for the currently selected stream in the editor. Create a :code:`ComboBox`` in the editor by making the following changes in :code:`RateViewerEditor.h`:
+To make it possible to change the active electrode, we will create a selectable list of all the
+available electrodes for the currently selected stream in the editor. Create a :code:`ComboBox` in
+the editor by making the following changes in :code:`RateViewerEditor.h`:
 
 1. Have the :code:`RateViewerEditor` class inherit from :code:`ComboBox::Listener`, in addition to :code:`VisualizerEditor`:
 

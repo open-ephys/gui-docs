@@ -87,7 +87,7 @@ The following is an example of a minimal implementation of :code:`DataThread::up
    {
       // Clear previous values
       sourceStreams->clear();
-      sourceBuffers.clear(); // DataThread class memeber 
+      sourceBuffers.clear(); // DataThread class member 
       continuousChannels->clear();
       eventChannels->clear();
 
@@ -183,7 +183,7 @@ Minimal implementation of :code:`DataThread::stopAcquisition()`:
    }
 
 
-In addition, the following virtual methods can be overriden to extend the functionality of a Data Thread:
+In addition, the following virtual methods can be overridden to extend the functionality of a Data Thread:
 
 .. function:: std::unique_ptr<GenericEditor> createEditor(SourceNode* sourceNode)
 

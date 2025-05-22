@@ -21,7 +21,7 @@ If you're developing a new plugin for the GUI, it will most likely be a **Proces
 There are three type of Processor Plugins:
 
 #. **Sources** generate data, and must be placed at the beginning of a signal chain. Note that if a source is communicating with external hardware that is not synchronized with the GUI's signal chain callbacks, a :ref:`datathreads` plugin should be used instead.
-#. **Filters** modify data, either by changing the samples contained in the continuous channel data buffer or adding TTL events or spikes to the event bufer. Filters must receive data from at least one Source.
+#. **Filters** modify data, either by changing the samples contained in the continuous channel data buffer or adding TTL events or spikes to the event buffer. Filters must receive data from at least one Source.
 #. **Sinks** send data outside the signal chain, without modifying it in any way. Sinks are typically used for visualizing data or sending triggers to external hardware.
 
 Processor Plugins must also implement an "Editor" derived from the :code:`GenericEditor` class which contains various UI elements for changing the plugin's parameters.
@@ -119,7 +119,7 @@ If a plugin needs to block acquisition from starting, it can override the follow
 
 .. function:: bool isReady()
 
-    Informs a plugin that acquisition is about to begin. The plugin should return :code:`true`` to confirm that acquisition can be safely started.
+    Informs a plugin that acquisition is about to begin. The plugin should return :code:`true` to confirm that acquisition can be safely started.
 
     :return: :code:`true` if acquisition can be started, :code:`false` otherwise.
 
@@ -342,13 +342,13 @@ Saving and loading custom parameters
 The GUI saves the signal chain in the following situations:
 
 #. Whenever a processor is added, moved, or deleted, the signal chain is written to :code:`recoveryConfig.xml`
-#. Whenever a recording is started, the signal channel is written to :code:`settings.xml` inside each Record Node directory
+#. Whenever a recording is started, the signal chain is written to :code:`settings.xml` inside each Record Node directory
 #. Whenever the GUI is closed, the signal chain is written to :code:`lastConfig.xml`
 #. Whenever the signal chain is cleared, the previous state is stored in memory so this action can be undone.
 
 In addition, the settings for individual plugins are stored in memory whenever a plugin is copied.
 
-If the plugin uses any parameters that are not use the built-in :code:`Parameter` class, it needs to implement the following functions to ensure they are saved and loaded properly:
+If the plugin uses any parameters that are not using the built-in :code:`Parameter` class, it needs to implement the following functions to ensure they are saved and loaded properly:
 
 .. function:: void saveCustomParametersToXml(XmlElement* xml)
 

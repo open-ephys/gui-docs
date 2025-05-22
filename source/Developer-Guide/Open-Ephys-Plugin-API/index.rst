@@ -189,7 +189,7 @@ All types of plugins can access the :code:`CoreServices` class, which includes t
 
 .. function:: void CoreServices::createNewRecordingDirectory()
 
-    Instructs all Record Ndodes to create a new directory the next time recording is started.
+    Instructs all Record Nodes to create a new directory the next time recording is started.
 
 
 .. function:: String CoreServices::getRecordingDirectoryPrependText()

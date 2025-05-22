@@ -52,9 +52,13 @@ Since the phase estimation algorithm is somewhat processor-intensive, by default
 Defining the frequency band of interest
 ----------------------------------------
 
-First, use the :code:`FREQ RANGE`` drop-down menu to select the general frequency range to analyze. This determines which of the pre-designed Hilbert transformer filters will be used internally. Note that frequencies below 4 Hz (delta band) are too low to calculate an accurate phase estimate.
+First, use the :code:`FREQ RANGE` drop-down menu to select the general frequency range to analyze.
+This determines which of the pre-designed Hilbert transformer filters will be used internally. Note
+that frequencies below 4 Hz (delta band) are too low to calculate an accurate phase estimate.
 
-Next, use the :code:`LOW_CUT` and :code:`HIGH_CUT`` parameters to define a more specific passband. Changing the general frequency range will automatically set a default high and low cut, but they can be edited to filter to any band within the specified range.
+Next, use the :code:`LOW_CUT` and :code:`HIGH_CUT` parameters to define a more specific passband.
+Changing the general frequency range will automatically set a default high and low cut, but they can
+be edited to filter to any band within the specified range.
 
 * :code:`AR_REFRESH` and :code:`AR_ORDER` control the autoregressive model used to predict the "future" portion of the Hilbert buffer. AR parameters are estimated using Burg's method. TThe default settings generally work well, but alternate values (particularly a lower order) may improve the estimate in certain cases.
 

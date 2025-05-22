@@ -118,7 +118,8 @@ The Probe Viewer accepts config messages in the following format:
 * :code:`region_ID_1`: the abbreviated name of region 1 (e.g. "VISp")
 * :code:`hex_color_1`: the 6-character hex color ID for region 1
 
-For example, to update a probe named :code:`Probe A`` in a Probe Viewer with processor ID :code:`105`, you can send the following JSON string using the Python :code:`requests` library:
+For example, to update a probe named :code:`Probe A` in a Probe Viewer with processor ID
+:code:`105`, you can send the following JSON string using the Python :code:`requests` library:
 
 .. code-block:: Python
 
