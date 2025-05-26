@@ -29,7 +29,7 @@ If you'd like to make changes to the Open Ephys GUI main repository, first read 
 Other projects
 ---------------
 
-If you are interested in helping out with longer-term projects, or if you're able to donate developer time, please get in touch via `info@open-ephys.org <mailto:info@open-ephys.org>`__.
+If you are interested in helping out with longer-term projects, or if you're able to donate developer time, please get in touch via `gui@open-ephys.org <mailto:gui@open-ephys.org>`__.
 
 
 .. toctree::
