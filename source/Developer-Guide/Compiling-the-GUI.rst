@@ -59,8 +59,6 @@ Next, launch Xcode and open the :code:`open-ephys-GUI.xcodeproj` file that now l
 
 Inside XCode, hit the "Run" button to build the GUI and plugins from source. To run the GUI from within XCode, select the "open-ephys" scheme from the drop-down menu next to the Run and Stop buttons, instead of "ALL_BUILD".
 
-.. important:: If you're building the plugin on a Mac with Apple Silicon, you'll need to make sure the :code:`ALL_BUILD` profile is set use "Rosetta". You will likely need to first set the build target to "Any Mac," and then select the "My Mac (Rosetta)" option that appears. It is possible to build a version of the GUI that runs natively on Apple Silicon, but there are a few extra steps involved, and it won't work with plugins downloaded via the Plugin Installer. If you're interested in this, please reach out to support@open-ephys.org for more info.
-
 Linux
 ######
 
