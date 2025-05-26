@@ -24,17 +24,22 @@ All of the officially supported plugins assume that the plugin source code is co
    Code
    ├── plugin-GUI
    │   ├── Build
+   │   ├── JuceLibraryCode
+   │   ├── Plugins
+   │   ├── Resources
    │   ├── Source
    │   └── ...
    │
    ├── OEPlugins
    │   └── plugin-1
    │   │   ├── Build
+   │   │   ├── Resources
    │   │   ├── Source
    │   │   └── ...
    │   │
    │   └── plugin-2
    │       ├── Build
+   │       ├── Resources
    │       ├── Source
    │       └── ...
 

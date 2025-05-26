@@ -35,19 +35,22 @@ The first step in creating a new plugin is to create a repository from the appro
 
 5. Click the green "Create repository from template" button.
 
-On your local machine, create an "OEPlugins" directory within the same directory that contains your :code:`plugin-GUI` repository: Then, using the command line or the `GitHub Desktop <https://github.com/apps/desktop/>`__ app, clone your the plugin repository into this new folder. Your directory structure should look something like this:
+On your local machine, create an "OEPlugins" directory within the same directory that contains your :code:`plugin-GUI` repository: Then, using the command line or the `GitHub Desktop <https://github.com/apps/desktop/>`__ app, clone your the plugin repository into this new folder. Your directory structure should look like this:
 
-.. code-block:: 
+.. code-block::
 
-   code_directory/
-      plugin-GUI/
-      OEPlugins/
-         NewPlugin/
-            Source/
-            Build/
-            CMakeLists.txt
-            CMAKE_README.txt
-            README.md
+   Code
+   ├── plugin-GUI
+   └── OEPlugins
+       └── new-plugin
+           ├── Build
+           ├── Resources
+           ├── Source
+           ├── .gitignore
+           ├── CMAKE_README.txt
+           ├── CMakeLists.txt
+           ├── LICENSE
+           └── README.md
 
 
 Editing :code:`OpenEphysLib.cpp`

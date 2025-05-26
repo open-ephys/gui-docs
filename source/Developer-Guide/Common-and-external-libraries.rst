@@ -47,14 +47,18 @@ On your local machine, create an "OEPlugins" directory within the same directory
 
 .. code-block:: 
 
-   OEPlugins
-   └─ CommonLib
-      ├─ Build/
-      ├─ Source/
-      ├─ CMakeLists.txt
-      ├─ CMAKE_README.txt
-      ├─ link_open_ephys_lib.cmake
-      └─ README.md
+   Code
+   ├── plugin-GUI
+   └── OEPlugins
+       └── CommonLib
+           ├── Build
+           ├── Source
+           ├── .gitignore
+           ├── CMAKE_README.txt
+           ├── CMakeLists.txt
+           ├── link_open_ephys_lib.cmake
+           ├── LICENSE
+           └── README.md
 
 
 Modifying the source code
@@ -141,23 +145,26 @@ The steps for modifying the :code:`CMakeLists.txt` as well as providing and inst
 
 .. code-block:: 
 
-   OEPlugins
-   └─ Plugin_or_Common_Lib
-      ├─ Build
-      ├─ libs
-      │   ├─ linux
-      │   │   ├─ include           # library headers
-      │   │   ├─ lib               # compile-time (.so) file(s)
-      │   │   └─ bin               # runtime (.so.x) file(s)
-      │   ├─ macos
-      │   │   ├─ include           # library headers
-      │   │   ├─ lib               # compile-time (.dylib) file(s)
-      │   │   └─ bin               # runtime (.x.dylib) file(s)
-      │   └─ windows
-      │      ├─ include           # library headers
-      │      ├─ lib               # compile-time (.lib) file(s)
-      │      └─ bin               # runtime (.dll) file(s)
-      └─ Source
+   Code
+   ├── plugin-GUI
+   └── OEPlugins
+       └── CommonLib
+           ├── Build
+           ├── libs
+           │   ├─ linux
+           │   │   ├─ include           # library headers
+           │   │   ├─ lib               # compile-time (.so) file(s)
+           │   │   └─ bin               # runtime (.so.x) file(s)
+           │   ├─ macos
+           │   │   ├─ include           # library headers
+           │   │   ├─ lib               # compile-time (.dylib) file(s)
+           │   │   └─ bin               # runtime (.x.dylib) file(s)
+           │   └─ windows
+           │       ├─ include           # library headers
+           │       ├─ lib               # compile-time (.lib) file(s)
+           │       └─ bin               # runtime (.dll) file(s)
+           ├── Source
+           └── ...
 
 
 2. Once you have you library files in place, open the plugin / common lib's  :code:`CMakeLists.txt` file
