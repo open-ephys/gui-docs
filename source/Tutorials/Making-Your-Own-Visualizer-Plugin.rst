@@ -5,6 +5,8 @@
 Making Your Own Visualizer Plugin
 ==================================
 
+.. note:: This tutorial was written for Open Ephys GUI v0.6.x. An updated tutorial designed for v1.0 will be available soon.
+
 All processor plugins within the Open Ephys GUI have the option of creating a "Visualizer" that appears as a tab in the Viewport or in a separate window. Visualizers can be used to hold parameter-setting interfaces that are too bit to fit inside the plugin's editor, or they can display real-time animations of the data being handled by the plugin.
 
 This tutorial will guide you through the steps involved in making a Visualizer plugin from scratch. At the end, you will have created a "Rate Viewer" plugin that displays the rate at which spikes are occurring on an upstream electrode. Along with explaining how to configure the plugin and set up the main :code:`process()` method, this tutorial will demonstrate how to create a real-time data display using the GUI's built-in Interactive Plot class. 
