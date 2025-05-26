@@ -6,6 +6,8 @@
 Measuring Closed-Loop Latency
 ==============================
 
+.. note:: This tutorial was written for Open Ephys GUI v0.6.x. An updated tutorial designed for v1.0 will be available soon.
+
 One of the key features of the Open Ephys GUI is that it provides the ability to reconfigure your signal chains on the fly. "Source" plugins that acquire neural data can be combined with "filter" plugins that detect salient events, which can be linked to "Sink" plugins that can trigger electrical or optical stimulation to the brain. Because of the modular nature of the GUI, the same closed-loop signal chain can be used with a variety of different data sources.
 
 When using the GUI for closed-loop feedback experiments, all of the data processing happens in *software*, which limits the speed at which the system can respond to incoming events. In general, you can expect about 20-30 milliseconds of delay between the time at which the external event occurs, and the time at which the GUI generates an output in respond to that event. There are ways to reduce this delay, as this tutorial will explain, but given the limitations of both hardware and software, it will never reach sub-millisecond precision. Nevertheless, this timescale is still useful for a wide range of closed-loop paradigms, including:

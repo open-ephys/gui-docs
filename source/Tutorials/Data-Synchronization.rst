@@ -7,6 +7,8 @@
 Synchronizing Data Streams
 ============================
 
+.. note:: This tutorial was written for Open Ephys GUI v0.6.x. An updated tutorial designed for v1.0 will be available soon.
+
 The Open Ephys GUI is able to acquire, process, and save data from multiple asynchronous data streams simultaneously. However, even if two data streams have identical sample rates, they are neither guaranteed to start acquisition simultaneously nor acquire data at exactly the advertised sample rate. Therefore, some synchronization procedure is required.
 
 Synchronization is typically performed offline, using the timing events on a "sync line" that is shared between each data acquisition device. But the GUI can also be configured to synchronize data from separate streams in real time, as it is being written to disk. This tutorial uses the example of Neuropixels probes and a National Instruments Data Acquisition (NIDAQ) device to demonstrate how to synchronize data streams online.
