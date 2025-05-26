@@ -84,8 +84,6 @@ Via DMG (recommended)
 
 4. Double-click on the **open-ephys** app bundle to launch the GUI.
 
-.. note:: Depending on your security settings, you may see a message announcing that "'open-ephys' cannot be opened because the developer cannot be verified." If so, go to System Preferences > Security and Privacy > General and click "Open Anyway" to allow the GUI to launch.
-
 .. _macos-via-zip:
 
 Via .zip file
