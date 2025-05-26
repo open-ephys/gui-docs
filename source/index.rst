@@ -2,7 +2,7 @@
 
 .. title:: Home
 
-.. image:: _static/images/screenshot-0-6-0.png
+.. image:: _static/images/screenshot-medium.png
   :alt: A screenshot of the Open Ephys GUI
 
 |
