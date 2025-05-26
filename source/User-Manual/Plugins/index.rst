@@ -7,7 +7,7 @@ Plugins are the heart of the GUI's functionality. They make it possible to swap 
 
 The GUI comes with a number of "built-in" plugins, which appear automatically when you launch the GUI. Other officially supported plugins are hosted in a centralized repository, and can be downloaded and upgraded via the Plugin Installer. This is how we want to distribute all newly created plugins in the future, to make it easier to upgrade individual plugins whenever new changes become available.
 
-A list of third-party plugins is available on the `Open Ephys wiki <https://open-ephys.atlassian.net/wiki/spaces/OEW/pages/47841283/Third-party+plugin+repositories>`__. We plan to migrate many of these to the centralized repository in the near future. To learn how to build your own plugin, check out :ref:`creatinganewplugin`.
+To learn how to build your own plugin, check out :ref:`creatinganewplugin`.
 
 
 Types of Plugins
@@ -18,19 +18,19 @@ Processor Plugins
 
 **Sources** bring data into the signal chain. Acquisition won't start unless every signal chain has at least one source.
 
-Officially supported Source plugins: :ref:`acquisitionboard`, :ref:`onebox`, :ref:`intanrhdusb`, :ref:`rhdreccontroller`, :ref:`ephyssocket`, :ref:`filereader`, :ref:`lslinlet`, :ref:`neuropixelspxi`, :ref:`NI-DAQmx`
+Officially supported Source plugins include :ref:`acquisitionboard`, :ref:`onebox`, :ref:`intanrhdusb`, :ref:`rhdreccontroller`, :ref:`ephyssocket`, :ref:`filereader`, :ref:`lslinlet`, :ref:`neuropixelspxi`, :ref:`NI-DAQmx`
 
 **Filters** alter the data in some way, either by modifying the continuous data or adding TTL events, broadcast messages, or spikes to the event buffer.
 
-Officially supported Filter plugins: :ref:`bandpassfilter`, :ref:`channelmap`, :ref:`cnnripple`, :ref:`commonaveragereference`, :ref:`crossingdetector`, :ref:`matlabinterface`, :ref:`meanspikerate`, :ref:`multibandintegrator`, :ref:`networkevents`, :ref:`neuropixelscar`, :ref:`oscevents`, :ref:`phasecalculator`, :ref:`phasedetector`, :ref:`rippledetector`, :ref:`spikedetector`, :ref:`spikesorter`, :ref:`trackingplugin`, :ref:`ttlpanels`, :ref:`virtualreference`
+Officially supported Filter plugins include :ref:`bandpassfilter`, :ref:`channelmap`, :ref:`cnnripple`, :ref:`commonaveragereference`, :ref:`crossingdetector`, :ref:`matlabinterface`, :ref:`meanspikerate`, :ref:`multibandintegrator`, :ref:`networkevents`, :ref:`neuropixelscar`, :ref:`oscevents`, :ref:`phasecalculator`, :ref:`phasedetector`, :ref:`rippledetector`, :ref:`spikedetector`, :ref:`spikesorter`, :ref:`trackingplugin`, :ref:`ttlpanels`, :ref:`virtualreference`
 
 **Sinks** send data to an external source, such as a display, stimulator, etc., without altering the underlying data streams. Data should pass through Sinks unchanged.
 
-Officially supported Sink plugins: :ref:`arduinooutput`, :ref:`datasnapshot`, :ref:`eventbroadcaster`, :ref:`falconoutput`, :ref:`latencyhistogram`, :ref:`lfpviewer`, :ref:`multibandintegrator`, :ref:`onlinepsth`, :ref:`probeviewer`, :ref:`pulsepal`, :ref:`spectrumviewer`, :ref:`spikeviewer`, :ref:`zmqinterface`
+Officially supported Sink plugins include :ref:`arduinooutput`, :ref:`datasnapshot`, :ref:`eventbroadcaster`, :ref:`falconoutput`, :ref:`latencyhistogram`, :ref:`lfpviewer`, :ref:`multibandintegrator`, :ref:`onlinepsth`, :ref:`probeviewer`, :ref:`pulsepal`, :ref:`spectrumviewer`, :ref:`spikeviewer`, :ref:`zmqinterface`
 
 **Utilities** perform miscellaneous functions related to the signal chain. 
 
-Officially supported Utility plugins: :ref:`audiomonitor`, :ref:`eventtranslator`, :ref:`merger`, :ref:`recordcontrol`, :ref:`splitter`
+Officially supported Utility plugins include :ref:`audiomonitor`, :ref:`eventtranslator`, :ref:`merger`, :ref:`recordcontrol`, :ref:`splitter`
 
 
 Record Engines
@@ -46,7 +46,7 @@ File Sources
 
 File Sources allow the File Reader to read data in different formats. These plugins do not appear in the processor list, but instead specify the file extensions that the File Reader can accept (e.g., :code:`.nwb` or :code:`.oebin`).
 
-Officially supported Record Engines: :ref:`binaryformat`, :ref:`openephysformat`, :ref:`nwbdataformat`
+Officially supported File Sources: :ref:`binaryformat`, :ref:`openephysformat`, :ref:`nwbdataformat`
 
 
 General Plugin Features
@@ -75,7 +75,7 @@ The Plugin Installer is a simple graphical user interface that allows the user t
 
 To open Plugin Installer, go to **File > Plugin Installer**, or press the shortcut keys Ctrl+P (⌘P on macOS). This brings up the interface below:
 
-.. image:: ../../_static/images/plugins/plugininstaller/pi_initial.png
+.. image:: ../../_static/images/plugins/plugininstaller/plugininstaller.png
   :alt: Overview of the Plugin Installer interface
 
 .. note:: The Plugin Installer requires a network connection in order to function. You will not be able to install plugins unless you have access to the internet.
@@ -92,18 +92,12 @@ Next is the plugin list, which, as the name implies, shows the list of plugins a
 
 Lastly, the plugin information panel gives information regarding the selected plugin. This information includes the name of the plugin, owner, list of (compatible) versions available, last updated, description, and any external dependencies.
 
-.. image:: ../../_static/images/plugins/plugininstaller/pi_interface.png
-  :alt: Screenshot of the Plugin Installer
-
 Installing Plugins
 -------------------
 
 To install a plugin, simply select the desired plugin from the plugin list, the plugin info panel will fetch the information of that plugin and display it. Then, select the desired version of that plugin from the drop-down menu, and click on Install. If everything works fine, a success message will appear. Now, the plugin should be loaded in the GUI, and it will show up in the Processor List of the main GUI window. If there is an error while installing the plugin, an error message should pop-up saying what kind of error it was. The error message will also be printed to the debug console.
 
 .. note:: Plugins downloaded via Plugin Installer won’t load into the main GUI if plugin-GUI is built from source in Debug mode. Please make sure plugin-GUI is built in Release mode before installing any plugins.
-
-.. image:: ../../_static/images/plugins/plugininstaller/pi_success.png
-  :alt: Screenshot of the Plugin Installer after successful installation
 
 Upgrading / Downgrading
 -----------------------------
