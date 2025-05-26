@@ -9,7 +9,7 @@ Commutator Control
 ..  image:: ../../_static/images/plugins/commutatorcontrol/oecommutator.png
     :alt: Annotated settings interface for the Commutator Control plugin
 
-..  csv-table:: Prevents twist in the tether connecting a moving animal to a stationary `Open Ephys acquisition board Gen3 <https://open-ephys.org/acq-board>`__.
+..  csv-table:: Prevents twist in the tether connecting a moving animal to a stationary `Open Ephys Acquisition Board Gen 3 <https://open-ephys.org/acq-board>`__.
     :widths: 18, 80
 
     "*Plugin Type*", "Sink" 
@@ -42,12 +42,15 @@ that corresponds to your commutator. To determine which COM port corresponds to 
 
 #.  Unplug  your commutator.
 
+#.  Add the commutator processor into the signal chain.
+
 #.  Click the dropdown. Note the COM ports that are shown in the dropdown. 
 
 #.  Plug in your commutator.
 
-#.  Click the dropdown. The COM port that appears in step 4 but not in step 2 is the one that
-    corresponds to your commutator.
+#.  Remove the commutator processor from the signal chain and add it back in.
+
+#.  Click the dropdown. The COM port that appears in this step but not in step 3 is the one that corresponds to your commutator.
 
 Stream selector
 ###############
