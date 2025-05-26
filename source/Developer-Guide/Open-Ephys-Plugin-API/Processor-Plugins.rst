@@ -46,10 +46,9 @@ The plugin class constructor should look like this:
         : GenericProcessor ("Plugin Name")
     {
 
-        // add plugin parameters here
     }
 
-The :code:`GenericProcessor` constructor includes one parameter that specifies how the plugin's name will appear in the GUI's Processor List. The constructor should also initialize any :code:`Parameter` objects that the plugin will use (see below for more info).
+The :code:`GenericProcessor` constructor includes one parameter that specifies how the plugin's name will appear in the GUI's Processor List. The plugin's constructor can be used to set the initialize state of key variables (but not that that any :code:`Parameter` objects should be initialized in the :code:`registerParameters()` method).
 
 GenericEditor constructor
 -----------------------------
@@ -274,7 +273,7 @@ The GUI's built-in :code:`Parameter` class provides an easy way to manage the pa
 Defining parameters
 ====================
 
-All parameters *must* be defined inside your plugin's :code:`registerParameters` method, using the constructor methods for different types of parameters, e.g.:
+All :code:`Parameter` objects *must* be defined inside your plugin's :code:`registerParameters` method, using the constructor methods for different types of parameters, e.g.:
 
 .. function:: void addIntParameter(Parameter::ParameterScope scope, const String& name, const String& description, int defaultValue, int minValue, int maxValue)
 
@@ -287,7 +286,7 @@ All parameters *must* be defined inside your plugin's :code:`registerParameters`
     :param minValue: The minimum value this parameter can take
     :param maxValue: The maximum value for this parameter
 
-See `GenericProcessor.h <https://github.com/open-ephys/plugin-GUI>`__ for a complete list of Parameter constructors.
+See `GenericProcessor.h <https://github.com/open-ephys/plugin-GUI>`__ for a complete list of :code:`Parameter` class constructors.
 
 Accessing parameters
 ====================
@@ -336,7 +335,7 @@ Your plugin can implement a custom response to parameter changes. For example, i
 
 
 
-Saving and loading custom parameters
+Saving and loading custom settings
 #####################################
 
 The GUI saves the signal chain in the following situations:
@@ -348,7 +347,7 @@ The GUI saves the signal chain in the following situations:
 
 In addition, the settings for individual plugins are stored in memory whenever a plugin is copied.
 
-If the plugin uses any parameters that are not using the built-in :code:`Parameter` class, it needs to implement the following functions to ensure they are saved and loaded properly:
+If the plugin uses any settings that are not using the built-in :code:`Parameter` class, it needs to implement the following functions to ensure they are saved and loaded properly:
 
 .. function:: void saveCustomParametersToXml(XmlElement* xml)
 

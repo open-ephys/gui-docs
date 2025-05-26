@@ -5,9 +5,9 @@
 Distributing plugins
 =====================
 
-Once a plugin has been :ref:`created <creatinganewplugin>`, it can be made available through the Open Ephys Plugin Installer by following the instructions on this page. Any plugins distributed this way must first be vetted and polished by the Open Ephys core team. If you have a plugin you believe is ready to be shared with the community, please get in touch!
+Once a plugin has been :ref:`created <creatinganewplugin>`, it can be made available through the Open Ephys Plugin Installer by following the instructions on this page. Any plugins distributed this way must first be vetted and polished by the Open Ephys core development team. If you have a plugin you believe is ready to be shared with the community, please get in touch via `gui@open-ephys.org <mailto:gui@open-ephys.org>`__!
 
-.. warning:: Some of the steps on this page require private information and login credentials contained in a private GitHub repository, :code:`open-ephys-plugins/open-ephys-plugins-ci`.
+.. warning:: Some of the steps on this page require private information and login credentials contained in a private GitHub repository, :code:`open-ephys-plugins/open-ephys-plugins-ci`. Therefore, distributing plugins must be done in collaboration with the Open Ephys development team.
 
 Setting up the plugin repository
 #################################
@@ -39,7 +39,7 @@ Setting up the Artifactory repository
 
 4. Now, specify the name of the plugin in the :code:`Repository Key` field.
 
-   .. note:: The name of the repository should have the :code:`-plugin` string appended. So, if your plugin name is Online PSTH, then the repository name should be :code:`OnlinePSTH-plugin`.
+   .. note:: The name of the repository should have the :code:`-plugin` string appended. So, if your plugin name is, e.g., Online PSTH, then the repository name should be :code:`OnlinePSTH-plugin`.
 
    .. image:: ../_static/images/developerguide/create-artifactory-repo.png
       :alt: Create Artifactory Repository
