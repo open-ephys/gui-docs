@@ -72,8 +72,6 @@ Detecting spikes
 
 7. Drag and drop a :ref:`bandpassfilter` to the right of the :ref:`lfpviewer`. With the default settings, this will filter data in a range that's appropriate for detecting action potential waveforms.
 
-.. note:: Prior to GUI version 0.5.0, it was not possible to continue a signal chain after a "Sink" processor such as the :ref:`lfpviewer`. This restriction has now been lifted, in order to simplify the creation of complex signal chains. Data will pass through Sinks the same way it passes through Filters, except it will not be modified in any way.
-
 8. Drag and drop a :ref:`spikedetector` to the right of the :ref:`bandpassfilter`.
 
 9. Press the "configure" button on the :ref:`spikedetector` editor and add 8 stereotrodes. This will automatically create 8 pairs of channels that capture spike waveforms whenever the signal on one of the two channels crosses a threshold. It's also possible to create single electrodes (1 linked channel) or tetrodes (4 linked channels).
