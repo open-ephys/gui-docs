@@ -157,6 +157,8 @@ By default, CMake will add any files with **.h** or **.cpp** extensions that liv
 
    file(GLOB_RECURSE SRC_FILES LIST_DIRECTORIES false "${SOURCE_PATH}/*.cpp" "${SOURCE_PATH}/*.h")
 
+.. important:: Whenever new files are added to your project, make sure you re-run :code:`cmake` so these will be compiled.
+
 
 Including external libraries
 ################################
