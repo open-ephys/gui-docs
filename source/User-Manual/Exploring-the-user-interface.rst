@@ -164,16 +164,16 @@ Every action taken by the user is logged to a file, along with additional inform
 Linux
 ------
 
-Log files are written to :code:`/home/<username>/open-ephys/configs-api9`
+Log files are written to :code:`/home/<username>/open-ephys/configs-api10`
 
 macOS
 -------
 
-Log files are written to :code:`/Users/<username>/Library/Application Support/open-ephys/configs-api9`.
+Log files are written to :code:`/Users/<username>/Library/Application Support/open-ephys/configs-api10`.
 
 Windows
 ---------
 
-Log files are written to :code:`C:\\Users\\<username>\\AppData\\Local\\OpenEphys\\configs-api9`.
+Log files are written to :code:`C:\\Users\\<username>\\AppData\\Local\\OpenEphys\\configs-api10`.
 
 .. _Ableton Live: https://www.ableton.com/en/live/
