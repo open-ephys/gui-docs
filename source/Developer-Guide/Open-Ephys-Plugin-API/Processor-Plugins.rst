@@ -48,7 +48,7 @@ The plugin class constructor should look like this:
 
     }
 
-The :code:`GenericProcessor` constructor includes one parameter that specifies how the plugin's name will appear in the GUI's Processor List. The plugin's constructor can be used to set the initialize state of key variables (but not that that any :code:`Parameter` objects should be initialized in the :code:`registerParameters()` method).
+The :code:`GenericProcessor` constructor includes one parameter that specifies how the plugin's name will appear in the GUI's Processor List. The plugin's constructor can be used to set the initialized state of key variables (but note that any :code:`Parameter` objects should be initialized in the :code:`registerParameters()` method).
 
 GenericEditor constructor
 -----------------------------
