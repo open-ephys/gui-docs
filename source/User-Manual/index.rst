@@ -42,6 +42,7 @@ If there's something missing from this documentation that you think should be in
     Exploring-the-user-interface
     Building-a-signal-chain
     Recording-data/index
+    Synchronization
     Remote-control
     Benchmarking
     Whats-new-in-v06x
