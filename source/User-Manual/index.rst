@@ -41,8 +41,9 @@ If there's something missing from this documentation that you think should be in
     Installing-the-GUI
     Exploring-the-user-interface
     Building-a-signal-chain
-    Recording-data/index
+    Recording-data
     Synchronization
+    Data-formats/index
     Remote-control
     Benchmarking
     Whats-new-in-v06x
