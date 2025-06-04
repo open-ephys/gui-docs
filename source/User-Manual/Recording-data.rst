@@ -82,8 +82,8 @@ Recording Spikes
 
 The **toggle spikes recording** button will enable/disable recording of any spike data coming into this Record Node. In order for spikes to be detected by the Record Node, you must have a spike-generating processor somewhere upstream of the Record Node in your signal chain.
 
-Multiple Record Nodes
-----------------------
+Adding Multiple Record Nodes
+-------------------------------
 
 There are several cases in which it's useful to have multiple Record Nodes in the same signal chain:
 

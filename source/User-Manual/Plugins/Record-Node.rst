@@ -29,9 +29,9 @@ Plugin configuration
 Recording directory
 #####################
 
-The ellipsis button at the top-right of the plugin editor is used to select the data directory for each Record Node. When a new Record Node is added to the signal chain, this matches the directory shown in the recording options interface at the top of the GUI's main window. Each Record Node can write to a separate directory if desired, for example to distribute recording across multiple drives.
+The button at the top-right of the plugin editor is used to select the data directory for each Record Node. When a new Record Node is added to the signal chain, this matches the directory shown in the recording options interface at the top of the GUI's main window. Each Record Node can write to a separate directory if desired, for example to distribute recording across multiple drives.
 
-The disk space monitor in the center of the plugin editor (vertical gray and yellow bar) displays the fraction of space remaining on the volume where the current data directory is located. This monitor will update in real-time when recording is active. Hovering the mouse over the monitor while recording will show an estimate of how many minutes remain until the volume becomes full.
+The disk space monitor in the center of the plugin editor (vertical gray and yellow bar) displays the fraction of space remaining on the volume where the current data directory is located. This monitor will update in real time when recording is active. Hovering the mouse over the monitor while recording will show an estimate of how many minutes remain until the volume becomes full.
 
 Data format
 #####################
@@ -52,7 +52,7 @@ By default, all incoming continuous channels will be recorded. If you do not nee
 
 Clicking the :code:`ALL` button will enable recording for all of the channels in the active stream. The :code:`NONE` button will disable recording for all channels in the active stream. The :code:`RANGE` button can be used select channels matching a pattern specified via Matlab-like range syntax, e.g. "1:10" for the first 10 channels, or "2:2:16" for every other channel between 2 and 16.
 
-.. important:: If you disable continuous channels at any point, be sure to double-check that the correct channels are selected written prior to starting recording. You cannot recover data for channels that are not selected at the start of recording.
+.. important:: If you disable continuous channels at any point, be sure to double-check that the correct channels are selected written prior to starting recording. You cannot recover data for channels that are not selected when recording begins.
 
 
 Selecting data types to record
@@ -64,7 +64,7 @@ The buttons on the lower right of the Record Node editor can be used to disable 
 Synchronizer settings
 ################################
 
-Each Record Node has a built-in synchronizer that can compute global timestamps (in seconds) for all streams that share a hardware input line. If your signal chain only includes one data stream, global timestamps will be computed automatically. However, if there are multiple streams (for example when using multiple Neuropixels probes), the buttons below each data stream buffer monitor can be used to select the stream to use as the main clock, as well as the TTL line where sync events are expected. See the :ref:`datasynchronization` tutorial for more in-depth information about proper hardware and software configuration.
+Each Record Node has a built-in synchronizer that can compute global timestamps (in seconds) for all streams that share a hardware input line. If your signal chain only includes one data stream, global timestamps will be computed automatically. However, if there are multiple streams (for example when using multiple Neuropixels probes), the buttons below each data stream buffer monitor can be used to select the stream to use as the main clock, as well as the TTL line where sync events are expected. See the :ref:`synchronization` page for more in-depth information about proper hardware and software configuration.
 
 Remote control
 ====================
