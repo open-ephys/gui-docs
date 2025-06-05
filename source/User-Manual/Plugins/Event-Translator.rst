@@ -35,6 +35,8 @@ By default, the Event Translator will set the first stream as the main stream, a
 
 * To change the sync line for individual streams, click on one of the gray sync buttons and select the line to which the shared digital input is connected.
 
+* For streams with hardware timestamps, see the :ref:`streams-with-hardware-timestamps` section for more in-depth information about proper configuration.
+
 It's possible to change the main stream and sync lines while acquisition is active, but not after recording has started.
 
 Expected behavior

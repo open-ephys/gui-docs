@@ -43,6 +43,7 @@ The :ref:`recordnode` and :ref:`eventtranslator` plugins use the same synchroniz
 * The sample numbers of matching pulses are used to compute the start time and sample rate scaling of each stream relative to the main clock. The start time is fixed as long as data is being acquired. The sample rate scaling is recalculated every 10 seconds based on the latest incoming events, and will become more accurate over time.
 * Once the start time and sample rate scaling have been computed, any future sample numbers can be aligned to the main clock. In the Binary format, :code:`timestamps.npy` file will contain these synchronized timestamps. If synchronization is not possible (as a result of no shared hardware events), all timestamp values will be -1.
 
+.. _streams-with-hardware-timestamps:
 
 Streams with hardware timestamps
 ####################################
