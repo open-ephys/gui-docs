@@ -288,13 +288,10 @@ Properly configuring your synchronization signals is critical for Neuropixels re
 
 Each OneBox contains an SMA connector for sync input (labeled SMA1). The behavior of this connector is configured using the synchronization interface within the plugin editor:
 
-.. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-06.png
+.. image:: ../../_static/images/plugins/onebox/onebox-05.png
   :alt: Updating sync settings
 
 * The drop-down menu allows you to configure the main sync SMA as **INPUT** or **OUTPUT**. In **INPUT** mode, an external digital input must be connected to the SMA. In **OUTPUT** mode, the OneBox will generate its own sync signal at 1 Hz, which can be used to synchronize other devices (e.g. a PXI basestation or Open Ephys Acquisition Board).
-
-* The "+" button allows you to toggle whether or not the sync line is appended to all data streams as a continuous channel. When this button is orange, each stream will include a 385th channel containing the state of the sync line. This will make the :ref:`binaryformat` data files saved by the Record Node compatible with a variety of SpikeGLX-associated offline processing tools, such as CatGT. This button should be enabled *only* if you plan to use these tools. Regardless of whether or not this option is enabled, the sync rising and falling edges will be transmitted as events to downstream processors.
-
 
 Simulation mode
 ##############################
