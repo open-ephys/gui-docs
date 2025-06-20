@@ -7,8 +7,6 @@
 Synchronizing Data Streams
 ============================
 
-.. note:: This tutorial was written for Open Ephys GUI v0.6.x. An updated tutorial designed for v1.0 will be available soon.
-
 The Open Ephys GUI is able to acquire, process, and save data from multiple asynchronous data streams simultaneously. However, even if two data streams have identical sample rates, they are neither guaranteed to start acquisition simultaneously nor acquire data at exactly the advertised sample rate. Therefore, some synchronization procedure is required.
 
 Synchronization is typically performed offline, using the timing events on a "sync line" that is shared between each data acquisition device. But the GUI can also be configured to synchronize data from separate streams in real time, as it is being written to disk. This tutorial uses the example of Neuropixels probes and a National Instruments Data Acquisition (NIDAQ) device to demonstrate how to synchronize data streams online.
@@ -24,7 +22,7 @@ The following diagram demonstrates the basic logic behind hardware-level synchro
   :align: center
   :alt: Hardware synchronization diagram
 
-There are two data streams, *A* and *B*, which have approximately the same sample rate. However, they start at slightly different times, and the clocks drift apart over the course of the recording. Therefore, it's impossible to know which samples occurred simultaneously without comparing them to a reference signal that's shared across the two data streams
+There are two data streams, *A* and *B*, which have approximately the same sample rate. However, they may start at slightly different times, and the clocks may drift apart over the course of the recording. Therefore, it's impossible to know which samples occurred simultaneously without comparing them to a reference signal that's shared across the two data streams
 
 In this example, there are a few sample numbers that are important to note:
 
@@ -84,7 +82,7 @@ In the first case, the Neuropixels basestation can be configured to output its o
 
 The advantage of this option is that it doesn't require any additional devices. However, the Neuropixels basestation can only generate pulses at regular intervals (1 Hz or 10 Hz), which can make it ambiguous which pulses were the first and last, especially if you're synchronizing data streams outside of the Open Ephys GUI (e.g., behavioral events recorded by another piece of software).
 
-In the second case, the Neuropixels’ basestation can be configured as an input accepting the digital output of an Arduino, for example:
+In the second case, the Neuropixels basestation can be configured as an input accepting the digital output of an Arduino, for example:
 
 #. Connect one end of an SMA cable to the SMA connector at the bottom of the Neuropixels basestation.
 
@@ -101,28 +99,30 @@ The Arduino can be configured to generate sync pulses at pseudo-random intervals
 
 For the purposes of this tutorial, either configuration will work.
 
+.. note:: As of GUI version 1.0, the synchronization algorithm can handle arbitrarily short pulses. So synchronization "barcodes" that encode integer values as a series of on/off pulses are perfectly fine to use for synchronization. The only type of pulses that are not compatible with the synchronizer would be continuous pulses with no variation in pulse width at frequencies of 20 Hz or higher.
+
 Software Configuration
 ######################
 
 Online synchronization occurs within the Open Ephys GUI's Record Node as data is written to disk. This means that data coming into and out of a Record Node in a signal chain is not necessarily synchronized. In order to synchronize online, the Record Node must be configured to match the active hardware configuration:
 
-#. If you haven't already, download the Neuropixels-PXI and NIDAQmx source processors via "File > Plugin Installer".
+#. If you haven't already, download the Neuropixels-PXI and NI-DAQmx source processors via "File > Plugin Installer".
 
 #. Insert a Neuropixels-PXI source processor into the signal chain.
 
-#. If using the Neuropixels-PXI to generate the sync pulses (option 1 above), change the default selection on the sync control pull-down menu from :code:`INPUT` to :code:`OUTPUT`. Use the default clock rate of 1 Hz.
+#. If using the Neuropixels-PXI to generate the sync pulses (option 1 above), change the default selection on the sync control pull-down menu from :code:`INPUT` to :code:`OUTPUT`. The interval between pulses is 1 Hz.
 
-#. Insert a NIDAQmx source processor into the editor viewport (it will automatically start a new signal chain).
+#. Insert a NI-DAQmx source processor into the editor viewport (it will automatically start a new signal chain).
 
 #. Select the Neuropixels-PXI processor in the signal chain and insert a Merger processor directly after it.
 
-#. Right click on the title bar of the Merger and select "NIDAQmx" as the source processor to merge with.
+#. Right click on the title bar of the Merger and select "NI-DAQmx" as the source processor to merge with.
 
 #. Insert a Record Node after the merger.
 
-#. Select the ||| on the left side of the Record Node to access the stream buffer monitors. The right-most buffer monitor represents the NIDAQ stream, and any remaining buffers to the left represent the Neuropixels streams (two buffers at 30 kHz and 2.5 kHz for each 1.0 probe, one buffer at 30 kHz for each 2.0 probe).
+#. The right side of the Record Node shows the stream-specific buffer monitors. The right-most buffer monitor represents the NIDAQ stream, and any remaining buffers to the left represent the Neuropixels streams (two buffers at 30 kHz and 2.5 kHz for each 1.0 probe, one buffer at 30 kHz for each 2.0 probe).
 
-#. Under each buffer monitor, click on the sync line monitor to select the digital input channel which matches the physical sync channel used in your hardware configuration. For Neuropixels there is only one channel available so it is automatically selected. For NIDAQ devices, there will likely be multiple digital channels available; select the channel used in the hardware that is connected to your sync signal.
+#. Under each buffer monitor, click on the sync line monitor to select the digital input channel which matches the physical sync channel used in your hardware configuration. For Neuropixels, there is only one channel available so it is automatically selected. For NIDAQ devices, there will be as many as 24 digital channels available; select the channel used in the hardware that is connected to your sync signal.
 
 #. Designate one of the streams to be the main clock source. By default this will be the 30 kHz band of the first probe detected.
 
@@ -139,13 +139,34 @@ At this point, the GUI is configured to write synchronized data to disk. In orde
 
 #. Start data acquisition by pressing the Play button in the Control Panel. The sync monitors turn orange once acquisition starts and then green as each stream becomes synchronized.
 
-#. Wait until all the orange sync monitors turn green. This will happen once every stream has received at least two events on the designated sync line.
+#. Wait until all the orange sync monitors turn green. This will happen once every stream has received at least three events on the designated sync line.
 
 #. Start recording by pressing the Record button in the Control Panel. Data streams with green sync control monitors will now be written to disk with synchronized timestamps.
 
 .. image:: ../_static/images/tutorials/synchronization/sync-tutorial-02.png
   :align: center
   :alt: Record Node Synchronized
+
+To view more information about the synchronization state of all of your streams, first click the three vertical lines on the right of the Record Node to open the stream selector. Then, click the double arrow in the upper right of the stream selector to expand it. This will display three columns of data related to synchronization:
+
+1. **Start**: The relative start time (in ms) of each stream relative to the "main" stream. If streams started before the main stream, these times will be negative. If they started after the main stream, their start times will be positive.
+
+2. **Tolerance**: These values reflect the accuracy of the synchronization. For each event that arrives on the sync line, the tolerance represents the difference between the estimated time of the event (based on the start time and sample rate scaling) and the actual time of the event. If synchronization is working well, these values should be well below 1 ms. The higher the sample rate of the stream, the lower the sync tolerance is likely to be.
+
+3. **Latest Sync**: The amount of time since the last sync pulse was received. If the Record Node goes more than a minute without receiving a sync pulse, these values will turn orange. After 5 minutes without a sync pulse, the values will turn red. While sync pulses at short intervals are not strictly necessary, synchronization will be more accurate if pulses arrive regularly. This is because the synchronization algorithm re-computes the relative sample rate of each stream every 10 seconds.
+
+
+Troubleshooting Synchronization
+##################################
+
+If your data streams are not synchronizing, there are a few things to check:
+
+1. Make sure the physical connections between all devices are secure. If sync pulses are being detected, they should appear as flashing squares in the data stream selection interface.
+
+2. Verify that the pattern of sync pulses are appropriate for synchronization: pulses occur at least every 30 seconds, no continuous pulses above 20 Hz.
+
+3. Make sure data is actually streaming from each device. Occasionally Neuropixels probes will fail to send data, which can be fixed by restarting the GUI.
+
 
 Loading and Processing
 ######################
