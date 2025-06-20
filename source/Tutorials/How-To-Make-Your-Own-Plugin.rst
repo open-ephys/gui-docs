@@ -5,8 +5,6 @@
 How To Make Your Own Plugin
 ============================
 
-.. note:: This tutorial was written for Open Ephys GUI v0.6.x. An updated tutorial designed for v1.0 will be available soon.
-
 The Open Ephys GUI was designed to be extended via plugins that can be developed and shared independently of the main application. This is the primary way in which end users are encouraged to add new functionality to the GUI.  
 
 This tutorial will guide you through the steps involved in making a plugin from scratch. At the end, you will have created a "TTL Event Generator" plugin, which can emit TTL events when a button is pressed, or continuously at a customizable interval. TTL events represent ON/OFF transitions that are traditionally associated with "Transistor-Transistor Logic" circuits. Within the Open Ephys GUI, TTL events are used to represent state transitions on both physical and virtual "lines." Each TTL channel can track the state of up to 256 lines, but for simplicity our plugin will only use the first 8 lines.
@@ -31,9 +29,9 @@ The first step in creating a plugin is to create a new code repository from a te
 .. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-01.png
   :alt: Processor Plugin Template Repository
 
-4. Name the repository **"ttl-event-generator"**, and optionally add a description.
+4. Name the repository **"ttl-event-generator"**, and optionally add a description. Also be sure to choose which GitHub account will own the repository.
 
-5. Click the "Create repository from template" button to initialize a new repository.
+5. Click the "Create repository" button to initialize a new repository.
 
 .. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-02.png
   :alt: Create TTLEventGenerator Repository
@@ -49,6 +47,8 @@ On your local machine, create an "OEPlugins" directory within the same directory
             Build/
             Resources/
             Source/
+            .clang-format
+            .gitignore
             CMakeLists.txt
             CMAKE_README.txt
             README.md
@@ -127,7 +127,7 @@ Finally, update the include inside :code:`OpenEphysLib.cpp` from :code:`#include
 Compiling your plugin
 ########################
 
-At this point, you should be able to compile your plugin and load it into the GUI. We advise you to compile and test the plugin every time you make changes, so that it is easier for you to identify what changes broke the code, if it happens.
+At this point, you should be able to compile your plugin and load it into the GUI. We advise you to compile and test the plugin every time you make changes, so that it is easier for you to identify what changes broke the code, in case that happens.
 
 To compile the plugin, please follow the OS-specific instructions described on the :ref:`compiling plugins <compilingplugins>` page.
 
@@ -167,10 +167,10 @@ In the plugin's :code:`.cpp` file, add the following lines to :code:`updateSetti
 
       ttlChannel = new EventChannel(settings);
       eventChannels.add(ttlChannel); // this pointer is now owned by the eventChannels array
-      ttlChannel->addProcessor(processorInfo.get()); // make sure the channel knows about this processor
+      ttlChannel->addProcessor(this); // make sure the channel knows about this processor
    }
 
-Now, if you re-compile the plugin and load it into the signal chain, you should see an extra TTL channel has been added to this plugin and all downstream plugins in the Graph View.
+Now, if you re-compile the plugin and load it into the signal chain, you should see an extra TTL channel has been added to this plugin and all downstream plugins in the GUI's Graph Viewer.
 
 Next, we will add some internal variables to track the state of our TTL lines, as well as a method to ensure their state is reset at the start of acquisition.
 
@@ -193,10 +193,10 @@ Then, in :code:`TTLEventGenerator.cpp`, we will make sure the appropriate variab
 
    bool TTLEventGenerator::startAcquisition()
    {
-      counter = 0;
-      state = false;
+      counter = 0; // reset counter
+      state = false; // reset line state
 
-      return true;
+      return true; // indicate that the processor is ready to acquire data
    }
 
 Now, we are ready to add events to inside our :code:`process()` method. First, delete the call to :code:`checkForEvents()`, because this plugin doesn't care about incoming events. Then add the following code:
@@ -211,7 +211,7 @@ Now, we are ready to add events to inside our :code:`process()` method. First, d
       for (auto stream : getDataStreams())
       {
          // Only generate on/off event for the first data stream
-         if(stream == getDataStreams()[0])
+         if (stream == getDataStreams()[0])
          {
             int totalSamples = getNumSamplesInBlock(stream->getStreamId());
             uint64 startSampleForBlock = getFirstSampleNumberForBlock(stream->getStreamId());
@@ -299,27 +299,30 @@ You should have already modified the file and class names for the plugin's edito
 Creating a slider parameter editor
 -------------------------------------
 
-To automatically generate events at certain intervals, let's add a slider with a range of event intervals from 0 ms (events disabled) to 5000 ms. We will create a slider inside the :code:`TTLEventGeneratorEditor` constructor using one of the built-in parameter editors.
+To automatically generate events at certain intervals, let's add a bounded value parameter editor with a range of event intervals from 0 ms (events disabled) to 5000 ms. We will create the interface inside the :code:`TTLEventGeneratorEditor` constructor using one of the built-in parameter editors.
 
-First, we need to make sure the parameter is declared by the processor. This is very important! If a parameter editor tries to access a parameter that doesn't exist, it will lead to a crash:
+First, we need to make sure the parameter is declared by the processor. This is very important! If a parameter editor tries to access a parameter that doesn't exist, it will lead to a crash. Any creation of parameter objects *must* be done inside the :code:`registerParameters()` method.
 
 .. code-block:: c++
    :caption: TTLEventGenerator.cpp
 
-   TTLEventGenerator::TTLEventGenerator()
-      : GenericProcessor("TTL Event Generator")
+   void TTLEventGenerator::registerParameters()
    {
-         // Event frequency
-         addFloatParameter(Parameter::GLOBAL_SCOPE,  // parameter scope
-                     "interval",              // parameter name
-                     "Interval (in ms) for automated event generation (0 ms = off)",  // parameter description
-                     1000.0f,                  // default value
-                     0.0f,                     // minimum value
-                     5000.0f,                  // maximum value
-                     50.0f);                   // step size
+      // Parameter for event frequency (Hz)
+      addFloatParameter (Parameter::PROCESSOR_SCOPE, // parameter scope
+                        "interval", // parameter name
+                        "Interval", // display name
+                        "Interval for automated event generation (0 = off)", // parameter description
+                        "ms", // unit
+                        1000.0f, // default value
+                        0.0f, // minimum value
+                        5000.0f, // maximum value
+                        50.0f); // step size
    }
 
-Now, we can add the parameter editor to :code:`TTLEventGeneratorEditor.cpp`:
+The "processor scope" means this parameter will apply to the entire processor, regardless of which data stream is selected.
+
+Next, we can add the parameter editor to :code:`TTLEventGeneratorEditor.cpp`:
 
 .. code-block:: c++
    :caption: TTLEventGeneratorEditor.cpp
@@ -330,8 +333,11 @@ Now, we can add the parameter editor to :code:`TTLEventGeneratorEditor.cpp`:
 
       desiredWidth = 180;
 
-      // event frequency slider
-      addSliderParameterEditor("interval", 100, 25); // parameter name, x pos, y pos
+      // event frequency editor
+      addBoundedValueParameterEditor (Parameter::PROCESSOR_SCOPE, // parameter scope
+                                    "interval", // parameter name
+                                    15, // x pos
+                                    35); // y pos
 
    }
    
@@ -345,22 +351,16 @@ Now, compile and load the plugin into the GUI to see the newly added slider.
 Creating a ComboBox parameter editor
 --------------------------------------
 
-To select which TTL line to send events on, we will use a "ComboBox" or drop-down menu. First,  initialize the corresponding parameter inside the :code:`TTLEventGenerator` processor constructor:
+To select which TTL line to send events on, we will use a dedicated TTL line selector. First,  initialize the corresponding parameter inside the :code:`registerParameters()` method:
 
 .. code-block:: c++
    :caption: TTLEventGenerator.cpp
 
-   // Array of selectable TTL lines
-   StringArray outputs;
-   for(int i = 1; i <= 8; i++)
-      outputs.add(String(i));
-
-   // Event output line
-   addCategoricalParameter(Parameter::GLOBAL_SCOPE, // parameter scope
-                           "ttl_line",              // parameter name
-                           "Event output line",     // parameter description
-                            outputs,                // available values
-                            0);                     // index of default value
+   // Parameter for event TTL line
+   addTtlLineParameter (Parameter::STREAM_SCOPE, // parameter scope
+                        "output_line", // parameter name
+                        "Output line", // display name
+                        "Output line for generated TTL events"); // parameter description
 
 Next, add the associated editor:
 
@@ -368,13 +368,20 @@ Next, add the associated editor:
    :caption: TTLEventGeneratorEditor.cpp
    
    // event output line
-   addComboBoxParameterEditor("ttl_line", 10, 25); // parameter name, x pos, y pos
+   addTtlLineParameterEditor (Parameter::STREAM_SCOPE, // parameter scope
+                               "output_line", // parameter name
+                               15, // x pos
+                               65); // y pos
 
 
-Compile and load the plugin into the GUI to see the newly added ComboBox.
+Unlike the :code:`FloatParameter`, this parameter has "stream scope," because it's assumed there will be separate TTL lines for each stream. However, in this case we will only be adding TTL events to the first incoming data stream.
+
+Compile and load the plugin into the GUI to see the newly added TTL line selector.
 
 .. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-04.png
-  :alt: Create a combobox
+  :alt: Create a TTL line selector
+
+Clicking on the button will bring up an interface for selecting one of eight TTL lines to use.
 
 Creating a custom parameter editor (optional)
 -----------------------------------------------
@@ -420,7 +427,7 @@ Then, in the custom parameter editor's constructor, we'll initialize the button,
       triggerButton->addListener(this); // add listener to the button
       addAndMakeVisible(triggerButton.get());  // add the button to the editor and make it visible
 
-      setBounds(0, 0, 70, 20); // set the bounds of custom parameter editor
+      setBounds(0, 0, 90, 25); // set the bounds of custom parameter editor
    }
 
 To handle button clicks, implement the :code:`buttonClicked` method as indicated below. Inside this method, we need to call :code:`setNextValue()` on the parameter as that will notify the processor about parameter value change. We also need to set the bounds of the button in the :code:`resized()` method as follows:
@@ -435,8 +442,7 @@ To handle button clicks, implement the :code:`buttonClicked` method as indicated
 
    void ManualTriggerButton::resized()
    {
-
-      triggerButton->setBounds(0, 0, 70, 20);
+      triggerButton->setBounds(0, 0, 90, 25);
    }
 
 
@@ -453,18 +459,19 @@ Now, we need to initialize the custom parameter editor inside the :code:`TTLEven
 
    // custom button parameter editor
    Parameter* manualTrigger = getProcessor()->getParameter("manual_trigger");
-   addCustomParameterEditor(new ManualTriggerButton(manualTrigger), 60, 95);
+   addCustomParameterEditor(new ManualTriggerButton(manualTrigger), 50, 95);
 
 .. code-block:: c++
    :caption: TTLEventGenerator.cpp
 
    // Parameter for manually generating events
-   addStringParameter(Parameter::GLOBAL_SCOPE, // parameter scope
-                      "manual_trigger",        // parameter name
-                      "Used to notify processor of manually triggered TTL events",  // parameter description
-                      String());               // default value
+    addNotificationParameter (Parameter::PROCESSOR_SCOPE, // parameter scope
+                              "manual_trigger", // parameter name
+                              "Trigger", // display name
+                              "Triggers a TTL event", // description
+                              false); // deactivate during acquisition
 
-.. note:: Since the custom button parameter editor is only used to tell the processor to trigger an event, we are creating the parameter to handle button click callbacks only. 
+.. note:: Since the custom button parameter editor is only used to tell the processor to trigger an event, we are creating a "Notification" parameter to handle button click callbacks only. 
 
 Compile and load the plugin into the GUI to see the newly added button:
 
@@ -474,7 +481,7 @@ Compile and load the plugin into the GUI to see the newly added button:
 Responding to parameter value changes
 #####################################
 
-Now, let's allow our UI elements to change the state of the plugin. To do this, we need to create variables inside the :code:`TTLEventGenerator` class that can be updated by our button, slider, and ComboBox parameter editors. The values of these variables *must* be updated through a special method, called :code:`parameterValueChanged()`, which responds to any parameter editor value changes. This is because the :code:`process()` method is called by a separate thread from the user interface, and the variables it needs to access can only be updated at specific times. Modifying variables via :code:`parameterValueChanged()` ensures that they are handled properly, and prevents unexpected behavior or segmentation faults.
+Now, let's allow our UI elements to change the state of the plugin. To do this, we need to create variables inside the :code:`TTLEventGenerator` class that can be updated by our bounded value, TTL line, and button parameter editors. The values of these variables *must* be updated through a special method, called :code:`parameterValueChanged()`, which responds to any parameter editor value changes. This is because the :code:`process()` method is called by a separate thread from the user interface, and the variables it needs to access can only be updated at specific times. Modifying variables via :code:`parameterValueChanged()` ensures that they are handled properly, and prevents unexpected behavior or segmentation faults.
 
 First, let's update the :code:`TTLEventGenerator` header file as follows:
 
@@ -485,6 +492,10 @@ First, let's update the :code:`TTLEventGenerator` header file as follows:
       void parameterValueChanged(Parameter* param) override;
 
    private:
+
+   	int counter = 0; // counts the total number of incoming samples
+   	bool state = false; // holds the state of the current TTL line (on or off)
+
       bool shouldTriggerEvent = false; // true if an event should be manually triggered
       bool eventWasTriggered = false; // true if an event was manually triggered
       int triggeredEventCounter = 0; // counter for manually triggered events
@@ -501,18 +512,18 @@ Now, we can define how these variables are updated inside the :code:`parameterVa
 
    void TTLEventGenerator::parameterValueChanged(Parameter* param)
    {
-      if (param->getName().equalsIgnoreCase("manual_trigger"))
-      {   
+      if (param->getName().equalsIgnoreCase ("manual_trigger"))
+      {
          shouldTriggerEvent = true;
-         LOGD("Event was manually triggered"); // log message
+         LOGD ("Event was manually triggered"); // log message
       }
-      else if(param->getName().equalsIgnoreCase("interval"))
+      else if (param->getName().equalsIgnoreCase ("interval"))
       {
-         eventIntervalMs = (float)param->getValue();
+         eventIntervalMs = (float) param->getValue();
       }
-      else if(param->getName().equalsIgnoreCase("ttl_line"))
+      else if (param->getName().equalsIgnoreCase ("output_line"))
       {
-         outputLine = (int)param->getValue();
+         outputLine = (int) param->getValue();
       }
    }
 
@@ -613,9 +624,9 @@ There are a number of ways this plugin could be enhanced. To practice creating d
 
 - Ensure an "OFF" event is sent when the output bit is changed.
 
-- Add a button that turns the plugin's output on and off.
+- Add a button that toggles the plugin's output on and off.
 
-- Add an editable label that can be used to define the time between ON/OFF events (currently the output bit flips at a 50% duty cycle).
+- Add another bounded value parameter that can be used to define the duration of each event (currently the output bit flips at a 50% duty cycle).
 
 - Make all the parameters stream-specific and generate TTL events for each input stream.
 
