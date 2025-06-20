@@ -6,11 +6,9 @@
 Measuring Closed-Loop Latency
 ==============================
 
-.. note:: This tutorial was written for Open Ephys GUI v0.6.x. An updated tutorial designed for v1.0 will be available soon.
-
 One of the key features of the Open Ephys GUI is that it provides the ability to reconfigure your signal chains on the fly. "Source" plugins that acquire neural data can be combined with "filter" plugins that detect salient events, which can be linked to "Sink" plugins that can trigger electrical or optical stimulation to the brain. Because of the modular nature of the GUI, the same closed-loop signal chain can be used with a variety of different data sources.
 
-When using the GUI for closed-loop feedback experiments, all of the data processing happens in *software*, which limits the speed at which the system can respond to incoming events. In general, you can expect about 20-30 milliseconds of delay between the time at which the external event occurs, and the time at which the GUI generates an output in respond to that event. There are ways to reduce this delay, as this tutorial will explain, but given the limitations of both hardware and software, it will never reach sub-millisecond precision. Nevertheless, this timescale is still useful for a wide range of closed-loop paradigms, including:
+When using the GUI for closed-loop feedback experiments, all of the data processing happens in *software*, which limits the speed at which the system can respond to incoming events. In general, you can expect about 20-30 milliseconds of delay between the time at which the external event occurs, and the time at which the GUI generates an output in respond to that event. There are ways to reduce this delay, as this tutorial will explain, but given the limitations of both hardware and software, it will never reach sub-millisecond precision. Nevertheless, the tens of millisecond timescale is still useful for a wide range of closed-loop paradigms, including:
 
 * Delivering stimulation at the onset of seizure-like activity (using the :ref:`multibandintegrator` plugin)
 * Triggering feedback at a specific phase of an ongoing oscillation (using the :ref:`phasecalculator` plugin)
@@ -83,20 +81,16 @@ Once the Arduinos have been configured, connect the various devices according to
 
 * Use the other BNC cable to connect the **BNC adapter** for Arduino #2 to input channel 2 of I/O board #2
 
-Building the signal chain
+Detecting incoming events
 ##########################
 
 Once all of the devices are connected, launch the Open Ephys GUI. Starting with an empty signal chain, add the following plugins, from left to right:
 
-#. **Rhythm FPGA** - It should automatically detect and connect to the acquisition board. Press the "ADC" button to add the analog input channels to the data stream.
+#. **Acquisition Board** - This plugin should automatically detect and connect to the Open Ephys acquisition board, assuming it's connected to the computer. Press the "ADC" button to add the analog input channels to the data stream.
 
-#. **Crossing Detector** - If this plugin does not appear in the signal chain, it can be added via the Plugin Installer (File > Plugin Installer). Change the "threshold" value to 3. If there are headstages connected, set the input channel ("IN") to the first ADC channel (number of headstage channels + 1).
+#. **Crossing Detector** - If this plugin does not appear in the signal chain, it can be added via the Plugin Installer (File > Plugin Installer). Press the "Constant" threshold button and change the value to 3. If there are headstages connected, set the input channel (upper left button) to the first ADC channel (number of headstage channels + 1). In the example below, there are 64 headstage channels, so the first ADC channel is 65.
 
-#. **Arduino Output** - Select the "Device" that corresponds to Arduino #2, the "Trig" channel to 1.
-
-#. **Record Node** - Use the default settings.
-
-#. **LFP Viewer** - Open the LFP Viewer in a tab using the button in the upper right corner of the plugin editor.
+#. **LFP Viewer** - Scroll down to channel ADC1 and double click on it so it fills up the whole display.
 
 The final signal chain should look like this:
 
@@ -105,45 +99,32 @@ The final signal chain should look like this:
 
 .. tip:: Setting the LFP Viewer to trigger when an event appears on channel 1 will ensure that the display is always aligned with the incoming events.
 
+If you start acquisition, you should see digital events on TTL Line 1 (yellow translucent vertical bars) aligned with the onset of each pulse.
+
+Generating digital outputs
+###########################
+
+Next, we will add an Arduino Output plugin after the LFP Viewer, so our signal chain can create digital pulses in response to incoming events:
+
+#. **Arduino Output** - Select the "Device" that corresponds to Arduino #2, the "Input line" to 1.
+
+If everything is connected correctly, you should now see two events associated with each pulse: one on line 1 (yellow) that's perfectly aligned to the start, and one on line 2 (orange) that's slightly offset in time. The pulse on line 2 is the one generated by Arduino #2.
+
+.. image:: ../_static/images/tutorials/closedlooplatency/closedlooplatency-05.png
+  :alt: Signal chain #2 for closed-loop latency tutorial.
+
+
 Measuring system latency
 ##########################
 
-Press the play button to start data acquisition. You should be able to visualize the signal on ADC channel 1 alternating between 0 and 5 volts (in the example screenshot above, the Arduino signal is emitting a 3.3 V signal). There should be a very short (5 ms) event that coincides with the rising edge of this signal, and another short event that occurs shortly thereafter. The first event represents the time of the low-to-high transition picked up by the Crossing Detector, while the second event represents the digital output delivered by Arduino #2.
+The final step is to measure the overall latency between the pulses on line 1 (when the input was received) and line 2 (when the response was generated). This can easily be done using the **Latency Histogram** plugin. If you don't see this in your processor list, use the Plugin Installer to add it.
 
-If these events do not appear as expected, double-check that the hardware connections and signal chain are configured correctly.
+Drag and drop the Latency Histogram plugin after the Arduino Output. The default settings measure the latency between events on TTL Line 1 and TTL Line 2, so these don't need to be changed for the plugin to work.
 
-Once you can see the events in the LFP Viewer, hit the record button to save data. After about 2 minutes, hit the play button  to stop acquisition and recording.
+Start acquisition and let it run for a few minutes. The Latency Histogram plugin will build up a histogram of round-trip latencies, and also show the mean and standard deviation. In the example below, the latencies span between 0 and 27 ms, with a mean of 14 ms.
 
-The following code snippet shows how to load the event data using the `open-ephys-python-tools <https://github.com/open-ephys/open-ephys-python-tools>`__ library, and plot the intervals between events on channel 1 (from the Crossing Detector) and channel 2 (from the Arduino Output):
-
-.. code:: python
-
-  from open_ephys.analysis import Session
-
-  import matplotlib.pyplot as plt
-
-  session = Session('/path/to/recording')  # create a Session object
-
-  df = session.recordnodes[0].recordings[0].events  # load the events DataFrame
-
-  trigger = df[(df.channel == 1) &
-                 (df.state == 1)] # select the "on" events on channel 1
-
-  response = df[(df.channel == 2) &
-                  (df.state == 1)] # select the "on" events on channel 2
-
-  t_response = response.timestamp.values / 30000 * 1000 # convert to ms
-  t_trigger = trigger.timestamp.values / 30000 * 1000 # convert to ms
-
-  plt.hist(t_response - t_trigger, bins=np.arange(0,40,2))
-  plt.show()
-
-This should generate a plot that looks like this:
-
-.. image:: ../_static/images/tutorials/closedlooplatency/closedlooplatency-05.png
-  :alt: Latency histogram for 23 ms buffer.
-
-This indicates the distribution of latencies for your system.
+.. image:: ../_static/images/tutorials/closedlooplatency/closedlooplatency-06.png
+  :alt: Latency histogram for closed-loop latency tutorial.
 
 Settings that affect latency
 ##############################
@@ -157,14 +138,14 @@ The second, and more easily configurable, type of buffer is the one used to pass
 .. image:: ../_static/images/tutorials/closedlooplatency/closedlooplatency-07.png
   :alt: Audio settings interface.
 
-The default latency is 23 ms, which works well for most open-loop signal chains. If you're delivering closed-loop feedback, it may be desirable to use a lower latency setting. However, keep in mind that smaller buffers have lower throughput, which may cause the CPU meter to spike.
+The default latency is around 20 ms, which works well for most open-loop signal chains. If you're delivering closed-loop feedback, it may be desirable to use a lower latency setting. However, keep in mind that smaller buffers have lower throughput, which may cause the CPU meter to spike.
 
-Here is what the same latency measurements look like for a 10 ms and 5 ms buffer size:
+Here is what the same latency measurements look like for a 10 ms buffer size:
 
-.. image:: ../_static/images/tutorials/closedlooplatency/closedlooplatency-06.png
-  :alt: Latency histogram for 10 ms and 5 ms buffers.
+.. image:: ../_static/images/tutorials/closedlooplatency/closedlooplatency-08.png
+  :alt: Latency histogram for 10 ms buffers.
 
-Note the diminishing returns for a 5 ms buffer, due to the fact that overall latency is limited by the size of the USB buffer.
+There may be diminishing returns for even smaller buffer sizes, due to the fact that overall latency is also limited by the size of the USB buffer on the acquisition board.
 
 The minimum latency is also affected by the number of continuous channels that are being processed simultaneously. If your CPU meter is spiking for smaller buffer sizes, try reducing the number of continuous channels by disabling unused channels with a :ref:`channelmap` plugin.
 
@@ -172,3 +153,5 @@ Next steps
 ###########
 
 Once you've gotten the above setup working, it can be helpful to try using the :ref:`filereader` plugin to trigger feedback. For example, you could use the :code:`data_stream_16ch_hippocampus` dataset that's included in the example data in combination with a :ref:`bandpassfilter` and :ref:`phasedetector` plugin to replicate the theta-phase-specific stimulation used in `Siegle et al., 2014 <https://elifesciences.org/articles/03061>`__. In this case, you won't be able to measure the true latency, but it will allow you to test out a signal chain that can be used in an actual experiment.
+
+|
