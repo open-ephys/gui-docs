@@ -5,8 +5,6 @@
 Making Your Own Visualizer Plugin
 ==================================
 
-.. note:: This tutorial was written for Open Ephys GUI v0.6.x. An updated tutorial designed for v1.0 will be available soon.
-
 All processor plugins within the Open Ephys GUI have the option of creating a "Visualizer" that appears as a tab in the Viewport or in a separate window. Visualizers can be used to hold parameter-setting interfaces that are too bit to fit inside the plugin's editor, or they can display real-time animations of the data being handled by the plugin.
 
 This tutorial will guide you through the steps involved in making a Visualizer plugin from scratch. At the end, you will have created a "Rate Viewer" plugin that displays the rate at which spikes are occurring on an upstream electrode. Along with explaining how to configure the plugin and set up the main :code:`process()` method, this tutorial will demonstrate how to create a real-time data display using the GUI's built-in Interactive Plot class. 
@@ -14,8 +12,6 @@ This tutorial will guide you through the steps involved in making a Visualizer p
 If you get stuck, you can take a look at the finished plugin source code here to see if your version matches: https://github.com/open-ephys-plugins/rate-viewer
 
 .. important:: These instructions assume you have already compiled the main application from source. If not, you should start by following the instructions on :ref:`this page <compilingthegui>`.
-
-.. note:: On Linux, you'll need to make a small change to the host application's source code to get the Rate Viewer plugin to work. Change line 208 of `InteractivePlot.h <https://github.com/open-ephys/plugin-GUI/blob/main/Source/Processors/Visualization/InteractivePlot.h>`__ to :code:`class PLUGIN_API DrawComponent : public Component`, then recompile the GUI. This change has been added to the **development** branch, and will be merged into the **main** branch soon.
 
 Creating a new plugin repository
 #################################
@@ -35,7 +31,9 @@ The first step in creating a plugin is to create a new code repository from a te
 
 5. Set the Description to "Open Ephys GUI visualizer tutorial".
 
-6. Click the green "Create repository from template" button.
+6. Select the GitHub account or Organization that will be owner of the repository.
+
+7. Click the green "Create repository" button.
 
 .. image:: ../_static/images/tutorials/makeyourownvisualizerplugin/visualizerplugin-02.png
   :alt: Create rate-viewer Repository
@@ -53,6 +51,8 @@ Your directory structure should look something like this:
             Build/
             Resources/
             Source/
+            .clang-format
+            .gitignore
             CMakeLists.txt
             CMAKE_README.txt
             README.md
@@ -119,7 +119,7 @@ Note that we'll keep the processor type for the Rate Viewer plugin as a :code:`S
 
 Next, rename the :code:`VisualizerPlugin.cpp` & :code:`VisualizerPlugin.h` files to :code:`RateViewer.cpp` and :code:`RateViewer.h`, and find and replace all instances of the **VisualizerPlugin** class name to **RateViewer** in the .cpp and .h files. Do the same with :code:`VisualizerPluginEditor.cpp`, :code:`VisualizerPluginEditor.h`, :code:`VisualizerPluginCanvas.cpp`, and :code:`VisualizerPluginCanvas.h`. 
 
-Next, change the "display name" of the plugin on line 30 of :code:`RateViewer.h` from :code:`Visualizer` to :code:`Rate Viewer`.
+Next, change the "display name" of the plugin on line 30 of :code:`RateViewer.cpp` from :code:`Visualizer` to :code:`Rate Viewer`.
 
 Finally, update the include inside :code:`OpenEphysLib.cpp` from :code:`#include "VisualizerPlugin.h"` to :code:`#include "RateViewer.h"`.
 
@@ -163,7 +163,7 @@ In the plugin's :code:`RateViewer.h` file, add the following lines under the :co
       std::map<const SpikeChannel*, Electrode*> electrodeMap;
 
 
-This defines a :code:`struct` to hold relevant information about each upstream electrode, and creates an :code:`OwnedArray` (from the JUCE library) to store them. In addition, we'll create a :code:`std::map` object to make it simple to associate each :code:`SpikeChannel` pointer (one of the GUI's built-in classes) with our custom Electrode :code:`structs`.
+This defines a :code:`struct` to hold relevant information about each upstream electrode, and creates an :code:`OwnedArray` (a class from the JUCE library) to store them. In addition, we'll create a :code:`std::map` object to make it simple to associate each :code:`SpikeChannel` pointer (one of the GUI's built-in classes) with our custom Electrode :code:`structs`.
 
 Next, inside the :code:`updateSettings()` method in :code:`RateViewer.cpp`, we will loop through the available :code:`SpikeChannel` pointers and store their metadata locally. Before :code:`updateSettings()` is called, the :code:`spikeChannels` array will be automatically updated to hold the latest information about upstream spike channel objects.
 
@@ -242,7 +242,12 @@ You should have already modified the file and class names for the plugin's edito
    RateViewerEditor::RateViewerEditor(GenericProcessor* p)
       : VisualizerEditor(p, "Visualizer", 200)
    {
-      //addSelectedChannelsParameterEditor("Channels", 20, 105);
+         // Add parameter editors here. Note the parameters
+         // must be created in the processor's registerParameters() method.
+         // For example:
+         // addSelectedChannelsParameterEditor(Parameter::STREAM_SCOPE,
+         //                                    "channels",
+         //                                    15, 40);
    }
 
    Visualizer* RateViewerEditor::createNewCanvas()
@@ -258,7 +263,12 @@ We will make a small change to :code:`RateViewerEditor.cpp`, which is to change 
    RateViewerEditor::RateViewerEditor(GenericProcessor* p)
       : VisualizerEditor(p, "Spike Rate", 210)
    {
-      //addSelectedChannelsParameterEditor("Channels", 20, 105);
+         // Add parameter editors here. Note the parameters
+         // must be created in the processor's registerParameters() method.
+         // For example:
+         // addSelectedChannelsParameterEditor(Parameter::STREAM_SCOPE,
+         //                                    "channels",
+         //                                    15, 40);
    }
 
 
@@ -326,7 +336,7 @@ Next, in :code:`RateViewerEditor.cpp`, delete the existing comment from the clas
 
    electrodeList = std::make_unique<ComboBox>("Electrode List");
    electrodeList->addListener(this);
-   electrodeList->setBounds(50,40,120,20);
+   electrodeList->setBounds(15,40,120,20);
    addAndMakeVisible(electrodeList.get());
 
 This creates the electrode list, sets the :code:`RateViewerEditor` as a listener, specifies its position, and adds it to the editor.
@@ -425,23 +435,28 @@ Once the plugin has been re-compiled and loaded into the GUI, if there any spike
 Defining plugin parameters
 --------------------------------------
 
-To calculate the spike rate of an electrode, we need to define a window of interest and then count the spikes within smaller windows (or bins). We'd like to make it possible for the user to customize the window size as well as the bin size. This can be done by creating an :code:`IntParameter` for each of these inside the :code:`RateViewer` constructor, as well as Text Box parameter editors inside the :code:`RateViewerEditor` constructor:
+To calculate the spike rate of an electrode, we need to define a window of interest and then count the spikes within smaller windows (or bins). We'd like to make it possible for the user to customize the window size as well as the bin size. This can be done by creating an :code:`IntParameter` for each of these inside the :code:`registerParameters` method, as well as Text Box parameter editors inside the :code:`RateViewerEditor` constructor:
 
 .. code-block:: c++
    :caption: RateViewer.cpp
 
-   RateViewer::RateViewer() 
-    : GenericProcessor("Rate Viewer"),
+   void RateViewer::registerParameters()
    {
-      addIntParameter(Parameter::GLOBAL_SCOPE,
-                     "window_size",
-                     "Size of the window in ms",
-                     1000, 100, 5000); // Default: 1000, Min: 100, Max: 5000
+      addIntParameter(Parameter::PROCESSOR_SCOPE, // scope
+                     "window_size",              // parameter name
+                     "Window size",              // display name
+                     "Size of the window in ms", // description
+                     1000,                       // default value
+                     100,                        // minimum value
+                     5000);                      // maximum value
       
-      addIntParameter(Parameter::GLOBAL_SCOPE,
-                     "bin_size",
-                     "Size of the bins in ms",
-                     50, 25, 500); // Default: 50, Min: 25, Max: 500
+      addIntParameter(Parameter::PROCESSOR_SCOPE, // scope
+                     "bin_size",                 // parameter name
+                     "Bin size",                 // display name
+                     "Size of the bins in ms",   // description
+                     50,                         // default value
+                     25,                         // minimum value
+                     500);                       // maximum value
    }
 
 .. code-block:: c++
@@ -450,15 +465,14 @@ To calculate the spike rate of an electrode, we need to define a window of inter
    RateViewerEditor::RateViewerEditor(GenericProcessor* p)
     : VisualizerEditor(p, "Spike Rate", 210)
    {
-
       electrodeList = std::make_unique<ComboBox>("Electrode List");
       electrodeList->addListener(this);
-      electrodeList->setBounds(50,40,120,20);
+      electrodeList->setBounds(15,40,120,20);
       addAndMakeVisible(electrodeList.get());
 
-      addTextBoxParameterEditor("window_size", 15, 75); // <--------
+      addTextBoxParameterEditor(Parameter::PROCESSOR_SCOPE, "window_size", 15, 75);
 
-      addTextBoxParameterEditor("bin_size", 120, 75); // <--------
+      addTextBoxParameterEditor(Parameter::PROCESSOR_SCOPE, "bin_size", 15, 100);
    }
 
 .. important:: Be sure the parameter names match exactly between the processor and the editor, otherwise it will lead to a crash!
@@ -480,7 +494,7 @@ First, let's add the declaration to :code:`RateViewer.h`:
    :caption: RateViewer.h
 
    public:
-      /** Called whenever a parameter's value is changed */
+      /** Used to alter parameters of data acquisition. */
       void parameterValueChanged(Parameter* param) override;
 
    
@@ -512,7 +526,6 @@ In order to allow the Combo Box to be used to select which electrode to display,
    {
       if (comboBox == electrodeList.get() && comboBox->getNumItems() > 0)
       {
-       
          RateViewer* rateViewerNode = (RateViewer*) getProcessor();
     
          rateViewerNode->setActiveElectrode(selectedStream, comboBox->getText());
@@ -555,6 +568,17 @@ Creating the Visualizer
 
 Now that out processor and editor have been set up, we can move on to creating the Visualizer by adding code to the :code:`RateViewerCanvas` class. The Visualizer is going to use the GUI's built-in `InteractivePlot <https://open-ephys.github.io/gui-docs/Developer-Guide/Open-Ephys-Plugin-API/Visualizer-Plugins.html#interactive-plots>`__ class that provides some basic functionality for drawing 2D charts. The X-axis for our plot will be the bin offset from the current time in milliseconds, and the Y-axis is going to be the spike rate in Hz. Lets create the plot as follows:
 
+First we create a :code:`unique_ptr` to an :code:`InteractivePlot` in the canvas header:
+
+.. code-block:: c++
+   :caption: RateViewerCanvas.handle
+
+   private:
+      /** Class for plotting data */
+      std::unique_ptr<InteractivePlot> plt;
+
+
+Next, initialize the plot in the class constructor:
 
 .. code-block:: c++
    :caption: RateViewerCanvas.cpp
@@ -562,13 +586,15 @@ Now that out processor and editor have been set up, we can move on to creating t
    RateViewerCanvas::RateViewerCanvas(RateViewer* processor_)
 	: processor(processor_),
    {
-      // Initialize the plot
-      plt.xlabel("Offset (ms)");
-      plt.ylabel("Rate (Hz)");
-      plt.setInteractive(InteractivePlotMode::OFF);
-      plt.setBackgroundColour(Colours::darkslategrey);
-      addAndMakeVisible(&plt);
-      plt.setBounds(50, 50, 800, 500);
+      plt = std::make_unique<InteractivePlot>();
+      
+      plt->xlabel("Offset(ms)");
+      plt->ylabel("Rate (Hz)");
+      plt->setInteractive(InteractivePlotMode::OFF);
+      plt->setBackgroundColour(Colours::darkslategrey);
+      addAndMakeVisible(plt.get());
+
+      plt->setBounds(50, 50, 800, 500);
    }
 
 Once compiled and loaded into the GUI, you can open the canvas via the editor and you should be able to see a blank 2D chart inside.
@@ -820,7 +846,7 @@ Next, we can push spikes to the visualizer inside the processor's :code:`void ha
    }
    
 
-Since the :code:`process()` method brings in data in blocks (buffers), we need a way to ensure the display only shows spikes that fall within the window defined by the user. This can be done by passing the most recent sample number for the current buffer to the canvas within every process loop. Update the :code:`process()` method as follows:
+Since the :code:`process()` method brings in data in blocks (buffers), we need a way to ensure the display only shows spikes that fall within the window defined by the user. This can be done by passing the size of the most recent buffer to the canvas within every process loop. Update the :code:`process()` method as follows:
 
 .. code-block:: c++
    :caption: RateViewer.cpp
@@ -829,21 +855,13 @@ Since the :code:`process()` method brings in data in blocks (buffers), we need a
    {	
       checkForEvents(true);
 
-      for (auto stream : getDataStreams())
-      {
-         if(stream->getStreamId() == getEditor()->getCurrentStream())
-         {
-               int64 mostRecentSample = getFirstSampleNumberForBlock(stream->getStreamId()) + getNumSamplesInBlock(stream->getStreamId());
-
-               if(canvas != nullptr)
-                  canvas->setMostRecentSample(mostRecentSample);
-         }
-      }
+      if (canvas != nullptr)
+         canvas->incrementSampleCount (getNumSamplesInBlock (getEditor()->getCurrentStream()));
 
    }
 
 
-Since the :code:`setMostRecentSample` function doesn't exist yet, we need to create it inside :code:`RateViewerCanvas` class:
+Since the :code:`incrementSampleCount` function doesn't exist yet, we need to create it inside :code:`RateViewerCanvas` class:
 
 
 .. code-block:: c++
@@ -851,8 +869,8 @@ Since the :code:`setMostRecentSample` function doesn't exist yet, we need to cre
 
    public:
 
-      /** Sets the sample index for the latest buffer*/
-      void setMostRecentSample(int64 sampleNum);
+      /** Counts the total number of samples received */
+      void incrementSampleCount(int64 sampleCount);
 
    private:
 
@@ -863,7 +881,7 @@ Since the :code:`setMostRecentSample` function doesn't exist yet, we need to cre
    
    void RateViewerCanvas::setMostRecentSample(int64 sampleNum)
    {
-      mostRecentSample = sampleNum;
+      mostRecentSample += sampleCount;
    }
 
 
@@ -995,7 +1013,7 @@ Note that we are using the :code:`maxCount` value to keep track of the maximum n
       range.ymin = 0.0f;
       range.ymax = (float)maxCount * 1000 / binSize;
 
-      plt.setRange(range);
+      plt->setRange(range);
    }
 
 
@@ -1048,8 +1066,8 @@ Lastly, we need to do the actual plotting. We need to make sure the spikes are c
             y.push_back(spikeCounts[i] * 1000 / binSize);
          }
 
-         plt.clear();
-         plt.plot(x, y, Colours::lightyellow, 1.0, 1.0f, PlotType::FILLED);
+         plt->clear();
+         plt->plot(x, y, Colours::lightyellow, 1.0, 1.0f, PlotType::FILLED);
       }
    }
 
