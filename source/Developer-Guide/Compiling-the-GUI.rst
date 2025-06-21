@@ -57,7 +57,7 @@ Note that the final two periods are critical for getting this command to work.
 
 Next, launch Xcode and open the :code:`open-ephys-GUI.xcodeproj` file that now lives in the "Build" directory.
 
-Inside XCode, hit the "Run" button to build the GUI and plugins from source. To run the GUI from within XCode, select the "open-ephys" scheme from the drop-down menu next to the Run and Stop buttons, instead of "ALL_BUILD".
+Inside Xcode, hit the "Run" button to build the GUI and plugins from source. To run the GUI from within Xcode, select the "open-ephys" scheme from the drop-down menu next to the Run and Stop buttons, instead of "ALL_BUILD".
 
 Linux
 ######
@@ -97,12 +97,10 @@ Once the makefile generation step is finished, enter the following line from the
 
 .. code-block:: bash
 
-   $ make
+   $ make -j
 
-This will build the main application as well as the plugins. If this step is successful, there will be a compiled binary at :code:`Build/Debug/open-ephys` or :code:`Build/Release/open-ephys`.
+This will build the main application as well as the plugins. The :code:`-j` flag tells the compiler to use as many CPU cores as possible to speed up build time. If this step is successful, there will be a compiled binary at :code:`Build/Debug/open-ephys` or :code:`Build/Release/open-ephys`.
 
-.. |fork icon| image:: ../_static/images/developerguide/fork.svg
-   :height: 15
 
 .. |br| raw:: html
 

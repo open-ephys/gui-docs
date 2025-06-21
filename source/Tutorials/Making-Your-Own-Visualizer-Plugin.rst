@@ -13,6 +13,7 @@ If you get stuck, you can take a look at the finished plugin source code here to
 
 .. important:: These instructions assume you have already compiled the main application from source. If not, you should start by following the instructions on :ref:`this page <compilingthegui>`.
 
+
 Creating a new plugin repository
 #################################
 

@@ -74,7 +74,7 @@ In the first case, the Neuropixels basestation can be configured to output its o
 
 #. Connect the other end of the SMA cable to a digital input channel of the NIDAQ device.
 
-.. note:: You will likely need an adapter to match the digital terminals.
+.. note:: You will need an SMA-to-BNC adapter cable to connect the digital terminals, such as `this one <https://www.thorlabs.com/thorproduct.cfm?partnumber=CA2806>`__ from Thorlabs.
 
 .. image:: ../_static/images/tutorials/synchronization/config_1.png
   :align: center
@@ -99,7 +99,7 @@ The Arduino can be configured to generate sync pulses at pseudo-random intervals
 
 For the purposes of this tutorial, either configuration will work.
 
-.. note:: As of GUI version 1.0, the synchronization algorithm can handle arbitrarily short pulses. So synchronization "barcodes" that encode integer values as a series of on/off pulses are perfectly fine to use for synchronization. The only type of pulses that are not compatible with the synchronizer would be continuous pulses with no variation in pulse width at frequencies of 20 Hz or higher.
+.. note:: As of GUI version 1.0, the Record Node's synchronization algorithm can handle arbitrarily short pulses. So synchronization "barcodes" that encode integer values as a series of on/off pulses are perfectly fine to use for synchronization. The only type of pulses that are not compatible with the synchronizer would be continuous pulses with no variation in pulse width at frequencies of 20 Hz or higher.
 
 Software Configuration
 ######################
@@ -147,7 +147,13 @@ At this point, the GUI is configured to write synchronized data to disk. In orde
   :align: center
   :alt: Record Node Synchronized
 
+.. note:: Sync monitors for any streams that send pre-synchronized hardware timestamps (such as those from recent versions of the Open Ephys Acquisition Board) will be blue, meaning that the timestamps will be written exactly as they emerge from the hardware. To override these timestamps (in order to synchronize with other devices), select a TTL input line to use for synchronization in that stream's sync monitor.
+
 To view more information about the synchronization state of all of your streams, first click the three vertical lines on the right of the Record Node to open the stream selector. Then, click the double arrow in the upper right of the stream selector to expand it. This will display three columns of data related to synchronization:
+
+.. image:: ../_static/images/tutorials/synchronization/sync-tutorial-03.png
+  :align: center
+  :alt: Record Node additional sync info
 
 1. **Start**: The relative start time (in ms) of each stream relative to the "main" stream. If streams started before the main stream, these times will be negative. If they started after the main stream, their start times will be positive.
 
@@ -165,7 +171,7 @@ If your data streams are not synchronizing, there are a few things to check:
 
 2. Verify that the pattern of sync pulses are appropriate for synchronization: pulses occur at least every 30 seconds, no continuous pulses above 20 Hz.
 
-3. Make sure data is actually streaming from each device. Occasionally Neuropixels probes will fail to send data, which can be fixed by restarting the GUI.
+3. Check that data is actually streaming from each device. Occasionally Neuropixels probes will fail to send data, which can be fixed by restarting the GUI.
 
 
 Loading and Processing
@@ -180,4 +186,6 @@ For streams that were not synchronized online, you can compute common timestamps
 Questions?
 ###########
 
-If anything is still unclear after reading this tutorial, please reach out to :code:`support@open-ephys.org`, we will respond directly and update the tutorial as needed.
+If anything is still unclear after reading this tutorial, please reach out to :code:`gui@open-ephys.org`, we will respond directly and update the tutorial as needed.
+
+|

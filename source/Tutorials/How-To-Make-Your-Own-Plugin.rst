@@ -7,7 +7,7 @@ How To Make Your Own Plugin
 
 The Open Ephys GUI was designed to be extended via plugins that can be developed and shared independently of the main application. This is the primary way in which end users are encouraged to add new functionality to the GUI.  
 
-This tutorial will guide you through the steps involved in making a plugin from scratch. At the end, you will have created a "TTL Event Generator" plugin, which can emit TTL events when a button is pressed, or continuously at a customizable interval. TTL events represent ON/OFF transitions that are traditionally associated with "Transistor-Transistor Logic" circuits. Within the Open Ephys GUI, TTL events are used to represent state transitions on both physical and virtual "lines." Each TTL channel can track the state of up to 256 lines, but for simplicity our plugin will only use the first 8 lines.
+This tutorial will guide you through the steps involved in making a plugin from scratch. At the end, you will have created a "TTL Event Generator" plugin, which can emit TTL events when a button is pressed, or continuously at a customizable interval. TTL events represent on/off transitions that are traditionally associated with "Transistor-Transistor Logic" circuits. Within the Open Ephys GUI, TTL events are used to represent state transitions on both physical and virtual "lines." Each TTL channel can track the state of up to 256 lines, but for simplicity our plugin will only use the first 8 lines.
 
 Along with explaining how to configure the plugin and set up the main :code:`process()` method, this tutorial will demonstrate how to create UI components for the plugin using the GUI's built-in parameter editors. 
 
@@ -296,8 +296,8 @@ You should have already modified the file and class names for the plugin's edito
    }
 
 
-Creating a slider parameter editor
--------------------------------------
+Creating a bounded value parameter editor
+------------------------------------------
 
 To automatically generate events at certain intervals, let's add a bounded value parameter editor with a range of event intervals from 0 ms (events disabled) to 5000 ms. We will create the interface inside the :code:`TTLEventGeneratorEditor` constructor using one of the built-in parameter editors.
 
@@ -343,12 +343,12 @@ Next, we can add the parameter editor to :code:`TTLEventGeneratorEditor.cpp`:
    
 Note that we also changed the desired width of the plugin to 180, to allow more space for parameter editors.
 
-Now, compile and load the plugin into the GUI to see the newly added slider.
+Now, compile and load the plugin into the GUI to see the newly added parameter editor.
 
 .. image:: ../_static/images/tutorials/makeyourownplugin/makeyourownplugin-03.png
-  :alt: Create a slider
+  :alt: Create a bounded value parameter editor
 
-Creating a ComboBox parameter editor
+Creating a TTL line parameter editor
 --------------------------------------
 
 To select which TTL line to send events on, we will use a dedicated TTL line selector. First,  initialize the corresponding parameter inside the :code:`registerParameters()` method:
