@@ -16,7 +16,7 @@ If you'd prefer to get assistance by email, simply write to :code:`gui@open-ephy
 
 **Is the GUI robust enough to carry out serious scientific research?**
 
-Absolutely. The GUI has been used to collect data for `over 400 publications and preprints <https://open-ephys.org/publications>`__ , which have appeared in every major neuroscience journal. 
+Absolutely. The GUI has been used to collect data for `over 500 publications and preprints <https://open-ephys.org/publications>`__ , which have appeared in every major neuroscience journal. 
 
 Crashes are possible, but they usually happen when testing out new features or new combinations of plugins. Once you find a signal chain that works for your needs, it can be used for many hours of uninterrupted recording.
 
@@ -24,7 +24,7 @@ Crashes are possible, but they usually happen when testing out new features or n
 
 **My current data acquisition software does X. Can you add this feature to the Open Ephys GUI?**
 
-To request a new feature, please `post an issue on GitHub <https://github.com/open-ephys/plugin-GUI/issues>`__. If it seems like something that would benefit a reasonably large fraction of the Open Ephys user base, we'll consider adding it to our `development roadmap <https://github.com/open-ephys/plugin-GUI/issues/435>`__. As with nearly all neuroscience-specific software projects, our development resources are extremely limited. But we love to learn about the needs of the community, so don't hesitate to let us know what you'd like to see in a future release!
+To request a new feature, please `post an issue on GitHub <https://github.com/open-ephys/plugin-GUI/issues>`__. If it seems like something that would benefit a reasonably large fraction of the Open Ephys user base, we'll consider adding it to our development roadmap. As with nearly all neuroscience-specific software projects, our development resources are extremely limited. But we love to learn about the needs of the community, so don't hesitate to let us know what you'd like to see in a future release!
 
 |
 
@@ -44,11 +44,11 @@ For synchronizing the GUI with camera streams, you can either record the frame t
 
 **Can I use the GUI for human EEG experiments?**
 
-EEG systems compatible with the Lab Streaming Layer protocol can be used with the GUI's :ref:`lslinlet` plugin. However, most of the plugins have been optimized for extracellular recordings from implanted electrodes, and the GUI is not designed to be used as a clinical EEG system. If you're looking for a system that can be used for human EEG experiments, we recommend checking out `OpenBCI <https://openbci.com/>`__.
+EEG systems compatible with the Lab Streaming Layer protocol can be used with the GUI's :ref:`lslinlet` plugin. However, most of the plugins have been optimized for extracellular recordings from implanted electrodes, and the GUI is not designed to be used as a clinical EEG system. If you're looking for an open-source system that can be used for human EEG experiments, we recommend checking out `OpenBCI <https://openbci.com/>`__.
 
 |
 
-**I love using open-source tools, but I'm not a developer myself. How can I contribute?**
+**I want to support open-source tools, but I'm not a developer myself. How can I contribute?**
 
 First and foremost, simply using the GUI is extremely helpful. Feedback about bugs and feature requests helps guide our development process and makes the software better for everyone. If you subscribe to our `forum <https://groups.google.com/g/open-ephys>`__, you'll receive requests to help test out new features prior to each release.
 
