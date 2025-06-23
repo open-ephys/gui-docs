@@ -9,7 +9,7 @@ MATLAB Interface
 .. image:: ../../_static/images/plugins/matlabinterface/matlabinterface-01.png
   :alt: Annotated Matlab Interface editor
 
-.. csv-table:: Streams one channel of continuous data from the Open Ephys GUI to a live Matlab session. A Matlab API allows seamless processing of the incoming data in real time.
+.. csv-table:: Streams multiple channels of continuous data from the Open Ephys GUI to a live Matlab session. A Matlab API allows seamless processing of the incoming data in real time.
    :widths: 18, 80
 
    "*Plugin Type*", "Filter"
@@ -21,14 +21,17 @@ MATLAB Interface
 Installing and upgrading
 ###########################
 
-The Matlab Interface plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Matlab Interface" plugin, and click the "Install" button.
+..
+   The Matlab Interface plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Matlab Interface" plugin, and click the "Install" button.
 
-The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
+   The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
+
+The Matlab Interface is not yet released for version 1.0 of the Open Ephys GUI. An announcement will be made via Discord/Slack when it's available for download via Plugin Installer.
 
 Plugin configuration
 ########################
 
-Before starting data acquisition, you will need to press the "Connect" button in the editor to initiate a connection between the plugin and your Matlab session. The plugin will open a socket using the IP and Port address listed in the Matlab Interface editor.
+The plugin will automatically open a socket using the IP and Port address listed in the Matlab Interface editor.
 
 To initialize the connection on the Matlab side, you will need to call your generated script from Matlab following the instructions below. Once the connection has been initiated on both sides, pressing the "Play" button in the Open Ephys GUI will automatically stream the incoming data to Matlab, and then back to the GUI for further processing. 
 
@@ -73,6 +76,3 @@ The following screenshot shows data being transmitted from the Open Ephys GUI an
 
 .. image:: ../../_static/images/plugins/matlabinterface/matlab_interface_screenshot.png
   :alt: Data streaming into Matlab
-
-|
-
