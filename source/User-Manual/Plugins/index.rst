@@ -147,6 +147,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Neuropixels-PXI
     NIDAQmx
     OneBox
+    Onix-Source
     Online-PSTH
     OSC-Events
     Phase-Calculator
