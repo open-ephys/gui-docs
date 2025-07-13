@@ -41,8 +41,8 @@ To configure the plugin:
 1. Add the ONIX Source plugin to your signal chain.
 2. In the plugin editor, select the ONIX headstage you want to stream from, specifying if the
    headstage is plugged into Port A or Port B.
-3. Set the block read buffer size, which determines how much data is read from the ONIX system at
-   once. A larger buffer size can reduce CPU usage but may increase latency.
+3. (Optional) Modify the block read buffer size, which determines how much data is read from the ONIX system at
+   once. A larger buffer size can reduce CPU usage but may increase latency. The default buffer size of 4096 is recommended for most applications.
 4. Set the port voltage, or allow the automated voltage discovery algorithm to determine the port
    voltage automatically by leaving the field empty (this automatically defaults to "Auto",
    indicating that the plugin will attempt to discover the port voltage).
@@ -142,11 +142,10 @@ smaller than the size of the largest frame, an error message will be displayed i
 with the smallest value possible for the block read size. The plugin will not allow you to connect
 to the ONIX system until the block read size is set to a valid value.
 
-Liboni Version
-################
+:code:`liboni` Version
+#########################
 
-The ONIX Source plugin uses the `liboni <https://open-ephys.github.io/ONI/v1.0/api/index.html>`__
-library to communicate with the ONIX acquisition system. The version of liboni used by the plugin is
+The ONIX Source plugin uses the :code:`liboni` library `(link) <https://open-ephys.github.io/ONI/v1.0/api/index.html>`__ to communicate with the ONIX acquisition system. The version of :code:`liboni` used by the plugin is
 displayed in the plugin editor. This version is important for compatibility with the ONIX system and
 for enabling support. This version may be updated in future releases of the plugin.
 
@@ -258,10 +257,10 @@ include a probe viewer, allowing you to visualize the probe layout and select th
 stream. Depending on the probe type, the following options, and a button to view the selected option
 in the probe viewer, may be available:
 
-- *AP Gain*: The gain for the AP channels. 
-- *LFP Gain*: The gain for the LFP channels.
 - *Reference*: The reference channel for the probe.
-- *AP Filter Cut*: Whether or not to apply a filter to the AP channels.
+- *AP Gain*: The gain for the AP channels (Neuropixels 1.0 only). 
+- *LFP Gain*: The gain for the LFP channels (Neuropixels 1.0 only).
+- *AP Filter Cut*: Whether or not to apply a filter to the AP channels (Neuropixels 1.0 only).
 
 Channel Constraints
 ^^^^^^^^^^^^^^^^^^^^^
@@ -282,10 +281,10 @@ manually enabling electrodes, the indexing logic is applied in the order that el
 selected. If two (or more) electrodes are selected that share a channel value, the highest indexed
 electrode is the only one that will be enabled.
 
-Probe Viewer
+Probe Map
 ^^^^^^^^^^^^^^^^^^^^^
 
-The probe viewer will show the probe layout, with the shank(s) drawn and the electrodes displayed as
+The Probe Map will show the probe layout, with the shank(s) drawn and the electrodes displayed as
 squares. Each electrode can be selected by clicking on it, or clicking and dragging to select
 multiple electrodes. The selected electrodes will be highlighted, and can be enabled by clicking the
 "Select" button under the *Electrodes* label to the right of the probe viewer. There are also
@@ -325,3 +324,5 @@ channels:
 - Calibration status (magnetometer, accelerometer, gyroscope, system)
   
   - Values are [0-3], where 0 means not calibrated and 3 means fully calibrated for that data type.
+
+|
