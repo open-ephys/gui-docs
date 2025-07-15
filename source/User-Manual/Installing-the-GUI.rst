@@ -46,11 +46,9 @@ Via installer (Ubuntu only)
 
 2. Double-click on the .deb file, and enter your password when prompted.
 
-3. The GUI will be installed in :code:`/usr/local/bin/open-ephys-gui`.
+3. In a terminal, run :code:`/usr/local/bin/open-ephys-gui/open-ephys` to launch the GUI.
 
-4. Type :code:`open-ephys` to launch the GUI.
-
-5. To uninstall, type :code:`sudo dpkg --remove open-ephys` in a terminal window.
+4. To uninstall, type :code:`sudo dpkg --remove open-ephys` in a terminal window.
 
 .. _linux-via-zip:
 
@@ -59,7 +57,7 @@ Via .zip file (all distros)
 
 1. Download a **.zip** file for any previous release via this link: https://openephys.jfrog.io/ui/native/GUI-binaries/Release/linux/
 
-2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
+2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys GUI"
 
 3. Open a terminal and set your working directory to the folder you just renamed.
 
