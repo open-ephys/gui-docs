@@ -14,7 +14,7 @@ Synchronization is typically performed offline, using the timing events on a "sy
 General principles of synchronization
 ############################################
 
-Whether synchronization is being performed online or offline, all data streams must share a common hardware sync line. Synchronization in software is accurate to within a few milliseconds, but is not precise enough for synchronizing electophysiogical signals acquired at tens of kilohertz.
+Whether synchronization is being performed online or offline, all data streams must share a common hardware sync line. Synchronization in software is accurate to within a few milliseconds, but is not precise enough for synchronizing electrophysiological signals acquired at tens of kilohertz.
 
 The following diagram demonstrates the basic logic behind hardware-level synchronization:
 
