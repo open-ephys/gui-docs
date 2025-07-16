@@ -35,7 +35,7 @@ Plugin Configuration
 The ONIX Source plugin allows you to stream data from the ONIX acquisition system. This plugin
 assumes that you have an ONIX Breakout Board connected and powered on before adding the plugin to
 the signal chain. To install a Breakout Board, refer to the `ONIX Breakout Board documentation
-<https://open-ephys.github.io/onix-docs/Getting%20Started/index.html/>`__.
+<https://open-ephys.github.io/onix-docs/Getting%20Started/index.html>`__.
 
 To configure the plugin:
 
@@ -70,10 +70,19 @@ Once the "Connect" button is pressed, the plugin will attempt to connect to the 
 the selected settings. If the connection is successful, the editor settings will be locked, and the
 only way to change them is to disconnect from the ONIX system by pressing the "Disconnect" button.
 Canvas options are able to be changed at any time, even after the "Connect" button is pressed, up
-until acquisition is started in the GUI's main control panel. During acquisition, all settings in the canvas are locked, and the plugin will not allow any changes until acquisition is stopped.
+until acquisition is started in the GUI's main control panel. During acquisition, all settings in
+the canvas are locked, and the plugin will not allow any changes until acquisition is stopped.
 
-Port Specific Configuration
-############################
+Synchronization
+##################
+
+All streams from the ONIX Source plugin are synchronized via hardware timestamps. This means that
+all data streams from the ONIX system will have the same time-base, allowing for accurate alignment
+of data. This also means that they do not require any additional synchronization steps in downstream
+plugins, as the timestamps are already synchronized internally.
+
+Port Configuration
+######################
 
 The ONIX Source plugin allows you to configure each port (A or B) independently. You can select the
 headstage connected to each port, set the port voltage, and monitor the connection status. Port A
@@ -81,10 +90,11 @@ and Port B can be configured to stream data from different headstages, enabling 
 different experimental setups. Select the desired headstage from the dropdown menu for each port.
 
 .. note:: 
-  The ONIX Source plugin only supports Neuropixels headstages at the moment. Other headstages may be supported in future releases.
+  The ONIX Source plugin only supports Neuropixels headstages at the moment. Other headstages will 
+  be supported in future releases.
 
-Port Voltage Configuration
------------------------------
+Port Voltage
+----------------
 
 In the nominal case, port voltage is automatically discovered based on the headstage selected. Port
 voltage is automatically set to "Auto" when the plugin is first added to the signal chain, which means
@@ -187,7 +197,7 @@ total hardware buffer memory (see image below).
 The memory usage is also saved as a stream in the ONIX Source plugin, allowing you to visualize
 memory usage over time in the GUI. This allows identification of trends in memory usage over longer
 recordings and supports diagnosis of performance issues related to memory usage. This data stream is
-always enabled, and cannot be disabled. For reference, see the image above.
+always enabled, and cannot be disabled.
 
 Plugin Canvas
 ================
@@ -195,7 +205,8 @@ Plugin Canvas
 The ONIX Source plugin includes a canvas that allows you to change the configuration settings for
 the connected headstages and their devices. The canvas is structured as tabs, with the first tab
 showing the breakout board and its devices, while the following tabs are populated with the specific
-headstage(s) selected. Each tab is structured similarly, with the following elements:
+headstage(s) selected. Each tab is structured similarly, with the following elements (note that not
+all elements are present in all tabs):
 
 - **Hub Tabs**
 
@@ -206,21 +217,51 @@ headstage(s) selected. Each tab is structured similarly, with the following elem
     - *Device Name*: The tab name shows the name of the device.
     - *Device Enabled Status*: A button that allows you to enable or disable the device. If the device is
       enabled, the button will be orange, and if it is disabled, the button will be gray.
-      
-      - Not all devices can be disabled.
+    - *Save Settings Button*: A button that allows you to save the current settings for an
+      individual device. Clicking the button will open a dialog that allows you to save the settings
+      to an XML file.
+    - *Load Settings Button*: A button that allows you to load settings for an individual device
+      from an XML file. Clicking the button will open a dialog that allows you to select an XML file
+      to load the settings from.
 
-    - *Save Settings Button*: A button that allows you to save the current settings for the device.
-      Clicking the button will open a dialog that allows you to save the settings to an XML file.
-      
-      - Not all devices have settings that can be saved.
+Saving and Loading Settings
+##############################
 
-    - *Load Settings Button*: A button that allows you to load settings from an XML file. Clicking the
-      button will open a dialog that allows you to select an XML file to load the settings from.
+Default loading and saving
+---------------------------
 
-      - Not all devices have settings that can be loaded.
+Any changes made to the device settings will be automatically re-applied when you re-start the GUI,
+provided you have checked **Reload on startup** from the "File" menu. This includes the headstage
+selection, block read size, and port voltage in the plugin editor. Changes made in each device tab
+are also automatically saved and loaded when the GUI is restarted.
+
+Copying settings between devices
+--------------------------------
+
+Settings can be transferred between devices using the "Save Settings" and "Load Settings" buttons:
+
+.. image:: ../../_static/images/plugins/onixsource/save-load-settings-buttons.png
+  :alt: Device settings buttons
+
+Settings can only be applied to the same device that created the file. This also applies to
+Neuropixels probes of the same type (i.e., Neuropixels 1.0, Neuropixels 2.0, etc.). For example,
+if you save the settings for a Neuropixels 1.0 probe, you can only load those settings into another
+Neuropixels 1.0 probe. The same applies to other devices, such as the Auxiliary IO device.
+
+ProbeInterface JSON files
+--------------------------------
+
+If you're performing offline analysis with `SpikeInterface
+<https://github.com/spikeinterface/spikeinterface>`__, it may be helpful to have information about
+your probe's channel configuration stored in a JSON file that conforms to the `ProbeInterface
+<https://probeinterface.readthedocs.io/en/main/format_spec.html>`__ specification. To export a
+ProbeInterface JSON file, simply press the "Save to JSON" button. To load a ProbeInterface JSON
+file, press the "Load from JSON" button. This will open a file dialog that allows you to select a
+JSON file to load. The loaded JSON file will be used to configure the probe settings, such as the
+selected electrodes. 
 
 .. note:: 
-  While some devices allow you to save and load settings for a specific device, the plugin will automatically save all settings when the signal chain is saved. This means that when you load a signal chain, all settings for the ONIX Source plugin will be restored to their previous state, regardless of whether the device supports saving and loading settings. The purpose of these buttons is to allow flexibility in saving/loading different configurations for the same device, or to share settings with other users.
+  If you have created a ProbeInterface JSON file for your probe externally, you can load it into the plugin using the "Load from JSON" button. For example, if it was created using the `OpenEphys.Onix1 Bonsai library <https://open-ephys.github.io/bonsai-onix1-docs/index.html>`__, you can export the JSON file from Bonsai and load it into the plugin.
 
 Breakout Board Configuration
 ###############################
@@ -298,6 +339,45 @@ any probes discovered will have their serial number displayed. This probe serial
 to identify the probe in the ONIX system, and is used to load the calibration files for the probe
 (see Calibration Files section below).
 
+Compatible Probes
+----------------------
+
+This plugin can stream data from the following Neuropixels probe types:
+
+.. csv-table::
+   :widths: 70, 40, 40
+
+   "**Probe**", "**Channels**", "**Plugin Version**"
+   "Neuropixels 1.0", "384 AP, 384 LFP", "≥0.1.0"
+   "Neuropixels 2.0 (quad-shank)", "384 wideband", "≥0.1.0"
+
+Neuropixels Data Streams
+---------------------------
+
+The ONIX Source plugin sends data from all connected probes through the GUI's signal chain unless
+they have been disabled. To disable data transmission, you can press the "Disable" button underneath
+the probe name. The button will turn gray, and the stream will not be sent through the signal chain.
+
+Neuropixels 1.0 probes have two data streams: 
+
+* 384 channels of AP band data, sampled at 30 kHz (e.g. "Probe-AP")
+
+* 384 channels of LFP band data, sampled at 2.5 kHz (e.g. "Probe-LFP")
+
+Neuropixels 2.0 quad-shank probes have only one data stream:
+
+* 384 channels of wide-band data, sampled at 30 kHz.
+
+.. note:: 
+  For headstages with multiple probes, the streams will include the probe index in the stream name (e.g., "Probe0-AP", "Probe0-LFP").
+
+As of GUI version 0.6.0, streams in downstream plugins are configured independently. This makes it
+much easier to apply different parameters to different streams, for example unique
+:ref:`bandpassfilter` settings for the AP band and LFP band. However, users should be aware that
+settings for one stream are not automatically applied to other streams. If you are recording from
+many probes simultaneously, be sure to use the Stream Selector interface in downstream plugins to
+confirm that the appropriate settings have taken effect for all incoming data streams.
+
 Channel Constraints
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -344,14 +424,20 @@ probe layout and select electrodes.
 
 Calibration Files
 ^^^^^^^^^^^^^^^^^^^^^
+Neuropixels probes require calibration in order to function properly. These files can be obtained from IMEC for every probe that you've purchased. There should be two files for each 1.0 probe:
 
-Neuropixels probes require calibration files to be loaded in order to stream data correctly. The
-calibration files can be loaded by clicking the :kbd:`...` button next to the respective file. This
+* :code:`<probe_serial_number>_ADCCalibration.csv`
+
+* :code:`<probe_serial_number>_gainCalValues.csv`
+
+and one file for each 2.0 probe:
+
+* :code:`<probe_serial_number>_gainCalValues.csv`
+
+Calibration files can be loaded by clicking the :kbd:`...` button next to the respective file. This
 will open a file dialog that allows you to select the calibration file for the probe. The calibration
 file must be in the format specified by the Neuropixels documentation, and the naming scheme must
-match the respective calibration file for the probe. This typically follows the pattern: 
-``<probe_number>_<calibration_type>.csv``, where `<probe_number>` is the serial number of the probe,
-and `<calibration_type>` is the type of calibration (e.g., `ADC`, `Gain`, etc.).
+match the format above.
 
 .. tip:: 
   If the probe serial number is not known, try connecting to the headstage first, and then check the probe serial number in the probe tab.
@@ -359,14 +445,13 @@ and `<calibration_type>` is the type of calibration (e.g., `ADC`, `Gain`, etc.).
 BNO055 Configuration
 ----------------------
 
-BNO055 is an Inertial Measurement Unit (IMU) that can be used to stream data from the ONIX
-acquisition system. The BNO IMU provides 9 degrees of freedom (9-DOF) data, including orientation,
-acceleration, gravity, and temperature data, which can be used for various analyses.
+BNO055 is an Inertial Measurement Unit (IMU) device that can be used to stream realtime orientation data
+from the headstage, and to drive active commutation without a torque measurement.
 
 Currently there are no settings available for the BNO055 IMU in the ONIX Source plugin. The device can
 be enabled or disabled by clicking the "Enable/Disable" button in the BNO055 tab. When enabled, the
 BNO055 IMU will stream data to the GUI, and the data can be visualized in the GUI's main control panel.
-The BNO055 IMU data will be streamed as a separate data stream, and can be visualized using the "LFP
+All BNO055 IMU data will be streamed as a single data stream, and can be visualized using the "LFP
 Viewer" plugin.
 
 All channels from the BNO055 IMU will be streamed, and there are no options to select which channels to
@@ -381,5 +466,9 @@ channels:
 - Calibration status (magnetometer, accelerometer, gyroscope, system)
   
   - Values are [0-3], where 0 means not calibrated and 3 means fully calibrated for that data type.
+
+.. tip::
+  The quaternion data can be used to drive the commutator in the GUI, allowing for real-time
+  commutation of the headstage. See :ref:`commutatorcontrol` for more information on how to use the commutator with the BNO055 IMU data.
 
 |

@@ -14,7 +14,7 @@ Synchronization is typically performed offline, using the timing events on a "sy
 General principles of synchronization
 ############################################
 
-Whether synchronization is being performed online or offline, all data streams must share a common hardware sync line. Synchronization in software is accurate to within a few milliseconds, but is not precise enough for synchronizing electophysiogical signals acquired at tens of kilohertz.
+Whether synchronization is being performed online or offline, all data streams must share a common hardware sync line. Synchronization in software is accurate to within a few milliseconds, but is not precise enough for synchronizing electrophysiological signals acquired at tens of kilohertz.
 
 The following diagram demonstrates the basic logic behind hardware-level synchronization:
 
@@ -177,7 +177,7 @@ If your data streams are not synchronizing, there are a few things to check:
 Loading and Processing
 ######################
 
-As of GUI v0.6.x, synchronized timestamps for the `Binary Format <https://open-ephys.github.io/gui-docs/User-Manual/Recording-data/Binary-format.html>`__ are written to :code:`timestamps.npy`, while the original sample numbers for each stream are found in :code:`sample_numbers.npy`.
+As of GUI v0.6.x, synchronized timestamps for the `Binary Format <https://open-ephys.github.io/gui-docs/User-Manual/Data-formats/Binary-format.html>`__ are written to :code:`timestamps.npy`, while the original sample numbers for each stream are found in :code:`sample_numbers.npy`.
 
 The :code:`timestamps.npy` for continuous, events, and spike data contains one float timestamp (in seconds) for every integer timestamp (in sample number) found in the corresponding :code:`sample_numbers.npy` file. The :code:`timestamps.npy` file provides a common time base to which timestamps belonging to the corresponding stream are mapped to.
 
