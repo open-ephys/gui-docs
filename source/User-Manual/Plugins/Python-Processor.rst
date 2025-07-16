@@ -22,9 +22,7 @@ Python Processor
 Installing and upgrading
 ###########################
 
-The Python Processor is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Python Processor" plugin, and click the "Install" button.
-
-The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
+The Python Processor is not yet released for version 1.0 of the Open Ephys GUI. An announcement will be made via Discord/Slack when it's available for download via Plugin Installer.
 
 Setting up a Python environment
 ####################################

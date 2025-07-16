@@ -70,25 +70,16 @@ This plugin can stream data from the following Neuropixels probe types:
    "**Probe**", "**Channels**", "**Plugin Version**", "**Min. PXI Firmware**"
    "Neuropixels 1.0", "384 AP, 384 LFP", "", ""
    "Neuropixels NHP Prototype (10 mm, 25 mm, and 45 mm)", "384 AP, 384 LFP", "≥0.2.x", ""
-   "Neuropixels NHP 128 CH Passive", "128 AP, 128 LFP", "≥0.2.x", "`BS137, BSC176`_"
-   "Neuropixels NHP Commercial (10 mm)", "384 AP, 384 LFP", "≥0.5.x", "`BS169, BSC176`_"
+   "Neuropixels NHP 128 CH Passive", "128 AP, 128 LFP", "≥0.2.x", "BS137, BSC176"
+   "Neuropixels NHP Commercial (10 mm)", "384 AP, 384 LFP", "≥0.5.x", "BS169, BSC176"
    "Neuropixels UHD Phase 1", "384 AP, 384 LFP", "", ""
-   "Neuropixels UHD Phase 2 (switchable)", "384 AP, 384 LFP", "≥0.2.x", "`BS137, BSC176`_"
-   "Neuropixels UHD Phase 3 (ultradense)", "384 AP, 384 LFP", "≥0.5.x", "`BS169, BSC176`_"
-   "Neuropixels 2.0 (beta)", "384 wideband", "≥0.2.x", "`BS137, BSC176`_"
-   "Neuropixels 2.0 (multishank)", "384 wideband", "≥0.6.x", "`BS169, BSC189`_"
-   "Neuropixels 2.0 (single shank)", "384 wideband", "**≥0.7.x**", "`BS169, BSC191`_"
-   "Neuropixels 2.0 (quad base)", "1536 wideband", "**≥0.7.x**", "`BS169, BSC191`_"
+   "Neuropixels UHD Phase 2 (switchable)", "384 AP, 384 LFP", "≥0.2.x", "BS137, BSC176"
+   "Neuropixels UHD Phase 3 (ultradense)", "384 AP, 384 LFP", "≥0.5.x", "BS169, BSC176"
+   "Neuropixels 2.0 (beta)", "384 wideband", "≥0.2.x", "BS137, BSC176"
+   "Neuropixels 2.0 (multishank)", "384 wideband", "≥0.6.x", "BS169, BSC189"
+   "Neuropixels 2.0 (single shank)", "384 wideband", "**≥0.7.x**", "BS169, BSC191"
+   "Neuropixels 2.0 (quad base)", "1536 wideband", "**≥0.7.x**", "BS169, BSC191"
    "Neuropixels Opto", "384 AP, 384 LFP", "≥0.4.x", "Special basestation required"
-
-.. important:: Regardless of which probe type you're using, we recommend updating to the most recent Neuropixels PXI plugin and basestation firmware (`BS169, BSC191`_). This firmware is required for plugin version **0.7.x** and higher, as well as the latest version of SpikeGLX. See :ref:`updating-basestation-firmware` section for information on how to modify your firmware.
-
-.. warning:: In version 0.6.x of this plugin, commercial Neuropixels 2.0 (multishank) probes did not have the correct scaling applied to account for the lower bit depth of the ADC compared to the beta probes (12 vs. 14 bits). To correct this, any data acquired with from these probes with this plugin should be multiplied by 4. This issue is fixed in version 0.7.x.
-
-.. _BS137, BSC176: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.4.x.zip
-.. _BS169, BSC176: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.5.x.zip
-.. _BS169, BSC189: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.6.x.zip
-.. _BS169, BSC191: https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.7.x.zip
 
 
 Connecting to the PXI system
@@ -328,7 +319,7 @@ If you have a headstage test module, you can run a suite of tests to ensure the 
 Updating basestation firmware
 ######################################
 
-Version **0.7.x** of the Neuropixels PXI plugin requires a basestation firmware update. The latest firmware (BS169, BSC189) can be downloaded `here <https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-0.7.x.zip>`__.
+Version **1.0.x** of the Neuropixels PXI plugin may require a basestation firmware update. The latest firmware (BS169, BSC191) can be downloaded `here <https://github.com/open-ephys-plugins/neuropixels-pxi/blob/main/Resources/imec-firmware-for-plugin-1.0.x.zip>`__.
 
 The currently installed firmware version will appear in the info section of the Neuropixels settings interface (upper right text block). If your basestation firmware version is "2.0169" and your basestation connect board firmware version is "3.2191", you already have the latest firmware installed.
 

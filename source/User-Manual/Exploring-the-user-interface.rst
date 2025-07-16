@@ -164,7 +164,7 @@ Every action taken by the user is logged to a file, along with additional inform
 Linux
 ------
 
-Log files are written to :code:`/home/<username>/open-ephys/configs-api10`
+Log files are written to :code:`/home/<username>/.config/open-ephys/configs-api10`
 
 macOS
 -------
