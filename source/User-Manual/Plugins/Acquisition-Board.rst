@@ -15,7 +15,7 @@ Acquisition Board
    "*Plugin Type*", "Source"
    "*Platforms*", "Windows, Linux, macOS"
    "*Built in?*", "No; install via *Acquisition Board*"
-   "*Key Developers*", "Josh Siegle, Aarón Cuevas López"
+   "*Key Developers*", "Josh Siegle, Aarón Cuevas López, Brandon Parks"
    "*Source Code*", "https://github.com/open-ephys-plugins/acquisition-board"
 
 
@@ -27,6 +27,16 @@ Installing and upgrading
 The Acquisition Board plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P** or **⌘P** to open the Plugin Installer, browse to the "Acquisition Board", and click the "Install" button. After installation, *Acquisition Board* will appear in the processor list on the left side of the GUI's main window.
 
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed. The plugin must be removed from the signal chain prior to upgrading.
+
+
+Updating gateware
+==========================
+
+.. important:: Acquisition Boards with Open Ephys FPGAs require gateware version 1.0 or higher for this plugin to function properly.
+
+If your Acquisition Board has an Open Ephys FPGA (most boards purchased after December 2022), the gateware may need to be updated to work with this plugin. If you're unsure about which board you have, check out `this page <https://open-ephys.github.io/acq-board-docs/User-Manual/Generations-differences.html>`__.
+
+Before using the plugin for the first time, follow the instructions on the `Acquisition Board documentation site <https://open-ephys.github.io/acq-board-docs/User-Manual/Gateware-Update.html>`__ to ensure your board's gateware is up to date.
 
 
 Plugin configuration
