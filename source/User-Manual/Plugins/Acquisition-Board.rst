@@ -32,11 +32,12 @@ The Plugin Installer also allows you to upgrade to the latest version of this pl
 Updating gateware
 ==========================
 
-.. important:: Acquisition Boards with Open Ephys FPGAs require gateware version 1.0 or higher for this plugin to function properly.
+.. important:: Acquisition Boards with Open Ephys FPGAs may require a gateware update for this plugin to function properly.
 
-If your Acquisition Board has an Open Ephys FPGA (most boards purchased after December 2022), the gateware may need to be updated to work with this plugin. If you're unsure about which board you have, check out `this page <https://open-ephys.github.io/acq-board-docs/User-Manual/Generations-differences.html>`__.
+The Acquisition Board plugin (version ≥1.1.3) will automatically check for a compatible gateware version on any connected devices. If the gateware needs to be updated, it will display a popup window with a link to the `Acquisition Board documentation site <https://open-ephys.github.io/acq-board-docs/User-Manual/Gateware-Update.html>`__, which contains updating instructions.
 
-Before using the plugin for the first time, follow the instructions on the `Acquisition Board documentation site <https://open-ephys.github.io/acq-board-docs/User-Manual/Gateware-Update.html>`__ to ensure your board's gateware is up to date.
+This only applies to Acquisition Boards with an Open Ephys FPGA (most boards purchased after December 2022). If you're unsure about which board you have, check out `this page <https://open-ephys.github.io/acq-board-docs/User-Manual/Generations-differences.html>`__.
+
 
 
 Plugin configuration
