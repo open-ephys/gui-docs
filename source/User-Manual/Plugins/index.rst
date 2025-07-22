@@ -148,6 +148,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     NIDAQmx
     Notch-Filter
     OneBox
+    Onix-Source
     Online-PSTH
     OSC-Events
     Phase-Calculator
