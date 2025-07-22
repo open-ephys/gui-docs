@@ -174,6 +174,6 @@ Log files are written to :code:`/Users/<username>/Library/Application Support/op
 Windows
 ---------
 
-Log files are written to :code:`C:\\Users\\<username>\\AppData\\Local\\OpenEphys\\configs-api10`.
+Log files are written to :code:`C:\\Users\\<username>\\AppData\\Local\\Open Ephys\\configs-api10`.
 
 .. _Ableton Live: https://www.ableton.com/en/live/
