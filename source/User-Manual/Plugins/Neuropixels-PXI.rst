@@ -113,7 +113,15 @@ and one file for each 2.0 probe:
 
 Any probes detected by the Neuropixels PXI plugin will be calibrated automatically when the plugin is loaded, provided that calibration files are stored in one of the following locations:
 
+For GUI versions prior to v1.0.0:
+
 * :code:`C:\\ProgramData\\Open Ephys\\CalibrationInfo\\<probe_serial_number>` (recommended - note that **ProgramData** may be a hidden folder on your system, so you'll need to change the File Explorer options to show hidden files)
+
+For GUI versions 1.0.0 and later:
+
+* :code:`C:\\Users\\<username>\\AppData\\Local\\OpenEphys\\CalibrationInfo\\<probe_serial_number>` (recommended - note that **AppData** may be a hidden folder on your system, so you'll need to change the File Explorer options to show hidden files)
+
+For any version of the GUI:
 
 * :code:`<open-ephys-executable-folder>\\CalibrationInfo\\<probe_serial_number>` (if you used the Open Ephys installer, the executable will be located in :code:`C:\\Program Files\\Open Ephys`)
 
