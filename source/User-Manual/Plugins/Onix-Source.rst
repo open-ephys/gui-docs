@@ -32,6 +32,19 @@ already installed.
 Plugin Configuration
 ===========================
 
+.. caution:: 
+  The ONIX Source plugin is still under development, and may not be fully functional. It is not recommended to use 
+  this plugin for recording critical data, but it is encouraged for users to download and experiment with the 
+  functionality of the plugin. If you encounter any issues, or have any suggestions for improvements,
+  please consider adding them to the `GitHub repo <https://github.com/open-ephys-plugins/onix-source/issues>`__.
+
+.. note:: 
+  The ONIX Source plugin requires the ONIX PCIe Host Firmware to be version 2.0 or higher. If you have an 
+  older version of the firmware, you will need to upgrade it to use this plugin. Please follow the
+  `Updating Firmware in Windows 
+  <https://open-ephys.github.io/onix-docs/Hardware%20Guide/PCIe%20Host/updating-firmware.html#pcie-host-firmware-update>`__ 
+  portion of the hardware documentation to update your PCIe controller firmware.
+
 The ONIX Source plugin allows you to stream data from the ONIX acquisition system. This plugin
 assumes that you have an ONIX Breakout Board connected and powered on before adding the plugin to
 the signal chain. To install a Breakout Board, refer to the `ONIX Breakout Board documentation
