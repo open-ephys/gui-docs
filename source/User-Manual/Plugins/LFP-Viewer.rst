@@ -53,6 +53,9 @@ The most commonly used options are always visible along the bottom of the LFP Vi
 
 * **Color grouping:** Sets the number of adjacent channels with the same color. For example, if you're recording with tetrodes, you can group the colors for every four channels.
 
+.. versionadded:: v1.0.1
+
+   Color grouping *by shank* for clearer visualization in multishank recordings, such as those from Neuropixels 2.0 multishank probes.
 
 Additional options
 -------------------

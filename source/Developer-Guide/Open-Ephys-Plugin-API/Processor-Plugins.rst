@@ -231,26 +231,26 @@ Sending and receiving messages
 
 While acquisition is not active, plugins can respond to **configuration messages** and send **status messages**:
 
-.. function:: void handleConfigMessage(String message)
+.. function:: void handleConfigMessage(const String& message)
 
     Allows a plugin to respond to a configuration message (usually received via the :code:`OpenEphysHTTPServer`). This makes it possible to configure a plugin's settings remotely. Config messages are ignored if acquisition is active.
 
-     :param message: The content of the configuration message. There are no restrictions on how this string is formatted; each plugin is responsible for parsing this message in the appropriate way.
+    :param message: The content of the configuration message. There are no restrictions on how this string is formatted; each plugin is responsible for parsing this message in the appropriate way.
 
-.. function:: void CoreServices::sendStatusMessage(String message)
+.. function:: void CoreServices::sendStatusMessage(const String& message)
 
     Displays a message to the user in the GUI's Message Center.
 
-     :param message: The message to display.
+    :param message: The message to display.
 
 While acquisition is active, plugins can respond to and send **broadcast messages**:
 
-.. function:: void handleBroadcastMessage(String message)
+.. function:: void handleBroadcastMessage(const String& message, const int64 systemTimeMillis)
 
     Allows a plugin to respond to an event that carries a text value, which is broadcast throughout the signal chain during acquisition. These messages can be used to pass information backwards through the signal chain, e.g. to trigger an output based on events that are generated downstream.
 
     :param message: The content of the broadcast message. There are no restrictions on how this string is formatted; each plugin is responsible for parsing this message in the appropriate way.
-
+    :param systemTimeMillis: The system time (in milliseconds) at which this message was sent. This can be used to synchronize the message with other data in the signal chain.
 
 .. function:: void broadcastMessage(String message)
 
