@@ -106,6 +106,8 @@ Reading data in Python
 
 * Create a :code:`Session` object using the `open-ephys-python-tools <https://github.com/open-ephys/open-ephys-python-tools>`__ package. The data format will be automatically detected.
 
+* Alternatively, you can use the `PyNWB <https://pynwb.readthedocs.io/en/stable/>`__ package.
+
 
 Reading data in Matlab
 #######################

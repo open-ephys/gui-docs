@@ -108,7 +108,7 @@ To facilitate automated testing on cloud servers, the GUI now can run in "headle
 
 The GUI now includes unit tests for key classes via the Google Test package, which are run before each new release. This will ensure critical functionality remains intact as new contributors are onboarded.
 
-The `open-ephys-test-suite <https://github.com/medengineer/open-ephys-test-suite>`_ package makes it easy to configure and run integration tests via Python. This package is used to confirm that different combinations of plugins work together reliably.
+The `open-ephys-test-suite <https://github.com/open-ephys/open-ephys-test-suite>`_ package makes it easy to configure and run integration tests via Python. This package is used to confirm that different combinations of plugins work together reliably.
 
 
 Plugins 
