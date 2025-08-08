@@ -54,6 +54,6 @@ More information
 
 A more detailed characterization of this plugin's performance can be found in the following publication:
 
-Andrea Navas-Olive, Rodrigo Amaducci, Maria-Teresa Juardo-Parras, Enrique R Sebastian, and Liset M de la Prida (2022) `"Deep learning based feature extraction for prediction and interpretation of sharp-wave ripples in the rodent hippocampus" <https://elifesciences.org/articles/77772v1>`__ *eLife* **11**: e77772 
+Andrea Navas-Olive, Rodrigo Amaducci, Maria-Teresa Juardo-Parras, Enrique R Sebastian, and Liset M de la Prida (2022) `"Deep learning based feature extraction for prediction and interpretation of sharp-wave ripples in the rodent hippocampus" <https://elifesciences.org/articles/77772>`__ *eLife* **11**: e77772 
 
 If you use this plugin in your work, be sure to cite this article!
