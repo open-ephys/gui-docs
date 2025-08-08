@@ -22,16 +22,17 @@ Python Processor
 Installing and upgrading
 ###########################
 
-The Python Processor is not yet released for version 1.0 of the Open Ephys GUI. An announcement will be made via Discord/Slack when it's available for download via Plugin Installer.
+The Python Processor plugin is not included by default in the Open Ephys GUI. To install, use ctrl-P or ⌘P to open the Plugin Installer, browse to the "Python Processor" plugin, and click the "Install" button.
+
+The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
+
 
 Setting up a Python environment
 ####################################
 
 This plugin must be able to find a local installation of Python version **3.10** with :code:`numpy` installed correctly.
 
-To avoid conflicts with other Python installations, we recommend using `Conda <https://docs.conda.io/projects/conda/en/stable/index.html>`__ to manage your Python environments. You can install Conda either using Miniconda or Anaconda by following the instructions `here <https://docs.conda.io/projects/conda/en/stable/user-guide/install/download.html>`__. More information on how to use Conda can be found `here <https://docs.conda.io/projects/conda/en/stable/user-guide/getting-started.html>`__.
-
-.. important:: On macOS, conda needs to be installed using the x86_64 Miniconda / Anaconda installer. 
+To avoid conflicts with other Python installations, we recommend using `Conda <https://docs.conda.io/projects/conda/en/stable/index.html>`__ to manage your Python environments. You can install Conda either using Miniconda or Anaconda by following the instructions `here <https://docs.conda.io/projects/conda/en/stable/user-guide/install/index.html>`__. More information on how to use Conda can be found `here <https://docs.conda.io/projects/conda/en/stable/user-guide/getting-started.html>`__.
 
 To create a new Conda environment that uses Python 3.10, enter the following :code:`conda` command in your Anaconda prompt (Windows) or Terminal (Linux and macOS):
 
@@ -51,32 +52,26 @@ After this, :code:`numpy` needs to be installed in the same environment as follo
 
    conda install numpy
 
-.. important:: On Windows, if you use :code:`pip` to install Python packages, the plugin will fail to load your Python module. We are still investigating the cause of this issue.
-
 
 Setting the Python Interpreter Path
 -------------------------------------
 
-Once a dedicated Python 3.10 Conda environment has been created, the plugin is ready to be loaded into any desired signal chain. As soon as the plugin is dropped into the signal chain, it asks for the path to Python Home directory, which is where the Python Interpreter is located. This allows the plugin to be flexible in terms of which Python libraries to use during runtime, and not rely on the system PATH to figure out the Python Home location. 
+After creating a dedicated Python 3.10 Conda environment, you can add the plugin to any signal chain. When inserted, the plugin prompts you to select the Python Home directory—the location of the Python interpreter. Providing this path lets the plugin use libraries from a specific environment at runtime, without relying on the system PATH.
 
-When using Conda, this path is usually where the Conda environment got created. Some examples of where it may be located: 
+With Conda, this is typically the path to the environment's Python interpreter inside Conda's installation directory. For example, if you created an environment named :code:`oe-python-plugin`, the path would be:
 
-* Windows: :code:`C:\\Users\\<username>\\miniconda3` or :code:`C:\\miniconda3`
+* Windows: :code:`C:\\Users\\<username>\\miniconda3\\envs\\oe-python-plugin`
+* macOS - :code:`~/miniconda3/envs/oe-python-plugin`
+* Linux - :code:`~/miniconda3/envs/oe-python-plugin`
 
-* macOS - :code:`~/miniconda3` or :code:`/Users/<username>/miniconda3`
+If you installed Anaconda instead of Miniconda, the folder may be named :code:`Anaconda` or :code:`Anaconda3`.
 
-* Linux - :code:`~/miniconda3` or :code:`/home/<username>/miniconda3`
-
-The Python image in a Conda environment called “oe-python-plugin” might be in a location such as :code:`${USERHOME}\\miniconda3\\envs\\oe-python-plugin`
-
-If you have installed Anaconda instead of Miniconda, the folder might be named :code:`Anaconda` or :code:`Anaconda3`.
-
-Once the path is selected, the plugin should load into the signal chain successfully. If it fails to load the Python Interpreter, then it will ask for the PATH to Python Home again. This means that either the provided PATH was incorrect, or an incompatible version of Python was installed (i.e., not 3.10). If this happens, it is recommended to close and relaunch the GUI to reset the PATH variables.
+After you select the path, the plugin should load into the signal chain. If it cannot load the interpreter, it will prompt for the Python Home path again—this usually indicates an incorrect path or an incompatible Python version (not 3.10). If the problem persists, close and relaunch the GUI to reset the PATH variables.
 
 Creating & loading a Python Module
 ####################################
 
-Once the plugin is loaded into the signal chain, a Python module (script) needs to be loaded into the GUI. This module should take the same form as the `processor template <https://github.com/open-ephys-plugins/python-processor/blob/main/Modules/template/processor_template.py>`__ provided in the plugin's GitHub repository. The :code:`PyProcessor` class is designed to expose the following functions to the Python module to allow interaction with the incoming data:  
+After the plugin is added to the signal chain, you must load a Python module (script) into the GUI. This script should follow the structure of the `processor template <https://github.com/open-ephys-plugins/python-processor/blob/main/Modules/template/processor_template.py>`__ available in the plugin's GitHub repository. The :code:`PyProcessor` class provides the following functions to the Python module, enabling interaction with incoming data:
 
 .. py:method:: __init__(processor, num_channels, sample_rate)
 
@@ -136,24 +131,29 @@ Using this template, any type of data processing can be done in Python in real-t
 
 .. Note:: Pay careful attention to the latency introduced by processing data in Python, especially with high-channel-count data.
 
+----------------------
 
-There is also a way to send TTL events back from Python to C++. These events will be added to the event buffer for the downstream processors to handle. It is possible using a C++ function exposed to the Python module via an embedded module called :code:`oe_pyprocessor`.
+You can also send TTL events from Python back to C++. These events are added to the event buffer and can be processed by downstream plugins. This is accomplished using a C++ function exposed to Python through the embedded :code:`oe_pyprocessor` module.
 
 .. py:method:: add_python_event(line, state)
-   
-   Send TTL event from Python to C++
-   
+
+   Sends a TTL event from Python to C++.
+
    :param int line: event line number [0-255]
    :param bool state: event state True (ON) or False (OFF)
 
-To use this function, the :code:`oe_pyprocessor` module needs to be imported inside the script and then the C++ function can be invoked by using the processor object provided in the :py:meth:`__init__` method, like this: :code:`self.processor.add_python_event(line, state)`
+To use this function, import the :code:`oe_pyprocessor` module in your script. Then, call the C++ function using the processor object provided in the :py:meth:`__init__` method, for example: :code:`self.processor.add_python_event(line, state)`
 
-An example script is provided in the plugin's GitHub repository in the form of a `Butterworth Bandpass filter <https://github.com/open-ephys-plugins/python-processor/blob/main/Modules/examples/bandpass_filter.py>`__. This filter is the same as the one used in the GUI's built-in Filter Node plugin.
+----------------------
+
+An example script is provided in the plugin's GitHub repository in the form of a `Butterworth Bandpass filter <https://github.com/open-ephys-plugins/python-processor/blob/main/Modules/examples/bandpass_filter.py>`__. This filter is the same as the one used in the GUI's built-in :ref:`bandpassfilter` plugin.
 
 Limitations
 ######################
 
 * Unlike continuous data and events, sending spikes back from Python is not currently possible.
+
+* With increasing channel counts, the processing latency may also increase, potentially affecting real-time performance.
 
 * Only one instance of the plugin is allowed at a time in a signal chain. Having multiple instances of the plugin in the same signal chain will result in random crashes. 
 
