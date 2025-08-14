@@ -19,7 +19,7 @@ ONIX Source
   "*Source Code*", "https://github.com/open-ephys-plugins/onix-source"
 
 
-Installing and upgrading
+Installing and Upgrading
 ===========================
 
 The ONIX Source plugin is not included by default in the Open Ephys GUI. To install, use **ctrl-P**
@@ -106,7 +106,7 @@ different experimental setups. Select the desired headstage from the dropdown me
   The ONIX Source plugin only supports Neuropixels headstages at the moment. Other headstages will 
   be supported in future releases.
 
-Port Voltage
+Port voltage
 ----------------
 
 In the nominal case, port voltage is automatically discovered based on the headstage selected. Port
@@ -127,7 +127,7 @@ editor. When the port voltage is set to "Auto", the plugin will display the disc
 the connection is established, or if the port voltage was set manually, it will display the
 configured voltage.
 
-Port Status Indicators
+Port status indicators
 -----------------------------
 
 To the left of each Port, there is a status indicator that shows the connection status of the ONIX
@@ -259,7 +259,7 @@ Settings can be transferred between devices using the "Save Settings" and "Load 
 Settings can only be applied to the same device that created the file. This also applies to
 Neuropixels probes of the same type (i.e., Neuropixels 1.0, Neuropixels 2.0, etc.). For example,
 if you save the settings for a Neuropixels 1.0 probe, you can only load those settings into another
-Neuropixels 1.0 probe. The same applies to other devices, such as the Auxiliary IO device.
+Neuropixels 1.0 probe. The same applies to other devices, such as the Analog IO device.
 
 ProbeInterface JSON files
 --------------------------------
@@ -273,8 +273,28 @@ file, press the "Load from JSON" button. This will open a file dialog that allow
 JSON file to load. The loaded JSON file will be used to configure the probe settings, such as the
 selected electrodes. 
 
-.. note:: 
-  If you have created a ProbeInterface JSON file for your probe externally, you can load it into the plugin using the "Load from JSON" button. For example, if it was created using the `OpenEphys.Onix1 Bonsai library <https://open-ephys.github.io/bonsai-onix1-docs/index.html>`__, you can export the JSON file from Bonsai and load it into the plugin.
+Transfer electrode configurations from external sources
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This section will highlight how to export a ProbeInterface JSON file from another source, such as
+the `OpenEphys.Onix1 Bonsai library <https://open-ephys.github.io/bonsai-onix1-docs/index.html>`__,
+and import it to this plugin. Each short video below shows how to export from the source and import
+to this plugin.
+
+**OpenEphys.Onix1**
+
+.. image:: ../../_static/images/plugins/onixsource/probe-interface-onix1-to-onix-source.gif
+  :alt: GIF showing how to export JSON file from Bonsai and import to ONIX Source plugin
+
+**OneBox**
+
+.. image:: ../../_static/images/plugins/onixsource/probe-interface-onebox-to-onix-source.gif
+  :alt: GIF showing how to export JSON file from OneBox plugin and import to ONIX Source plugin
+
+**Neuropixels PXI**
+
+.. image:: ../../_static/images/plugins/onixsource/probe-interface-neuropixels-pxi-to-onix-source.gif
+  :alt: GIF showing how to export JSON file from Neuropixels PXI plugin and import to ONIX Source plugin
 
 Breakout Board Configuration
 ###############################
@@ -287,32 +307,40 @@ breakout board. The breakout board is the main hub for the ONIX system, and it i
 connected. Certain devices on the breakout board can be enabled or disabled, and their settings can
 be saved and loaded. The following devices are available for configuration on the breakout board:
 
-- *Auxiliary IO*: This tab allows you to configure the Analog and Digital IO on the breakout board.
+- *Digital IO*: This tab allows you to configure the Digital IO on the breakout board.
+- *Analog IO*: This tab allows you to configure the Analog IO on the breakout board.
 - *Harp Sync Input*: This tab allows you to configure the Harp Sync Input on the breakout board.
 - *Output Clock*: This tab allows you to configure the Output Clock on the breakout board.
 
 .. image:: ../../_static/images/plugins/onixsource/breakout-board-canvas.png
   :alt: Breakout Board Configuration Interface
+  :width: 400
+  :align: center
 
-Auxiliary IO
+Digital IO
 --------------
 
-The Auxiliary IO tab allows you to configure the Analog and Digital IO on the breakout board. The
-Analog IO can be used to stream analog data from external devices, and the Digital IO can be used to
-stream digital data from external devices, as well as to record digital events from button presses
-on the breakout board.
+The Digital IO tab allows you to configure the Digital IO on the breakout board. The Digital IO can
+be used to stream digital data from external devices, as well as to record digital events from
+button presses on the breakout board.
 
-Analog data is streamed as a separate data stream, and can be visualized using the "LFP Viewer"
-plugin. There are twelve analog channels available, and all channels are always enabled to record data.
-The analog data is streamed at 25 kHz.
-
-Digital data is saved as events, and can be visualized using the "LFP Viewer" plugin. The digital
-events are sampled at 25 kHz, and can be used to record button presses or digital inputs on the
-breakout board. The first 8 digital channels record the digital inputs, and the last 6 digital
-channels record the button presses.
+Digital data is saved as both continuous channels and events, and can be visualized using the "LFP
+Viewer" plugin. The digital channels are sampled at 25 kHz, and can be used to record button presses
+or digital inputs on the breakout board. The first 8 digital channels record the digital inputs, and
+the last 6 digital channels record the button presses.
 
 .. note:: 
-  Digital channels are pulled high by default if no connection is given to the digital input. Events are overlaid on data, meaning that if no connections are given to any digital inputs, there will be eight event overlays on the Analog data stream, potentially making it difficult to see Analog data. To avoid this, you can either connect the digital inputs to ground, or disable the event overlay in the LFP Viewer.
+  Digital channels are pulled high by default if no connection is given to the digital input. Events are overlaid on data, meaning that if no connections are made to any digital inputs, there will be eight event overlays on the data stream. To avoid this, you can either connect the digital inputs to ground, or disable the event overlays in the LFP Viewer.
+
+Analog IO
+-----------------
+
+The Analog IO tab allows you to configure the Analog IO on the breakout board. The Analog IO can be
+used to stream analog data from external devices. 
+
+Analog data is saved as a separate data stream, and can be visualized using the "LFP Viewer" plugin.
+There are twelve analog channels available, and all channels are always enabled to record data. The
+analog data is streamed at 25 kHz.
 
 Neuropixels Headstage Configuration
 ######################################
@@ -331,7 +359,7 @@ them. The canvas will display the following elements:
   options. For more information on configuring the BNO IMU, refer to the BNO Configuration section
   below.
 
-Probe Configuration
+Probe configuration
 ----------------------
 
 The Neuropixels probe configuration options are displayed in the probe tab. Each probe tab will
@@ -352,7 +380,51 @@ any probes discovered will have their serial number displayed. This probe serial
 to identify the probe in the ONIX system, and is used to load the calibration files for the probe
 (see Calibration Files section below).
 
-Compatible Probes
+Channel constraints
+^^^^^^^^^^^^^^^^^^^^^
+
+For Neuropixels probes, there will always be 384 channels enabled across the entire probe.
+Therefore, when enabling electrodes (either manually or using channel presets), some previously
+enabled electrodes might be disabled. Additionally, if more than 384 electrodes are manually selected
+to be enabled, only the last 384 channels will end up being enabled. Users should verify that the
+correct electrodes are enabled.
+
+In addition to the absolute number of channels, there are other restrictions in place regarding
+which combinations of electrodes can be enabled at any given time. Each electrode is assigned a
+particular channel number; across the entire probe, no two electrodes that share the same channel
+can be simultaneously enabled.
+
+Channel presets take this into account automatically and ensure that the rules are followed. When
+manually enabling electrodes, the indexing logic is applied in the order that electrodes are
+selected. If two (or more) electrodes are selected that share a channel value, the highest indexed
+electrode is the only one that will be enabled.
+
+Probe map
+^^^^^^^^^^^
+
+The Probe Map will show the probe layout, with the shank(s) drawn and the electrodes displayed as
+squares. Each electrode can be selected by clicking on it, or clicking and dragging to select
+multiple electrodes. The selected electrodes will be highlighted, and can be enabled by clicking the
+"Select" button under the *Electrodes* label to the right of the probe viewer. There are also
+electrode presets available for different probe types, which can be selected from the dropdown menu
+under the *Electrode Preset* label. The presets will automatically select the electrodes for the
+probe following the rules described above.
+
+On the left of the shanks, there is a graphical representation of the shank(s), with the electrode
+number listed in logical groups. The window into the shank can be resized by clicking and dragging
+the top or bottom of the window. The scroll wheel can be used to navigate along the shank by
+hovering over the zoomed in portion of the probe, or by clicking and dragging the windowed portion
+on the left.
+
+To illustrate the channel constraints, the video below shows how choosing different electrode
+presets will automatically select the correct electrodes, and how manually selecting electrodes will
+apply the channel constraints. The video also shows how the probe map can be used to visualize the
+probe layout and select electrodes.
+
+.. image:: ../../_static/images/plugins/onixsource/neuropixels-1e-electrode-selection.gif
+  :alt: GIF Illustrating Neuropixels 1.0e Electrode Selection
+
+Compatible probes
 ----------------------
 
 This plugin can stream data from the following Neuropixels probe types:
@@ -364,7 +436,7 @@ This plugin can stream data from the following Neuropixels probe types:
    "Neuropixels 1.0", "384 AP, 384 LFP", "≥0.1.0"
    "Neuropixels 2.0 (quad-shank)", "384 wideband", "≥0.1.0"
 
-Neuropixels Data Streams
+Neuropixels data streams
 ---------------------------
 
 The ONIX Source plugin sends data from all connected probes through the GUI's signal chain unless
@@ -391,52 +463,9 @@ settings for one stream are not automatically applied to other streams. If you a
 many probes simultaneously, be sure to use the Stream Selector interface in downstream plugins to
 confirm that the appropriate settings have taken effect for all incoming data streams.
 
-Channel Constraints
+Calibration files
 ^^^^^^^^^^^^^^^^^^^^^
 
-For Neuropixels probes, there will always be 384 channels enabled across the entire probe.
-Therefore, when enabling electrodes (either manually or using channel presets), some previously
-enabled electrodes might be disabled. Additionally, if more than 384 electrodes are manually selected
-to be enabled, only the last 384 channels will end up being enabled. Users should verify that the
-correct electrodes are enabled.
-
-In addition to the absolute number of channels, there are other restrictions in place regarding
-which combinations of electrodes can be enabled at any given time. Each electrode is assigned a
-particular channel number; across the entire probe, no two electrodes that share the same channel
-can be simultaneously enabled.
-
-Channel presets take this into account automatically and ensure that the rules are followed. When
-manually enabling electrodes, the indexing logic is applied in the order that electrodes are
-selected. If two (or more) electrodes are selected that share a channel value, the highest indexed
-electrode is the only one that will be enabled.
-
-Probe Map
-^^^^^^^^^^^^^^^^^^^^^
-
-The Probe Map will show the probe layout, with the shank(s) drawn and the electrodes displayed as
-squares. Each electrode can be selected by clicking on it, or clicking and dragging to select
-multiple electrodes. The selected electrodes will be highlighted, and can be enabled by clicking the
-"Select" button under the *Electrodes* label to the right of the probe viewer. There are also
-electrode presets available for different probe types, which can be selected from the dropdown menu
-under the *Electrode Preset* label. The presets will automatically select the electrodes for the
-probe following the rules described above.
-
-On the left of the shanks, there is a graphical representation of the shank(s), with the electrode
-number listed in logical groups. The window into the shank can be resized by clicking and dragging
-the top or bottom of the window. The scroll wheel can be used to navigate along the shank by
-hovering over the zoomed in portion of the probe, or by clicking and dragging the windowed portion
-on the left.
-
-To illustrate the channel constraints, the video below shows how choosing different electrode
-presets will automatically select the correct electrodes, and how manually selecting electrodes will
-apply the channel constraints. The video also shows how the probe map can be used to visualize the
-probe layout and select electrodes.
-
-.. image:: ../../_static/images/plugins/onixsource/neuropixels-1e-electrode-selection.gif
-  :alt: GIF Illustrating Neuropixels 1.0e Electrode Selection
-
-Calibration Files
-^^^^^^^^^^^^^^^^^^^^^
 Neuropixels probes require calibration in order to function properly. These files can be obtained from IMEC for every probe that you've purchased. There should be two files for each 1.0 probe:
 
 * :code:`<probe_serial_number>_ADCCalibration.csv`
@@ -447,7 +476,7 @@ and one file for each 2.0 probe:
 
 * :code:`<probe_serial_number>_gainCalValues.csv`
 
-Calibration files can be loaded by clicking the :kbd:`...` button next to the respective file. This
+Calibration files can be manually loaded by clicking the :kbd:`...` button next to the respective file. This
 will open a file dialog that allows you to select the calibration file for the probe. The calibration
 file must be in the format specified by the Neuropixels documentation, and the naming scheme must
 match the format above.
@@ -455,7 +484,50 @@ match the format above.
 .. tip:: 
   If the probe serial number is not known, try connecting to the headstage first, and then check the probe serial number in the probe tab.
 
-BNO055 Configuration
+Automated calibration file discovery
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Starting with plugin version 0.2.0, Neuropixels probes support an automated search algorithm to
+discover the appropriate calibration files. To enable this automated discovery, check the box marked
+"Search for calibration files automatically" and then press the :kbd:`...` next to the label. This
+will open a dialog window where you can select the top-level folder containing all calibration
+folders/files for Neuropixel probes.
+
+.. image:: ../../_static/images/plugins/onixsource/neuropixels-1e-automatic-search.png
+  :alt: Neuropixels 1.0e with the automatic calibration file checkbox checked
+  :width: 500
+  :align: center
+
+If the checkbox is checked, it will disable to ability to manually choose calibration files, but the
+selected file will still be displayed in the same location as if you had chosen the file manually.
+To choose the file manually, uncheck the checkbox and follow the instructions `above
+<#calibration-files>`_.
+
+The automated detection will run if the following conditions are met:
+
+- The check box to search automatically is checked
+- A valid root folder has been selected
+- The probe has a valid serial number reported
+
+Provided the other conditions are true, then the calibration file will be automatically searched for when
+any of the following triggers occur:
+
+- A new root folder is selected
+- The checkbox is toggled on
+- A new Neuropixels probe is connected, updating the probe serial number
+
+The automated search uses the probe serial number to match files with the expected naming scheme.
+The name of the folder is not important, but the name of the file must match the naming scheme or it
+will not be automatically discovered.
+
+The automated search algorithm will search up to two levels deep from the root folder selected,
+meaning that files can be automatically discovered in the root folder, or at most two folders away
+(e.g., `./<probe_serial_number>/*.csv` or `./np1_files/<probe_serial_number>/*.csv`). If the
+calibration file is nested too deeply, then the automated detection will not find it. Consider
+changing where the root directory is pointing to, or modify the folder structure to take advantage
+of the automated detection.
+
+BNO055 configuration
 ----------------------
 
 BNO055 is an Inertial Measurement Unit (IMU) device that can be used to stream realtime orientation data
