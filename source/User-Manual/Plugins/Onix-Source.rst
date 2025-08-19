@@ -207,6 +207,11 @@ total hardware buffer memory (see image below).
 .. image:: ../../_static/images/plugins/onixsource/memory-monitor-usage.png
   :alt: Memory Usage Monitor in the ONIX Source plugin
 
+.. note:: 
+  Ideally the memory usage should never go above 0%, and if it does go up it should quickly return
+  to 0%. If the memory continually climbs up, eventually the acquisition session will terminate with
+  an error
+
 The memory usage is also saved as a stream in the ONIX Source plugin, allowing you to visualize
 memory usage over time in the GUI. This allows identification of trends in memory usage over longer
 recordings and supports diagnosis of performance issues related to memory usage. This data stream is
@@ -324,10 +329,10 @@ The Digital IO tab allows you to configure the Digital IO on the breakout board.
 be used to stream digital data from external devices, as well as to record digital events from
 button presses on the breakout board.
 
-Digital data is saved as both continuous channels and events, and can be visualized using the "LFP
-Viewer" plugin. The digital channels are sampled at 25 kHz, and can be used to record button presses
-or digital inputs on the breakout board. The first 8 digital channels record the digital inputs, and
-the last 6 digital channels record the button presses.
+Digital data is saved as both continuous channels and events, and can be visualized using the
+:ref:`lfpviewer` plugin. The digital channels are sampled at 25 kHz, and can be used to record
+button presses or digital inputs on the breakout board. The first 8 digital channels record the
+digital inputs, and the last 6 digital channels record the button presses.
 
 .. note:: 
   Digital channels are pulled high by default if no connection is given to the digital input. Events are overlaid on data, meaning that if no connections are made to any digital inputs, there will be eight event overlays on the data stream. To avoid this, you can either connect the digital inputs to ground, or disable the event overlays in the LFP Viewer.
@@ -338,7 +343,7 @@ Analog IO
 The Analog IO tab allows you to configure the Analog IO on the breakout board. The Analog IO can be
 used to stream analog data from external devices. 
 
-Analog data is saved as a separate data stream, and can be visualized using the "LFP Viewer" plugin.
+Analog data is saved as a separate data stream, and can be visualized using the :ref:`lfpviewer` plugin.
 There are twelve analog channels available, and all channels are always enabled to record data. The
 analog data is streamed at 25 kHz.
 
@@ -517,12 +522,13 @@ any of the following triggers occur:
 - A new Neuropixels probe is connected, updating the probe serial number
 
 The automated search uses the probe serial number to match files with the expected naming scheme.
-The name of the folder is not important, but the name of the file must match the naming scheme or it
-will not be automatically discovered.
+The name of the folder is not important, but the name of the file must match the calibration file
+naming scheme (e.g. :code:`<probe_serial_number>_ADCCalibration.csv` or
+:code:`<probe_serial_number>_gainCalValues.csv`)
 
 The automated search algorithm will search up to two levels deep from the root folder selected,
 meaning that files can be automatically discovered in the root folder, or at most two folders away
-(e.g., `./<probe_serial_number>/*.csv` or `./np1_files/<probe_serial_number>/*.csv`). If the
+(e.g., :code:`./<probe_serial_number>/*.csv` or :code:`./np1_files/<probe_serial_number>/*.csv`). If the
 calibration file is nested too deeply, then the automated detection will not find it. Consider
 changing where the root directory is pointing to, or modify the folder structure to take advantage
 of the automated detection.
