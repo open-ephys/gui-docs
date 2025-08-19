@@ -237,7 +237,8 @@ linkcheck_ignore = [
     'https://labstreaminglayer.org/#/',
     'https://neuropixelsgroup.slack.com/*#*',
     'https://store-usa.arduino.cc/*',
-    'https://openbci.com/*'
+    'https://openbci.com/*',
+    'https://elifesciences.org/articles/*' # Returns a 406 error on GitHub actions
 ]
 
 linkcheck_allowed_redirects = {
