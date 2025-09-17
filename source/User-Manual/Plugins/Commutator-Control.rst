@@ -18,7 +18,9 @@ Commutator Control
     "*Key Developers*", "Brandon Parks, Aarón Cuevas López" 
     "*Source Code*", "https://github.com/open-ephys-plugins/oe-commutator-control"
 
-..  tip:: For more in-depth documentation on the commutator hardware, please refer to the `Open Ephys Commutators docs site <https://open-ephys.github.io/commutator-docs/>`__.
+..  tip:: 
+    -   For instructions and an example signal chain for using this plugin, visit the :doc:`/Tutorials/Commutator` tutorial.
+    -   For additional documentation on the commutator hardware, please refer to the `Open Ephys Commutators docs site <https://open-ephys.github.io/commutator-docs/>`__.
 
 Installing and upgrading
 ==========================

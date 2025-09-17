@@ -129,11 +129,11 @@ Install GUI and prepare signal chain
 #.  :ref:`Open <file>` the downloaded signal chain in the GUI.
 
     ..  tip::
-    If you are using the Acquisition Board, confirm that "IMU" occupies one
-    of the slots in headstage port indicator in the Acquisition Board
-    processor after the Acquisition Board is initialized and headstage ports
-    are scanned. If "IMU" does not occupy one of those slots, the
-    acquisition board did not detect a 3D-capable device.
+        If you are using the Acquisition Board, confirm that "IMU" occupies one
+        of the slots in headstage port indicator in the Acquisition Board
+        processor after the Acquisition Board is initialized and headstage ports
+        are scanned. If "IMU" does not occupy one of those slots, the
+        acquisition board did not detect a 3D-capable device.
 
 #.  Refer to :doc:`/User-Manual/Plugins/Commutator-Control` page to configure
     the Commutator Control processor.
