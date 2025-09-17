@@ -11,7 +11,24 @@ Automating Tether Commutation
     commutator, and a 3D capable data acquisition system (e.g. a Gen 3 
     Acquisition Board or ONIX).
 
-..  image:: commutator-demo-video
+..  raw:: html
+
+    <center>
+        <figure>
+            <video width="560" height="340" controls>
+                <source src="../_static/images/SPI_commutator.mp4" type="video/mp4">
+            </video>
+            <figcaption> 
+                A demonstration of automated commutation using an <a href="url"
+                src="https://open-ephys.org/acquisition-system/oeps-9029">
+                Acquisition Board Gen 3</a> (not shown), <a href="url"
+                src="https://open-ephys.org/acquisition-system/oeps-6570-6571">
+                Low-profile 3D-capable 64ch headstage</a>, and an <a href="url"
+                src="https://open-ephys.org/commutators/oeps-7761">SPI
+                commutator</a>.
+            </figcaption>
+        </figure>
+    </center>
 
 Most acquisition systems rely on a tether to transmit power and data between the
 headstage and the data acquisition system. This can be problematic during freely
