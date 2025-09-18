@@ -15,15 +15,15 @@ Automating Tether Commutation
 
     <center>
         <figure>
-            <video width="560" height="340" controls>
+            <video width="560" height="340" controls muted>
                 <source src="../_static/images/SPI_commutator.mp4" type="video/mp4">
             </video>
             <figcaption> 
                 A demonstration of automated commutation using an <a href="url"
                 src="https://open-ephys.org/acquisition-system/oeps-9029">
-                Acquisition Board Gen 3</a> (not shown), <a href="url"
+                Acquisition Board Gen 3</a> (not shown), a <a href="url"
                 src="https://open-ephys.org/acquisition-system/oeps-6570-6571">
-                Low-profile 3D-capable 64ch headstage</a>, and an <a href="url"
+                Low-profile 3D capable 64ch headstage</a>, and an <a href="url"
                 src="https://open-ephys.org/commutators/oeps-7761">SPI
                 commutator</a>.
             </figcaption>
@@ -31,25 +31,24 @@ Automating Tether Commutation
     </center>
 
 Most acquisition systems rely on a tether to transmit power and data between the
-headstage and the data acquisition system. This can be problematic during freely
-behaving experiments because the animal is liable to twist and tangle the tether
-while it moves around which can end up exerting torque on the animal. This can
+headstage and the data acquisition controller. During freely
+behaving experiments, as the animal moves around, the tether can get twisted and tangled, which can end up exerting torque on the animal. This can
 be is mitigated by using a commutator, a device that untwists the tether as the
-animal moves around while maintaining electrical continuity between the animal's
-headstage and data acquisition system. This encourage more naturalistic
-behaviors.
+animal moves around while maintaining electrical continuity between the headstage on the animal and data acquisition controller. Our commutators don't require tether torque to know in which direction to compensate for the twists. Instead, they use information from absolute orientation sensors on our 3D capable headstages. Torque-free automatic commutation relives strain from the animal, encouraging more naturalistic behaviors and enabling long-term recordings.
 
-This tutorial demonstrates how to automate commutation using a the Open Ephys
-GUI, a 3D-capable headstage, and an Open Ephys commutator. 
+This tutorial demonstrates how to automate commutation using the Open Ephys
+GUI, a 3D capable headstage, and an Open Ephys commutator. 
 
-Hardware connections
-#####################
+Hardware Configuration
+#######################
 
 ..  tab-set::
     :sync-group: acquisition-hardware
 
     ..  tab-item:: Acquisition Board
         :sync: acquisition-board
+
+        Make sure you have a `3D capable SPI headstage <https://open-ephys.github.io/acq-board-docs/Hardware-Guide/Headstages.html#open-ephys-headstages>`__ which have an Inertial Measurement Unit (IMU).
 
         #.  Follow the `Acquisition Board Quick Start Guide
             <https://open-ephys.github.io/acq-board-docs/User-Manual/Quickstart-guide.html#connecting-the-usb-cable-and-power-supply>`__
@@ -76,6 +75,8 @@ Hardware connections
     ..  tab-item:: ONIX
         :sync: onix
 
+        Make sure you have a `3D capable ONIX headstage <https://open-ephys.github.io/onix-docs/Hardware%20Guide/Headstages/index.html>`__ which have an Inertial Measurement Unit (IMU), specifically, a BNO055 device.
+
         #.  Follow the `ONIX Hardware Guide
             <https://open-ephys.github.io/onix-docs/Hardware%20Guide/Breakout%20Board/setup.html>`__
             to establish the following necessary ONIX connections:
@@ -90,21 +91,20 @@ Hardware connections
             of the commutator hardware docs to establish the following necessary
             commutator connections:
 
-            -   Coaxial connection between the commutator's stator and the
+            -   Coaxial connection(s) between the commutator's stator(s) and the
                 acquisition board.
 
-            -   Coaxial connection between the commutator's rotor and the 3D
+            -   Coaxial connection(s) between the commutator's rotor(s) and the 3D
                 capable headstage.
 
             -   USB connection between the commutator and the PC.   
 
-Install GUI and prepare signal chain
+Software Configuration
 ####################################
 
-#.  :doc:`Install the Open Ephys GUI </User-Manual/Installing-the-GUI>` if you
-    haven't already and open it.
+#.  In the Open Ephys GUI, download the source processor for your hardware (:doc:`/User-Manual/Plugins/Acquisition-Board` or :doc:`/User-Manual/Plugins/Onix-Source`) via “File > Plugin Installer”.
 
-#.  Download one following signal chains depending on which hardware you are
+#.  Download one of the following signal chains depending on which hardware you are
     using.
 
     ..  tab-set::
@@ -129,29 +129,29 @@ Install GUI and prepare signal chain
 #.  :ref:`Open <file>` the downloaded signal chain in the GUI.
 
     ..  tip::
-        If you are using the Acquisition Board, confirm that "IMU" occupies one
-        of the slots in headstage port indicator in the Acquisition Board
-        processor after the Acquisition Board is initialized and headstage ports
-        are scanned. If "IMU" does not occupy one of those slots, the
-        acquisition board did not detect a 3D-capable device.
+        Confirm that the acquisition system has detected a 3D capable device.
 
-#.  Refer to :doc:`/User-Manual/Plugins/Commutator-Control` page to configure
+        - If you are using the Acquisition Board, confirm that "IMU" occupies one of the slots in headstage port indicator in the Acquisition Board processor after the Acquisition Board is initialized and headstage ports are scanned.
+
+        - If you are using ONIX, confirm that one of the data devices on your headstage is "BNO055" and that it is enabled, using the processor's configuration canvas. 
+
+#.  Refer to the :doc:`/User-Manual/Plugins/Commutator-Control` page to configure
     the Commutator Control processor.
 
-    -   The selected stream should correspond to a port that is connected to a
-        3D capable headstage.
+    -   The selected Serial port should correspond to the COM port in which the commutator is connected. 
 
-    -   The selected COM port should correspond to the port that is connected to
-        the commutator. 
+    -   The selected Stream should correspond to a 3D data stream. For dual commutators, two 3D data streams could be available. Select the one you want to use. 
 
     -   For typical usage of an off-the-shelf Open Ephys 3D capable headstage,
         adjusting the rotation axis is not necessary. 
-        .. If you mount the headstage in a non-conventional location, refer to
-        the `IMU Data <https://github.com/open-ephys/wiki/wiki/IMU-Data>`_
-        article and `headstage docs
-        <https://open-ephys.github.io/headstage_docs.html>`_ for your particular
-        hardware to figure out how to set the rotation axis.
+        
+        ..
+            If you mount the headstage in a non-conventional location, refer to
+            the `IMU Data <https://github.com/open-ephys/wiki/wiki/IMU-Data>`_
+            article and `headstage docs
+            <https://open-ephys.github.io/headstage_docs.html>`_ for your particular
+            hardware to figure out how to set the rotation axis.
 
-#.  Click the ▶ play button in the top-right corner of the GUI. The commutator
+#.  Make sure the GUI has connected to the acquisition system and click the ▶ play button in the top-right corner. The commutator
     now follows the rotation of the headstage. 
 
