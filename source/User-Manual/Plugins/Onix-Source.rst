@@ -33,7 +33,7 @@ ONIX Support
 =========================================
 
 The ONIX source plugin has limited support for ONIX compared to `OpenEphys.Onix1
-<https://open-ephys.github.com/bonsai-onix1-docs>`_ for acquiring ONIX data
+<https://open-ephys.github.io/bonsai-onix1-docs/>`_ for acquiring ONIX data
 using `Bonsai <https://bonsai-rx.org/>`_:
 
 +--------------------+---------------------------------------+------------------------------------------------------------------------------+
