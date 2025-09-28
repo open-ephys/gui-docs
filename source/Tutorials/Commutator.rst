@@ -166,7 +166,7 @@ Software Configuration
         adjusting the rotation axis is not necessary. If you mount the headstage
         in a non-conventional location, refer to the `IMU Data
         <https://github.com/open-ephys/wiki/wiki/IMU-Data>`_ article and
-        `channel maps docs <https://open-ephys.github.io/channel-maps-docs/headstages.html>`_
+        `channel maps docs <https://open-ephys.github.io/channel-maps-docs/headstages/index.html>`_
         for your particular hardware to figure out how to set the rotation axis.
 
 #.  Make sure the GUI has connected to the acquisition system and click the ▶
