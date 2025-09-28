@@ -9,7 +9,7 @@ Commutator Control
 ..  image:: ../../_static/images/plugins/commutatorcontrol/oecommutator.png
     :alt: Annotated settings interface for the Commutator Control plugin
 
-..  csv-table:: Prevents twist in the tether connecting a moving animal to a stationary `Open Ephys Acquisition Board Gen 3 <https://open-ephys.org/acq-board>`__.
+..  csv-table:: Prevents twist in the tether connecting a moving animal to a stationary `Open Ephys acquisition board Gen3 <https://open-ephys.org/acq-board>`__ using orientation data collected from a 3D-capable headstage.
     :widths: 18, 80
 
     "*Plugin Type*", "Sink" 
@@ -18,7 +18,9 @@ Commutator Control
     "*Key Developers*", "Brandon Parks, Aarón Cuevas López" 
     "*Source Code*", "https://github.com/open-ephys-plugins/oe-commutator-control"
 
-..  tip:: For more in-depth documentation on the commutator hardware, please refer to the `Open Ephys Commutators docs site <https://open-ephys.github.io/commutator-docs/>`__.
+..  tip:: 
+    -   For instructions and an example signal chain for using this plugin, visit the :doc:`/Tutorials/Commutator` tutorial.
+    -   For additional documentation on the commutator hardware, please refer to the `Open Ephys Commutators docs site <https://open-ephys.github.io/commutator-docs/>`__.
 
 Installing and upgrading
 ==========================
