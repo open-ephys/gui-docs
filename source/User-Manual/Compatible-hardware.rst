@@ -49,7 +49,7 @@ Open Ephys ONIX
 
 ONIX is a powerful and versatile recording system designed to support high channel counts while having a minimal impact on behavior. It can acquire data from passive electrodes (tetrodes, silicon probes), active probes (e.g., Neuropixels), and Miniscopes. ONIX headstages can perform on-board electrical and optogenetic stimulation, absolute head orientation acquisition, and 3D positional tracking. It can acquire data from 2 headstage ports, 12 analog inputs (up to 100 kHz sampling rate), 8 digital Inputs, and 6 user-programmable buttons. It can control 12 analog outputs and 8 digital outputs, and boasts sub-ms closed-loop latencies. This makes it integrate seamlessly into complex behavioral setups, in particular those controlled through `Bonsai <https://bonsai-rx.org/>`__, and syncs natively with `Harp behavioral devices <https://harp-tech.org/articles/about.html>`__.
 
-Some ONIX functionality can be accessed with the Open Ephys GUI. The ONIX Source plugin (coming soon!) can acquire continuous data and digital and analog events from the breakout board. It is primarily focused on acquisition of Neuropixels headstage data (ephys and absolute orientation) and will gradually be expanded to other ONIX data streams.
+Some ONIX functionality can be accessed with the Open Ephys GUI. The :ref:`onixsource` plugin can acquire continuous data and digital and analog events from the breakout board. It is primarily focused on acquisition of Neuropixels headstage data (ephys and absolute orientation) and will gradually be expanded to other ONIX data streams.
 
 All of ONIX data streams and capabilities can be accessed through the `Bonsai package OpenEphys.Onix1 <https://open-ephys.github.io/bonsai-onix1-docs/index.html>`__, and you can use this in combination with the Open Ephys GUI via the Ephys Socket plugin. This allows you to visualize data in the :ref:`lfpviewer` or :ref:`probeviewer` as if it were being acquired within the Open Ephys GUI. Follow this `tutorial <https://open-ephys.github.io/bonsai-onix1-docs/articles/tutorials/ephys-socket.html>`__ to set up Neuropixels acquisition in Bonsai and stream data to the GUI for visualization.
 
@@ -63,7 +63,7 @@ The following hardware is recommended for experiments that use ONIX:
 
 * One **torque-free coaxial commutator** for automatic compensation of tether twists (available from the `Open Ephys Store <https://open-ephys.org/commutators/coaxial-commutator>`__)
 
-See the ONIX Source (coming soon!) and :ref:`ephyssocket` plugin pages for more details.
+See the :ref:`onixsource` and :ref:`ephyssocket` plugin pages for more details.
 
 .. _imec-neuropixels-pxi:
 
