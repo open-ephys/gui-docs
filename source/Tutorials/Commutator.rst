@@ -6,6 +6,8 @@
 Automating Tether Commutation
 ==============================
 
+.. rubric:: Use the tabs to follow the tutorial with the Open Ephys Acquisition Board or ONIX
+
 ..  note::
     Following this tutorial requires a 3D capable headstage, an Open Ephys SPI 
     commutator, and a 3D capable data acquisition system (e.g. a Gen 3 
