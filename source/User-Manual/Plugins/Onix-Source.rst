@@ -206,11 +206,15 @@ CPU usage but may increase latency. A smaller block read size can provide lower 
 cause the memory monitor to fill up. The default value is 4096 samples, but this can be adjusted
 based on your experimental needs.
 
-The block read size can be set to any integer value, but this value must be greater than the size of
-the largest frame received from the connected headstage. If the block read size is set to a value
-smaller than the size of the largest frame, an error message will be displayed in a pop-up window
-with the smallest value possible for the block read size. The plugin will not allow you to connect
-to the ONIX system until the block read size is set to a valid value.
+The block read size must be greater than the size of the largest frame received from the connected
+headstage. If the block read size is set to a value smaller than the size of the largest frame, an
+error message will be displayed in a pop-up window with the smallest value possible for the block
+read size. The plugin will not allow you to connect to the ONIX system until the block read size is
+set to a valid value.
+
+.. note:: 
+  The block read size must be aligned to a 32-bit word boundary. If a value is not aligned, it will
+  be rounded up to the next 32-bit aligned value.
 
 :code:`liboni` Version
 #########################
@@ -307,6 +311,39 @@ file, press the "Load from JSON" button. This will open a file dialog that allow
 JSON file to load. The loaded JSON file will be used to configure the probe settings, such as the
 selected electrodes. 
 
+Automatically saved ProbeInterface JSON Files
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. note:: Requires >= v0.3.0 of the plugin, and >= v1.0.2 of the GUI.
+
+Every time a recording is started all data streams that contain ProbeInterface
+metadata will save the ProbeInterface data in a JSON file. The files will be saved in the folder
+path set by the recording options interface at the top of the GUI's main window; note that this
+may be a different folder location than the Record Nodes, as those can be modified to save in a folder
+that is different from the main GUI. If there is a Record Node using the default folder path, then
+the folder structure will look something like this:
+
+.. code-block::
+
+  <data_folder>/
+  ├── ONIX Source 100/
+  │   ├── experiment1/
+  │   │   └── <stream_name>.json
+  │   ├── experiment2/
+  │   │   └── <stream_name>.json
+  │   └── experiment3/
+  │       └── <stream_name>.json
+  └── Record Node 102/
+      ├── experiment1/
+      ├── experiment2/
+      ├── experiment3/
+      ├── settings.xml
+      ├── settings_2.xml
+      └── settings_3.xml
+
+Note that there may be multiple JSON files per folder in the ONIX Source 100 folder, or the ONIX
+Source 100 folder may not exist if no streams are being recorded that contain a ProbeInterface file.
+
 Transfer electrode configurations from external sources
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -329,6 +366,8 @@ to this plugin.
 
 .. image:: ../../_static/images/plugins/onixsource/probe-interface-neuropixels-pxi-to-onix-source.gif
   :alt: GIF showing how to export JSON file from Neuropixels PXI plugin and import to ONIX Source plugin
+
+|
 
 Breakout Board Configuration
 ###############################
@@ -401,7 +440,7 @@ include a probe viewer, allowing you to visualize the probe layout and select th
 stream. Depending on the probe type, the following options, and a button to view the selected option
 in the probe viewer, may be available:
 
-- *Electrodes*: Enabled selected electrodes, or view currently enabled electrodes.
+- *Electrodes*: Enable selected electrodes, or view currently enabled electrodes.
 - *Electrode Preset*: Select an electrode preset for the probe.
 - *Reference*: The reference channel for the probe.
 - *AP Gain*: The gain for the AP channels (Neuropixels 1.0 only). 
@@ -469,6 +508,11 @@ This plugin can stream data from the following Neuropixels probe types:
    "**Probe**", "**Channels**", "**Plugin Version**"
    "Neuropixels 1.0", "384 AP, 384 LFP", "≥0.1.0"
    "Neuropixels 2.0 (quad-shank)", "384 wideband", "≥0.1.0"
+   "Neuropixels 2.0 (single-shank)", "384 wideband", "≥0.3.0"
+
+.. note:: 
+  Prior to v0.3.0, the plugin could not detect which probe was connected, or if it was compatible.
+  Beginning in v0.3.0, if a probe is not compatible a pop-up window will explain that it cannot be configured.
 
 Neuropixels data streams
 ---------------------------
@@ -532,7 +576,7 @@ folders/files for Neuropixel probes.
   :width: 500
   :align: center
 
-If the checkbox is checked, it will disable to ability to manually choose calibration files, but the
+If the checkbox is checked, it will disable the ability to manually choose calibration files, but the
 selected file will still be displayed in the same location as if you had chosen the file manually.
 To choose the file manually, uncheck the checkbox and follow the instructions `above
 <#calibration-files>`_.
@@ -591,4 +635,190 @@ channels:
   The quaternion data can be used to drive the commutator in the GUI, allowing for real-time
   commutation of the headstage. See :ref:`commutatorcontrol` for more information on how to use the commutator with the BNO055 IMU data.
 
-|
+Loading Data
+============
+
+There are two major platforms that can be used to load and process data recorded by the Open Ephys
+GUI and the ONIX Source plugin. First is the `open-ephys-python-tools
+<https://pypi.org/project/open-ephys-python-tools/>`__ which is maintained by the Open Ephys GUI
+team. The second is `SpikeInterface <https://pypi.org/project/spikeinterface/>`__, which is more
+focused on Neuropixels recording and analysis.
+
+open-ephys-python-tools
+#########################
+
+The Python tools can be installed by running the following line inside a Python virtual environment:
+
+.. code-block::
+
+  pip install open-ephys-python-tools
+
+The following script shows how to discover what was recorded and inspect all data streams in an
+ONIX Source session:
+
+.. code-block:: python
+
+  from open_ephys.analysis.session import Session
+
+  # Point to the top-level data directory (the parent folder containing the Record Node folder(s))
+  session = Session('./path/to/data')
+
+  if session.recordnodes is None:
+    raise ValueError("No valid Record Nodes found.")
+
+  # List all record nodes
+  for node in session.recordnodes:
+    print(node)
+
+  # Iterate through each experiment (recording) in the first record node
+  node = session.recordnodes[0]
+  for recording in node.recordings:
+    print(f"\nExperiment {recording.experiment_index}")
+
+    if recording.continuous is None:
+      print("No continuous channels found.")
+      continue
+
+    for stream in recording.continuous:
+        print(f"  Stream: {stream.metadata.stream_name}")
+        print(f"    Sample rate: {stream.metadata.sample_rate} Hz")
+        print(f"    Channels: {stream.samples.shape[1]}")
+
+To load samples from a stream, call :code:`samples[]` on the stream variable. Similarly, the
+timestamps can be loaded by calling :code:`timestamps[]` on the stream.
+
+.. code-block:: python
+
+  from open_ephys.analysis.session import Session
+
+  session = Session('./path/to/data')
+  node = session.recordnodes[0]
+  recording = node.recordings[0]
+  stream = recording.continuous[0] # "BreakoutBoard-DigitalIO" for the DigitalIO stream
+
+  samples = stream.samples[:,0]  # Get all samples from the first channel
+  timestamps = stream.timestamps # Get all timestamps
+
+The following script shows how to extract event markers from event channels and overlay them on top
+of continuous traces. In this example, the DigitalIO stream is used for both the event and the
+continuous channel, but any time-synchronized channel recorded by the ONIX Source plugin will have
+the same timestamps and can be overlaid.
+
+.. code-block:: python
+
+  from open_ephys.analysis.session import Session
+  import matplotlib.pyplot as plt
+
+  session = Session('/path/to/data')
+  node = session.recordnodes[0]
+  recording = node.recordings[0]
+  digital_io = recording.continuous["BreakoutBoard-DigitalIO"]
+
+  plt.figure()
+
+  stream_name = 'BreakoutBoard-DigitalIO'
+
+  plt.plot(digital_io.timestamps, digital_io.samples[:,7])
+
+  plt.title(f"{digital_io.name.split('.')[1][:-1]}")
+
+  for i, event in recording.events.iterrows(): # type: ignore
+      if event['stream_name'] == stream_name:
+          if event['state'] == 1:
+              start = event['timestamp']
+              plt.axvline(x=start, color='r')
+
+          elif event['state'] == 0:
+              end = event['timestamp']
+              plt.axvline(x=end, color='g')
+          
+  plt.show()
+
+SpikeInterface
+#########################
+
+Integration with SpikeInterface and ProbeInterface for the ONIX Source plugin has been added as of
+version v0.103.1 (SpikeInterface) and v0.3.1 (ProbeInterface). Note that this integration requires
+version 0.3.0 of the ONIX Source plugin to correctly integrate the data; all recordings saved prior
+to v0.3.0 will not correctly load certain metadata, such as the Neuropixels sample shifts.
+
+SpikeInterface can be installed by running the following line inside a Python virtual environment:
+
+.. code-block::
+
+  pip install spikeinterface
+
+The following script shows how to list all available streams in a Record Node folder.
+
+.. code-block:: python
+
+  import spikeinterface.extractors as se
+
+  folder_path = '/path/to/data'
+
+  # List all available streams without loading any data
+  stream_names, stream_ids = se.OpenEphysBinaryRecordingExtractor.get_streams(folder_path)
+  print("Available streams:")
+  for i, name in enumerate(stream_names):
+      print(f"  {i}: {name}")
+
+Once the stream ID or stream name is known, the following script can be used to load the chosen
+stream. Probe metadata from the `automatically-saved ProbeInterface JSON files
+<#automatically-saved-probeinterface-json-files>`__ is loaded automatically when using a recording
+made with plugin version ≥ v0.3.0:
+
+.. code-block:: python
+
+  import spikeinterface.extractors as se
+
+  folder_path = '/path/to/data'
+
+  # Load a specific stream by ID (replace with your actual stream ID from the list above)
+  recording = se.read_openephys(folder_path, stream_id='2') 
+
+  print(f"\nChannels: {recording.get_num_channels()}")
+  print(f"Sampling rate: {recording.get_sampling_frequency()} Hz")
+  print(f"Duration: {recording.get_total_duration():.2f} s")
+
+For recordings with multiple experiments, use the :code:`block_index` parameter to select which
+experiment to load:
+
+.. code-block:: python
+
+  import spikeinterface.extractors as se
+
+  folder_path = '/path/to/data'
+
+  # Determine how many experiments were recorded
+  n_blocks = se.OpenEphysBinaryRecordingExtractor.get_num_blocks(folder_path)
+  print(f"Number of experiments: {n_blocks}")
+
+  for block_index in range(n_blocks):
+      recording = se.read_openephys(
+          folder_path,
+          stream_id='2',
+          block_index=block_index
+      )
+      print(f"Experiment {block_index}: {recording.get_total_duration():.2f} s")
+
+Additional Plugin Integration
+===============================
+
+Neuropixels-CAR
+##################
+
+Neuropixels probe streams are automatically detected by the :ref:`neuropixelscar` plugin, which uses
+a Common Average Reference across the specific groups of channels belonging to the same ADC.
+
+.. note:: First introduced in v0.3.0.
+
+LFP Viewer
+##################
+
+Neuropixels probe streams in the :ref:`lfpviewer` can be sorted by depth, according to the electrode
+metadata defined by the ProbeInterface specification above. Additionally, the channels can be
+colored by shank, to visually indicate when a channel belongs to a different shank than its
+neighbor.
+
+.. note:: First introduced in v0.3.0.
+
