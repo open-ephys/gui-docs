@@ -404,3 +404,11 @@ p {
 img {
   max-width: 100%;
 }
+
+h1 + p.rubric {
+  margin-top: 0;
+}
+
+h1:has(+ p.rubric) {
+  margin-bottom: 0;
+}
