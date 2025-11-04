@@ -29,6 +29,32 @@ button.
 The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's
 already installed.
 
+ONIX Support
+=========================================
+
+The ONIX source plugin has limited support for ONIX compared to `OpenEphys.Onix1
+<https://open-ephys.github.io/bonsai-onix1-docs/>`_ for acquiring ONIX data
+using `Bonsai <https://bonsai-rx.org/>`_:
+
++--------------------+---------------------------------------+------------------------------------------------------------------------------+
+| Feature            | | ONIX Source 0.2.0-API10             | | OpenEphys.Onix1 0.6.0+                                                     |
+|                    | | Open Ephys GUI                      | | Bonsai                                                                     |
++====================+=======================================+==============================================================================+
+| Digital Inputs     | 25 kHz sample rate                    | Adjustable sample rate (or one sample whenever digital input status changes) |
++--------------------+---------------------------------------+------------------------------------------------------------------------------+
+| Analog Inputs      | 25 kHz sample rate                    | 100 kHz sample rate                                                          |
++--------------------+---------------------------------------+------------------------------------------------------------------------------+
+| Digital Outputs    | Not yet supported                     | Supported                                                                    |
++--------------------+---------------------------------------+------------------------------------------------------------------------------+
+| Analog Outputs     | Not yet supported                     | Supported                                                                    |
++--------------------+---------------------------------------+------------------------------------------------------------------------------+
+| Headstage 64       | Not yet supported                     | Supported                                                                    |
++--------------------+---------------------------------------+------------------------------------------------------------------------------+
+| Headstage RHS2116  | Not yet supported                     | Supported                                                                    |
++--------------------+---------------------------------------+------------------------------------------------------------------------------+
+| Any Miniscope      | Will not be supported                 | Supported                                                                    |
++--------------------+---------------------------------------+------------------------------------------------------------------------------+
+
 Plugin Configuration
 ===========================
 
@@ -68,9 +94,9 @@ To configure the plugin:
    a. Port voltage is automatically discovered based on the headstage selected. In most instances,
       the default "Auto" setting is sufficient.
 
-6. Press "Connect" to establish a connection to the ONIX system.
-7. Once connected, acquisition can be started in the GUI's main control panel.
-8. For further configuration, click the plugin banner (i.e., the gray or colored portion of the
+5. Press "Connect" to establish a connection to the ONIX system.
+6. Once connected, acquisition can be started in the GUI's main control panel.
+7. For further configuration, click the plugin banner (i.e., the gray or colored portion of the
    editor showing the name of the plugin) to open the canvas and adjust settings as needed.
 
    a. The canvas is structured as tabs, with the first tab showing the breakout board and its
