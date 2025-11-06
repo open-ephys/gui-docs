@@ -202,6 +202,16 @@ Activity view
 
 Pressing the "VIEW" button in the "Probe Signal" area will toggle a live display of the amplitude range of each channel whenever acquisition is active. For Neuropixels 1.0 probes, activity can be viewed for the AP band or LFP band.
 
+.. versionadded:: v2.0.0
+  The activity view includes two toggle buttons that control how the visualization is computed.
+
+* **BP FILTER** - When enabled, applies a 300-6000 Hz bandpass filter to the data before calculating peak-to-peak amplitudes for visualization
+* **CAR** - When enabled, applies common average referencing to the data before calculating peak-to-peak amplitudes for visualization
+
+.. note:: These filtering and referencing options only affect the activity visualization and do not modify the outgoing data sent to downstream plugins or saved to disk.
+
+.. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-12.png
+
 Saving, loading, and copying settings
 ######################################
 
@@ -290,6 +300,7 @@ Clicking on the slot number for a given basestation will open up an interface fo
 
 .. caution:: All stream names *must* be unique for a given plugin. Currently, it's possible to inadvertently assign the same name to multiple probes, either by using the same port-specific or probe-specific names across basestations. Name conflicts must be checked manually in order to prevent crashes when starting recording.
 
+
 Synchronization settings
 ######################################
 
@@ -301,6 +312,94 @@ Each OneBox contains an SMA connector for sync input (labeled SMA1). The behavio
   :alt: Updating sync settings
 
 * The drop-down menu allows you to configure the main sync SMA as **INPUT** or **OUTPUT**. In **INPUT** mode, an external digital input must be connected to the SMA. In **OUTPUT** mode, the OneBox will generate its own sync signal at 1 Hz, which can be used to synchronize other devices (e.g. a PXI basestation or Open Ephys Acquisition Board).
+
+Probe Survey Mode
+###################
+
+.. versionadded:: v2.0.0
+  The OneBox plugin includes a **Survey** interface that allows you to quickly assess neural activity across one or more probes. This is particularly useful for identifying active brain regions and selecting optimal electrode sites before starting your main recording session.
+
+Accessing the Survey interface
+--------------------------------
+
+To open the Survey interface, click on the "Survey" tab in the plugin's canvas window (opened by clicking the "tab" or "window" button in the plugin editor).
+
+.. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-09.png
+
+The Survey interface consists of two main areas:
+
+* **Survey Settings panel** (left side) - Configure survey parameters and select which probes/banks/shanks to survey
+* **Probe Activity View** (right side) - Visualize electrode activity as a heatmap for all connected probes
+
+Survey Settings
+----------------
+
+The settings panel provides the following controls:
+
+**Time per bank/shank**
+  Set the duration (in seconds) to acquire data from each bank/shank combination. Options range from 2 seconds to 10 minutes. Longer durations will yield more accurate activity measurements, but will also increase the total survey time.
+
+**Record survey to disk**
+  When checked, all data acquired during the survey will be saved to disk. This requires at least one Record Node to be present in the signal chain.
+
+**Activity view options**
+  * **BP FILTER** - Toggles a 300-6000 Hz bandpass filter on the data used to calculate peak-to-peak amplitudes
+  * **CAR** - Toggles common average referencing for the peak-to-peak value calculations
+
+**Probe configuration table**
+  This table displays all connected probes and allows you to:
+  
+  * **Use** - Check/uncheck to include/exclude probes from the survey
+  * **Probe** - Probe name and identifier
+  * **Type** - Probe type (e.g., "1.0", "2.0 Multi Shank", "2.0 Quad Base")
+  * **Banks** - Click to select specific banks to survey (default: "All")
+  * **Shanks** - Click to select specific shanks for multi-shank probes (default: "All")
+
+**Save results**
+  Exports the peak-to-peak activity values of all selected probes from the most recent survey to a JSON file for further analysis.
+
+**Amplitude scale**
+  Adjusts the color scale range for the probe activity heatmap display.
+
+Running a survey
+-----------------
+
+To start a survey:
+
+1. Configure which probes, banks, and shanks you want to survey using the probe configuration table
+2. Set the desired time per bank/shank
+3. (Optional) Enable recording to disk if you want to save the survey data
+4. Click the **RUN SURVEY** button
+
+.. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-10.png
+
+The survey will automatically:
+
+* Cycle through each selected shank/bank combination
+* Acquire data for the specified duration
+* Calculate the average peak-to-peak amplitude for each channel
+* Display a progress bar showing the current status
+
+You can cancel the survey at any time by clicking the "Cancel" button in the progress dialog.
+
+Viewing survey results
+-----------------------
+
+Once the survey is complete, the Probe Activity View displays a heatmap showing the peak-to-peak activity for each electrode across all surveyed banks and shanks. Warmer colors (yellow/orange) indicate higher activity levels, while cooler colors (purple/blue) indicate lower activity.
+
+.. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-11.png
+
+The heatmap makes it easy to:
+
+* Identify which regions of the probe are recording active neurons
+* Compare activity levels across different banks or shanks
+* Make informed decisions about electrode site selection
+
+You can also view the survey results in individual probe settings interfaces by enabling the "Probe Signal" view, which overlays the activity information on the electrode selection interface.
+
+.. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-12.png
+
+
 
 Simulation mode
 ##############################
