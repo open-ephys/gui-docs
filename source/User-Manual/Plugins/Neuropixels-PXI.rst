@@ -187,8 +187,8 @@ Activity view
 
 Pressing the "VIEW" button in the "Probe Signal" area will toggle a live display of the amplitude range of each channel whenever acquisition is active. For Neuropixels 1.0 probes, activity can be viewed for the AP band or LFP band.
 
-.. versionadded:: v2.0.0
-  The activity view includes two toggle buttons that control how the visualization is computed.
+.. versionadded:: 2.0.0
+  The activity view includes two toggle buttons that control how the incoming data is processed prior to visualization.
 
 * **BP FILTER** - When enabled, applies a 300-6000 Hz bandpass filter to the data before calculating peak-to-peak amplitudes for visualization
 * **CAR** - When enabled, applies common average referencing to the data before calculating peak-to-peak amplitudes for visualization
@@ -224,6 +224,8 @@ You can save the configuration for a particular probe into IMRO format using the
 
 Any IMRO files that have been loaded previously will appear in the drop-down menu below the "LOAD FROM IMRO" button, so they can be accessed more easily.
 
+.. important:: IMRO files are not checked to ensure that all specified electrodes can actually be selected simultaneously. If you have generated an IMRO file with custom software (i.e., not through Open Ephys or SpikeGLX), be sure to verify that selected electrodes are not connected to overlapping channels before attempting to load it.
+
 ProbeInterface JSON files
 --------------------------------
 
@@ -255,7 +257,7 @@ Neuropixels 2.0 quad base probes have four data streams (one for each shank):
 
 * 384 x 4 channels of wide-band data, sampled at 30 kHz.
 
-As of GUI version 0.6.0, stream in downstream plugins are configured independently. This makes it much easier to apply different parameters to different streams, for example unique :ref:`bandpassfilter` settings for the AP band and LFP band. However, users should be aware that settings for one stream are not automatically applied to other streams. If you are recording from many probes simultaneously, be sure to use the Stream Selector interface in downstream plugins to confirm that the appropriate settings have taken effect for all incoming data streams.
+.. note:: In all downstream plugins, each stream retains its own set of parameters. For example, in the :ref:`bandpassfilter`, there are independent high cut and low cut settings for each stream. It's important to be aware that settings for one stream are not automatically applied to other streams. If you are recording from many probes simultaneously, be sure to use the Stream Selector interface in downstream plugins to confirm that the appropriate settings have taken effect for all incoming data streams.
 
 Customizing stream names
 --------------------------
@@ -295,7 +297,7 @@ Each Neuropixels basestation contains one SMA connector for sync input. The beha
 Probe Survey Mode
 ###################
 
-.. versionadded:: v2.0.0
+.. versionadded:: 2.0.0
   The Neuropixels PXI plugin includes a **Survey** interface that allows you to quickly assess neural activity across one or more probes. This is particularly useful for identifying active brain regions and selecting optimal electrode sites before starting your main recording session.
 
 Accessing the Survey interface
@@ -319,8 +321,8 @@ The settings panel provides the following controls:
   Set the duration (in seconds) to acquire data from each bank/shank combination. Options range from 2 seconds to 10 minutes. Longer durations will yield more accurate activity measurements, but will also increase the total survey time.
 
 **Record survey to disk**
-  When checked, all data acquired during the survey will be saved to disk. This requires at least one Record Node to be present in the signal chain.
-
+  When checked, all data acquired during the survey will be saved to disk. This requires at least one Record Node to be present in the signal chain. If unchecked, the average peak-to-peak amplitudes for each electrode will be displayed, and can optionally be exported as a JSON file.
+  
 **Activity view options**
   * **BP FILTER** - Toggles a 300-6000 Hz bandpass filter on the data used to calculate peak-to-peak amplitudes
   * **CAR** - Toggles common average referencing for the peak-to-peak value calculations
@@ -370,7 +372,7 @@ Once the survey is complete, the Probe Activity View displays a heatmap showing 
 
 The heatmap makes it easy to:
 
-* Identify which regions of the probe are recording active neurons
+* Identify which regions of the probe are most active
 * Compare activity levels across different banks or shanks
 * Make informed decisions about electrode site selection
 
