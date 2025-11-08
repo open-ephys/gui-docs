@@ -202,6 +202,16 @@ Activity view
 
 Pressing the "VIEW" button in the "Probe Signal" area will toggle a live display of the amplitude range of each channel whenever acquisition is active. For Neuropixels 1.0 probes, activity can be viewed for the AP band or LFP band.
 
+.. versionadded:: 2.0.0
+  The activity view includes two toggle buttons that control how the incoming data is processed prior to visualization.
+
+* **BP FILTER** - When enabled, applies a 300-6000 Hz bandpass filter to the data before calculating peak-to-peak amplitudes for visualization
+* **CAR** - When enabled, applies common average referencing to the data before calculating peak-to-peak amplitudes for visualization
+
+.. note:: These filtering and referencing options only affect the activity visualization and do not modify the outgoing data sent to downstream plugins or saved to disk.
+
+.. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-12.png
+
 Saving, loading, and copying settings
 ######################################
 
@@ -229,6 +239,8 @@ You can save the configuration for a particular probe into IMRO format using the
 
 Any IMRO files that have been loaded previously will appear in the drop-down menu below the "LOAD FROM IMRO" button, so they can be accessed more easily.
 
+.. important:: IMRO files are not checked to ensure that all specified electrodes can actually be selected simultaneously. If you have generated an IMRO file with custom software (i.e., not through Open Ephys or SpikeGLX), be sure to verify that selected electrodes are not connected to overlapping channels before attempting to load it.
+
 ProbeInterface JSON files
 --------------------------------
 
@@ -237,7 +249,7 @@ If you're performing offline analysis with `SpikeInterface <https://github.com/s
 OneBox ADCs
 ######################################
 
-The OneBox ADCs use 0-based indexing. ADC 0 can be accessed via the "ADC" SMA connector on the OneBox, while ADCs 1-11 require the BNC breakout board to be attached via the SDR connector.
+The OneBox Analog-to-Digital Converters (ADCs) use 0-based indexing. ADC 0 can be accessed via the "ADC" SMA connector on the OneBox, while ADCs 1-11 require the BNC breakout board to be attached via the SDR connector.
 
 The OneBox ADC settings can be accessed by clicking on the purple circle in the OneBox plugin editor, or by browsing to the "ADC" tab in the OneBox settings interface.
 
@@ -247,6 +259,13 @@ The OneBox ADC settings can be accessed by clicking on the purple circle in the 
 There is one global input range setting for all ADCs, which can be set to either ±2.5, ±5V (default), or ±10V. This determines the voltage range of the signals the ADCs can accept. Smaller input range will provide higher resolution for lower amplitude signals, but may clip larger signals.
 
 **Each ADC can optionally be used as a digital input.** If the digital input option is set to "ON," the ADC will interpret any input voltage below 0.5 V as a logic low, and any input voltage above 1 V as a logic high. Each threshold crossing will generate an event that propagates through the Open Ephys signal chain. The analog data from the ADC will still be available, even if the digital input option is set to "ON."
+
+
+OneBox DACs
+###########################
+
+The OneBox includes one Digital-to-Analog Converter (DAC) that can output arbitrary analog waveforms, as well as DACs that can replicate the signals of specific Neuropixels channels as an analog output. Configuration of these DACs is not currently enabled in the OneBox plugin, but will be added in a future release. If you are interested in using these for your experiments, please send a message to :code:`gui@open-ephys.org`.
+
 
 
 Plugin data streams
@@ -270,7 +289,7 @@ Neuropixels 2.0 quad base probes have four data streams (one for each shank):
 
 In addition, the OneBox will transmit an ADC data stream with 12 channels.
 
-As of GUI version 0.6.0, stream in downstream plugins are configured independently. This makes it much easier to apply different parameters to different streams, for example unique :ref:`bandpassfilter` settings for the AP band and LFP band. However, users should be aware that settings for one stream are not automatically applied to other streams. If you are recording from many probes simultaneously, be sure to use the Stream Selector interface in downstream plugins to confirm that the appropriate settings have taken effect for all incoming data streams.
+.. note:: In all downstream plugins, each stream retains its own set of parameters. For example, in the :ref:`bandpassfilter`, there are independent high cut and low cut settings for each stream. It's important to be aware that settings for one stream are not automatically applied to other streams. If you are recording from many probes simultaneously, be sure to use the Stream Selector interface in downstream plugins to confirm that the appropriate settings have taken effect for all incoming data streams.
 
 Customizing stream names
 --------------------------
@@ -290,6 +309,7 @@ Clicking on the slot number for a given basestation will open up an interface fo
 
 .. caution:: All stream names *must* be unique for a given plugin. Currently, it's possible to inadvertently assign the same name to multiple probes, either by using the same port-specific or probe-specific names across basestations. Name conflicts must be checked manually in order to prevent crashes when starting recording.
 
+
 Synchronization settings
 ######################################
 
@@ -301,6 +321,94 @@ Each OneBox contains an SMA connector for sync input (labeled SMA1). The behavio
   :alt: Updating sync settings
 
 * The drop-down menu allows you to configure the main sync SMA as **INPUT** or **OUTPUT**. In **INPUT** mode, an external digital input must be connected to the SMA. In **OUTPUT** mode, the OneBox will generate its own sync signal at 1 Hz, which can be used to synchronize other devices (e.g. a PXI basestation or Open Ephys Acquisition Board).
+
+Probe Survey Mode
+###################
+
+.. versionadded:: 2.0.0
+  The OneBox plugin includes a **Survey** interface that allows you to quickly assess neural activity across one or more probes. This is particularly useful for identifying active brain regions and selecting optimal electrode sites before starting your main recording session.
+
+Accessing the Survey interface
+--------------------------------
+
+To open the Survey interface, click on the "Survey" tab in the plugin's canvas window (opened by clicking the "tab" or "window" button in the plugin editor).
+
+.. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-09.png
+
+The Survey interface consists of two main areas:
+
+* **Survey Settings panel** (left side) - Configure survey parameters and select which probes/banks/shanks to survey
+* **Probe Activity View** (right side) - Visualize electrode activity as a heatmap for all connected probes
+
+Survey Settings
+----------------
+
+The settings panel provides the following controls:
+
+**Time per bank/shank**
+  Set the duration (in seconds) to acquire data from each bank/shank combination. Options range from 2 seconds to 10 minutes. Longer durations will yield more accurate activity measurements, but will also increase the total survey time.
+
+**Record survey to disk**
+  When checked, all data acquired during the survey will be saved to disk. This requires at least one Record Node to be present in the signal chain.
+
+**Activity view options**
+  * **BP FILTER** - Toggles a 300-6000 Hz bandpass filter on the data used to calculate peak-to-peak amplitudes
+  * **CAR** - Toggles common average referencing for the peak-to-peak value calculations
+
+**Probe configuration table**
+  This table displays all connected probes and allows you to:
+  
+  * **Use** - Check/uncheck to include/exclude probes from the survey
+  * **Probe** - Probe name and identifier
+  * **Type** - Probe type (e.g., "1.0", "2.0 Multi Shank", "2.0 Quad Base")
+  * **Banks** - Click to select specific banks to survey (default: "All")
+  * **Shanks** - Click to select specific shanks for multi-shank probes (default: "All")
+
+**Save results**
+  Exports the peak-to-peak activity values of all selected probes from the most recent survey to a JSON file for further analysis.
+
+**Amplitude scale**
+  Adjusts the color scale range for the probe activity heatmap display.
+
+Running a survey
+-----------------
+
+To start a survey:
+
+1. Configure which probes, banks, and shanks you want to survey using the probe configuration table
+2. Set the desired time per bank/shank
+3. (Optional) Enable recording to disk if you want to save the survey data
+4. Click the **RUN SURVEY** button
+
+.. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-10.png
+
+The survey will automatically:
+
+* Cycle through each selected shank/bank combination
+* Acquire data for the specified duration
+* Calculate the average peak-to-peak amplitude for each channel
+* Display a progress bar showing the current status
+
+You can cancel the survey at any time by clicking the "Cancel" button in the progress dialog.
+
+Viewing survey results
+-----------------------
+
+Once the survey is complete, the Probe Activity View displays a heatmap showing the peak-to-peak activity for each electrode across all surveyed banks and shanks. Warmer colors (yellow/orange) indicate higher activity levels, while cooler colors (purple/blue) indicate lower activity.
+
+.. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-11.png
+
+The heatmap makes it easy to:
+
+* Identify which regions of the probe are recording active neurons
+* Compare activity levels across different banks or shanks
+* Make informed decisions about electrode site selection
+
+You can also view the survey results in individual probe settings interfaces by enabling the "Probe Signal" view, which overlays the activity information on the electrode selection interface.
+
+.. image:: ../../_static/images/plugins/neuropix-pxi/neuropix-pxi-12.png
+
+
 
 Simulation mode
 ##############################
@@ -320,8 +428,8 @@ To run each test, select one from the drop-down menu, and click the "RUN" button
    :header: "Name", "Duration", "Purpose"
    :widths: 20, 20, 70
 
-   "Test probe signal",	"30 s", "Analyzes if the probe performance falls within a specified tolerance range, based on a signal generated by the headstage. Probes that are fully functional can still fail this test, so it's not a definitive indicator of probe health."
-   "Test probe noise", "30 s", "Calculates probe noise levels when electrode inputs are shorted to ground. Similar to the probe signal test, this test is not a definitive indicator of probe health, so failures can be safely ignored."
+   "Test probe signal **(removed in plugin v2.0.0)**",	"30 s", "Analyzes if the probe performance falls within a specified tolerance range, based on a signal generated by the headstage. Probes that are fully functional can still fail this test, so it's not a definitive indicator of probe health."
+   "Test probe noise **(removed in plugin v2.0.0)**", "30 s", "Calculates probe noise levels when electrode inputs are shorted to ground. Similar to the probe signal test, this test is not a definitive indicator of probe health, so failures can be safely ignored."
    "Test PSB bus", "<1 s", "Verifies whether signals are transmitted accurately to the headstage via the parallel serial bus. If this test fails, it usually indicates that the probe is not properly seated in the headstage."
    "Test shift registers", "1 s", "Verifies the functionality of the shank and base shift registers. If this test fails, it means the probe electronics have become critically damaged. Even if data is being transmitted, there's a possibility that it may be corrupted."
    "Test EEPROM", "1 s", "Tests the EEPROM memory storage on the flex, headstage, and BSC."
