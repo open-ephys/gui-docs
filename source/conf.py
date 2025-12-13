@@ -247,7 +247,9 @@ linkcheck_allowed_redirects = {
 }
 
 linkcheck_request_headers = {
-    r'https://pubmed.ncbi.nlm.nih.gov/.*': {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"}
+    r'https://pubmed.ncbi.nlm.nih.gov/.*': {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8"}
 } # avoid 403 error 
 
 extensions.append("sphinx_tabs.tabs")
