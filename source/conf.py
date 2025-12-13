@@ -246,6 +246,10 @@ linkcheck_allowed_redirects = {
     r"https://iopscience.iop.org/article/.*": r"https://validate.perfdrive.com/.*"
 }
 
+linkcheck_request_headers = {
+    "https://pubmed.ncbi.nlm.nih.gov/*": {"User-Agent": "Mozilla/5.0 (Windows NT 11.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"}
+} # avoid 403 error 
+
 extensions.append("sphinx_tabs.tabs")
 
 suppress_warnings = [
