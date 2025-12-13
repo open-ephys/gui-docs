@@ -239,7 +239,7 @@ linkcheck_ignore = [
     'https://neuropixelsgroup.slack.com/*#*',
     'https://store-usa.arduino.cc/*',
     'https://openbci.com/*',
-    'https://elifesciences.org/articles/*' # Returns a 406 error on GitHub actions
+    'https://elifesciences.org/articles/*', # Returns a 406 error on GitHub actions
     'https://pubmed.ncbi.nlm.nih.gov/*' # Returns a 403 error on Github Actions
 ]
 
