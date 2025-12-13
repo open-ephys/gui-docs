@@ -240,17 +240,12 @@ linkcheck_ignore = [
     'https://store-usa.arduino.cc/*',
     'https://openbci.com/*',
     'https://elifesciences.org/articles/*' # Returns a 406 error on GitHub actions
+    'https://pubmed.ncbi.nlm.nih.gov/*' # Returns a 403 error on Github Actions
 ]
 
 linkcheck_allowed_redirects = {
     r"https://iopscience.iop.org/article/.*": r"https://validate.perfdrive.com/.*"
 }
-
-linkcheck_request_headers = {
-    r'https://pubmed.ncbi.nlm.nih.gov/.*': {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8"}
-} # avoid 403 error 
 
 extensions.append("sphinx_tabs.tabs")
 
