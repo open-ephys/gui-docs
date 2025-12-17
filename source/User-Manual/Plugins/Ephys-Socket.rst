@@ -129,7 +129,7 @@ Some Ephys Socket settings can be modified via the GUI's built-in HTTP server. C
 
 .. note::
 
-    Parameters cannot be modified while acquisition is running, nor can they be modified if the port is connected. To change any settings remotely, the port must be disconnected in the GUI
+    Most parameters cannot be modified while acquisition is running, nor can they be modified if the port is connected. To change any settings remotely, the port must be disconnected in the GUI. Exceptions are :code:`ES INFO` which doesn't affect the data streaming and the commands related to socket connection
 
 The following commands are available:
 
@@ -138,3 +138,6 @@ The following commands are available:
 3. :code:`ES OFFSET <data_offset>` : set the data offset
 4. :code:`ES PORT <port>` : set the port number
 5. :code:`ES FREQUENCY <sample_rate>` : set the sampling frequency
+6. :code:`ES CONNECTION_STATUS` : Query the connection state. Returns the string :code:`CONNECTED` or :code:`DISCONNECTED`
+7. :code:`ES CONNECT` : Connect the socket. Does nothing when already connected. Returns the string :code:`CONNECTED` or :code:`DISCONNECTED`
+8. :code:`ES DISCONNECT` : Disonnect the socket. Does nothing when already disconnected. Returns the string :code:`CONNECTED` or :code:`DISCONNECTED`
