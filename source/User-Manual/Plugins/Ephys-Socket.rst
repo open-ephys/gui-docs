@@ -140,4 +140,4 @@ The following commands are available:
 5. :code:`ES FREQUENCY <sample_rate>` : set the sampling frequency
 6. :code:`ES CONNECTION_STATUS` : Query the connection state. Returns the string :code:`CONNECTED` or :code:`DISCONNECTED`
 7. :code:`ES CONNECT` : Connect the socket. Does nothing when already connected. Returns the string :code:`CONNECTED` or :code:`DISCONNECTED`
-8. :code:`ES DISCONNECT` : Disonnect the socket. Does nothing when already disconnected. Returns the string :code:`CONNECTED` or :code:`DISCONNECTED`
+8. :code:`ES DISCONNECT` : Disonnect the socket. Does nothing when already disconnected. Always returns the string :code:`DISCONNECTED`
