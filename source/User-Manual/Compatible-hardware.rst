@@ -75,7 +75,7 @@ IMEC Neuropixels PXI basestations
 
 Neuropixels have become a new standard for electrophysiology, given their ability to record from hundreds to thousands of neurons across many brain regions in parallel. All probe types (including 1.0, 2.0, Ultra, Opto, and NHP) are compatible with the Open Ephys GUI. The Neuropixels PXI acquisition system consists of one or more basestations mounted in a chassis (usually from NI). Each basestation can acquire data from four Neuropixels headstages, and multiple basestations can be used inside the same chassis.
 
-General questions about Neuropixels can be directed to the Neuropixels Discord (sign up `here <httphttps://discord.gg/jmnneS85CY>`__).
+General questions about Neuropixels can be directed to the Neuropixels Discord (sign up `here <https://discord.gg/jmnneS85CY>`__).
 
 The following hardware is recommended for experiments with Neuropixels PXI basestations:
 
