@@ -41,8 +41,7 @@ release = "0.0.0"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = ["sphinx.ext.todo", 
-              "sphinx.ext.githubpages",
-              "sphinx_design"]
+              "sphinx.ext.githubpages"]
 
 
 # Add any paths that contain templates here, relative to this directory.
@@ -236,11 +235,9 @@ linkcheck_ignore = [
     r'https://github.com/.*#L.*',
     'https://www.sciencedirect.com/*',
     'https://labstreaminglayer.org/#/',
-    'https://neuropixelsgroup.slack.com/*#*',
+    'https://discord.gg/jmnneS85CY',
     'https://store-usa.arduino.cc/*',
-    'https://openbci.com/*',
-    'https://elifesciences.org/articles/*', # Returns a 406 error on GitHub actions
-    'https://pubmed.ncbi.nlm.nih.gov/*' # Returns a 403 error on Github Actions
+    'https://openbci.com/*'
 ]
 
 linkcheck_allowed_redirects = {
