@@ -74,7 +74,7 @@ In the first case, the Neuropixels basestation can be configured to output its o
 
 #. Connect the other end of the SMA cable to a digital input channel of the NIDAQ device.
 
-.. note:: You will need an SMA-to-BNC adapter cable to connect the digital terminals, such as `this one <https://www.thorlabs.com/thorproduct.cfm?partnumber=CA2806>`__ from Thorlabs.
+.. note:: You will need an SMA-to-BNC adapter cable to connect the digital terminals, such as `this one <https://www.thorlabs.com/item/CA2806>`__ from Thorlabs.
 
 .. image:: ../_static/images/tutorials/synchronization/config_1.png
   :align: center

@@ -26,7 +26,7 @@ Installing and upgrading
 
    The Plugin Installer also allows you to upgrade to the latest version of this plugin, if it's already installed.
 
-The Matlab Interface is not yet released for version 1.0 of the Open Ephys GUI. An announcement will be made via Discord/Slack when it's available for download via Plugin Installer.
+The Matlab Interface is not yet released for version 1.0 of the Open Ephys GUI. An announcement will be made via the Open Ephys Discord when it's available for download via Plugin Installer.
 
 Plugin configuration
 ########################

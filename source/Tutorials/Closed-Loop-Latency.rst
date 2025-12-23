@@ -23,7 +23,7 @@ Required hardware
 * 2 `Open Ephys I/O Boards <https://open-ephys.org/acquisition-system/io-board-pcb>`__ with HDMI cables
 * 2 Arduinos with 5V operating voltage (e.g. `Arduino Uno <https://store-usa.arduino.cc/products/arduino-uno-rev3/?selectedStore=us>`__). along with the appropriate USB cables
 * 2 BNC cables
-* 2 BNC Female-to-Binding Post Adapters (e.g., `Thorlabs T1452 <https://www.thorlabs.com/thorproduct.cfm?partnumber=T1452>`__)
+* 2 BNC Female-to-Binding Post Adapters (e.g., `Thorlabs T1452 <https://www.thorlabs.com/item/T1452>`__)
 * 4 hookup wires (minimum 5" long) with bare ends
 
 .. note:: It's possible to carry out the steps below with an alternative set of hardware components. Cases where substitutes can be used will be explained throughout the tutorial. If you'd like to test closed-loop latency with a different set of components, we recommend reading through the tutorial first.
