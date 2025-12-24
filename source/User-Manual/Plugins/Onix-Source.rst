@@ -32,9 +32,9 @@ already installed.
 ONIX Support
 =========================================
 
-The ONIX source plugin has limited support for ONIX compared to `OpenEphys.Onix1
-<https://open-ephys.github.io/bonsai-onix1-docs/>`_ for acquiring ONIX data
-using `Bonsai <https://bonsai-rx.org/>`_:
+The ONIX Source plugin supports a subset of ONIX features supported by
+the `OpenEphys.Onix1 <https://open-ephys.github.io/bonsai-onix1-docs/>`_ package
+for acquiring ONIX data using `Bonsai <https://bonsai-rx.org/>`_: 
 
 +--------------------+---------------------------------------+------------------------------------------------------------------------------+
 | Feature            | | ONIX Source 0.2.0-API10             | | OpenEphys.Onix1 0.6.0+                                                     |
@@ -54,6 +54,9 @@ using `Bonsai <https://bonsai-rx.org/>`_:
 +--------------------+---------------------------------------+------------------------------------------------------------------------------+
 | Any Miniscope      | Will not be supported                 | Supported                                                                    |
 +--------------------+---------------------------------------+------------------------------------------------------------------------------+
+
+If you're curious or unsure about which software to use, read more about 
+`the differences between the Open Ephys GUI and Bonsai <https://open-ephys.github.io/onix-docs/Software%20Guide/index.html#software-comparison>`_.
 
 Plugin Configuration
 ===========================

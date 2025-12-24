@@ -97,7 +97,7 @@ The Spike Detector includes three different thresholding algorithms that can be 
 
 2. **STD** - Automatically sets the threshold based on a multiple of the standard deviation of each channel. This method will find a reasonable spike detection threshold without the need for any manual intervention.
 
-3. **MED** - Automatically sets the threshold based on a multiple of the median value of each channel. This method is more robust to outliers (like very large-amplitude spikes) than the STD method. See `Quian Quiroga et al. <https://pubmed.ncbi.nlm.nih.gov/15228749/>`__ for more details.
+3. **MED** - Automatically sets the threshold based on a multiple of the median value of each channel. This method is more robust to outliers (like very large-amplitude spikes) than the STD method. See Quian Quiroga et al. (2004) "Unsupervised spike detection and sorting with wavelets and superparamagnetic clustering" (DOI: 10.1162/089976604774201631) for more details.
 
 To change the thresholding algorithm for multiple (or all) electrodes at once, use the **#** column (or Ctrl/⌘-A) to select multiple electrodes. Then, any changes to once electrode's threshold settings will propagate to all other selected electrodes.
 
