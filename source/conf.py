@@ -238,7 +238,8 @@ linkcheck_ignore = [
     'https://labstreaminglayer.org/#/',
     'https://discord.gg/jmnneS85CY',
     'https://store-usa.arduino.cc/*',
-    'https://openbci.com/*'
+    'https://openbci.com/*',
+    'https://elifesciences.org/*'
 ]
 
 linkcheck_allowed_redirects = {
