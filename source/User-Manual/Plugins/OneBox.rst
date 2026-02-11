@@ -84,7 +84,7 @@ Driver downgrading
 
 .. note:: If the OneBox appears as "Neurpixels OneBox" under "Universal Serial Bus devices" in the device manager, it means the FTDI D3XX driver is not properly installed. In this case, you will need to follow the instructions below to remove the incorrect driver and install the correct one.
 
-The latest FTDI D3XX driver (1.4.0.x) is not compatible with the OneBox and will lead to the device not being recognized by the Open Ephys GUI. If you have installed version 1.4.0.x system-wide (for example to use the latest version of the :ref:`acquisition-board` plugin), you will need to remove the OneBox from the Device Manager before reinstalling the older driver:
+The latest FTDI D3XX driver (1.4.0.x) is not compatible with the OneBox and will lead to the device not being recognized by the Open Ephys GUI. If you have installed version 1.4.0.x system-wide (for example to use the latest version of the :ref:`acquisitionboard` plugin), you will need to remove the OneBox from the Device Manager before reinstalling the older driver:
 
 1. Download the version 1.3.0.10 x64 FTDI D3XX driver (not the setup executable) from the `FTDI website <https://ftdichip.com/drivers/d3xx-drivers/>`__. Unzip the downloaded file and note the location of the extracted folder.
 
