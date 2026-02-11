@@ -69,17 +69,41 @@ Driver installation
 
 The OneBox requires a specific version of the FTDI D3XX drivers to be installed on your computer (version 1.3.0.10). These drivers can be downloaded from the `FTDI website <https://ftdichip.com/drivers/d3xx-drivers/>`__. It's recommended to run the Setup Executable and follow the instructions provided by the installer.
 
-.. note:: The latest FTDI D3XX driver (1.4.0.0) is not compatible with the OneBox and will lead to the device not being recognized. Be sure to downgrade to version 1.3.0.10 before attempting to use the OneBox plugin.
-
 Once the drivers are installed, verify whether the OneBox is correctly recognized:
 
 1. Plug in the OneBox power supply
 2. Switch on the OneBox using the power button
 3. Conect the OneBox to your computer using the included USB 3.0 cable
-4. Open Device Manager and confirm that the OneBox appears as a "FT601 USB 3.0 Bridge Device"
+4. Open Device Manager and confirm that the OneBox appears as a "FT601 USB 3.0 Bridge Device" in the "Universal Serial Bus controllers" section.
 
 .. image:: ../../_static/images/plugins/onebox/onebox-02.png
   :alt: OneBox in the Device Manager
+
+Driver downgrading
+-------------------- 
+
+.. note:: If the OneBox appears as "Neurpixels OneBox" under "Universal Serial Bus devices" in the device manager, it means the FTDI D3XX driver is not properly installed. In this case, you will need to follow the instructions below to remove the incorrect driver and install the correct one.
+
+The latest FTDI D3XX driver (1.4.0.x) is not compatible with the OneBox and will lead to the device not being recognized by the Open Ephys GUI. If you have installed version 1.4.0.x system-wide (for example to use the latest version of the :ref:`acquisition-board` plugin), you will need to remove the OneBox from the Device Manager before reinstalling the older driver:
+
+1. Download the version 1.3.0.10 x64 FTDI D3XX driver (not the setup executable) from the `FTDI website <https://ftdichip.com/drivers/d3xx-drivers/>`__. Unzip the downloaded file and note the location of the extracted folder.
+
+2. Power down the OneBox and unplug it from your computer.
+
+3. Open Windows Device Manager and enable "Show hidden devices" from the "View" menu.
+
+4. Find the grayed out "Neuropixels OneBox" in the "Universal Serial Bus devices" section, select it, and press the red "X" to uninstall the device. Make sure to check the box that says "Delete the driver software for this device" before confirming.
+
+5. Repeat the process for "FT601 USB 3.0 Bridge Device" in the "Universal Serial Bus controllers" section.
+
+6. Plug the OneBox back in. It should appear in the "Other devices" section of the Device Manager.
+
+7. Right-click on the OneBox and select "Update driver". Choose "Browse my computer for drivers", then "Let me pick from a list of available drivers on my computer." Browse to the location of the extracted FTDI D3XX driver folder (which should contain a .inf and .cat file).
+
+8. Once the older driver is installed, the OneBox should appear as "FT601 USB 3.0 Bridge Device" in the "Universal Serial Bus controllers" section of the Device Manager.
+
+You should now be able to use the OneBox (with driver version 1.3.0.10) and the Acquisition Board plugin (with driver version 1.4.0.x) on the same computer, without needing to switch drivers back and forth.
+
 
 OneBox status light
 ---------------------------
