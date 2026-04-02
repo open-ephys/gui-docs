@@ -238,11 +238,13 @@ linkcheck_ignore = [
     'https://labstreaminglayer.org/#/',
     'https://discord.gg/jmnneS85CY',
     'https://store-usa.arduino.cc/*',
-    'https://openbci.com/*'
+    'https://openbci.com/*',
+    'https://elifesciences.org/*'
 ]
 
 linkcheck_allowed_redirects = {
-    r"https://iopscience.iop.org/article/.*": r"https://validate.perfdrive.com/.*"
+    r"https://iopscience.iop.org/article/.*": r"https://validate.perfdrive.com/.*",
+    "https://help.kontex.io/portal/en/home": "https://erp.kontex.io/helpcenter"
 }
 
 extensions.append("sphinx_tabs.tabs")
