@@ -145,8 +145,18 @@
   max-width: 100rem;
 }
 
-.bd-sidebar-primary {
- width: 20%;
+@media (min-width: 960px) {
+  .bd-sidebar-primary {
+    width: 20%;
+  }
+}
+
+@media (max-width: 959.98px) {
+  .bd-sidebar-primary {
+    width: min(85vw, 24rem);
+    max-width: min(85vw, 24rem);
+    margin-left: calc(-1 * min(85vw, 24rem));
+  }
 }
 
 strong {
