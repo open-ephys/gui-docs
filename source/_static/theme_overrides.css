@@ -72,7 +72,15 @@
 
 /* Landing page cards */
 .card-columns {
-  column-count: 4 !important;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+  margin: 2rem auto 0;
+}
+
+.intro-card-link {
+  display: block;
+  text-decoration: none;
 }
 
 .card-title {
@@ -95,10 +103,23 @@
 .intro-card {
   transition: transform 0.2s ease;
   border: 0;
+  height: 100%;
 }
 
 .intro-card:hover {
   transform: scale(1.05);
+}
+
+@media (max-width: 992px) {
+  .card-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 576px) {
+  .card-columns {
+    grid-template-columns: 1fr;
+  }
 }
 
 .col-lg-6 {
