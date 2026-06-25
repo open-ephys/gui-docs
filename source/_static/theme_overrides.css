@@ -33,6 +33,13 @@
   font-weight: bold;
 }
 
+html[data-theme="light"] {
+  --pst-color-primary: #549cb8;
+  --pst-color-primary-highlight: #3c7084;
+  --pst-color-secondary: #967a93;
+  --pst-color-secondary-highlight: #7d657a;
+}
+
 /* navigation bar colors*/
 .navbar {
   background: #5fb5dc !important;
