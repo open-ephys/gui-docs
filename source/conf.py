@@ -240,7 +240,7 @@ linkcheck_ignore = [
     'https://store-usa.arduino.cc/*',
     'https://openbci.com/*',
     'https://ftdichip.com/drivers/d3xx-drivers/',
-    'https://elifesciences.org/articles/77772'
+    'https://elifesciences.org/*'
 ]
 
 linkcheck_allowed_redirects = {
