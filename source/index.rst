@@ -2,6 +2,10 @@
 
 .. title:: Home
 
+***************
+Open Ephys GUI
+***************
+
 .. image:: _static/images/screenshot-medium.png
   :alt: A screenshot of the Open Ephys GUI
   :class: only-light

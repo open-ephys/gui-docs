@@ -30,17 +30,17 @@ Via .zip file
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 
-3. Run :code:`FrontPanelUSB-DriverOnly-4.4.0.exe` to install the Open Ephys acquisition board driver. 
+3. If you're going to be using the GUI with an Open Ephys acquisition board, install the USB driver specific to your board by following the instructions `here <https://open-ephys.github.io/acq-board-docs/User-Manual/Driver-installation.html>`_.
 
 4. Double-click the **open-ephys** executable to run the application.
 
-.. note:: If this is your first time running the GUI on a particular machine, you will need to install the `Visual Studio 2015, 2017, 2019, and 2022 redistributable package`_ before opening the application. This only applies to the .zip download, as this package will be added automatically when using the Windows installer.
+.. note:: If this is your first time running the GUI on a particular machine, you will need to install the `Visual C++ v14 Redistributable package`_ before opening the application. This only applies to the .zip download, as this package will be added automatically when using the Windows installer.
 
 Linux
 ######
 
-Via installer (Ubuntu only)
------------------------------
+Via installer (Ubuntu/Debian only)
+-----------------------------------
 
 1. Click the "Linux" link on `this page`_ to download the **.deb** file for the latest version of the GUI.
 
@@ -61,13 +61,17 @@ Via .zip file (all distros)
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys GUI"
 
-3. Open a terminal and set your working directory to the folder you just renamed.
+3. If you're going to be using the GUI with an Open Ephys acquisition board, its permissions need to be configured as follows:
 
-4. Enter :code:`sudo cp 40-open-ephys.rules /etc/udev/rules.d` followed by your password.
+   a. Open a terminal and set your working directory to the folder you just renamed.
 
-5. Enter :code:`service udev restart` on Ubuntu/Debian or :code:`sudo udevadm control --reload-rules` on Fedora/CentOS/Gentoo to allow the GUI to communicate with the Open Ephys acquisition board.
+   b. Enter :code:`sudo cp 40-open-ephys.rules /etc/udev/rules.d` followed by your password.
 
-6. Double-click the **open-ephys** executable (or enter :code:`./open-ephys` in the terminal) to run the application.
+   c. Enter :code:`sudo cp 51-ftd3xx.rules /etc/udev/rules.d` followed by your password.
+
+   d. Enter :code:`service udev restart` on Ubuntu/Debian or :code:`sudo udevadm control --reload-rules` on Fedora/CentOS/Gentoo.
+
+4. Double-click the **open-ephys** executable (or enter :code:`./open-ephys` in the terminal) to run the application.
 
 
 macOS
@@ -100,5 +104,5 @@ Via .zip file
 |
 
 .. _this page: https://open-ephys.org/gui
-.. _Visual Studio 2015, 2017, 2019, and 2022 redistributable package: https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
+.. _Visual C++ v14 Redistributable package: https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
 
