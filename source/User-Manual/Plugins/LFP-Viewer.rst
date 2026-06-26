@@ -85,12 +85,25 @@ Channels
 
 * **Show number**: Displays the channel indices, rather than the channel names, on the left-hand side of the LFP Viewer.
 
+.. versionchanged:: v1.1.0
+  
+  Replaced the "Show number" option with a more general "Label" option
+  
+  * **Label**: Displays either the channel names (default), indices, or depth (if available) on the left-hand side of the LFP Viewer.
+
 Signals
 ===========
 
 * **Invert signal:** By default, negative voltages point downward, and positive voltages point upward. This button switches that convention for all channels (e.g., so spikes point upward). The signal for individual channels can be inverted by right-clicking on that channel in the LFP Viewer.
 
 * **Subtract offset:** Removes the DC offset for each channel (useful for visualizing Neuropixels data).
+
+.. versionadded:: v1.1.0
+
+  * **High-pass filter:** Enables a 300 Hz high-pass filter applied to the data before display (does not affect the data sent to downstream plugins).
+
+  * **CAR / NP CAR:** Subtracts the mean of all channels from each channel before display (does not affect the data sent to downstream plugins). For Neuropixels data, the **NP CAR** option applies common average referencing only across channels that are sampled simultaneously, using the same approach as the :ref:`neuropixelscar` plugin. This provides more effective noise removal than standard CAR.
+
 
 Triggered display
 ==================
