@@ -3,320 +3,397 @@
 Remote control
 ##############
 
-The **Open Ephys HTTP Server** enables remote control of the GUI via a RESTful API. Immediately upon launching, the GUI starts an HTTP server on port **37497** (:code:`EPHYS` on a phone keypad). You can confirm that the server is running by pointing a web browser to :code:`http://localhost:37497/api/processors`. If you're using a different computer, substitute :code:`localhost` with the IP address of the machine running the GUI. This should display a JSON string with information about the current signal chain.
+The **Open Ephys HTTP Server** enables remote control of the GUI via an HTTP API. Immediately upon launching, the GUI starts a server on port **37497** (:code:`EPHYS` on a phone keypad). You can confirm that the server is running by opening :code:`http://localhost:37497/api/processors` in a browser. If you are using a different computer, replace :code:`localhost` with the IP address of the machine running the GUI.
 
 The HTTP server can be disabled or re-enabled via the **File** menu.
 
-The following sections document the various remote control commands that are available. Python examples based on the `requests <https://requests.readthedocs.io/en/latest/>`__ library, while Matlab examples use the `webread <https://www.mathworks.com/help/matlab/ref/webread.html>`__ and `webwrite <https://www.mathworks.com/help/matlab/ref/webwrite.html>`__ functions.
-
-Start/stop acquisition and recording
-------------------------------------
-
-.. csv-table:: 
-   :widths: 10, 80
-
-   "URL", ":code:`/api/status`"
-
-Querying the GUI's acquisition/recording status uses an HTTP :code:`GET` request at the :code:`/api/status` endpoint.
-
-**Python Example:**
-
-.. code-block:: Python
-
-    r = requests.get("http://localhost:37497/api/status")
-
-**Matlab Example:**
-
-.. code-block:: Matlab
-
-    out = webread('http://localhost:37497/api/status') 
-
-This returns a JSON string (accessible via :code:`r.json()` in Python) containing information about the current :code:`mode` of the GUI, which can take the following values:
-
-* :code:`IDLE` - the GUI is not acquiring data
-* :code:`ACQUIRE` - the GUI is acquiring data, but not recording
-* :code:`RECORD` - the GUI is acquiring and recording data
-
-To set the GUI's status, use an HTTP :code:`PUT` request.
-
-**Python Example:**
-
-.. code-block:: Python
-
-    r = requests.put(
-        "http://localhost:37497/api/status",
-        json={"mode" : "ACQUIRE"})
-
-**Matlab Example:**
-
-.. code-block:: Matlab
-
-    url = 'http://localhost:37497/api/status'
-    out = webwrite(url, struct('mode','ACQUIRE'), 
-          weboptions('RequestMethod','put','MediaType','application/json'))
-
-.. note:: The signal chain must contain at least one Record Node in order for the :code:`RECORD` command to work.
-
-Get/set recording configuration
--------------------------------
-        
-.. csv-table:: 
-   :widths: 10, 80
-
-   "URL", ":code:`/api/recording`"
-
-Information related to recording can be queried and updated using the :code:`/api/recording` endpoint. Sending a :code:`GET` request to this endpoint will return a JSON string with information about the recording directory as well as the details of each record node.
-
-**Python Example:**
-
-.. code-block:: Python
-
-    r = requests.get("http://localhost:37497/api/recording")
-
-**Matlab Example:**
-
-.. code-block:: Matlab
-
-    out = webread('http://localhost:37497/api/recording') 
-
-This will return a JSON string with the following structure:
-
-.. code-block:: js
-
-    {
-        'parent_directory' : '/Users/neuroscientist/Documents/OpenEphys',
-        'base_text' : 'AUTO',
-        'prepend_text' : 'NONE', 
-        'append_text' : 'AUTO', 
-        'record_nodes' : [
-            {
-                'node_id' : 102,
-                'parent_directory' : '/Users/neuroscientist/Documents/OpenEphys',
-                'record_engine' : 'BINARY',
-                'experiment_number' : 1,
-                'recording_number' : 3,
-                'is_synchronized' : true
-            }, ...
-        ]
-    }
-
-To update the default location for storing data, use an HTTP :code:`PUT` request to set the :code:`parent_directory` field.
-
-**Python Example:**
-
-.. code-block:: Python
-
-    r = requests.put(
-        "http://localhost:37497/api/recording",
-        json={"parent_directory" : "/Users/neuroscientist/Documents/Data"})
-
-**Matlab Example:**
-
-.. code-block:: Matlab
-
-    url = 'http://localhost:37497/api/recording'
-    out = webwrite(url, struct('parent_directory','/Users/neuroscientist/Documents/Data'), 
-          weboptions('RequestMethod','put','MediaType','application/json'))
-
-Note that this new directory will be applied only to future Record Nodes, not Record Nodes that are already present in the signal chain.
-
-To change the recording directory for a specific Record Node, the Record Node's ID must be appended to the address.
-
-**Python Example:**
-
-.. code-block:: Python
-
-    r = requests.put(
-        "http://localhost:37497/api/recording/102",
-        json={"parent_directory" : "/Users/neuroscientist/Documents/Data"})
-
-**Matlab Example:**
-
-.. code-block:: Matlab
-
-    url = 'http://localhost:37497/api/recording/102'
-    out = webwrite(url, struct('parent_directory','/Users/neuroscientist/Documents/Data'), 
-          weboptions('RequestMethod','put','MediaType','application/json'))
-
-To use custom base text for the next recording directory (in place of the auto-generated date string), use the following commands:
-
-**Python Example:**
-
-.. code-block:: Python
-
-    r = requests.put(
-        "http://localhost:37497/api/recording",
-        json={"base_text" : "new_directory_name"})
-
-**Matlab Example:**
-
-.. code-block:: Matlab
-
-    url = 'http://localhost:37497/api/recording'
-    out = webwrite(url, struct('base_text','new_directory_name'), 
-          weboptions('RequestMethod','put','MediaType','application/json'))
-
-The same endpoint can be used to set the recording directory :code:`prepend_text` and :code:`append_text` as well.
-
-
-Get information about the signal chain
----------------------------------------
-
-.. csv-table:: 
-   :widths: 10, 80
-
-   "URL", ":code:`/api/processors`"
-
-Sending a :code:`GET` request to the :code:`/api/processors` endpoint will return a JSON string with information about available processors and their parameters. Information about Record Nodes is accessed separately, via the :code:`/api/recording` endpoint.
-
-**Python Example:**
-
-.. code-block:: Python
-
-    r = requests.get("http://localhost:37497/api/processors")
-
-**Matlab Example:**
-
-.. code-block:: Matlab
-
-    out = webread('http://localhost:37497/api/processors') 
-
-will return a string with the following structure:
-
-.. code-block:: js
-
-    {
-        "processors" : [
-            { 
-              "id" : 100,
-              "name" : "File Reader", 
-              "parameters" : [ ],
-              "predecessor" : null,
-              "streams" : [
-                { 
-                  "channel_count" : 16,
-                  "name" : "example_data", 
-                  "parameters" : [ ],
-                  "sample_rate" : 40000.0,
-                  "source_id" : 100
-                }
-              ]
-            },
-            {
-              "id" : 101,
-              "name" : "Bandpass Filter",
-              "parameters" : [ ],
-              "predecessor" : 100, 
-              "streams": [ 
-                {
-                  "channel_count" : 16,
-                  "name" : "example_data", 
-                  "sample_rate" : 40000.0,
-                  "source_id" : 100
-                  "parameters" : [
-                    {
-                      "name" : "enable_stream",
-                      "type" : "Boolean",
-                      "value" : "true"
-                    },
-                    {
-                      "name" : "high_cut",
-                      "type" : "Float",
-                      "value" : "6000"
-                    },
-                    {
-                      "name" : "low_cut",
-                      "type" : "Float",
-                      "value" : "300"},
-                    {
-                      "name" : "Channels",
-                      "type" : "Mask Channels",
-                      "value" : ""
-                    }
-                    ],
-                  }
+Most read-only endpoints use HTTP :code:`GET`, while endpoints that change GUI state use :code:`PUT` with a JSON body. Python examples below use the `requests <https://requests.readthedocs.io/en/latest/>`__ library, while Matlab examples use `webread <https://www.mathworks.com/help/matlab/ref/webread.html>`__ and `webwrite <https://www.mathworks.com/help/matlab/ref/webwrite.html>`__.
+
+Malformed JSON requests return HTTP 400 responses. Requests for missing processors, streams, or parameters return HTTP 404 responses.
+
+Quick API reference
+-------------------
+
+.. csv-table::
+   :header: "Method", "Endpoint", "Description"
+   :widths: 8, 46, 46
+
+   "GET", ":code:`/api/status`", "Return the current GUI mode."
+   "PUT", ":code:`/api/status`", "Set the GUI mode to :code:`IDLE`, :code:`ACQUIRE`, or :code:`RECORD`."
+   "GET", ":code:`/api/recording`", "Return default recording settings and all Record Node settings."
+   "PUT", ":code:`/api/recording`", "Update default recording settings."
+   "PUT", ":code:`/api/recording/<record_node_id>`", "Update a specific Record Node."
+   "GET", ":code:`/api/config`", "Return the current signal-chain configuration as XML wrapped in JSON."
+   "PUT", ":code:`/api/load`", "Load a signal chain from disk."
+   "PUT", ":code:`/api/save`", "Save the current signal chain to disk."
+   "GET", ":code:`/api/processors/list`", "List processor types that can be added to the signal chain."
+   "GET", ":code:`/api/processors`", "Return all processors currently in the signal chain."
+   "GET", ":code:`/api/processors/<processor_id>`", "Return one processor and its streams."
+   "GET", ":code:`/api/processors/<processor_id>/parameters`", "Return all processor-level parameters."
+   "GET", ":code:`/api/processors/<processor_id>/parameters/<parameter_name>`", "Return one processor-level parameter."
+   "GET", ":code:`/api/processors/<processor_id>/streams/<stream_index>`", "Return one stream and its parameters."
+   "GET", ":code:`/api/processors/<processor_id>/streams/<stream_index>/parameters`", "Return all parameters for one stream."
+   "GET", ":code:`/api/processors/<processor_id>/streams/<stream_index>/parameters/<parameter_name>`", "Return one stream parameter."
+   "PUT", ":code:`/api/processors/<processor_id>/parameters/<parameter_name>`", "Set one processor-level parameter."
+   "PUT", ":code:`/api/processors/<processor_id>/streams/<stream_index>/parameters/<parameter_name>`", "Set one stream parameter."
+   "PUT", ":code:`/api/processors/<processor_id>/config`", "Send a processor-specific configuration message."
+   "PUT", ":code:`/api/message`", "Broadcast a message to all processors."
+   "GET", ":code:`/api/processors/clear`", "Clear the signal chain."
+   "PUT", ":code:`/api/processors/add`", "Add a processor to the signal chain."
+   "PUT", ":code:`/api/processors/delete`", "Delete a processor from the signal chain."
+   "GET", ":code:`/api/undo`", "Undo the previous action."
+   "GET", ":code:`/api/redo`", "Redo the previous action."
+   "GET", ":code:`/api/cpu`", "Return the current audio callback CPU usage."
+   "GET", ":code:`/api/latency`", "Return processor latency information for each stream."
+   "GET", ":code:`/api/audio/devices`", "List available audio device types and device names."
+   "GET", ":code:`/api/audio/device`", "Return the currently selected audio device and supported rates and buffer sizes."
+   "PUT", ":code:`/api/audio`", "Change the active audio device, sample rate, or buffer size."
+   "PUT", ":code:`/api/quit`", "Close the GUI."
+
+Query and control acquisition state
+-----------------------------------
+
+Use :code:`GET /api/status` to query the GUI mode and :code:`PUT /api/status` to change it.
+
+.. code-block:: python
+
+        import requests
+
+        status = requests.get("http://localhost:37497/api/status").json()
+        requests.put(
+                "http://localhost:37497/api/status",
+                json={"mode": "ACQUIRE"},
+        )
+
+.. code-block:: matlab
+
+        status = webread('http://localhost:37497/api/status');
+
+        out = webwrite(
+                'http://localhost:37497/api/status',
+                struct('mode','ACQUIRE'),
+                weboptions('RequestMethod','put','MediaType','application/json'));
+
+The returned JSON contains a single :code:`mode` field:
+
+* :code:`IDLE` means the GUI is not acquiring data.
+* :code:`ACQUIRE` means the GUI is acquiring but not recording.
+* :code:`RECORD` means the GUI is both acquiring and recording.
+
+.. note:: The signal chain must contain at least one Record Node in order for :code:`RECORD` mode to succeed.
+
+Recording configuration
+-----------------------
+
+Use :code:`GET /api/recording` to inspect the global recording configuration and the state of each Record Node.
+
+.. code-block:: python
+
+        recording = requests.get("http://localhost:37497/api/recording").json()
+
+.. code-block:: json
+
+        {
+                "parent_directory": "/Users/neuroscientist/Documents/OpenEphys",
+                "base_text": "AUTO",
+                "prepend_text": "NONE",
+                "append_text": "AUTO",
+                "default_record_engine": "BINARY",
+                "record_nodes": [
+                        {
+                                "node_id": 102,
+                                "parent_directory": "/Users/neuroscientist/Documents/OpenEphys",
+                                "record_engine": "BINARY",
+                                "experiment_number": 1,
+                                "recording_number": 3,
+                                "is_synchronized": true
+                        }
                 ]
-            }
-    }
+        }
 
-Appending the 3-digit processor ID to the endpoint (e.g., :code:`/api/processors/101`) will return information about one processor at a time.
+Use :code:`PUT /api/recording` to update global defaults. Supported fields are:
 
-Send a configuration message to a specific processor
-----------------------------------------------------
+* :code:`parent_directory`
+* :code:`prepend_text`
+* :code:`base_text`
+* :code:`append_text`
+* :code:`default_record_engine`
+* :code:`start_new_directory`
 
-.. csv-table:: 
-   :widths: 10, 80
+Example:
 
-   "URL", ":code:`/api/processors/<processor_id>/config`"
+.. code-block:: python
 
-Certain processors can respond to custom configuration messages that modify their state prior to starting acquisition. For example, the following command will change the reference setting on a Neuropixels probe connected to slot 3, port 1, and dock 1:
+        requests.put(
+                "http://localhost:37497/api/recording",
+                json={
+                        "parent_directory": "/Users/neuroscientist/Documents/Data",
+                        "base_text": "experiment_01",
+                        "append_text": "mouse_a",
+                        "default_record_engine": "BINARY",
+                        "start_new_directory": "true",
+                },
+        )
 
-**Python Example:**
+.. code-block:: matlab
 
-.. code-block:: Python
+        out = webwrite(
+                'http://localhost:37497/api/recording',
+                struct(
+                        'parent_directory','/Users/neuroscientist/Documents/Data',
+                        'base_text','experiment_01',
+                        'append_text','mouse_a',
+                        'default_record_engine','BINARY',
+                        'start_new_directory','true'),
+                weboptions('RequestMethod','put','MediaType','application/json'));
 
-    r = requests.put(
-        "http://localhost:37497/api/processors/100/config",
-        json={"text" : "NP REFERENCE 3 1 1 TIP"})
+Use :code:`PUT /api/recording/<record_node_id>` to update a specific Record Node. Supported fields are :code:`parent_directory` and :code:`record_engine`.
 
-**Matlab Example:**
+.. code-block:: python
 
-.. code-block:: Matlab
+        requests.put(
+                "http://localhost:37497/api/recording/102",
+                json={
+                        "parent_directory": "/Users/neuroscientist/Documents/Data",
+                        "record_engine": "BINARY",
+                },
+        )
 
-    url = 'http://localhost:37497/api/processors/100/config'
-    out = webwrite(url, struct('text','NP REFERENCE 3 1 1 TIP'), 
-          weboptions('RequestMethod','put','MediaType','application/json'))
 
-Broadcast a message to all processors 
--------------------------------------
+Signal-chain configuration files
+--------------------------------
 
-.. csv-table:: 
-   :widths: 10, 80
+Use :code:`GET /api/config` to fetch the current GUI configuration. The response is JSON with the XML payload stored in the :code:`info` field.
 
-   "URL", ":code:`/api/message`"
+.. code-block:: python
 
-Broadcast messages are relayed to all processors while acquisition is active. These messages will be ignored unless a plugin has implemented the :code:`handleBroadcastMessage()` method, and knows how to respond to the specific message that was sent. For example, the following command will trigger a 100 ms pulse on digital output line 1 of the Open Ephys Acquisition Board:
+        config = requests.get("http://localhost:37497/api/config").json()
+        xml_text = config["info"]
 
-**Python Example:**
+Load a saved signal chain with :code:`PUT /api/load`:
 
-.. code-block:: Python
+.. code-block:: python
 
-    r = requests.put(
-        "http://localhost:37497/api/message",
-        json={"text" : "ACQBOARD TRIGGER 1 100"})
+        requests.put(
+                "http://localhost:37497/api/load",
+                json={"path": "/Users/neuroscientist/Documents/OpenEphys/chain.xml"},
+        )
 
-**Matlab Example:**
+Save the current signal chain with :code:`PUT /api/save`:
 
-.. code-block:: Matlab
+.. code-block:: python
 
-    url = 'http://localhost:37497/api/message'
-    out = webwrite(url, struct('text','ACQBOARD TRIGGER 1 100'), 
-          weboptions('RequestMethod','put','MediaType','application/json'))
+        requests.put(
+                "http://localhost:37497/api/save",
+                json={"filepath": "/Users/neuroscientist/Documents/OpenEphys/chain.xml"},
+        )
 
-.. tip:: Broadcast messages are saved by all Record Nodes, so these messages can be used to mark different epochs within a given recording.
+.. note:: :code:`/api/save` does not overwrite an existing file. It returns a message if the target path already exists.
+
+Inspect processors, streams, and parameters
+-------------------------------------------
+
+Use :code:`GET /api/processors/list` to list the processor types that can be added to the graph:
+
+.. code-block:: python
+
+        available = requests.get("http://localhost:37497/api/processors/list").json()
+
+Use :code:`GET /api/processors` to inspect the current signal chain:
+
+.. code-block:: python
+
+        graph = requests.get("http://localhost:37497/api/processors").json()
+
+The response has the following structure:
+
+.. code-block:: json
+
+        {
+                "processors": [
+                        {
+                                "id": 100,
+                                "name": "File Reader",
+                                "parameters": [],
+                                "predecessor": null,
+                                "streams": [
+                                        {
+                                                "name": "example_data",
+                                                "source_id": 100,
+                                                "sample_rate": 40000.0,
+                                                "channel_count": 16,
+                                                "parameters": []
+                                        }
+                                ]
+                        }
+                ]
+        }
+
+You can also query narrower endpoints:
+
+* :code:`/api/processors/<processor_id>`
+* :code:`/api/processors/<processor_id>/parameters`
+* :code:`/api/processors/<processor_id>/parameters/<parameter_name>`
+* :code:`/api/processors/<processor_id>/streams/<stream_index>`
+* :code:`/api/processors/<processor_id>/streams/<stream_index>/parameters`
+* :code:`/api/processors/<processor_id>/streams/<stream_index>/parameters/<parameter_name>`
+
+.. note:: :code:`stream_index` is zero-based because the server indexes directly into each processor's stream list.
+
+Parameter values are returned as strings in the JSON response, together with a :code:`type` field that describes the parameter kind.
+
+Modify processors and parameters
+--------------------------------
+
+Processor-level parameters can be changed with :code:`PUT /api/processors/<processor_id>/parameters/<parameter_name>`.
+
+.. code-block:: python
+
+        requests.put(
+                "http://localhost:37497/api/processors/101/parameters/high_cut",
+                json={"value": 6000},
+        )
+
+Stream parameters can be changed with :code:`PUT /api/processors/<processor_id>/streams/<stream_index>/parameters/<parameter_name>`.
+
+.. code-block:: python
+
+        requests.put(
+                "http://localhost:37497/api/processors/101/streams/0/parameters/enable_stream",
+                json={"value": True},
+        )
+
+Accepted :code:`value` payloads are integers, floats, booleans, strings, and numeric arrays. Some parameters cannot be changed while acquisition is active; those requests return HTTP 400.
+
+Use :code:`PUT /api/processors/<processor_id>/config` to send a processor-specific configuration message before starting acquisition:
+
+.. code-block:: python
+
+        requests.put(
+                "http://localhost:37497/api/processors/100/config",
+                json={"text": "NP REFERENCE 3 1 1 TIP"},
+        )
+
+To broadcast a message to all processors while acquisition is active, use :code:`PUT /api/message`:
+
+.. code-block:: python
+
+        requests.put(
+                "http://localhost:37497/api/message",
+                json={"text": "ACQBOARD TRIGGER 1 100"},
+        )
+
+.. tip:: Broadcast messages are saved by all Record Nodes, so they can be used to mark epochs within a recording.
+
+The signal chain can also be edited remotely:
+
+* :code:`GET /api/processors/clear` clears the graph.
+* :code:`PUT /api/processors/delete` deletes a processor when given :code:`{"id": 101}`.
+* :code:`PUT /api/processors/add` adds a processor when given :code:`{"name": "Bandpass Filter"}`.
+* :code:`PUT /api/processors/add` also accepts :code:`source_id` or :code:`dest_id` to position the processor relative to an existing node.
+* :code:`GET /api/undo` undoes the previous action.
+* :code:`GET /api/redo` redoes the previous action.
+
+Examples:
+
+.. code-block:: python
+
+        requests.put(
+                "http://localhost:37497/api/processors/add",
+                json={"name": "Bandpass Filter", "source_id": 100},
+        )
+
+        requests.put(
+                "http://localhost:37497/api/processors/delete",
+                json={"id": 101},
+        )
+
+Graph-editing endpoints that modify the signal chain are blocked while acquisition is active.
+
+Performance endpoints
+---------------------
+
+Use :code:`GET /api/cpu` to retrieve the current audio callback CPU usage:
+
+.. code-block:: python
+
+        usage = requests.get("http://localhost:37497/api/cpu").json()
+
+The returned JSON has the form:
+
+.. code-block:: json
+
+        {"usage": 0.12}
+
+Use :code:`GET /api/latency` to inspect processor latency per stream:
+
+.. code-block:: python
+
+        latency = requests.get("http://localhost:37497/api/latency").json()
+
+This returns one entry per processor, each with a list of stream names and their latency values.
+
+Audio device control
+--------------------
+
+The audio endpoints let you inspect the available devices and change the currently selected device.
+
+Use :code:`GET /api/audio/devices` to list available device types and names:
+
+.. code-block:: python
+
+        devices = requests.get("http://localhost:37497/api/audio/devices").json()
+
+This returns JSON in the form:
+
+.. code-block:: json
+
+        {
+                "devices": {
+                        "ALSA": ["Device A", "Device B"],
+                        "JACK": ["JACK Audio Connection Kit"]
+                }
+        }
+
+Use :code:`GET /api/audio/device` to inspect the current device:
+
+.. code-block:: json
+
+        {
+                "device_type": "ALSA",
+                "device_name": "Device A",
+                "sample_rate": 30000,
+                "buffer_size": 512,
+                "available_sample_rates": [30000, 44100, 48000],
+                "available_buffer_sizes": [128, 256, 512, 1024]
+        }
+
+Use :code:`PUT /api/audio` to change any combination of :code:`device_type`, :code:`device_name`, :code:`sample_rate`, and :code:`buffer_size`:
+
+.. code-block:: python
+
+        requests.put(
+                "http://localhost:37497/api/audio",
+                json={
+                        "device_type": "ALSA",
+                        "device_name": "Device A",
+                        "sample_rate": 30000,
+                        "buffer_size": 512,
+                },
+        )
 
 Close the GUI remotely
--------------------------------------
+----------------------
 
-.. csv-table:: 
-   :widths: 10, 80
+To shut down the GUI, send an HTTP :code:`PUT` request to :code:`/api/quit`:
 
-   "URL", ":code:`/api/window`"
+.. code-block:: python
 
-To shut down the GUI, send the **quit** command to the :code:`/api/window` endpoint:
+        requests.put("http://localhost:37497/api/quit")
 
-**Python Example:**
+.. code-block:: matlab
 
-.. code-block:: Python
-
-    r = requests.put(
-        "http://localhost:37497/api/window",
-        json={"command" : "quit"})
-
-**Matlab Example:**
-
-.. code-block:: Matlab
-
-    url = 'http://localhost:37497/api/window'
-    out = webwrite(url, struct('command','quit'), 
-          weboptions('RequestMethod','put','MediaType','application/json'))
+        out = webwrite(
+                'http://localhost:37497/api/quit',
+                struct(),
+                weboptions('RequestMethod','put','MediaType','application/json'));
