@@ -85,11 +85,38 @@ This plugin can stream data from the following Neuropixels probe types:
 Connecting to the PXI system
 ##############################
 
-Before using this plugin, make sure you've followed all of the steps in the `Neuropixels User Manual <https://www.neuropixels.org/support>`__ to set up and configure your hardware. Prior to using your Neuropixels PXI basestation, you must install the `Enclustra drivers <https://raw.githubusercontent.com/open-ephys-plugins/neuropixels-pxi/main/Resources/Enclustra_Win10.zip>`__. See section 4.2.2 of the Neuropixels User Manual for installation instructions.
+Installing the drivers
+-----------------------
 
-Once your PXI system is up and running, you can drag and drop the "Neuropix-PXI" module from the Processor List onto the Editor Viewport. The GUI will automatically connect to any available basestations in your PXI chassis with probes connected. If no basestations are found, the plugin can be run in simulation mode. If no probes are found, the plugin editor will display information about each basestation, and can be used to perform a firmware update (see :ref:`updating-basestation-firmware` below).
+Before using this plugin, make sure you've followed all of the hardware setup steps in the `Neuropixels User Manual <https://www.neuropixels.org/support>`__. Prior to using a Neuropixels PXI basestation on Windows, download and install the :download:`Enclustra drivers </_static/downloads/plugins/Enclustra-driver-v1.17.zip>` for each PXIe acquisition module individually as described below.
 
-The editor will automatically create a probe selection interface for each basestation that's available. Each basestation can communicate with up to 4 probes (for Neuropixels 1.0, NHP, and Ultra) or 8 probes (for 2.0). When the probes are initially detected, they show up as orange circles. Once they are initialized, connected probes become green. After the probes turn green, the plugin is ready to begin data acquisition.
+#. Mount the PXIe acquisition module(s) in the chassis.
+#. Log in with an account that has administrative privileges and open **Device Manager**.
+#. If Enclustra drivers are already installed, uninstall them before upgrading:
+    a. Right-click each **Enclustra PCI Express Adapter** entry.
+    b. Select **Uninstall device**.
+    c. If Windows offers a checkbox to delete the driver software, enable it.
+    d. Repeat this process for every Enclustra entry in the system, one per Imec basestation card.
+    e. Confirm that each device now appears under **Other devices** as **PCI Memory Controller**. If it does not, select **Action > Scan for hardware changes** in Device Manager.
+#. Install the driver only for entries listed as **PCI Memory Controller**:
+    a. Right-click **PCI Memory Controller** under **Other devices** and select **Update driver**.
+    b. Choose **Browse my computer for driver software**.
+    c. Browse to the folder containing the extracted Enclustra driver files and click **Next**.
+    d. Wait for Windows to report that the driver update completed successfully, then close the dialog.
+    e. Repeat these steps for each PXIe acquisition module in the chassis.
+#. Reboot the PC and log back in.
+#. Re-open **Device Manager** and verify that the hardware now appears under **Enclustra Devices** as **Enclustra PCI Express Adapter**.
+
+If the device still appears as **PCI Memory Controller** after rebooting, repeat the installation and confirm that Windows is pointed at the extracted Enclustra driver folder rather than the zip archive itself.
+
+.. important:: A new version of the Enclustra driver (v1.17) is now available. We strongly recommend that all existing and new users update to this version (linked above) by following the procedure described above. Doing so will help ensure compatibility and reduce the risk of potential issues, including Blue Screen of Death (BSOD) errors during normal operation.
+
+
+Initializing the plugin
+-------------------------
+Once your PXI system is up and running, you can drag and drop the "Neuropix-PXI" plugin from the Processor List onto the Editor Viewport. The GUI will automatically connect to any available basestations in your PXI chassis with probes connected. If no basestations are found, the plugin can be run in simulation mode. If no probes are found, the plugin editor will display information about each basestation, and can be used to perform a firmware update (see :ref:`updating-basestation-firmware` below).
+
+The editor will automatically create a probe selection interface for each basestation that's available. Each basestation can communicate with up to 4 probes (for Neuropixels 1.0, NHP, Ultra, and 2.0 quad base) or 8 probes (for 2.0 single and multi shank). When the probes are initially detected, they show up as orange circles. Once they are initialized, connected probes become green. After the probes turn green, the plugin is ready to begin data acquisition.
 
 Troubleshooting connections
 ###########################
