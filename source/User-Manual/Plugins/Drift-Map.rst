@@ -6,6 +6,9 @@
 Drift Map
 #########
 
+.. image:: ../../_static/images/plugins/driftmap/driftmap-01.png
+  :alt: Drift Map plugin editor interface
+
 .. csv-table:: View a zoomed-out spike raster over long recording intervals, with time on the horizontal axis and electrode channel position on the vertical axis.
    :widths: 18, 80
 
@@ -40,6 +43,9 @@ Opening the visualizer
 Most Drift Map controls are located in the visualizer canvas rather than in the compact plugin editor. Open the canvas by clicking the "tab" or "window" buttons at the top right of the plugin editor.
 
 The canvas shows a time-by-channel raster for the selected stream. Each dot represents a detected negative peak. Time runs from left to right, and channels are arranged vertically according to the incoming channel order or available probe geometry metadata.
+
+.. image:: ../../_static/images/plugins/driftmap/driftmap-02.png
+  :alt: Drift Map visualizer interface
 
 
 Detection controls
@@ -90,13 +96,5 @@ The drift map keeps following the newest data by default. You can inspect older 
 * Double-click the plot to return to the latest data.
 
 Changing **Timebase (min)** resets the view to the newest data with the selected visible time range.
-
-
-Clearing history
-################
-
-Click **CLEAR** when you want to start a new drift-map history without rebuilding the signal chain. This clears pending peak events, resets per-channel refractory history, and removes the accumulated image from every stream tab.
-
-Stopping acquisition does not automatically clear the drift map. This allows you to inspect the accumulated history after acquisition stops.
 
 |

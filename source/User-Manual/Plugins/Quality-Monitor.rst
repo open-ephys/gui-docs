@@ -6,7 +6,7 @@
 Quality Monitor
 ###############
 
-.. image:: ../../_static/images/plugins/quality-monitor/qualitymonitor-01.png
+.. image:: ../../_static/images/plugins/qualitymonitor/qualitymonitor-01.png
    :alt: Annotated Quality Monitor plugin editor controls
 
 .. csv-table:: Monitors the health of continuous electrophysiology data in real time, with per-stream summaries for RMS noise, powerline and high-frequency noise, raw voltage snapshots, and spike-rate activity.
@@ -66,7 +66,7 @@ The top bar of the Quality Monitor canvas contains controls for the current anal
 
 The status indicator in the header shows whether the plugin is idle, running, or done. The **DATA STREAMS** sidebar lists all monitored input streams and shows four small status indicators for the RMS, spectrum, snapshot, and spike-rate metrics. Selecting a different stream updates all four panels and their threshold controls.
 
-.. image:: ../../_static/images/plugins/quality-monitor/qualitymonitor-02.png
+.. image:: ../../_static/images/plugins/qualitymonitor/qualitymonitor-02.png
    :alt: Quality Monitor visualizer with RMS heatmap, power spectrum, data snapshot, and spike rate panels
 
 
