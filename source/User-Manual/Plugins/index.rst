@@ -26,7 +26,7 @@ Officially supported Filter plugins include :ref:`bandpassfilter`, :ref:`channel
 
 **Sinks** send data to an external source, such as a display, stimulator, etc., without altering the underlying data streams. Data should pass through Sinks unchanged.
 
-Officially supported Sink plugins include :ref:`arduinooutput`, :ref:`datasnapshot`, :ref:`eventbroadcaster`, :ref:`falconoutput`, :ref:`latencyhistogram`, :ref:`lfpviewer`, :ref:`multibandintegrator`, :ref:`onlinepsth`, :ref:`probeviewer`, :ref:`pulsepal`, :ref:`qualitymonitor`, :ref:`spectrumviewer`, :ref:`spikeviewer`, :ref:`zmqinterface`
+Officially supported Sink plugins include :ref:`arduinooutput`, :ref:`datasnapshot`, :ref:`driftmap`, :ref:`eventbroadcaster`, :ref:`falconoutput`, :ref:`latencyhistogram`, :ref:`lfpviewer`, :ref:`multibandintegrator`, :ref:`onlinepsth`, :ref:`probeviewer`, :ref:`pulsepal`, :ref:`qualitymonitor`, :ref:`spectrumviewer`, :ref:`spikeviewer`, :ref:`zmqinterface`
 
 **Utilities** perform miscellaneous functions related to the signal chain. 
 
@@ -129,6 +129,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     CNN-Ripple
     Crossing-Detector
     Data-Snapshot
+    Drift-Map
     Ephys-Socket
     Event-Broadcaster
     Event-Translator
