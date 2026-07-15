@@ -9,7 +9,7 @@ Quality Monitor
 .. image:: ../../_static/images/plugins/qualitymonitor/qualitymonitor-01.png
    :alt: Annotated Quality Monitor plugin editor controls
 
-.. csv-table:: Monitors the health of continuous electrophysiology data in real time, with per-stream summaries for RMS noise, powerline and high-frequency noise, raw voltage snapshots, and spike-rate activity.
+.. csv-table:: Monitors the health of continuous electrophysiology signals.
    :widths: 18, 80
 
    "*Plugin Type*", "Sink"
@@ -30,9 +30,7 @@ The Plugin Installer also allows you to upgrade to the latest version of this pl
 Recommended signal chain
 ########################
 
-Quality Monitor should be placed downstream of the source or filters whose data quality you want to assess. It is intended for high-channel-count extracellular recordings, especially Neuropixels data, but it can monitor any incoming data stream that contains electrode channels.
-
-The plugin creates one sidebar entry for each incoming data stream that contains electrode channels. The four diagnostic panels always display metrics for the data stream that is selected in this sidebar. If depth, shank, or position metadata is available from the upstream source, channels are sorted by probe geometry before being displayed. Otherwise, channels are shown in their original stream order.
+The Quality Monitor is designed for high-channel-count extracellular recordings, especially Neuropixels data, but it can be used with any incoming data stream that contains electrode channels. For optimal performance, the Quality Monitor should be placed downstream of a :ref:`bandpassfilter` and :ref:`commonaveragereference` or :ref:`neuropixelscar` plugin. 
 
 Because Quality Monitor is a Sink plugin, it does not modify continuous data or event data that pass to downstream processors.
 
@@ -46,11 +44,14 @@ The plugin editor includes two setup controls:
 
 * **Powerline Freq.** sets the local mains frequency used by the spectrum metric. Choose **50 Hz** or **60 Hz** before starting the analysis.
 
-Most analysis settings are adjusted in the visualizer canvas rather than in the compact editor. Open the canvas by clicking the "tab" or "window" buttons at the top right of the plugin editor.
+Quality metric thresholds are adjusted in the visualizer canvas rather than in the compact editor. Open the canvas by clicking the "tab" or "window" buttons at the top right of the plugin editor.
+
+The plugin creates one sidebar entry for each incoming data stream that contains electrode channels. The four diagnostic panels always display metrics for the data stream that is selected in this sidebar. If depth, shank, or position metadata is available from the upstream source, channels are sorted by probe geometry before being displayed. Otherwise, channels are shown in their original stream order.
 
 
-Running an analysis
-###################
+
+Running a quality analysis
+###########################
 
 The top bar of the Quality Monitor canvas contains controls for the current analysis run:
 
@@ -70,35 +71,26 @@ The status indicator in the header shows whether the plugin is idle, running, or
    :alt: Quality Monitor visualizer with RMS heatmap, power spectrum, data snapshot, and spike rate panels
 
 
-Thresholds and pass/fail status
-###############################
-
-Each diagnostic panel has two adjustable thresholds in its header for the currently selected input stream. The first threshold determines which channels are counted as problematic for that metric. The **Channel Thresh.** value determines what percentage of problematic channels is allowed before the metric fails.
-
-For example, if the RMS threshold is set to 20 μV and the RMS channel threshold is set to 50%, the RMS metric fails only when more than half of the monitored channels exceed 20 μV RMS.
-
-The overall stream status fails if any of the four metric statuses fail. Otherwise, the stream passes once the run has produced enough data for the metrics to be evaluated.
-
-When **Lock Thresholds** is enabled, threshold edits for the selected stream are copied to other streams with the same device name. For Neuropixels 1.0 streams, AP thresholds are copied to matching AP streams and LFP thresholds are copied to matching LFP streams.
+.. note:: Because calculating quality metrics is computationally intensive, a quality analysis should be run once at the beginning of the experiment, typically prior to starting recording. Once the analysis is complete, the Quality Monitor has no impact on the performance of the GUI or downstream processors.
 
 
 Diagnostic panels
 #################
 
-The four diagnostic panels are per-input-stream views. Use the **DATA STREAMS** sidebar to choose the stream to inspect; the RMS, spectrum, snapshot, and spike-rate panels then show channel-by-channel metrics for that stream only.
+The four diagnostic panels are per-input-stream views. Use the **DATA STREAMS** sidebar to choose the stream to inspect; the RMS, spectrum, snapshot, and spike rate panels then show channel-by-channel metrics for that stream only.
 
 RMS Heatmap
 -----------
 
 The RMS panel shows the root-mean-square amplitude of each channel over time. RMS values are updated every 200 ms and displayed as a channel-by-time heatmap. The live strip on the right shows the latest RMS value for each channel.
 
-Channels with RMS values above the **RMS Thresh.** value are counted in the panel's alert badge. This metric is useful for finding channels with high broadband noise, poor contact, or large artifacts.
+Channels with RMS values above the **RMS Thresh.** value are counted in the panel's alert badge. This metric is useful for finding channels with high broadband noise, poor contacts, or large artifacts.
 
 
 Power Spectrum
 --------------
 
-The Power Spectrum panel displays spectral power for each channel on a log-frequency axis. The spectrum is computed with a 4096-sample Hanning-windowed FFT, accumulated in the background so the audio thread does not block on display work.
+The Power Spectrum panel displays spectral power for each channel on a log-frequency axis. The spectrum is computed with a 4096-sample Hanning-windowed FFT.
 
 Two overview strips summarize per-channel noise bands:
 
@@ -112,7 +104,7 @@ Channels are counted as noisy when the powerline peak or the high-frequency band
 Data Snapshot
 -------------
 
-The Data Snapshot panel shows a 100 ms raw-voltage image for each channel. The plot uses a fixed -100 μV to +100 μV colour scale, while the overview strip shows the per-channel standard deviation over the snapshot window.
+The Data Snapshot panel shows a 100 ms raw voltage image for each channel. The plot uses a fixed -100 μV to +100 μV colour scale, while the overview strip shows the per-channel standard deviation over the snapshot window.
 
 Channels are counted as saturated when any sample in the current run exceeds the **Saturation** threshold. The default saturation threshold is 1000 μV.
 
@@ -123,6 +115,20 @@ Spike Rate
 The Spike Rate panel estimates threshold-crossing activity on each channel. Spike thresholds are adaptive: after each RMS window, the detection threshold is set to five times that channel's RMS value, with a small floor for very quiet channels.
 
 The heatmap shows live spike rate over time, and the overview strip shows the cumulative average spike rate for the run. Channels with cumulative rates below the **Fail Thresh.** value are counted as low-spike-rate channels. The default fail threshold is 0.1 Hz.
+
+
+Thresholds and pass/fail status
+###############################
+
+Each of the four diagnostic plots has a user-adjustable threshold that determines whether the metric passes or fails for each channel. The thresholds are set in the visualizer canvas, and they can be adjusted while a run is in progress.
+
+All plots include a separate **Channel Thresh** value, which determines the maximum percentage of problematic channels that is allowed before the metric fails. 
+
+For example, if the RMS threshold is set to 20 μV and the RMS channel threshold is set to 50%, the RMS metric fails only when more than half of the monitored channels exceed 20 μV RMS.
+
+The overall stream status fails if any of the four metric statuses fail. Otherwise, the stream passes once the run has produced enough data for the metrics to be evaluated.
+
+When **Lock Thresholds** is enabled, threshold edits for the selected stream are copied to other streams for the same type of device (e.g. Neuropixels 1.0 or Neuropixels 2.0). For Neuropixels 1.0 streams, AP thresholds are copied to matching AP streams and LFP thresholds are copied to matching LFP streams.
 
 
 Zooming and navigation
@@ -157,8 +163,8 @@ Quality Monitor accepts config messages for basic automation:
 .. csv-table::
    :widths: 18, 80
 
-   ":code:`start`", "Starts processing if acquisition is running."
-   ":code:`stop`", "Stops the current processing run."
+   ":code:`start`", "Starts data capture if acquisition is running."
+   ":code:`stop`", "Stops the current data capture run."
    ":code:`status`", "Returns a JSON string containing the processing state, per-stream statuses, and alert counts."
 
 For example, to start a Quality Monitor processor with processor ID :code:`105` using the Open Ephys HTTP API:

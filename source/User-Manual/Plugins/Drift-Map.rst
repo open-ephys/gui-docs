@@ -30,17 +30,17 @@ The Plugin Installer also allows you to upgrade to the latest version of this pl
 Recommended signal chain
 ########################
 
-Drift Map should be placed downstream of the source or filters whose spike activity you want to inspect. It is intended for high-channel-count extracellular recordings, especially Neuropixels data, but it can display threshold crossings from any incoming continuous data stream.
+The Drift Map plugin is intended for high-channel-count extracellular recordings, especially Neuropixels data, but it can display threshold crossings from any incoming continuous data stream. It should be placed downstream of a :ref:`bandpassfilter`, so that threshold crossings are detected accurately.
 
 Because Drift Map is a Sink plugin, it does not modify continuous data or event data that pass to downstream processors.
-
-The visualizer creates one tab for each incoming data stream. Each tab is labelled with the stream name and source node ID. If channel group, depth, or position metadata is available from the upstream source, channels are sorted by probe geometry before being displayed. Otherwise, channels are shown in their original stream order.
 
 
 Opening the visualizer
 ######################
 
-Most Drift Map controls are located in the visualizer canvas rather than in the compact plugin editor. Open the canvas by clicking the "tab" or "window" buttons at the top right of the plugin editor.
+Open the canvas by clicking the "tab" or "window" buttons at the top right of the plugin editor.
+
+The visualizer creates one tab for each incoming data stream. Each tab is labelled with the stream name and source node ID. If channel group, depth, or position metadata is available from the upstream source, channels are sorted by probe geometry before being displayed. Otherwise, channels are shown in their original stream order.
 
 The canvas shows a time-by-channel raster for the selected stream. Each dot represents a detected negative peak. Time runs from left to right, and channels are arranged vertically according to the incoming channel order or available probe geometry metadata.
 
@@ -51,23 +51,25 @@ The canvas shows a time-by-channel raster for the selected stream. Each dot repr
 Detection controls
 ##################
 
-The bottom control bar contains the peak-detection and display settings:
+The plugin editor contains editors for peak detection settings:
 
 * **Threshold (uV)** sets the negative voltage threshold for detected peaks. The default value is -50 μV. More negative values detect fewer, larger events.
 
 * **Refractory (ms)** sets the minimum separation between detected peaks on the same channel. The default value is 2 ms.
 
+The visualizer contains additional controls for adjusting the display:
+
 * **Timebase (min)** sets the visible time range of the plot. Available values are 1, 2, 5, 10, 15, 30, and 60 minutes.
 
 * **Plot Theme** switches the raster between dark and light plot rendering.
 
-* **CLEAR** removes the accumulated drift map history from all stream tabs and resets the detection history.
+* **CLEAR** removes the accumulated drift map history from all stream tabs.
 
 Threshold and refractory changes affect newly detected peaks. Peaks that have already been drawn remain in the accumulated raster until **CLEAR** is clicked.
 
 
-Running a drift map
-###################
+Creating a drift map
+####################
 
 Drift Map begins accumulating peaks when acquisition starts. It detects local negative minima that fall below the selected threshold and pass the per-channel refractory period. The plot updates continuously while acquisition is running.
 
@@ -79,9 +81,9 @@ Use the stream tabs at the top of the visualizer to switch between incoming data
 Interpreting the display
 ########################
 
-Drift Map is useful for assessing whether spike activity remains stable across the probe over long time intervals. Stable recordings typically show activity bands that remain at similar depths over time. Vertical shifts, fading bands, or sudden changes in density can indicate probe drift, tissue movement, changing noise levels, or changes in the signal chain.
+Drift Map is useful for assessing whether the probe is moving relative to the recorded neurons over long time intervals. Stable recordings typically show activity bands that remain at similar depths over time. Vertical shifts, fading bands, or sudden changes in density can indicate probe drift, tissue movement, or changing noise levels.
 
-The plugin detects threshold crossings directly from the continuous signal. It is not a spike sorter, and it does not cluster or assign units. Use it as a fast visual summary of where negative-going activity is occurring over time.
+The plugin detects threshold crossings directly from the continuous signal. It is not a spike sorter, and it does not cluster or assign units. Instead, it should be used as a visual summary of probe stability over time.
 
 
 Zooming and navigation
