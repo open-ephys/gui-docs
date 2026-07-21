@@ -189,6 +189,7 @@ html_theme_options = {
     'use_edit_page_button': True,
     "navigation_with_keys": True,
     "navbar_end": ["navbar-icon-links"],
+    "navbar_persistent": ["search-button"],
     "external_links": [{"name": "Download", "url": "https://open-ephys.org/gui"},],
     "navbar_align": "content",
     "footer_start": ["copyright"],
@@ -203,6 +204,7 @@ html_theme_options = {
              url='https://discord.gg/WXAx2URNQU',
              icon='fab fa-discord')
     ],
+    "search_as_you_type": True,
     #'canonical_url': '',
     #'analytics_id': '',
     #'logo_only': False,
@@ -240,7 +242,7 @@ linkcheck_ignore = [
     'https://store-usa.arduino.cc/*',
     'https://openbci.com/*',
     'https://ftdichip.com/drivers/d3xx-drivers/',
-    'https://elifesciences.org/articles/77772'
+    'https://elifesciences.org/*'
 ]
 
 linkcheck_allowed_redirects = {

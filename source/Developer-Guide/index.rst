@@ -17,14 +17,14 @@ When you submit an issue, make sure to include what version of the GUI you're us
 Building a new plugin
 ----------------------
 
-The recommended way to add features to the GUI is by building a new plugin. Plugins allow the GUI to interface with new data sources, trigger events on specific neural states, display data within rich visualizations, or write data to a new format, among many other possibilities. Officially supported plugins are listed in the :ref:`User Manual<plugins>`, and a list of additional community-generated plugins is maintained `here <https://open-ephys.atlassian.net/wiki/spaces/OEW/pages/47841283/Third-party+plugin+repositories>`__.
+The recommended way to add features to the GUI is by building a new plugin. Plugins allow the GUI to interface with new data sources, trigger events on specific neural states, display data within rich visualizations, or write data to a new format, among many other possibilities. Officially supported plugins are listed in the :ref:`User Manual<plugins>`.
 
 Before you :ref:`create a new plugin<creatinganewplugin>`, you'll need to have some familiarity with C++, as well as makefiles (Linux), Xcode (macOS), or Visual Studio (Windows).
 
 Updating the host application
 ------------------------------
 
-If you'd like to make changes to the Open Ephys GUI main repository, first read through :ref:`this section<modifyingthehostapplication>` of the developer documentation. Then, take a look at our list of `active projects <https://github.com/open-ephys/plugin-GUI/projects?query=is%3Aopen>`__ to find out about the features we're planning to update in the near future. If you're interested in tackling one of these projects, or have other ideas for useful additions to the main application, don't hesitate to `open an issue on GitHub <https://github.com/open-ephys/plugin-GUI/issues>`__.
+If you'd like to submit changes to the Open Ephys GUI main code repository, first read through :ref:`this section<modifyingthehostapplication>` of the developer documentation. Before you contribute a new feature or bug fix to the main application, please `open an issue on GitHub <https://github.com/open-ephys/plugin-GUI/issues>`__ so other developers can provide feedback and guidance.
 
 Other projects
 ---------------

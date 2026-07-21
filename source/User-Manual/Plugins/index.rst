@@ -26,7 +26,7 @@ Officially supported Filter plugins include :ref:`bandpassfilter`, :ref:`channel
 
 **Sinks** send data to an external source, such as a display, stimulator, etc., without altering the underlying data streams. Data should pass through Sinks unchanged.
 
-Officially supported Sink plugins include :ref:`arduinooutput`, :ref:`datasnapshot`, :ref:`eventbroadcaster`, :ref:`falconoutput`, :ref:`latencyhistogram`, :ref:`lfpviewer`, :ref:`multibandintegrator`, :ref:`onlinepsth`, :ref:`probeviewer`, :ref:`pulsepal`, :ref:`spectrumviewer`, :ref:`spikeviewer`, :ref:`zmqinterface`
+Officially supported Sink plugins include :ref:`arduinooutput`, :ref:`datasnapshot`, :ref:`driftmap`, :ref:`eventbroadcaster`, :ref:`falconoutput`, :ref:`latencyhistogram`, :ref:`lfpviewer`, :ref:`multibandintegrator`, :ref:`onlinepsth`, :ref:`probeviewer`, :ref:`pulsepal`, :ref:`qualitymonitor`, :ref:`spectrumviewer`, :ref:`spikeviewer`, :ref:`zmqinterface`
 
 **Utilities** perform miscellaneous functions related to the signal chain. 
 
@@ -82,30 +82,30 @@ To open Plugin Installer, go to **File > Plugin Installer**, or press the shortc
 
 The top bar of the Plugin Installer allows the user to:
 
+* Search for a plugin by name. The search is case-insensitive and will return all plugins that contain the search term in their name.
+
 * Sort the plugins alphabetically in ascending (A to Z) or descending (Z to A) order. 
 
 * Filter plugins by those that are available, plugins that are installed by Plugin Installer, or the installed plugins that have updates.
 
 * Filter the plugins by type: Source, Filter, Sink, or Other.
 
-Next is the plugin list, which, as the name implies, shows the list of plugins available on the basis of the selections made in the control panel.
-
-Lastly, the plugin information panel gives information regarding the selected plugin. This information includes the name of the plugin, owner, list of (compatible) versions available, last updated, description, and any external dependencies.
 
 Installing Plugins
 -------------------
 
-To install a plugin, simply select the desired plugin from the plugin list, the plugin info panel will fetch the information of that plugin and display it. Then, select the desired version of that plugin from the drop-down menu, and click on Install. If everything works fine, a success message will appear. Now, the plugin should be loaded in the GUI, and it will show up in the Processor List of the main GUI window. If there is an error while installing the plugin, an error message should pop-up saying what kind of error it was. The error message will also be printed to the debug console.
+To install a plugin, simply search or scroll to the desired plugin in the table. Then, select the desired version of that plugin from the drop-down menu, and click on Install. If everything works fine, a success message will appear. Now, the plugin should be loaded in the GUI, and it will show up in the Processor List of the main GUI window. If there is an error while installing the plugin, an error message should pop-up saying what kind of error it was. The error message will also be printed to the debug console.
 
-.. note:: Plugins downloaded via Plugin Installer won’t load into the main GUI if plugin-GUI is built from source in Debug mode. Please make sure plugin-GUI is built in Release mode before installing any plugins.
+.. note:: Plugins downloaded via Plugin Installer won't load into the main GUI if plugin-GUI is built from source in Debug mode. Please make sure plugin-GUI is built in Release mode before installing any plugins.
 
 Upgrading / Downgrading
 -----------------------------
 
-To check if any of the installed plugins have a newer version available, click on the Updates checkbox in the control panel. To upgrade that plugin, select the newest version of that plugin in the info panel, and the “Installed” button should change to “Upgrade“. Click on Upgrade, and this should upgrade the plugin to the version that you selected. 
+To check if any of the installed plugins have a newer version available, click on the refresh button in the top bar. To upgrade that plugin, select the newest version of that plugin in the drop-down menu, and the action button icon should change to an upgrade icon. Click on Upgrade, and this should upgrade the plugin to the version that you selected. 
 
-To downgrade a plugin to an older version (if available), click on the "Installed" checkbox in the Plugin Installer control panel, click on the plugin you want to downgrade, select the older version from the "Version" drop-down menu. This should change the “Installed” button text to “Downgrade”. Click on Downgrade, and this should downgrade the plugin to the version that you selected.
+To downgrade a plugin to an older version (if available), click on the "Installed" checkbox in the Plugin Installer top bar, navigate to the plugin you want to downgrade, select the older version from the "Version" drop-down menu. This should change the action button icon to a downgrade icon. Click on Downgrade, and this should downgrade the plugin to the version that you selected.
 
+.. note:: If you are trying to upgrade, downgrade, or uninstall a plugin that is currently being used in the signal chain, you will need to remove it from the signal chain first. After upgrading or downgrading, you can add it back to the signal chain. It is recommended to clear the entire signal chain before upgrading or downgrading a plugin, as this will prevent any potential issues with the plugin not being offloaded properly before the upgrade/downgrade process.
 
 Uninstalling Plugins
 ----------------------
@@ -129,6 +129,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     CNN-Ripple
     Crossing-Detector
     Data-Snapshot
+    Drift-Map
     Ephys-Socket
     Event-Broadcaster
     Event-Translator
@@ -156,6 +157,7 @@ To remove a plugin, simply click the "Uninstall" button. This will delete the pl
     Probe-Viewer
     Pulse-Pal
     Python-Processor
+    Quality-Monitor
     Rec-Controller-Output
     Record-Control
     Record-Node

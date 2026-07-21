@@ -2,6 +2,10 @@
 
 .. title:: Home
 
+***************
+Open Ephys GUI
+***************
+
 .. image:: _static/images/screenshot-medium.png
   :alt: A screenshot of the Open Ephys GUI
   :class: only-light
@@ -17,38 +21,42 @@ some plugins are only available for certain operating systems.
 
     <br>
     <div class="card-columns">
-        <a class="reference internal" href="User-Manual/Before-you-begin.html"><span class="std std-ref custom-card">
-        <div class="card text-center intro-card">
-            <img src="_static/images/oe_logo_circle.svg" class="card-img-top hover-zoom" alt="Open Ephys logo" height="100">
-            <div class="card-body flex-fill">
-                <h5 class="card-title">Intro to Open Ephys</h5>
-                <p class="card-text">Read this if you're just starting out</p>
+        <a class="reference internal intro-card-link" href="User-Manual/Before-you-begin.html">
+            <div class="card text-center intro-card">
+                <img src="_static/images/oe_logo_circle.svg" class="card-img-top hover-zoom" alt="Open Ephys logo" height="100">
+                <div class="card-body flex-fill">
+                    <h5 class="card-title">Intro to Open Ephys</h5>
+                    <p class="card-text">Read this if you're just starting out</p>
+                </div>
             </div>
-        </div>
-        <a class="reference internal" href="User-Manual/Installing-the-GUI.html"><span class="std std-ref custom-card">
-        <div class="card text-center intro-card">
-            <img src="_static/images/noun_box.svg" class="card-img-top hover-zoom" alt="A box" height="100">
-            <div class="card-body flex-fill">
-                <h5 class="card-title">Installing the GUI</h5>
-                <p class="card-text">How to get up and running</p>
+        </a>
+        <a class="reference internal intro-card-link" href="User-Manual/Installing-the-GUI.html">
+            <div class="card text-center intro-card">
+                <img src="_static/images/noun_box.svg" class="card-img-top hover-zoom" alt="A box" height="100">
+                <div class="card-body flex-fill">
+                    <h5 class="card-title">Installing the GUI</h5>
+                    <p class="card-text">How to get up and running</p>
+                </div>
             </div>
-        </div>
-        <a class="reference internal" href="Developer-Guide/index.html"><span class="std std-ref custom-card">
-        <div class="card text-center intro-card ">
-            <img src="_static/images/noun_macbook.svg" class="card-img-top" alt="A laptop" height="100">
-            <div class="card-body flex-fill">
-                <h5 class="card-title">Developer Guide</h5>
-                <p class="card-text">How to modify and extend the GUI</p>
+        </a>
+        <a class="reference internal intro-card-link" href="Developer-Guide/index.html">
+            <div class="card text-center intro-card">
+                <img src="_static/images/noun_macbook.svg" class="card-img-top" alt="A laptop" height="100">
+                <div class="card-body flex-fill">
+                    <h5 class="card-title">Developer Guide</h5>
+                    <p class="card-text">How to modify and extend the GUI</p>
+                </div>
             </div>
-        </div>
-        <a class="reference internal" href="Tutorials/index.html"><span class="std std-ref custom-card">
-        <div class="card text-center intro-card">
-            <img src="_static/images/noun_books.svg" class="card-img-top" alt="Some books" height="100">
-            <div class="card-body flex-fill">
-                <h5 class="card-title">Tutorials</h5>
-                <p class="card-text">Step-by-step instructions on various topics</p>
+        </a>
+        <a class="reference internal intro-card-link" href="Tutorials/index.html">
+            <div class="card text-center intro-card">
+                <img src="_static/images/noun_books.svg" class="card-img-top" alt="Some books" height="100">
+                <div class="card-body flex-fill">
+                    <h5 class="card-title">Tutorials</h5>
+                    <p class="card-text">Step-by-step instructions on various topics</p>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
 
 
