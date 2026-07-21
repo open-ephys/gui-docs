@@ -38,6 +38,7 @@ The Acquisition Board plugin (version ≥1.1.3) will automatically check for a c
 
 This only applies to Acquisition Boards with an Open Ephys FPGA (most boards purchased after December 2022). If you're unsure about which board you have, check out `this page <https://open-ephys.github.io/acq-board-docs/User-Manual/Generations-differences.html>`__.
 
+.. note:: Gateware v2.0 and later requires Acquisition Board plugin v2.0 or newer and, on Windows, FTDI drivers v1.4.0.1. Before updating the gateware, please ensure that you have the latest version of the Acquisition Board plugin installed and that your FTDI drivers are up to date. If you have installed Open Ephys GUI v1.1.0 or later, the latest FTDI drivers should already be installed.
 
 Plugin configuration
 ====================
