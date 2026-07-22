@@ -32,7 +32,7 @@ Via .zip file
 
 2. Drag and drop the downloaded and unzipped folder to the location of your choice, and rename it "Open Ephys"
 
-3. Run :code:`FrontPanelUSB-DriverOnly-4.4.0.exe` to install the Open Ephys acquisition board driver. 
+3. Follow the driver installation instructions for the hardware you are going to use. For example, those `for the Open Ephys Acquisition Board <https://open-ephys.github.io/acq-board-docs/User-Manual/Driver-installation.html>`__. 
 
 4. Double-click the **open-ephys** executable to run the application.
 
