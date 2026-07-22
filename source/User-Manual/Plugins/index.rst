@@ -67,11 +67,14 @@ When you drop a plugin onto the signal chain, you'll see an editor for any user-
 
 The blank region usually includes widgets for changing available settings. All plugins contain a "stream selector" containing information about all streams that pass through the plugin. For many plugins, the active parameters will only be applied to the currently selected stream.
 
+.. _plugin_installer:
 
 Plugin Installer
 #################
 
 The Plugin Installer is a simple graphical user interface that allows the user to download and install plugins that are not included by default. All available plugins are hosted in the `Open Ephys Plugins GitHub Account`_. All the plugins on here are either developed by the Open Ephys team or community-developed plugins that have been forked, polished, and released.
+
+.. important:: Before installing any plugins in the Open Ephys GUI, start with a fresh session: open the GUI, go to :code:`Edit > Clear signal chain` and then close the GUI. Launch the GUI again and install any plugins you want to use, as described in the :ref:`Plugin Installer <plugin_installer>` section. Restarting the GUI after emptying the signal chain ensures that no previously loaded plugins remain in memory, as some plugins may not work correctly if they are installed in a session that has already loaded plugins.
 
 To open Plugin Installer, go to **File > Plugin Installer**, or press the shortcut keys Ctrl+P (⌘P on macOS). This brings up the interface below:
 

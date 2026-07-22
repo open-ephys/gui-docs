@@ -13,8 +13,6 @@ Windows
 Via installer (recommended)
 ----------------------------
 
-.. warning:: If you have previously installed version 1.x of the GUI and are an Open Ephys Acquisition Board user, you need to copy and paste the following into the File Explorer: :code:`%localappdata%\\Open Ephys\\shared-api10`, press enter to navigate to the folder, and delete the file :code:`libonidriver_ft600.dll`. Then, follow the instructions below to install the latest version of the GUI.
-
 1. Click the "Windows" link on `this page`_ to download the installer for the latest version of the GUI.
 
 2. Double-click the downloaded executable to launch the installer.
@@ -22,6 +20,8 @@ Via installer (recommended)
 3. Follow the instructions within the installer and any additional windows related to driver installation.
 
 4. The GUI will be installed in :code:`C:\\Program Files\\Open Ephys\\open-ephys.exe`.
+
+.. important:: Before installing any plugins in the Open Ephys GUI, start with a fresh session: open the GUI, go to :code:`Edit > Clear signal chain` and then close the GUI. Launch the GUI again and install any plugins you want to use, as described in the :ref:`Plugin Installer <plugin_installer>` section. Restarting the GUI after emptying the signal chain ensures that no previously loaded plugins remain in memory, as some plugins may not work correctly if they are installed in a session that has already loaded plugins.
 
 .. _windows-via-zip:
 
