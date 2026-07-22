@@ -4,8 +4,11 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [packages]
-sphinx = "*"
-pydata-sphinx-theme = "0.13.3"
+sphinx = ">=9.0.0"
+pydata-sphinx-theme = "0.19.0"
 sphinx-tabs = "*"
 make = "*"
 sphinx-design = "*"
+colorama = "*"
+
+[dev-packages]

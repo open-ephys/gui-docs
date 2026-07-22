@@ -33,6 +33,24 @@
   font-weight: bold;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+
+html[data-theme="light"] {
+  --pst-color-primary: #549cb8;
+  --pst-color-primary-highlight: #3c7084;
+  --pst-color-secondary: #967a93;
+  --pst-color-secondary-highlight: #7d657a;
+}
+
 /* navigation bar colors*/
 .navbar {
   background: #5fb5dc !important;
@@ -72,7 +90,15 @@
 
 /* Landing page cards */
 .card-columns {
-  column-count: 4 !important;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+  margin: 2rem auto 0;
+}
+
+.intro-card-link {
+  display: block;
+  text-decoration: none;
 }
 
 .card-title {
@@ -84,10 +110,6 @@
   color: var(--onix-txt-color) !important;
 }
 
-.card-img-top {
-  margin-top: 2em;
-}
-
 .card {
   border: 0;
 }
@@ -95,25 +117,24 @@
 .intro-card {
   transition: transform 0.2s ease;
   border: 0;
+  height: 100%;
 }
 
 .intro-card:hover {
   transform: scale(1.05);
 }
 
-.col-lg-6 {
-  margin-top: 2em;
+@media (max-width: 992px) {
+  .card-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-/* Gallery cards */
-
-.gallery-card .card-header {
-  height: 100%;
-  margin-top: 0rem;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-} /* example of the default height for title */
+@media (max-width: 576px) {
+  .card-columns {
+    grid-template-columns: 1fr;
+  }
+}
 
 .bd-content {
   flex-grow: 1;
@@ -124,53 +145,23 @@
   max-width: 100rem;
 }
 
-.bd-sidebar-primary {
- width: 20%;
+@media (min-width: 960px) {
+  .bd-sidebar-primary {
+    width: 20%;
+  }
+}
+
+@media (max-width: 959.98px) {
+  .bd-sidebar-primary {
+    width: min(85vw, 24rem);
+    max-width: min(85vw, 24rem);
+    margin-left: calc(-1 * min(85vw, 24rem));
+  }
 }
 
 strong {
  font-weight: bold;
 }
-
-/* left side links 
-.bd-links>.active a {
-  color: #3c81be !important;
-  transition-duration: 0.4s;
-}
-
-.bd-links>.active a:hover {
-  color: #5fb5dc !important;
-  transition-duration: 0.4s;
-  transform: translate(2px, 0px);
-}*/
-
-/* right side links 
-.toc-entry>.nav-link.active {
-  font-weight: 600;
-  color: #344b39;
-  background-color: transparent;
-  border-left: 2px solid #da714a;
-}*/
-
-/* body links (external) 
-a.reference.external {
-  color: #9a5035;
-}
-
-a.reference.external:hover {
-  color: #da714a;
-  text-decoration: none;
-}*/
-
-/* body links (internal) 
-a.reference.internal {
-  color: #3c81be;
-}
-
-a.reference.internal:hover {
-  color: #5fb5dc;
-  text-decoration: none;
-}*/
 
 /* header links */
 a.headerlink {
@@ -352,25 +343,20 @@ h6 {
   width: auto;
 }
 
-/* override table width restrictions */
-@media screen and (min-width: 767px) {
-  .wy-table-responsive table td {
-    /*!important prevents the common CSS stylesheets from overriding
-          this as on RTD they are loaded after this stylesheet */
-    white-space: normal !important;
-  }
+#quick-api-reference .pst-scrollable-table-container table {
+  table-layout: fixed;
+  width: 100%;
+}
 
-  .wy-table-responsive {
-    overflow: visible !important;
-  }
+#quick-api-reference td:nth-child(2) code,
+#quick-api-reference td:nth-child(2) code span.pre {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .card-img-top {
   margin-top: 4em;
-}
-
-.col-lg-6 {
-  margin-top: 2em;
 }
 
 .red {
@@ -381,22 +367,25 @@ h6 {
   color: green;
 }
 
-ul,
-ol,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+/* Main document typography, but not sidebar or navigation lists */
+.bd-content ul,
+.bd-content ol,
+.bd-content h1,
+.bd-content h2,
+.bd-content h3,
+.bd-content h4,
+.bd-content h5,
+.bd-content h6 {
   line-height: 1.5;
   margin-bottom: 0.7em;
 }
 
-/* List items in main area, but not in side bars */
-body > li,
-p {
+.bd-content li,
+.bd-content p {
   line-height: 1.5;
+}
+
+.bd-content p {
   margin: 0.7rem 0;
 }
 
