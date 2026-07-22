@@ -13,6 +13,8 @@ Windows
 Via installer (recommended)
 ----------------------------
 
+.. warning:: If you have previously installed version 1.x of the GUI and are an Open Ephys Acquisition Board user, you need to copy and paste the following into the File Explorer: :code:`%localappdata%\\Open Ephys\\shared-api10`, press enter to navigate to the folder, and delete the file :code:`libonidriver_ft600.dll`. Then, follow the instructions below to install the latest version of the GUI.
+
 1. Click the "Windows" link on `this page`_ to download the installer for the latest version of the GUI.
 
 2. Double-click the downloaded executable to launch the installer.
