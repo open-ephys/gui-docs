@@ -242,7 +242,8 @@ linkcheck_ignore = [
     'https://store-usa.arduino.cc/*',
     'https://openbci.com/*',
     'https://ftdichip.com/drivers/d3xx-drivers/',
-    'https://elifesciences.org/*'
+    'https://elifesciences.org/*',
+    'https://aka.ms/vc14/vc_redist.x64.exe'
 ]
 
 linkcheck_allowed_redirects = {
