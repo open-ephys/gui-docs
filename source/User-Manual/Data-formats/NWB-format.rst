@@ -43,27 +43,11 @@ Within a Record Node directory, data for each **experiment** (stop/start acquisi
 
 If the recording directory is changed between recordings, the next recording starts a new file in the new directory. Existing files are never changed: if the new directory already contains :code:`experiment<N>.nwb` (e.g., after changing the directory and back), the new file is named after the experiment and its first recording, e.g. :code:`experiment1_recording3.nwb`.
 
-.. code-block:: text
+.. image:: ../../_static/images/recordingdata/nwb/organization.png
+  :alt: NWB data file structure
+  :width: 300
 
-   Record Node 101
-   └── experiment1.nwb
-       ├── acquisition
-       │   ├── File Reader-100.example_data                 (continuous data, ElectricalSeries)
-       │   └── Spike Detector-103.example_data.Tetrode 1    (spikes, SpikeEventSeries)
-       ├── events
-       │   ├── Phase Detector-104.example_data.TTL          (TTL events, EventsTable)
-       │   ├── messages                                     (text messages, EventsTable)
-       │   └── sync_messages                                (start of each recording, EventsTable)
-       ├── intervals
-       │   └── epochs                                       (start/stop of each recording)
-       └── general
-           ├── devices
-           ├── extracellular_ephys
-           │   └── electrodes                               (electrodes table)
-           ├── subject                                      (if provided, see below)
-           └── was_generated_by                             (GUI and plugin versions)
-
-The objects are named after the processor, its id, the data stream and (for spikes) the electrode, e.g., :code:`File Reader-100.example_data`.
+The objects are named after the processor, its id, the data stream and (for spikes) the electrode, e.g., :code:`File Reader-100.example_data` (shown as :code:`processor1.stream1` in the figures). :code:`/general` also contains the devices, the subject (if provided, see below) and the versions of the GUI and the plugin (:code:`was_generated_by`).
 
 Each NWB file also contains the following information:
 
@@ -79,7 +63,13 @@ Format details
 Continuous
 ----------------
 
-Continuous data is grouped by stream (a block of synchronously sampled channels). Each **continuous** group in :code:`/acquisition` is an NWB *ElectricalSeries* containing the following datasets:
+Continuous data is grouped by stream (a block of synchronously sampled channels):
+
+.. image:: ../../_static/images/recordingdata/nwb/continuous.png
+  :alt: NWB data continuous format
+  :width: 214
+
+Each **continuous** group in :code:`/acquisition` is an NWB *ElectricalSeries* containing the following datasets:
 
 * :code:`data`: *M* samples x *N* channels of 16-bit integers. The :code:`channel_conversion` dataset stores the "bitVolts" value of each channel, converted to volts, i.e., :code:`data * channel_conversion` is the signal in volts. The :code:`channel_conversion` of auxiliary and ADC channels converts the values to volts as well.
 
@@ -94,7 +84,13 @@ Continuous data is grouped by stream (a block of synchronously sampled channels)
 Events
 -------
 
-TTL events are stored in :code:`/events`, with one NWB *EventsTable* per event channel, named after the processor, its id and the data stream, e.g., :code:`Phase Detector-104.example_data.TTL` (:code:`TTL_1`, :code:`TTL_2`, ... for further event channels of the same processor and stream, as for the event folders of the :ref:`binaryformat`). Each event channel can contain data for multiple TTL lines. Each row of the table is one event, with the following columns:
+TTL events are stored in :code:`/events`, with one NWB *EventsTable* per event channel, named after the processor, its id and the data stream, e.g., :code:`Phase Detector-104.example_data.TTL` (:code:`TTL_1`, :code:`TTL_2`, ... for further event channels of the same processor and stream, as for the event folders of the :ref:`binaryformat`). Each event channel can contain data for multiple TTL lines.
+
+.. image:: ../../_static/images/recordingdata/nwb/events.png
+  :alt: NWB data events format
+  :width: 204
+
+Each row of the table is one event, with the following columns:
 
 * :code:`timestamp`: timestamp (in seconds) of the event, 64-bit float
 
@@ -111,7 +107,13 @@ TTL events are stored in :code:`/events`, with one NWB *EventsTable* per event c
 Spikes
 --------
 
-Spike data is organized by stream and electrode. Each **spikes** group in :code:`/acquisition` is an NWB *SpikeEventSeries* containing the following datasets:
+Spike data is organized by stream and electrode:
+
+.. image:: ../../_static/images/recordingdata/nwb/spikes.png
+  :alt: NWB data spikes format
+  :width: 251
+
+Each **spikes** group in :code:`/acquisition` is an NWB *SpikeEventSeries* containing the following datasets:
 
 * :code:`data`: array with dimensions *S* spikes x *N* channels x *M* samples of 16-bit integers containing the spike waveforms. The :code:`conversion` attribute of :code:`data` stores the "bitVolts" value, converted to volts, i.e., :code:`data * data.conversion` is the waveform in volts.
 
