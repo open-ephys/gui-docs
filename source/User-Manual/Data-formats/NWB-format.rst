@@ -213,7 +213,7 @@ Reading data in Python
 Reading data in Matlab
 #######################
 
-* Use the `MatNWB <https://github.com/NeurodataWithoutBorders/matnwb>`__ library. Note that the latest MatNWB release (2.11.0) supports NWB 2.10; reading the NWB 2.11 files of this plugin with MatNWB has not been tested yet.
+* Use the `MatNWB <https://github.com/NeurodataWithoutBorders/matnwb>`__ library.
 
 * The `open-ephys-matlab-tools <https://github.com/open-ephys/open-ephys-matlab-tools>`__ library currently reads only files written by earlier versions of the plugin (see :ref:`nwbearlierversions`).
 
