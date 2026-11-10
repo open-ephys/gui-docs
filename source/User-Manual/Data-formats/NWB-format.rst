@@ -155,9 +155,16 @@ Timestamps are the GUI's synchronized timestamps, as in the :ref:`binaryformat`:
 Session and subject metadata
 #############################
 
-NWB files should describe the session and the subject; for example, the `DANDI Archive <https://dandiarchive.org>`__ requires a subject with :code:`subject_id`, :code:`species`, :code:`sex` and :code:`age` or :code:`date_of_birth`. There are three ways to add this metadata:
+NWB files should describe the session and the subject; for example, the `DANDI Archive <https://dandiarchive.org>`__ requires a subject with :code:`subject_id`, :code:`species`, :code:`sex` and :code:`age` or :code:`date_of_birth`. There are three ways to add this metadata. The first two are applied when an NWB file is created (at the first recording of each experiment), so changes apply to the next experiment.
 
-1. **A metadata file (before recording).** If a file named :code:`nwb_metadata.json` exists in the Record Node directory, the recording directory, or the directory selected for recordings in the GUI (searched in this order), the plugin writes its contents to each new NWB file. The file uses the same structure as `NeuroConv <https://neuroconv.readthedocs.io>`__ metadata:
+1. **The Record Node's NWB2 options (before recording).** With NWB2 selected as the recording format, the gear button next to the format selector of the Record Node opens the format's options:
+
+   .. image:: ../../_static/images/recordingdata/nwb/nwb2-options.png
+      :alt: The NWB2 options of the Record Node
+
+   The options are the Identifier Text, Session description, Experimenter(s) (separated by :code:`;`), Institution, Lab, the subject's ID, species, sex, age, date of birth, genotype, strain, weight and description, and a metadata file (see 2.). The date of birth must include the time and time zone, e.g., :code:`2026-01-15T00:00:00Z`. The options are saved with the signal chain and can be set with the :ref:`HTTP API <remotecontrol>` while acquisition is stopped (parameters :code:`engine_NWB2_<id>` of the Record Node; the IDs are listed in the `plugin's README <https://github.com/open-ephys-plugins/nwb-format#session-and-subject-metadata>`__). Options that are set override the corresponding values in the metadata file; empty options don't. If the subject fields that DANDI requires are missing when an NWB file is created, the plugin logs a warning.
+
+2. **A metadata file (before recording).** A JSON file can provide more fields than the options, e.g., when a script creates the metadata for each session. The plugin reads the file set in the :code:`Metadata file (JSON)` option (an absolute path) or, if that option is empty, a file named :code:`nwb_metadata.json` in the Record Node directory, the recording directory, or the directory selected for recordings in the GUI (searched in this order). The file uses the same structure as `NeuroConv <https://neuroconv.readthedocs.io>`__ metadata:
 
    .. code-block:: json
 
@@ -177,9 +184,7 @@ NWB files should describe the session and the subject; for example, the `DANDI A
         }
       }
 
-   The supported fields are listed in the `plugin's README <https://github.com/open-ephys-plugins/nwb-format#session-and-subject-metadata>`__. The GUI log reports which metadata file was used, and any unsupported fields. The file is read when an NWB file is created (at the first recording of each experiment), so changes apply to the next experiment.
-
-2. **The Record Node's NWB2 options (before recording).** With NWB2 selected as the recording format, the gear button next to the format selector of the Record Node opens the format's options: Identifier Text, Session description, Experimenter(s) (separated by :code:`;`), Institution, Lab, and the subject's ID, species, sex, age, date of birth, genotype, strain, weight and description. The options are saved with the signal chain and can be set with the :ref:`HTTP API <remotecontrol>` while acquisition is stopped (parameters :code:`engine_NWB2_<id>` of the Record Node; the IDs are listed in the `plugin's README <https://github.com/open-ephys-plugins/nwb-format#session-and-subject-metadata>`__). Options that are set override the corresponding values in :code:`nwb_metadata.json`; empty options don't. If the subject fields that DANDI requires are missing when an NWB file is created, the plugin logs a warning.
+   The supported fields are listed in the `plugin's README <https://github.com/open-ephys-plugins/nwb-format#session-and-subject-metadata>`__. The GUI log reports which metadata file was used, and any unsupported fields.
 
 3. **After recording.** NWB files can be edited once they are closed (when the next experiment starts or the GUI quits), e.g., with `PyNWB <https://pynwb.readthedocs.io>`__ or `NWB GUIDE <https://nwb-guide.readthedocs.io>`__:
 
